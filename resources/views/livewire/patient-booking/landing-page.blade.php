@@ -28,31 +28,45 @@
             </div>
         </div>
 
-        <!-- Stats Section -->
-        <div class="container mx-auto px-4 mt-16">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="text-blue-600 text-3xl font-bold mb-2">15+</div>
-                    <div class="text-gray-600">Years of Experience</div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="text-blue-600 text-3xl font-bold mb-2">50+</div>
-                    <div class="text-gray-600">Specialist Doctors</div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                    <div class="text-blue-600 text-3xl font-bold mb-2">24/7</div>
-                    <div class="text-gray-600">Emergency Services</div>
-                </div>
+    </section>
+    <!-- Stats Section -->
+    <div class="container mx-auto px-4 mt-16 mb-8">
+    <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-grey-600 mb-4">Our <span class="text-lime-600">Facilities</span></h2>
+                <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
+               
+            </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Expert Doctors</h3>
+                <p class="text-gray-600">Board-certified specialists dedicated to compassionate patient care</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Advanced Facilities</h3>
+                <p class="text-gray-600">State-of-the-art medical equipment and modern healing environments</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Patient-Centered Care</h3>
+                <p class="text-gray-600">Personalized treatment plans focused on your health and comfort</p>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- About Us Section -->
-    <section id="about" class="py-16 bg-white">
+    <section id="about" class="py-16  bg-gradient-to-r from-lime-100 to-amber-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">About MediCare Hospital</h2>
-                <div class="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">About <span class="text-lime-600">Healing Touch Hospital</span></h2>
+                <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
                 <p class="text-gray-600 max-w-3xl mx-auto">
                     Founded with a mission to provide accessible and exceptional healthcare to our community.
                 </p>
@@ -60,12 +74,12 @@
 
             <div class="flex flex-col md:flex-row items-center gap-10">
                 <div class="md:w-1/2">
-                    <img src="" alt="MediCare Hospital Building" class="w-full h-auto rounded-lg shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
+                    <img src="{{asset('images/heroImageHt.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-lg shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                 </div>
                 <div class="md:w-1/2">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h3>
                     <p class="text-gray-600 mb-6">
-                        At MediCare Hospital, our mission is to enhance the health and wellbeing of the communities we serve by providing patient-centered care that is compassionate, accessible, and of the highest quality. We're committed to innovation, continuous improvement, and creating a healing environment for our patients and their families.
+                        At Healing Touch Hospital, our mission is to enhance the health and wellbeing of the communities we serve by providing patient-centered care that is compassionate, accessible, and of the highest quality. We're committed to innovation, continuous improvement, and creating a healing environment for our patients and their families.
                     </p>
 
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Values</h3>
@@ -99,4 +113,5 @@
             </div>
         </div>
     </section>
+    <livewire:patient-booking.our-services />
 </div>
