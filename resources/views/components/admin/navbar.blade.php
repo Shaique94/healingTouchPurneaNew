@@ -1,10 +1,7 @@
-  <div id="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <h2 class="ms-3">Responsive Bootstrap Sidebar</h2>
-                </div>
-            </nav>
-        </div>
+<div class="header d-flex justify-content-between align-items-center">
+    <div>
+        <i class="bi bi-list toggle-sidebar fs-3 d-md-none" id="toggleSidebar"></i>
+        <h5 class="d-inline-block ms-2">Dashboard</h5>
+    </div>
+    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-person-circle"></i> Profile</button>
+</div>

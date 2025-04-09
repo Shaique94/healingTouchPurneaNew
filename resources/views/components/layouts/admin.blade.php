@@ -8,7 +8,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -87,45 +88,116 @@
             }
         }
     </style>
+    @livewireStyles
 </head>
 
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <h4 class="text-center">Admin</h4>
-        <a wire:navigate href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a wire:navigate href="#"><i class="bi bi-people"></i> Appointment</a>
-        <a wire:navigate href="#"><i class="bi bi-box-seam"></i>Manage Slot</a>
-        <a wire:navigate href="#"><i class="bi bi-gear"></i>Manage Doctor</a>
-        <a wire:navigate href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
-    </div>
-
+    <x-admin.sidebar />
     <!-- Main Content -->
     <div class="main">
         <!-- Header -->
-        <div class="header d-flex justify-content-between align-items-center">
-            <div>
-                <i class="bi bi-list toggle-sidebar fs-3 d-md-none" id="toggleSidebar"></i>
-                <h5 class="d-inline-block ms-2">Dashboard</h5>
-            </div>
-            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-person-circle"></i> Profile</button>
-        </div>
+        <x-admin.navbar />
 
         <!-- Blade slot for content -->
         {{ $slot }}
     </div>
+    <div
+        x-data="{ show: false, message: '', type: 'success' }"
+        x-on:success.window="show = true; message = $event.detail; type = 'success'; setTimeout(() => show = false, 3000)"
+        x-show="show"
+        class="position-fixed bottom-0 end-0 p-3"
+        style="z-index: 1055;">
+        <div
+            class="toast align-items-center text-white bg-success border-0 show"
+            role="alert"
+            x-show="show">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <span x-text="message"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const toggleSidebar = document.getElementById("toggleSidebar");
-        const sidebar = document.getElementById("sidebar");
+        const toastSuccess = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'Notification',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
 
-        toggleSidebar?.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
+        const toastError = Swal.mixin({
+            toast: true,
+            icon: 'error',
+            title: 'Notification',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+        const toastWarning = Swal.mixin({
+            toast: true,
+            icon: 'warning',
+            title: 'Notification',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+
+        document.addEventListener('livewire:initialized', () => {
+            Livewire.on('success', (message) => {
+                toastSuccess.fire({
+                    animation: true,
+                    title: message,
+                });
+            });
+
+            Livewire.on('error', (message) => {
+                toastError.fire({
+                    animation: true,
+                    title: message,
+                });
+            });
+            Livewire.on('warning', (message) => {
+                toastWarning.fire({
+                    animation: true,
+                    title: message,
+                });
+            });
+        });
+
+        window.addEventListener('OpenAddModal', function(event) {
+            $('.OpenAddModals').find('span').html('');
+            $('.OpenAddModals').modal('show');
+        });
+
+        window.addEventListener('OpenEditModal', function(event) {
+            $('.OpenEditModals').find('span').html('');
+            $('.OpenEditModals').modal('show');
+        });
+
+        window.addEventListener('OpenSubModal', function(event) {
+            $('.OpenSubModals').find('span').html('');
+            $('.OpenSubModal').modal('show');
         });
     </script>
 
+
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @livewireScripts
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
