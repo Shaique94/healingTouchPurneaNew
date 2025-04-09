@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\Index;
+use App\Livewire\Admin\Slot\All as SlotAll;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -29,5 +30,7 @@ Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 
 
 Route::get('admin/',Index::class)->name('admin');
+Route::get('admin/slot', SlotAll::class)->name('slot.all');
+
 
 require __DIR__.'/auth.php';
