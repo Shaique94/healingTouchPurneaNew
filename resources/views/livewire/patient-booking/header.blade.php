@@ -10,7 +10,7 @@
     }
 }" 
     class="fixed w-full z-50 transition-all duration-300"
-    :class="{ 'bg-white/95 backdrop-blur-md shadow-md py-2': scrolled, 'bg-transparent py-4': !scrolled }"
+    :class="{ 'bg-white/95 backdrop-blur-md shadow-md py-5': scrolled, 'bg-transparent py-4': !scrolled }"
     @scroll.window="scrolled = (window.pageYOffset > 30)">
     
     <div class="container mx-auto px-4 lg:px-8">
@@ -18,14 +18,14 @@
             <!-- Logo Area -->
             <div class="flex items-center">
                 <a href="/" class="flex items-center space-x-2 group">
-                    <div class="overflow-hidden rounded-lg h-11 w-11 flex items-center justify-center bg-gradient-to-br from-lime-500 to-lime-600 shadow-md group-hover:shadow-lg transition-all duration-300">
-                        <img src="{{ asset('healingTouchLogo.jpeg') }}" alt="Healing Touch Hospital Logo" class="h-10 w-10 object-contain transform group-hover:scale-110 transition-transform duration-300" />
+                    <div class="overflow-hidden rounded-lg h-11 w-11 flex items-center justify-center transition-all duration-300">
+                        <img src="{{ asset('healingTouchLogo.jpeg') }}" alt="Healing Touch Hospital Logo" class="h-15 w-15 object-contain transform group-hover:scale-110 transition-transform duration-300" />
                     </div>
                     <div>
-                        <span class="hidden sm:inline-block font-bold text-xl text-gray-800 group-hover:text-lime-600 transition-colors duration-300">
+                        <span class=" sm:inline-block font-bold text-xl text-gray-800 group-hover:text-lime-600 transition-colors duration-300">
                             <span class="text-lime-600">Healing</span> Touch
                         </span>
-                        <span class="block text-xs text-gray-500">Healing Touch Hospital</span>
+                        <span class="block text-xs text-gray-500">24x7 Service</span>
                     </div>
                 </a>
             </div>
@@ -79,7 +79,7 @@
             <!-- Appointment Button -->
             <div class="hidden md:block">
             <button 
-                    class="group relative bg-gradient-to-br from-amber-400 via-amber-500 to-lime-500 hover:from-amber-500 hover:via-amber-600 hover:to-lime-600 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium flex items-center space-x-2 overflow-hidden"
+                    class="group relative bg-gradient-to-br from-green-900 via-green-700 to-lime-500 hover:from-green-900 hover:via-green-700 hover:to-lime-600 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium flex items-center space-x-2 overflow-hidden"
                     x-data
                     @click="$dispatch('open-modal', { name: 'book-appointment' })">
                     <span class="relative z-10">Book Appointment</span>
