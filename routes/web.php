@@ -4,6 +4,7 @@ use App\Livewire\Admin\Index;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
+use App\Livewire\PatientBooking\LandingPage;
 use Illuminate\Console\View\Components\Confirm;
 
 Route::view('/', 'comingsoon');
@@ -23,6 +24,8 @@ Route::get('/appointments/create', AppoinmentForm::class)
     ->name('appointments.create');
 
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
+
+Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 
 
 Route::get('admin/',Index::class)->name('admin');
