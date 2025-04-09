@@ -2,11 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-    protected $guarded = [];
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'department_id',
+        'phone',
+        'available_days',
+    ];
+
+    protected $casts = [
+        'available_days' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

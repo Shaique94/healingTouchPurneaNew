@@ -28,6 +28,11 @@ Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middlewar
 
 Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 
+// Appointment Booking Routes
+Route::get('/book-appointment', App\Livewire\PatientBooking\AppointmentBooking::class)->name('appointment.booking');
+
+// Book Appointment Route
+Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 
 Route::get('admin/',Index::class)->name('admin');
 Route::get('admin/slot', SlotAll::class)->name('slot.all');
