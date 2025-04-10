@@ -120,11 +120,19 @@
                                 <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                                     <img src="{{ asset($doctor?->image ?'storage/'.$doctor->image : 'images/default.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
                                 </div>
-                                <div class="ml-3">
-                                    <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
-                                    <p class="text-xs text-sky-600">{{ $doctor->department->name }}</p>
+                                <div class="flex flex-col">
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
+                                        <p class="text-xs text-sky-600">{{ $doctor->department->name }}</p>
+                                    </div>
+                                    <span class="inline-block text-[9px] font-semibold mt-1 px-6 py-0.5 rounded-full 
+    {{ $doctor->status == 1 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }}">
+                                        {{ $doctor->status == 1 ? 'Available' : 'Not Available' }}
+                                    </span>
                                 </div>
+
                             </div>
+
 
                             <div class="p-3 text-xs text-gray-600 space-y-2 flex-grow">
                                 <div class="flex items-center">
