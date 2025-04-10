@@ -2,7 +2,7 @@
     <!-- Button trigger modal -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">Doctor List</h4>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#doctorModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#doctorModal">
             <i class="bi bi-plus-circle me-1"></i> Add Doctor
         </button>
     </div>
@@ -18,6 +18,7 @@
                     <th>Department</th>
                     <th>Status</th>
                     <th>Phone</th>
+                    <th>Fee</th>
                     <th>Available Days</th>
                     <th>Actions</th>
                 </tr>
@@ -53,7 +54,7 @@
                     </td>
                     <td>{{ $doc->user->phone }}</td>
                     <td>{{ is_array($doc->available_days) ? implode(', ', $doc->available_days) : '-' }}</td>
-
+                    <td>₹{{ $doc->fee }}</td>
                     <!-- Actions -->
                     <td class="text-center">
                         <button  wire:click="$dispatch('update-doctor',{id:{{ $doc->id }}})" data-bs-toggle="modal" data-bs-target="#UpdatedoctorModal" class="btn btn-sm btn-primary me-1">

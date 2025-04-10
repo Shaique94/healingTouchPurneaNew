@@ -6,9 +6,11 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
+use Livewire\Attributes\On;
 
 class BookAppointment extends Component
 {
@@ -18,6 +20,7 @@ class BookAppointment extends Component
     // Doctor & Department selection
     public $selectedDepartment = null;
     public $selectedDoctor = null;
+    public $appointmentId;
     public $doctorDetails = null;
     
     // Appointment details
@@ -159,12 +162,39 @@ class BookAppointment extends Component
             'notes' => $this->notes,
             // created_by is null since this is a public booking
         ]);
+        $this->appointmentId=$appointment->id;
+
         
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
         
         // Move to confirmation page
         $this->step = 4;
+    }
+    
+    public function downloadReceipt()
+    {
+        $doctor=Doctor::find($this->selectedDoctor);
+
+       
+    $appointment = [
+        'id' => $this->appointmentId,
+        'doctor' => $this->doctor->user->name ?? '',
+        'speciality' => $this->doctor->department->name ?? '',
+        'date' => $this->appointmentDate . ' ' . $this->appointmentTime,
+        'patient' => $this->name ?? '',
+        'phone' => $this->phone ?? '',
+        'gender' => $this->gender ?? '',
+        'fee' => 500,
+        'location' => 'Healing Touch Hospital, Purnea'
+    ];
+
+    $pdf = Pdf::loadView('pdf.appointment', compact('appointment'));
+
+    return response()->streamDownload(function () use ($pdf) {
+        echo $pdf->stream();
+    }, 'appointment.pdf');
+
     }
     
     #[Layout('layouts.guest')]

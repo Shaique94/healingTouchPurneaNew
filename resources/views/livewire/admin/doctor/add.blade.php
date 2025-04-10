@@ -47,7 +47,7 @@
                                     <select wire:model="dept_id" id="dept_id" class="form-select">
                                         <option value="">Select Department</option>
                                         @foreach ($department as $dept)
-                                            <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                                        <option value="{{ $dept->id }}">{{ $dept->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('dept_id') <small class="text-danger">{{ $message }}</small> @enderror
@@ -73,17 +73,17 @@
                                     </div>
                                     <div class="d-flex flex-wrap gap-2">
                                         @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" wire:model="available_days" value="{{ $day }}" id="day-{{ $day }}">
-                                                <label class="form-check-label" for="day-{{ $day }}">{{ $day }}</label>
-                                            </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" wire:model="available_days" value="{{ $day }}" id="day-{{ $day }}">
+                                            <label class="form-check-label" for="day-{{ $day }}">{{ $day }}</label>
+                                        </div>
                                         @endforeach
                                     </div>
                                     @error('available_days') <small class="text-danger d-block">{{ $message }}</small> @enderror
                                 </div>
 
                                 {{-- Doctor Image --}}
-                                <div class="col-12">
+                                <div class="col-6">
                                     <label class="form-label fw-semibold" for="image">
                                         <i class="bi bi-image-fill me-1"></i>Doctor Image
                                     </label>
@@ -98,11 +98,19 @@
                                     </div>
 
                                     @if ($image)
-                                        <div class="mt-3">
-                                            <p class="fw-bold">Preview:</p>
-                                            <img src="{{ $image->temporaryUrl() }}" class="img-fluid rounded border" style="max-height: 200px;">
-                                        </div>
+                                    <div class="mt-3">
+                                        <p class="fw-bold">Preview:</p>
+                                        <img src="{{ $image->temporaryUrl() }}" class="img-fluid rounded border" style="max-height: 200px;">
+                                    </div>
                                     @endif
+                                </div>
+                                {{-- Doctor Fee --}}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="fee">
+                                        <i class="bi bi-currency-rupee me-1"></i>Consultation Fee
+                                    </label>
+                                    <input type="number" wire:model="fee" id="fee" class="form-control" placeholder="Enter fee amount">
+                                    @error('fee') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
                                 {{-- Status --}}
@@ -117,6 +125,8 @@
                                     </select>
                                     @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -126,7 +136,7 @@
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             <i class="bi bi-x-circle"></i> Cancel
                         </button>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save2-fill"></i> Submit
                         </button>
                     </div>

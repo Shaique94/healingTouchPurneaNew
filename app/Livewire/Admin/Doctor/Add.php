@@ -17,6 +17,7 @@ class Add extends Component
     public $name, $email, $phone, $dept_id, $available_days = [], $checkAllDays = false;
     public $status;
     public $image;
+    public $fee;
 
     public function mount(){
         $this->department = Department::all();
@@ -31,7 +32,8 @@ class Add extends Component
             'dept_id' => 'required|exists:departments,id',
             'available_days' => 'required|array|min:1',
             'status' => 'required|boolean',
-            'image' => 'nullable|image|max:2048', // Optional image validation
+            'image' => 'nullable|image|max:2048',
+            'fee' => 'required|numeric|min:0',
         ]);
 
         // Handle user creation
@@ -53,11 +55,12 @@ class Add extends Component
             'user_id' => $user->id,
             'department_id' => $this->dept_id,
             'status' => $this->status,
+            'fee' => $this->fee,
             'available_days' => $this->available_days,
             'image' => $imagePath,
         ]);
 
-        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'checkAllDays']);
+        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'checkAllDays']);
         $this->dispatch('close-modal');
         $this->dispatch('refresh-doctor');
         $this->dispatch('success', __('Doctor added successfully'));

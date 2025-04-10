@@ -14,6 +14,7 @@ class Doctor extends Model
         'user_id',
         'department_id',
         'phone',
+        'fee',
         'image',
         'status',
         'available_days',

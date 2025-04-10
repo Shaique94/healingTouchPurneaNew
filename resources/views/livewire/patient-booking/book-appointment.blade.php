@@ -110,7 +110,7 @@
                                 
                                 <div class="flex items-center p-3 border-b">
                                     <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset($doctor?->image ?'storage/'.$doctor->image : 'images/default.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
                                     </div>
                                     <div class="ml-3">
                                         <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
@@ -238,7 +238,7 @@
             @if($doctorDetails)
             <div class="flex items-center p-5 border-b border-gray-200 bg-sky-50 rounded-t-xl">
                 <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                    <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-full h-full object-cover">
+                    <img src="{{ asset($doctorDetails->image ? 'storage/'.$doctorDetails->image :'images/default.jpg' ) }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-grow">
                     <h3 class="text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
@@ -637,7 +637,7 @@
                 
                 <div class="flex items-center mb-4 pb-4 border-b border-dashed border-gray-200">
                     <div class="flex-shrink-0">
-                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-12 h-12 rounded-full object-cover">
+                        <img src="{{ asset($doctorDetails->image ?'storage/'.$doctorDetails->image : 'public/default.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-12 h-12 rounded-full object-cover">
                     </div>
                     <div class="ml-4">
                         <p class="text-sm text-gray-500">Appointment with</p>
@@ -687,7 +687,7 @@
                     </svg>
                     Back to Home
                 </a>
-                <button type="button" class="inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                <button wire:click="downloadReceipt" type="button" class="inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
