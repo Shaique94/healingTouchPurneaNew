@@ -147,15 +147,7 @@
                             Tomorrow
                         </button>
                     </div>
-                    <div>
-                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                        <select id="status" name="status" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600">
-                            <option value="all">All</option>
-                            <option value="completed">Completed</option>
-                            <option value="pending">Pending</option>
-                            <option value="canceled">Cancelled</option>
-                        </select>
-                    </div>
+                  
                 </div>
 
             </div>
