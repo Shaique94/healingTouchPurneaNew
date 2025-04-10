@@ -20,9 +20,12 @@ class Dashboard extends Component
     public array $availabilityDays = [];
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     public $days_available = [];
+    public $dateFilter;
+
 
     public function mount()
     {
+        $this->dateFilter = now()->toDateString();
         $this->loadAppointments();
         $this->days_available();
     }
@@ -31,16 +34,30 @@ class Dashboard extends Component
     {
         $this->days_available = auth()->user()->doctor->available_days ?? [];
     }
+    public function updatedDateFilter()
+    {
+        // dd("shaique");
+        $this->loadAppointments();
+    }
     #[On('refresh')]
     public function loadAppointments()
     {
         $this->doctor_name = auth()->user()->name;
-        $this->appointments = Appointment::where('doctor_id', auth()->user()->id)->whereDate('appointment_date', Carbon::today())->get();
+
+        $query = Appointment::where('doctor_id', auth()->user()->id);
+
+        if ($this->dateFilter) {
+            $query->whereDate('appointment_date', $this->dateFilter);
+        }
+
+        $this->appointments = $query->get();
+
         $this->appointments_count = $this->appointments->count();
         $this->appointments_completed = $this->appointments->where('status', 'confirmed')->count();
         $this->appointments_upcoming = $this->appointments->where('status', 'pending')->count();
         $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
     }
+
     public function openAvailablityModal()
     {
         // Fetch current availability from DB if needed

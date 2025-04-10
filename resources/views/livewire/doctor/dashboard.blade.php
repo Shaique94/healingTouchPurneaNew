@@ -42,15 +42,15 @@
                 <p class="text-gray-600">Manage your appointments and patient schedule</p>
             </div>
             <div class="flex flex-col">
-    <p class="text-sm text-gray-600 font-medium mb-1">My Availablity Days:</p>
-    <div class="flex flex-wrap gap-2">
-        @foreach ($days_available as $day)
-            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">
-                {{ ucfirst($day) }}
-            </span>
-        @endforeach
-    </div>
-</div>
+                <p class="text-sm text-gray-600 font-medium mb-1">My Availablity Days:</p>
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($days_available as $day)
+                    <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">
+                        {{ ucfirst($day) }}
+                    </span>
+                    @endforeach
+                </div>
+            </div>
 
 
             <div class="flex items-center space-x-4">
@@ -122,7 +122,7 @@
                     </div>
                     <div class="ml-4">
                         <h2 class="font-semibold text-gray-600">Cancelled</h2>
-                        <p class="text-2xl font-bold text-gray-900">1</p>
+                        <p class="text-2xl font-bold text-gray-900">{{$appointments_cancelled}}</p>
                     </div>
                 </div>
             </div>
@@ -132,9 +132,20 @@
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div>
-                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                        <input type="date" id="date" name="date" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    <div class="flex space-x-3 mt-3">
+                        <button
+                            wire:click="$set('dateFilter', '{{ now()->toDateString() }}')"
+                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200
+            {{ $dateFilter === now()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
+                            Today
+                        </button>
+
+                        <button
+                            wire:click="$set('dateFilter', '{{ now()->addDay()->toDateString() }}')"
+                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200
+            {{ $dateFilter === now()->addDay()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
+                            Tomorrow
+                        </button>
                     </div>
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
@@ -208,7 +219,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center space-x-2 h-full">
                                     @if ($appointment->status === 'pending')
-                                    <button wire:click="markAsCompleted({{ $appointment->id }})" class="text-green-600 hover:text-green-900">Mark as completed</button>
+                                    <button wire:click="markAsCompleted({{ $appointment->id }})" wire:confirm="Are you sure you want to mark this appointment as completed?" class="text-green-600 hover:text-green-900">Mark as completed</button>
                                     @else
                                     <button disabled class="text-gray-400 cursor-not-allowed">Mark as completed</button>
                                     @endif
@@ -226,16 +237,12 @@
             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
                 <div class="flex justify-between items-center">
                     <div class="flex justify-between items-center">
-                        <div class="text-sm text-gray-600">
-                            Showing <span class="font-medium">1</span> to <span class="font-medium">8</span> of <span class="font-medium">8</span> results
-                        </div>
+
                         <div class="inline-flex -space-x-px">
                             <button class="px-3 py-1 rounded-l border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-100">
                                 Previous
                             </button>
-                            <button class="px-3 py-1 border-t border-b border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-100">
-                                1
-                            </button>
+
                             <button class="px-3 py-1 rounded-r border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-100">
                                 Next
                             </button>
