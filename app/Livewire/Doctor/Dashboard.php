@@ -44,7 +44,8 @@ class Dashboard extends Component
     {
         $this->doctor_name = auth()->user()->name;
 
-        $query = Appointment::where('doctor_id', auth()->user()->id);
+        $doctor = auth()->user()->doctor;
+        $query = Appointment::where('doctor_id', $doctor->id);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);
