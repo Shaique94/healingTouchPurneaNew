@@ -5,6 +5,8 @@ use App\Livewire\Admin\Slot\All as SlotAll;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
+use App\Livewire\Doctor\Dashboard;
+use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
 use Illuminate\Console\View\Components\Confirm;
 
@@ -34,6 +36,10 @@ Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::cl
 
 Route::get('admin/',Index::class)->name('admin');
 Route::get('admin/slot', SlotAll::class)->name('slot.all');
+
+//Doctor Routes
+Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
+Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
 
 require __DIR__.'/auth.php';

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // Call the department and doctor seeders
         $this->call([
-            DepartmentSeeder::class,
+            // DepartmentSeeder::class,
             DoctorSeeder::class,
         ]);
     }

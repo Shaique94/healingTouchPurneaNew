@@ -15,6 +15,7 @@ class Doctor extends Model
         'phone',
         'available_days',
     ];
+    
 
     protected $casts = [
         'available_days' => 'array',
