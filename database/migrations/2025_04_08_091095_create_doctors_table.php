@@ -15,11 +15,17 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
-            $table->string('phone')->nullable();
             $table->json('available_days')->nullable();
+            $table->bigInteger('fee')->default(500);
+            $table->boolean('status')->default(0);
+            $table->string('image')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
+    protected $casts = [
+        'available_days' => 'array',
+    ];
 
     /**
      * Reverse the migrations.

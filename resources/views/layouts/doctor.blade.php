@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script src="https://cdn.tailwindcss.com"></script>
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -15,7 +16,6 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <livewire:patient-booking.header />
 
     <body class="w-full flex flex-col min-h-screen">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-0 bg-gray-100">         
@@ -25,6 +25,5 @@
         </div>
         @livewireScripts
     </body>
-    <livewire:patient-booking.footer />
 
 </html>

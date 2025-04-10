@@ -13,12 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Call the department and doctor seeders
         $this->call([
-            DepartmentSeeder::class,
-            UserSeeder::class,
+            // DepartmentSeeder::class,
             DoctorSeeder::class,
-            PatientSeeder::class,
-            AppointmentSeeder::class,
         ]);
     }
 }

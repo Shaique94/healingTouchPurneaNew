@@ -1,8 +1,13 @@
 <?php
 
+use App\Livewire\Admin\Department\All as DeparmentAll;
+use App\Livewire\Admin\Doctor\All as AllDoctor;
+use App\Livewire\Admin\Index;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
+use App\Livewire\Doctor\Dashboard;
+use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
 use Illuminate\Console\View\Components\Confirm;
 
@@ -25,6 +30,20 @@ Route::get('/appointments/create', AppoinmentForm::class)
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
 
 Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
+
+
+// Book Appointment Route
+Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', Index::class)->name('dashboard');
+    Route::get('/department', DeparmentAll::class)->name('department');
+    Route::get('/doctor', AllDoctor::class)->name('doctor');
+});
+
+//Doctor Routes
+Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
+Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
 
 require __DIR__.'/auth.php';
