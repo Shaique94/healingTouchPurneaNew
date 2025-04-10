@@ -6,6 +6,8 @@ use App\Livewire\Admin\Index;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
+use App\Livewire\Doctor\Dashboard;
+use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
 use Illuminate\Console\View\Components\Confirm;
 
@@ -38,6 +40,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/department', DeparmentAll::class)->name('department');
     Route::get('/doctor', AllDoctor::class)->name('doctor');
 });
+
+//Doctor Routes
+Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
+Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
 
 require __DIR__.'/auth.php';
