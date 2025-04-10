@@ -19,13 +19,18 @@ class Dashboard extends Component
     public $showSettingsModal = false;
     public array $availabilityDays = [];
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
+    public $days_available = [];
 
     public function mount()
     {
         $this->loadAppointments();
+        $this->days_available();
     }
-
+    #[On('refresh')]
+    public function days_available()
+    {
+        $this->days_available = auth()->user()->doctor->available_days ?? [];
+    }
     #[On('refresh')]
     public function loadAppointments()
     {
@@ -42,7 +47,7 @@ class Dashboard extends Component
         $this->showSettingsModal = true;
 
         $available = auth()->user()->doctor->available_days ?? [];
-    
+
         $this->availabilityDays = collect($available)
             ->mapWithKeys(fn($day) => [$day => true])
             ->toArray();
@@ -57,16 +62,17 @@ class Dashboard extends Component
 
         if ($doctor) {
             $selectedDays = collect($this->availabilityDays)
-            ->filter() 
-            ->keys()   
-            ->toArray();
+                ->filter()
+                ->keys()
+                ->toArray();
 
-        $doctor->update([
-            'available_days' => $selectedDays,
-        ]);
+            $doctor->update([
+                'available_days' => $selectedDays,
+            ]);
         }
 
-        session()->flash('message', 'Availability updated successfully.');
+        $this->dispatch('refresh');
+
         $this->showSettingsModal = false;
     }
     public function markAsCompleted($id)

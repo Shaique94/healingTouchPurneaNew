@@ -29,7 +29,7 @@
                     <span>Update Availablity</span>
                 </div>
             </div>
-           
+
 
         </nav>
     </div>
@@ -41,6 +41,18 @@
                 <h1 class="text-2xl font-semibold text-gray-900">Doctor Dashboard</h1>
                 <p class="text-gray-600">Manage your appointments and patient schedule</p>
             </div>
+            <div class="flex flex-col">
+    <p class="text-sm text-gray-600 font-medium mb-1">My Availablity Days:</p>
+    <div class="flex flex-wrap gap-2">
+        @foreach ($days_available as $day)
+            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-semibold rounded-full">
+                {{ ucfirst($day) }}
+            </span>
+        @endforeach
+    </div>
+</div>
+
+
             <div class="flex items-center space-x-4">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -50,6 +62,7 @@
                     </span>
                     <input type="text" class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Search...">
                 </div>
+
                 <div class="flex items-center px-4 py-2 bg-white rounded-lg shadow-sm">
                     <div class="flex items-center">
                         <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor profile" class="w-8 h-8 rounded-full mr-2">
@@ -133,7 +146,7 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -231,10 +244,10 @@
 
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <!-- Availability Modal -->
-@if ($showSettingsModal)
+    @if ($showSettingsModal)
     <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6">
             <h2 class="text-xl font-semibold mb-4">Update Availability</h2>
@@ -242,10 +255,10 @@
             <form wire:submit.prevent="saveAvailability">
                 <div class="grid grid-cols-2 gap-4">
                     @foreach ($days as $day)
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" wire:model.defer="availabilityDays.{{ $day }}" class="form-checkbox h-5 w-5 text-indigo-600">
-                            <span class="text-sm">{{ ucfirst($day) }}</span>
-                        </label>
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" wire:model.defer="availabilityDays.{{ $day }}" class="form-checkbox h-5 w-5 text-indigo-600">
+                        <span class="text-sm">{{ ucfirst($day) }}</span>
+                    </label>
                     @endforeach
                 </div>
 
@@ -256,6 +269,6 @@
             </form>
         </div>
     </div>
-@endif
+    @endif
 
 </div>
