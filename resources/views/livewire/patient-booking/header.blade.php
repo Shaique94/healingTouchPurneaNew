@@ -78,13 +78,11 @@
 
             <!-- Appointment Button -->
             <div class="hidden md:block">
-            <button 
+            <a href="{{route('book.appointment')}}" 
                     class="group bg-sky-700 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:bg-sky-900 font-medium flex items-center space-x-2 overflow-hidden"
-                    x-data
-                    @click="$dispatch('open-modal', { name: 'book-appointment' })">
-                    <span class=" z-10">Book Appointment</span>
-                </button>
-            </div>
+                    >
+                    <span class="z-10">Book Appointment</span>
+            </a>
 
             <!-- Mobile Menu Toggle -->
             <div class="lg:hidden flex items-center">
