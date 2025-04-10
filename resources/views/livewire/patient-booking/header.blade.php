@@ -79,22 +79,10 @@
             <!-- Appointment Button -->
             <div class="hidden md:block">
             <button 
-                    class="group relative bg-gradient-to-br from-green-900 via-green-700 to-lime-500 hover:from-green-900 hover:via-green-700 hover:to-lime-600 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg font-medium flex items-center space-x-2 overflow-hidden"
+                    class="group bg-sky-700 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:bg-sky-900 font-medium flex items-center space-x-2 overflow-hidden"
                     x-data
                     @click="$dispatch('open-modal', { name: 'book-appointment' })">
-                    <span class="relative z-10">Book Appointment</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-300 relative z-10" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                    
-                    <!-- Animated glow effect -->
-                    <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-amber-300 to-lime-300 opacity-0 group-hover:opacity-20 transition-opacity duration-300 transform -skew-x-12 group-hover:skew-x-12"></span>
-                    
-                    <!-- Ping Animation -->
-                    <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-400"></span>
-                    </span>
+                    <span class=" z-10">Book Appointment</span>
                 </button>
             </div>
 
@@ -161,12 +149,12 @@
                 <span>Contact</span>
             </a>
             <div class="py-4">
-                <button 
-                    class="w-full bg-gradient-to-r from-lime-500 to-amber-400 hover:from-lime-600 hover:to-amber-500 text-white py-3 rounded-lg transition-all duration-300 shadow font-medium text-center"
+                <a href="{{route('book.appointment')}}" 
+                    class="w-full bg-sky-800 px-3 text-white py-3 rounded-lg transition-all duration-300 shadow font-medium text-center"
                     x-data
                     @click="open = false; $dispatch('open-modal', { name: 'book-appointment' })">
                     Book Appointment
-                </button>
+                </a>
             </div>
         </nav>
     </div>
@@ -185,13 +173,11 @@
 </style>
  <!-- Small Screen Call to Action Button (Fixed) -->
  <div class="md:hidden fixed bottom-4 right-4 z-50">
-        <button 
-            class="bg-gradient-to-r from-lime-500 to-amber-400 hover:from-lime-600 hover:to-amber-500 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl"
-            x-data
-            @click="$dispatch('open-modal', { name: 'book-appointment' })">
+        <a href="" 
+            class="bg-gradient-to-r from-lime-500 to-amber-400 hover:from-lime-600 hover:to-amber-500 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-        </button>
+</a>
     </div>
 </div>
