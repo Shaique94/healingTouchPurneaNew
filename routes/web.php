@@ -3,6 +3,7 @@
 use App\Livewire\Admin\Department\All as DeparmentAll;
 use App\Livewire\Admin\Doctor\All as AllDoctor;
 use App\Livewire\Admin\Index;
+use App\Livewire\Admin\Qualification\All as AllQualification;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -39,6 +40,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', Index::class)->name('dashboard');
     Route::get('/department', DeparmentAll::class)->name('department');
     Route::get('/doctor', AllDoctor::class)->name('doctor');
+    Route::get('/qualification',AllQualification::class)->name('qualification');
+
 });
 
 //Doctor Routes
