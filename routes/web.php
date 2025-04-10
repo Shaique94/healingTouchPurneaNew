@@ -1,8 +1,8 @@
 <?php
 
 use App\Livewire\Admin\Department\All as DeparmentAll;
+use App\Livewire\Admin\Doctor\All as AllDoctor;
 use App\Livewire\Admin\Index;
-use App\Livewire\Admin\Slot\All as SlotAll;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -38,6 +38,7 @@ Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::cl
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', Index::class)->name('dashboard');
     Route::get('/department', DeparmentAll::class)->name('department');
+    Route::get('/doctor', AllDoctor::class)->name('doctor');
 });
 
 //Doctor Routes

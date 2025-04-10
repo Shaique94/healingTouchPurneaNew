@@ -55,7 +55,7 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary"wire:click="$dispatch('update-department', { id: {{ $department->id }} })" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-outline-primary" wire:click="$dispatch('update-department', { id: {{ $department->id }} })" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal"><i class="bi bi-pencil"></i></button>
                                 <button class="btn btn-sm btn-outline-danger" wire:click="alertConfirm({{ $department->id }})"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
