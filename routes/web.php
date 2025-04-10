@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\Department\All as DeparmentAll;
 use App\Livewire\Admin\Index;
 use App\Livewire\Admin\Slot\All as SlotAll;
 use Illuminate\Support\Facades\Route;
@@ -34,8 +35,10 @@ Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 // Book Appointment Route
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 
-Route::get('admin/',Index::class)->name('admin');
-Route::get('admin/slot', SlotAll::class)->name('slot.all');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', Index::class)->name('dashboard');
+    Route::get('/department', DeparmentAll::class)->name('department');
+});
 
 //Doctor Routes
 Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
