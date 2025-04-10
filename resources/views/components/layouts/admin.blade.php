@@ -103,23 +103,7 @@
         <!-- Blade slot for content -->
         {{ $slot }}
     </div>
-    <!-- <div
-        x-data="{ show: false, message: '', type: 'success' }"
-        x-on:success.window="show = true; message = $event.detail; type = 'success'; setTimeout(() => show = false, 3000)"
-        x-show="show"
-        class="position-fixed bottom-0 end-0 p-3"
-        style="z-index: 1055;">
-        <div
-            class="toast align-items-center text-white bg-success border-0 show"
-            role="alert"
-            x-show="show">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <span x-text="message"></span>
-                </div>
-            </div>
-        </div>
-    </div> -->
+   
 
     <script>
         const toastSuccess = Swal.mixin({
@@ -172,31 +156,14 @@
                 });
             });
         });
-
-        window.addEventListener('OpenAddModal', function(event) {
-            $('.OpenAddModals').find('span').html('');
-            $('.OpenAddModals').modal('show');
-        });
-
-        window.addEventListener('OpenEditModal', function(event) {
-            $('.OpenEditModals').find('span').html('');
-            $('.OpenEditModals').modal('show');
-        });
-
-        window.addEventListener('OpenSubModal', function(event) {
-            $('.OpenSubModals').find('span').html('');
-            $('.OpenSubModal').modal('show');
-        });
     </script>
 
 
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js "></script>
 
 
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
