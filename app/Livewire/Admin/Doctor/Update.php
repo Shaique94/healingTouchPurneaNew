@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Doctor;
 
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Qualification;
 use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,10 +20,13 @@ class Update extends Component
     public $image;
     public $doctorId;
     public $newImage;
+    public $qualification = [];
+    public $qualifications;
 
     public function mount()
     {
         $this->department = Department::all();
+        $this->qualifications = Qualification::all();
     }
 
     #[On('update-doctor')]
@@ -37,6 +41,7 @@ class Update extends Component
         $this->image = $doctor->image;
         $this->status = $doctor->status;
         $this->doctorId = $doctor->id;
+        $this->qualification = $doctor->qualification;
     }
 
 
@@ -50,6 +55,7 @@ class Update extends Component
             'available_days' => 'required|array|min:1',
             'status' => 'required|boolean',
             'newImage' => 'nullable|image|max:2048',
+            'qualification' => 'required|array|min:1',
         ]);
 
         $doctor = Doctor::findOrFail($this->doctorId);
@@ -69,6 +75,7 @@ class Update extends Component
         $doctor->update([
             'department_id' => $this->dept_id,
             'available_days' => $this->available_days,
+            'qualification' => $this->qualification,
             'status' => $this->status,
         ]);
 
