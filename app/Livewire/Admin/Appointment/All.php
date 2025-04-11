@@ -11,7 +11,7 @@ class All extends Component
     #[Layout('components.layouts.admin')]
     public function render()
     {
-        $appointment=Appointment::with(['doctor.user', 'patient.user'])->latest()->get();
+        $appointment=Appointment::with('doctor','patient')->latest()->get();
         return view('livewire.admin.appointment.all',[
             'appointments' => $appointment,
         ]);
