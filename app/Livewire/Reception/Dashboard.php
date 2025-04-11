@@ -3,6 +3,9 @@
 namespace App\Livewire\Reception;
 
 use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Patient;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -14,14 +17,63 @@ class Dashboard extends Component
     public $appointments_cancelled;
     public $selectedDate = 'today';
     public $search = '';
+    public $showModal= false;
+    public $doctors;
+    public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
+    public $doctor_id, $appointment_date, $appointment_time, $notes;
+
 
     public function mount()
     {
         $this->loadAppointments();
     }
+    public function save()
+    {
+        $this->validate([
+            'name' => 'required',
+            'email' => 'nullable|email|unique:patients,email',
+            'phone' => 'required',
+            'doctor_id' => 'required|exists:doctors,id',
+            'address'=>'required',
+            'appointment_date' => 'required|date',
+            'appointment_time' => 'required',
+        ]);
+
+        $patient = Patient::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'dob' => $this->dob,
+            'gender' => $this->gender,
+            'address' => $this->address,
+            'pincode' => $this->pincode,
+            'city' => $this->city,
+            'state' => $this->state,
+            'country' => $this->country,
+        ]);
+
+        Appointment::create([
+            'patient_id' => $patient->id,
+            'doctor_id' => $this->doctor_id,
+            'appointment_date' => $this->appointment_date,
+            'appointment_time' => $this->appointment_time,
+            'notes' => $this->notes,
+            'created_by' => Auth::id(),
+        ]);
+
+        $this->reset(); // clear form
+        $this->showModal = false; // for closing modal
+        $this->loadAppointments();
+        session()->flash('success', 'Patient and appointment created successfully.');
+    }
     public function updatedSearch()
     {
         $this->loadAppointments();
+    }
+    public function openModal()
+    {
+        $this->showModal = true;
+        $this->doctors = Doctor::all();
     }
     public function filterByDate($date)
     {
