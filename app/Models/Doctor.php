@@ -15,6 +15,7 @@ class Doctor extends Model
         'department_id',
         'phone',
         'fee',
+        'qualification',
         'image',
         'status',
         'available_days',
@@ -23,6 +24,7 @@ class Doctor extends Model
 
     protected $casts = [
         'available_days' => 'array',
+        'qualification' => 'array',
     ];
 
     public function user()

@@ -125,6 +125,22 @@
                                     </select>
                                     @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
+                                {{-- Qualifications --}}
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-patch-check-fill me-1"></i>Qualifications
+                                    </label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        @foreach($qualifications as $qual)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" wire:model="qualification" value="{{ $qual->name }}" id="qual-{{ $qual }}">
+                                            <label class="form-check-label" for="qual-{{ $qual }}">{{ $qual->name }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    @error('qualification') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                                </div>
+
 
 
                             </div>

@@ -18,8 +18,8 @@
                     <th>Department</th>
                     <th>Status</th>
                     <th>Phone</th>
-                    <th>Fee</th>
                     <th>Available Days</th>
+                    <th>Fee</th>
                     <th>Actions</th>
                 </tr>
             </thead>

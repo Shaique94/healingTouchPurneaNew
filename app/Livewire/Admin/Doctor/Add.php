@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Doctor;
 
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\Qualification;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -18,9 +19,12 @@ class Add extends Component
     public $status;
     public $image;
     public $fee;
+    public $qualification = [];
+    public $qualifications;
 
     public function mount(){
         $this->department = Department::all();
+        $this->qualifications = Qualification::all();
     }
 
     public function saveDoctor()
@@ -34,6 +38,8 @@ class Add extends Component
             'status' => 'required|boolean',
             'image' => 'nullable|image|max:2048',
             'fee' => 'required|numeric|min:0',
+            'qualification' => 'required|array|min:1',
+            
         ]);
 
         // Handle user creation
@@ -57,10 +63,11 @@ class Add extends Component
             'status' => $this->status,
             'fee' => $this->fee,
             'available_days' => $this->available_days,
+            'qualification' => $this->qualification,
             'image' => $imagePath,
         ]);
 
-        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'checkAllDays']);
+        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'checkAllDays', 'qualification']);
         $this->dispatch('close-modal');
         $this->dispatch('refresh-doctor');
         $this->dispatch('success', __('Doctor added successfully'));
