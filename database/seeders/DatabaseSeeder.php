@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,8 +17,12 @@ class DatabaseSeeder extends Seeder
         // Call the department and doctor seeders
         $this->call([
             // DepartmentSeeder::class,
-
-            AdminUserSeeder::class
+            // UserSeeder::class,
+            // AdminUserSeeder::class
+            // DepartmentSeeder::class,
+            // DoctorSeeder::class,
+            // PatientSeeder::class,
+            AppointmentSeeder::class,
         ]);
     }
 }

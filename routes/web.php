@@ -14,6 +14,8 @@ use App\Livewire\Appointment\ConfirmAppointment;
 use App\Livewire\Doctor\Dashboard;
 use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
+use App\Livewire\Reception\Dashboard as ReceptionDashboard;
+use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,11 +39,13 @@ Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middlewar
 
 Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 
+// Route for reception/counter
+Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
+Route::get('/reception/dashboard',ReceptionDashboard::class)->name('reception.dashboard');
 
 // Book Appointment Route
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 Route::prefix('admin')->name('admin.')->group(function () {
-
     Route::get('/login', Login::class)->name('login');
     Route::get('/logout', Logout::class)->name('logout');
     Route::middleware(AdminMiddleware::class)->group(function () {

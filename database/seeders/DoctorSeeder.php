@@ -10,15 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class DoctorSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Get all departments
         $departments = Department::all();
-        
-        // Define specialty degrees for each department
+
         $specialtyDegrees = [
             'Cardiology' => ['MD Cardiology', 'DM Cardiology'],
             'Neurology' => ['MD Neurology', 'DM Neurology'],
@@ -34,7 +29,6 @@ class DoctorSeeder extends Seeder
             'Psychiatry' => ['MD Psychiatry', 'DNB Psychiatry']
         ];
 
-        // Sample doctor data
         $doctors = [
             [
                 'name' => 'Sunil Sharma',
@@ -108,7 +102,6 @@ class DoctorSeeder extends Seeder
                 'department' => 'Psychiatry',
                 'available_days' => ['Tuesday', 'Thursday', 'Friday']
             ],
-            // Add more doctors for some departments to have multiple doctors
             [
                 'name' => 'Anil Kapoor',
                 'email' => 'anil.kapoor@healing-touch.com',
@@ -129,33 +122,28 @@ class DoctorSeeder extends Seeder
             ]
         ];
 
-        // Create doctors with their corresponding users
         foreach ($doctors as $doctorData) {
-            // Create user for the doctor
             $user = User::create([
                 'name' => $doctorData['name'],
                 'email' => $doctorData['email'],
-                'password' => Hash::make('password'), // Default password: 'password'
+                'password' => Hash::make('password'), // Default password
                 'role' => 'doctor',
             ]);
 
-            // Find the department
             $department = $departments->where('name', $doctorData['department'])->first();
-            
+
             if ($department) {
-                // Create doctor profile
-                $doctor = Doctor::create([
+                $qualifications = $specialtyDegrees[$doctorData['department']] ?? ['MBBS'];
+
+                Doctor::create([
                     'user_id' => $user->id,
                     'department_id' => $department->id,
-                    'available_days' => $doctorData['available_days'],
+                    'available_days' => json_encode($doctorData['available_days']),
+                    'qualification' => json_encode($qualifications),
+                    'fee' => 500,
+                    'status' => true,
+                    'image' => null,
                 ]);
-
-                // Add random degree to user metadata if needed
-                $degrees = $specialtyDegrees[$doctorData['department']] ?? ['MBBS'];
-                $randomDegree = $degrees[array_rand($degrees)];
-                
-                // You can add doctor's degree to user metadata if you have such a field
-                // $user->update(['metadata' => ['degree' => "MBBS, $randomDegree"]]);
             }
         }
     }
