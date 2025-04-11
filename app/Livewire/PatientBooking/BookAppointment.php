@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
@@ -69,6 +70,29 @@ class BookAppointment extends Component
         $this->generateTimeSlots();
     }
 
+    // Get city and state from pincode
+    public function fetchLocationByPincode()
+    {
+        if (strlen($this->pincode) == 6) {
+            try {
+                $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
+                $data = $response->json();
+                
+                if (isset($data[0]['Status']) && $data[0]['Status'] === 'Success') {
+                    $postOffice = $data[0]['PostOffice'][0];
+                    $this->city = $postOffice['Block'] ?: $postOffice['Name'];
+                    $this->state = $postOffice['State'];
+                    $this->country = 'India';
+                    $this->dispatch('pincode-fetched', ['success' => true]);
+                } else {
+                    $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Invalid pincode']);
+                }
+            } catch (\Exception $e) {
+                $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Could not fetch location data']);
+            }
+        }
+    }
+
     // Get detailed information about the selected doctor
     protected function getDoctorDetails()
     {
@@ -111,10 +135,10 @@ class BookAppointment extends Component
         } elseif ($this->step === 2) {
             $this->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'required|date|before:today',
+                'dob' => 'nullable|date|before:today',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
