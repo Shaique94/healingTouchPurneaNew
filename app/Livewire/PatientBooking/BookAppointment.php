@@ -70,7 +70,7 @@ class BookAppointment extends Component
         $this->generateTimeSlots();
     }
 
-    // Get city and state from pincode
+    // Get city and state from pincode - optimized
     public function fetchLocationByPincode()
     {
         if (strlen($this->pincode) == 6) {
@@ -146,6 +146,9 @@ class BookAppointment extends Component
         }
 
         $this->step++;
+        
+        // Emit event for step change to manage loader
+        $this->dispatch('stepChanged', ['step' => $this->step]);
     }
 
     // Go back to previous step
@@ -153,19 +156,23 @@ class BookAppointment extends Component
     {
         if ($this->step > 1) {
             $this->step--;
+            
+            // Emit event for step change
+            $this->dispatch('stepChanged', ['step' => $this->step]);
         }
     }
+
     public function DoctorNotAvailable()
     {
         session()->flash('error', 'Doctor is not available for the Appointment.');
     }
 
-    // Submit the appointment booking
+    // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
         // First, create or find the patient
         $patient = Patient::firstOrCreate(
-            ['phone' => $this->phone], // Find by phone
+            ['phone' => $this->phone],
             [
                 'name' => $this->name,
                 'email' => $this->email,
@@ -188,16 +195,19 @@ class BookAppointment extends Component
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
-            // created_by is null since this is a public booking
         ]);
+        
         $this->appointmentId = $appointment->id;
-
 
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
         // Move to confirmation page
         $this->step = 4;
+        $this->dispatch('stepChanged', ['step' => $this->step]);
+        
+        // Small delay to improve user experience
+        usleep(500000); // 0.5 seconds
     }
 
     public function downloadReceipt()

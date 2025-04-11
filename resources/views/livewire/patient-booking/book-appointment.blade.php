@@ -1,4 +1,16 @@
 <div>
+<!-- Full Page Loader -->
+<div id="fullpage-loader" class="fixed inset-0 bg-white bg-opacity-80 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="text-center">
+        <div class="inline-block relative w-20 h-20">
+            <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-sky-200 rounded-full"></div>
+            <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-sky-600 rounded-full animate-spin" 
+                 style="border-bottom-color: transparent; border-left-color: transparent;"></div>
+        </div>
+        <p class="mt-4 text-sky-600 text-lg font-medium loading-text">Loading...</p>
+    </div>
+</div>
+
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 mt-16">
     <div class="max-w-5xl mx-auto">
         <!-- Page Header with Gradient Background -->
@@ -218,13 +230,20 @@
             <div class="flex justify-end">
                 <button 
                     wire:click="nextStep" 
+                    wire:loading.attr="disabled" 
                     @if(!$selectedDoctor) disabled @endif 
                     class="px-6 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
-                >
+                    onclick="showLoader('Processing...')">
                     <span>Continue</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
+                    <span wire:loading wire:target="nextStep" class="ml-2">
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
                 </button>
             </div>
         </div>
@@ -338,7 +357,7 @@
                         <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code</label>
                         <div class="mt-1 relative">
                             <input 
-                                wire:model.debounce.1000ms="pincode" 
+                                wire:model.debounce.500ms="pincode" 
                                 wire:change.blur="fetchLocationByPincode" 
                                 type="text" 
                                 name="pincode" 
@@ -346,7 +365,14 @@
                                 autocomplete="postal-code" 
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
                             >
-                            <div class="pincode-status absolute right-2 top-2"></div>
+                            <div class="pincode-status absolute right-2 top-2">
+                                <span wire:loading wire:target="fetchLocationByPincode">
+                                    <svg class="animate-spin h-4 w-4 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
                         @error('pincode') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                         <div id="pincode-message" class="mt-1 text-xs"></div>
@@ -383,23 +409,37 @@
                 <div class="mt-8 flex justify-between">
                     <button 
                         wire:click="previousStep" 
+                        wire:loading.attr="disabled"
                         type="button" 
                         class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    >
+                        onclick="showLoader('Going back...')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                         Back
+                        <span wire:loading wire:target="previousStep" class="ml-2">
+                            <svg class="animate-spin h-4 w-4 text-gray-700 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
                     </button>
                     <button 
                         wire:click="nextStep" 
+                        wire:loading.attr="disabled"
                         type="button" 
                         class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    >
+                        onclick="showLoader('Reviewing your appointment...')">
                         <span>Review</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
+                        <span wire:loading wire:target="nextStep" class="ml-2">
+                            <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
                     </button>
                 </div>
             </div>
@@ -603,23 +643,37 @@
             <div class="flex justify-between">
                 <button 
                     wire:click="previousStep" 
+                    wire:loading.attr="disabled"
                     type="button" 
                     class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                >
+                    onclick="showLoader('Going back...')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                     Back
+                    <span wire:loading wire:target="previousStep" class="ml-2">
+                        <svg class="animate-spin h-4 w-4 text-gray-700 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
                 </button>
                 <button 
                     wire:click="bookAppointment" 
+                    wire:loading.attr="disabled"
                     type="button" 
                     class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                >
+                    onclick="showLoader('Confirming your appointment...')">
                     <span>Confirm Appointment</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
+                    <span wire:loading wire:target="bookAppointment" class="ml-2">
+                        <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
                 </button>
             </div>
         </div>
@@ -696,11 +750,21 @@
                     </svg>
                     Back to Home
                 </a>
-                <button type="button" wire:click="downloadReceipt" class="inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                <button type="button" 
+                    wire:click="downloadReceipt" 
+                    wire:loading.attr="disabled"
+                    class="inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                    onclick="showLoader('Preparing your receipt...')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     Download Appointment
+                    <span wire:loading wire:target="downloadReceipt" class="ml-2">
+                        <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
                 </button>
             </div>
         </div>
@@ -726,6 +790,23 @@
     .animate-pulse {
         animation: pulse 2s ease-in-out infinite;
     }
+    
+    /* Animation for transitions between steps */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+    
+    /* Improved spinner animation */
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
 </style>
 
 <script>
@@ -747,7 +828,56 @@
                 statusElement.innerHTML = '<svg class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
             }
         });
+        
+        // Show loader when Livewire is processing
+        const loader = document.getElementById('fullpage-loader');
+        
+        Livewire.hook('message.sent', () => {
+            loader.classList.remove('opacity-0', 'pointer-events-none');
+        });
+        
+        Livewire.hook('message.processed', () => {
+            setTimeout(() => {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+            }, 500); // Short delay for better UX
+        });
+        
+        // Handle navigation events
+        window.addEventListener('beforeunload', function() {
+            loader.classList.remove('opacity-0', 'pointer-events-none');
+        });
+    });
+    
+    // Function to show the loader with custom message
+    function showLoader(message = 'Loading...') {
+        const loader = document.getElementById('fullpage-loader');
+        const loadingText = document.querySelector('.loading-text');
+        
+        if (loadingText) {
+            loadingText.textContent = message;
+        }
+        
+        loader.classList.remove('opacity-0', 'pointer-events-none');
+    }
+    
+    // Function to hide the loader
+    function hideLoader() {
+        const loader = document.getElementById('fullpage-loader');
+        loader.classList.add('opacity-0', 'pointer-events-none');
+    }
+    
+    // Auto-hide loader for step transitions
+    document.addEventListener('livewire:load', function() {
+        Livewire.on('stepChanged', function() {
+            setTimeout(function() {
+                hideLoader();
+                // Add fade-in animation to the new step
+                const currentStep = document.querySelector(`[x-show="step === ${Livewire.store.get('step')}"]`);
+                if (currentStep) {
+                    currentStep.classList.add('fade-in');
+                }
+            }, 800);
+        });
     });
 </script>
-
 </div>
