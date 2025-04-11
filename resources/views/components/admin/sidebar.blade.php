@@ -5,5 +5,5 @@
         <a wire:navigate href="{{ route('admin.qualification') }}"><i class="bi bi-people"></i>Manage Qualification</a>
         <a wire:navigate href="{{ route('admin.department') }}"><i class="bi bi-people"></i>Manage Department</a>
         <a wire:navigate href="{{ route('admin.doctor') }}"><i class="bi bi-gear"></i>Manage Doctor</a>
-        <a wire:navigate href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        <a wire:navigate href="{{ route('admin.logout') }}"><i class="bi bi-box-arrow-right"></i> Logout</a>
     </div>
