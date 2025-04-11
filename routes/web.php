@@ -63,5 +63,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
 Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
+// SEO Routes
+Route::get('/doctors', function () {
+    return view('pages.doctors');
+})->name('doctors');
+
+Route::get('/services', function () {
+    return view('pages.services');
+})->name('services');
+
+Route::get('/about-us', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/contact-us', function () {
+    return view('pages.contact');
+})->name('contact');
+
+Route::get('/careers', function () {
+    return view('pages.careers');
+})->name('careers');
 
 require __DIR__.'/auth.php';
