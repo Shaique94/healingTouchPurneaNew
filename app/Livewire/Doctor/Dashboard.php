@@ -21,6 +21,7 @@ class Dashboard extends Component
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     public $days_available = [];
     public $dateFilter;
+    public $search = '';
 
 
     public function mount()
@@ -39,16 +40,25 @@ class Dashboard extends Component
         // dd("shaique");
         $this->loadAppointments();
     }
+    public function updatedSearch()
+    {
+        $this->loadAppointments();
+    }
     #[On('refresh')]
     public function loadAppointments()
     {
         $this->doctor_name = auth()->user()->name;
 
         $doctor = auth()->user()->doctor;
-        $query = Appointment::where('doctor_id', $doctor->id);
+        $query = Appointment::with('patient')->where('doctor_id', $doctor->id);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);
+        }
+        if ($this->search) {
+            $query->whereHas('patient', function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%');
+            });
         }
 
         $this->appointments = $query->get();
