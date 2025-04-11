@@ -18,14 +18,23 @@
             <h1 class="text-2xl md:text-3xl font-bold">Book Your Appointment</h1>
             <p class="mt-2 text-sky-100">Complete the steps below to schedule your visit with our specialists</p>
             
-            <!-- Progress Steps -->
-            <div class="mt-8">
-                <div class="flex items-center justify-between">
+            <!-- Improved Progress Steps -->
+            <div class="mt-8 relative">
+                <!-- Progress Bar Background -->
+                <div class="absolute top-5 left-0 right-0 h-1 bg-sky-300 rounded-full z-0 mx-12"></div>
+                
+                <!-- Active Progress Bar -->
+                <div class="absolute top-5 left-0 h-1 bg-white rounded-full z-10 transition-all duration-500 mx-12"
+                     style="width: {{ $step == 4 ? '90%' : min(90, ($step-1) * 30) }}%"></div>
+                
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-between relative z-20">
+                    <!-- Step 1 -->
                     <div class="flex flex-col items-center">
-                        <div class="{{ $step >= 1 ? 'bg-white text-sky-700' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
-                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors duration-300">
+                        <div class="{{ $step >= 1 ? 'bg-white text-sky-700 border-4 border-white' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
+                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-md">
                             @if($step > 1)
-                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                 </svg>
                             @else
@@ -35,16 +44,12 @@
                         <span class="mt-2 text-xs font-medium text-white">Doctor</span>
                     </div>
                     
-                    <div class="flex-grow mx-2 h-1 bg-sky-300 rounded relative">
-                        <div class="absolute top-0 left-0 h-full bg-white rounded transition-all duration-500" 
-                             style="width: {{ ($step-1) * 50 }}%"></div>
-                    </div>
-                    
+                    <!-- Step 2 -->
                     <div class="flex flex-col items-center">
-                        <div class="{{ $step >= 2 ? 'bg-white text-sky-700' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
-                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors duration-300">
+                        <div class="{{ $step >= 2 ? 'bg-white text-sky-700 border-4 border-white' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
+                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-md">
                             @if($step > 2)
-                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                 </svg>
                             @else
@@ -54,16 +59,12 @@
                         <span class="mt-2 text-xs font-medium text-white">Details</span>
                     </div>
                     
-                    <div class="flex-grow mx-2 h-1 bg-sky-300 rounded relative">
-                        <div class="absolute top-0 left-0 h-full bg-white rounded transition-all duration-500" 
-                             style="width: {{ ($step-2) * 100 }}%"></div>
-                    </div>
-                    
+                    <!-- Step 3 -->
                     <div class="flex flex-col items-center">
-                        <div class="{{ $step >= 3 ? 'bg-white text-sky-700' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
-                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors duration-300">
+                        <div class="{{ $step >= 3 ? 'bg-white text-sky-700 border-4 border-white' : 'bg-sky-700 text-white border-2 border-sky-300' }} 
+                            w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 shadow-md">
                             @if($step > 3)
-                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                 </svg>
                             @else
@@ -72,6 +73,11 @@
                         </div>
                         <span class="mt-2 text-xs font-medium text-white">Review</span>
                     </div>
+                    
+                    <!-- Step 4 (Confirmation) - Only visible at step 4 -->
+                    @if($step >= 4)
+                    
+                    @endif
                 </div>
             </div>
         </div>
@@ -807,6 +813,33 @@
     .animate-spin {
         animation: spin 1s linear infinite;
     }
+
+    /* Progress step enhancements */
+    @keyframes pulse-border {
+        0%, 100% { border-color: rgba(255, 255, 255, 0.9); }
+        50% { border-color: rgba(255, 255, 255, 0.6); }
+    }
+    
+    .animate-border-pulse {
+        animation: pulse-border 2s ease-in-out infinite;
+    }
+    
+    /* Step indicator styles */
+    .rounded-full.border-4 {
+        box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3);
+    }
+    
+    /* Active step highlighting */
+    @keyframes highlight {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    /* For steps that are currently active */
+    .active-step {
+        animation: highlight 1s ease-in-out;
+    }
 </style>
 
 <script>
@@ -877,6 +910,19 @@
                     currentStep.classList.add('fade-in');
                 }
             }, 800);
+        });
+    });
+
+    // Add animation to the active step
+    document.addEventListener('livewire:load', function() {
+        Livewire.on('stepChanged', function(data) {
+            const step = data.step;
+            const stepElements = document.querySelectorAll('.flex-col.items-center');
+            
+            // Add highlight animation to the current step
+            if(step <= stepElements.length) {
+                stepElements[step-1].querySelector('.rounded-full').classList.add('active-step');
+            }
         });
     });
 </script>
