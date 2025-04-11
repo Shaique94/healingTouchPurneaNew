@@ -103,6 +103,29 @@
         <!-- Blade slot for content -->
         {{ $slot }}
     </div>
+    <script>
+        document.addEventListener("livewire:navigated", function() {
+            function reloadBootstrap() {
+
+                var tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                tooltips.forEach(t => new bootstrap.Tooltip(t));
+
+                var popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
+                popovers.forEach(p => new bootstrap.Popover(p));
+
+                var dropdowns = document.querySelectorAll('.dropdown-toggle');
+                dropdowns.forEach(d => new bootstrap.Dropdown(d));
+            }
+
+            reloadBootstrap();
+
+            // Livewire.hook('message.processed', () => {
+            //     setTimeout(reloadBootstrap, 500);
+            // });
+
+
+        });
+    </script>
    
 
     <script>
@@ -157,7 +180,15 @@
             });
         });
     </script>
+<script>
+    document.addEventListener('livewire:navigated   ', () => {
+  Livewire.hook('message.processed', () => {
+    // Remove any duplicate modal backdrops
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  });
+});
 
+</script>
 
 
 
@@ -165,7 +196,7 @@
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

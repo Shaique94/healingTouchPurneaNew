@@ -6,12 +6,12 @@
                 <i class="bi bi-diagram-3-fill me-2 text-primary"></i>Department List
             </h5>
             <div class="d-flex gap-2 w-100 w-md-auto">
-                <input
+                <!-- <input
                     type="text"
                     wire:model.live="searchTerm"
                     placeholder="Search Department..."
                     class="form-control form-control-sm rounded-pill border shadow-sm"
-                    style="max-width: 280px;" />
+                    style="max-width: 280px;" /> -->
 
                 <button
                     class="btn btn-sm btn-primary d-flex align-items-center gap-2 rounded-pill shadow-sm px-3"
