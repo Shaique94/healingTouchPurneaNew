@@ -18,8 +18,8 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@hospital.com'],
             [
                 'name' => 'Hospital Admin',
-                'email' => 'admin@hospital.com',
-                'password' => Hash::make('password123'), // You can change this
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('123456789'), // You can change this
                 'role' => 'admin',
                 'phone' => '9999999999',
             ]
