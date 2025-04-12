@@ -14,6 +14,7 @@ use App\Livewire\Appointment\ConfirmAppointment;
 use App\Livewire\Doctor\Dashboard;
 use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
+use App\Livewire\PatientBooking\ManageAppointments;
 use App\Livewire\Reception\Dashboard as ReceptionDashboard;
 use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
@@ -43,8 +44,10 @@ Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
 Route::get('/reception/dashboard',ReceptionDashboard::class)->name('reception.dashboard');
 
-// Book Appointment Route
+// Patient Booking Routes
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/logout', Logout::class)->name('logout');
@@ -63,5 +66,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
 Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
+// SEO Routes
+Route::get('/doctors', function () {
+    return view('pages.doctors');
+})->name('doctors');
+
+Route::get('/services', function () {
+    return view('pages.services');
+})->name('services');
+
+Route::get('/about-us', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/contact-us', function () {
+    return view('pages.contact');
+})->name('contact');
+
+Route::get('/careers', function () {
+    return view('pages.careers');
+})->name('careers');
 
 require __DIR__.'/auth.php';

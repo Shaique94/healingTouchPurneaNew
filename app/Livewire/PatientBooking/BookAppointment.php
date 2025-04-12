@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
@@ -36,7 +37,7 @@ class BookAppointment extends Component
     public $dob;
     public $address;
     public $pincode;
-    public $city;
+    public $city="purnea";
     public $state = 'Bihar';
     public $country = 'India';
     public $notes;
@@ -67,6 +68,29 @@ class BookAppointment extends Component
         $this->selectedDoctor = $doctorId;
         $this->getDoctorDetails();
         $this->generateTimeSlots();
+    }
+
+    // Get city and state from pincode - optimized
+    public function fetchLocationByPincode()
+    {
+        if (strlen($this->pincode) == 6) {
+            try {
+                $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
+                $data = $response->json();
+                
+                if (isset($data[0]['Status']) && $data[0]['Status'] === 'Success') {
+                    $postOffice = $data[0]['PostOffice'][0];
+                    $this->city = $postOffice['Block'] ?: $postOffice['Name'];
+                    $this->state = $postOffice['State'];
+                    $this->country = 'India';
+                    $this->dispatch('pincode-fetched', ['success' => true]);
+                } else {
+                    $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Invalid pincode']);
+                }
+            } catch (\Exception $e) {
+                $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Could not fetch location data']);
+            }
+        }
     }
 
     // Get detailed information about the selected doctor
@@ -111,10 +135,10 @@ class BookAppointment extends Component
         } elseif ($this->step === 2) {
             $this->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'required|date|before:today',
+                'dob' => 'nullable|date|before:today',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
@@ -122,6 +146,9 @@ class BookAppointment extends Component
         }
 
         $this->step++;
+        
+        // Emit event for step change to manage loader
+        $this->dispatch('stepChanged', ['step' => $this->step]);
     }
 
     // Go back to previous step
@@ -129,19 +156,23 @@ class BookAppointment extends Component
     {
         if ($this->step > 1) {
             $this->step--;
+            
+            // Emit event for step change
+            $this->dispatch('stepChanged', ['step' => $this->step]);
         }
     }
+
     public function DoctorNotAvailable()
     {
         session()->flash('error', 'Doctor is not available for the Appointment.');
     }
 
-    // Submit the appointment booking
+    // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
         // First, create or find the patient
         $patient = Patient::firstOrCreate(
-            ['phone' => $this->phone], // Find by phone
+            ['phone' => $this->phone],
             [
                 'name' => $this->name,
                 'email' => $this->email,
@@ -164,16 +195,19 @@ class BookAppointment extends Component
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
-            // created_by is null since this is a public booking
         ]);
+        
         $this->appointmentId = $appointment->id;
-
 
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
         // Move to confirmation page
         $this->step = 4;
+        $this->dispatch('stepChanged', ['step' => $this->step]);
+        
+        // Small delay to improve user experience
+        usleep(500000); // 0.5 seconds
     }
 
     public function downloadReceipt()
@@ -204,7 +238,7 @@ class BookAppointment extends Component
     public function render()
     {
         return view('livewire.patient-booking.book-appointment', [
-            'departments' => Department::all(),
+            'departments' => Department::where('status', 0)->orderBy('name', 'desc')->get(),
             'doctors' => $this->selectedDepartment
                 ? Doctor::where('department_id', $this->selectedDepartment)->with(['user', 'department'])->get()
                 : Doctor::with(['user', 'department'])->get(),
