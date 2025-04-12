@@ -55,6 +55,19 @@ class BookAppointment extends Component
         $this->selectedDoctor = null;
         $this->doctorDetails = null;
     }
+    
+    // Function to handle tab selection for date
+    public function selectDateTab($tab)
+    {
+        if ($tab == 'today') {
+            $this->appointmentDate = Carbon::now()->format('Y-m-d');
+        } else {
+            $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
+        }
+        
+        $this->appointmentTime = null; // Reset selected time when changing date
+        $this->generateTimeSlots();
+    }
 
     // When appointment date is changed, regenerate time slots
     public function updatedAppointmentDate()
@@ -67,6 +80,7 @@ class BookAppointment extends Component
     {
         $this->selectedDoctor = $doctorId;
         $this->getDoctorDetails();
+        $this->appointmentTime = null; // Reset selected time
         $this->generateTimeSlots();
     }
 
@@ -105,18 +119,48 @@ class BookAppointment extends Component
     // Generate available time slots
     protected function generateTimeSlots()
     {
-        // Generate time slots from 9am to 6pm at 30-minute intervals
         $this->availableTimes = [];
-        $startHour = 9;  // 9 AM
+        
+        if (!$this->selectedDoctor) {
+            return;
+        }
+        
+        // Set start and end hours (10am to 6pm)
+        $startHour = 10;
         $endHour = 18;   // 6 PM
 
+        // Generate time slots at 30-minute intervals
+        $timeSlots = [];
         for ($hour = $startHour; $hour < $endHour; $hour++) {
-            $this->availableTimes[] = sprintf('%02d:00', $hour);
-            $this->availableTimes[] = sprintf('%02d:30', $hour);
+            $formattedHour = $hour <= 12 ? $hour : $hour - 12;
+            $ampm = $hour < 12 ? 'AM' : 'PM';
+            
+            // Add the hour (e.g., "10:00 AM")
+            $timeSlots[] = sprintf('%d:00 %s', $formattedHour, $ampm);
+            
+            // Add the half hour (e.g., "10:30 AM")
+            if ($hour < $endHour - 1) { // Don't add 6:30 PM
+                $timeSlots[] = sprintf('%d:30 %s', $formattedHour, $ampm);
+            }
         }
 
-        // In a real application, you would check the doctor's availability
-        // and remove already booked slots here
+        // If today, filter out past time slots
+        if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
+            $currentTime = Carbon::now();
+            $timeSlots = array_filter($timeSlots, function($timeSlot) use ($currentTime) {
+                // Add 30 minutes buffer for booking
+                $slotTime = Carbon::createFromFormat('g:i A', $timeSlot);
+                return $slotTime->gt($currentTime);
+            });
+        }
+        
+        // Filter out booked slots
+        $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
+            ->where('appointment_date', $this->appointmentDate)
+            ->pluck('appointment_time')
+            ->toArray();
+        
+        $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
     }
 
     // Proceed to next step

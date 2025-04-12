@@ -205,39 +205,85 @@
                         </svg>
                         Select Date & Time
                     </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="appointment-date" class="block text-sm font-medium text-gray-700 mb-1">Appointment Date</label>
-                            <input 
-                                wire:model="appointmentDate" 
-                                type="date" 
-                                id="appointment-date" 
-                                min="{{ date('Y-m-d') }}" 
-                                class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
+                    
+                    <!-- Date Tab Selection (Today/Tomorrow) -->
+                    <div class="mb-6">
+                        <div class="flex border-b border-gray-200">
+                            <button 
+                                wire:click="selectDateTab('today')" 
+                                wire:loading.class="opacity-50"
+                                wire:target="selectDateTab"
+                                type="button"
+                                class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d') ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}"
                             >
-                            @error('appointmentDate')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
+                                Today
+                                <span class="text-xs block text-gray-500">{{ date('d M') }}</span>
+                            </button>
+                            <button 
+                                wire:click="selectDateTab('tomorrow')" 
+                                wire:loading.class="opacity-50"
+                                wire:target="selectDateTab"
+                                type="button"
+                                class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d', strtotime('+1 day')) ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}"
+                            >
+                                Tomorrow
+                                <span class="text-xs block text-gray-500">{{ date('d M', strtotime('+1 day')) }}</span>
+                            </button>
                         </div>
-                        
-                        <div>
-                            <label for="appointment-time" class="block text-sm font-medium text-gray-700 mb-1">Appointment Time</label>
-                            <div class="grid grid-cols-4 gap-2">
-                                @foreach($availableTimes as $time)
-                                    <button 
-                                        type="button" 
-                                        wire:click="$set('appointmentTime', '{{ $time }}')"
-                                        class="py-2 px-2 text-sm font-medium rounded-md border transition-colors
-                                        {{ $appointmentTime === $time ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}"
-                                    >
-                                        {{ $time }}
-                                    </button>
-                                @endforeach
-                            </div>
-                            @error('appointmentTime')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
+                    </div>
+
+                    <!-- Time Slots -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Available Time Slots
+                            <span class="text-xs text-gray-500 ml-2">
+                                {{ count($availableTimes) }} slots available
+                            </span>
+                        </label>
+                        <div wire:loading wire:target="selectDateTab" class="py-4 text-center text-gray-500">
+                            <svg class="animate-spin h-6 w-6 text-sky-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="ml-2">Loading time slots...</span>
                         </div>
+                        <div wire:loading.remove wire:target="selectDateTab" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                            @forelse($availableTimes as $time)
+                                <button 
+                                    type="button" 
+                                    wire:click="$set('appointmentTime', '{{ $time }}')"
+                                    class="py-2 px-2 text-sm font-medium rounded-md border transition-colors
+                                    {{ $appointmentTime === $time ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}"
+                                >
+                                    {{ $time }}
+                                </button>
+                            @empty
+                                <div class="col-span-full py-6 text-center text-gray-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p>No available time slots for this date.</p>
+                                    @if($appointmentDate == date('Y-m-d'))
+                                        <button 
+                                            wire:click="selectDateTab('tomorrow')" 
+                                            class="mt-2 text-sm text-sky-600 hover:underline"
+                                        >
+                                            Check tomorrow's availability
+                                        </button>
+                                    @else
+                                        <button 
+                                            wire:click="selectDateTab('today')" 
+                                            class="mt-2 text-sm text-sky-600 hover:underline"
+                                        >
+                                            Check today's availability
+                                        </button>
+                                    @endif
+                                </div>
+                            @endforelse
+                        </div>
+                        @error('appointmentTime')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             @endif
@@ -462,326 +508,203 @@
         </div>
         @endif
         
-        <!-- STEP 3: Review and Confirm -->
+        <!-- STEP 3: Review Appointment -->
         @if($step === 3)
-        <div class="bg-white rounded-xl shadow-sm p-5">
-            <div class="text-center mb-6">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-sky-600 mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div class="bg-white rounded-xl shadow-sm">
+            <div class="p-6 border-b border-gray-200 bg-sky-50 rounded-t-xl">
+                <h2 class="text-xl font-medium text-gray-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                </div>
-                <h2 class="text-xl font-bold text-gray-800">Review and Confirm Your Appointment</h2>
-                <p class="text-gray-500 mt-1">Please review your appointment details before confirming</p>
+                    Review Your Appointment Details
+                </h2>
+                <p class="text-gray-500 mt-2">Please verify all details before confirming your appointment.</p>
             </div>
             
-            <div class="border border-gray-200 rounded-lg mb-6 overflow-hidden">
-                <div class="bg-sky-50 px-5 py-4 flex items-center border-b border-gray-200">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-sky-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-gray-900">Doctor Information</h3>
-                        @if($doctorDetails)
-                            <p class="text-gray-600 text-sm">Dr. {{ $doctorDetails->user->name }} • {{ $doctorDetails->department->name }}</p>
-                        @endif
-                    </div>
-                    <div class="ml-auto text-right">
-                        <button 
-                            wire:click="previousStep" 
-                            type="button" 
-                            class="text-sm text-sky-600 font-medium hover:text-sky-700 flex items-center"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            Change
-                        </button>
-                    </div>
-                </div>
-                
-                @if($doctorDetails)
-                <div class="px-5 py-4">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-16 h-16 rounded-full object-cover">
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-lg font-semibold text-gray-900">Dr. {{ $doctorDetails->user->name }}</p>
-                            <p class="text-sm text-sky-600">{{ $doctorDetails->department->name }}</p>
-                            <p class="text-sm text-gray-500 mt-1">MBBS, MD (Medicine)</p>
-                            
-                            <div class="mt-3 grid grid-cols-2 gap-4">
-                                <div class="bg-gray-50 px-3 py-2 rounded-md">
-                                    <p class="text-xs text-gray-500">Date</p>
-                                    <p class="font-medium text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('l, d M Y') }}</p>
+            <div class="p-6">
+                <!-- Doctor and Appointment Details -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold text-gray-700 border-b border-gray-200 pb-2 mb-3">Appointment Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            @if($doctorDetails)
+                            <div class="flex items-start mb-4">
+                                <div class="w-16 h-16 rounded-lg overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
+                                    <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Doctor" class="w-full h-full object-cover">
                                 </div>
-                                <div class="bg-gray-50 px-3 py-2 rounded-md">
-                                    <p class="text-xs text-gray-500">Time</p>
+                                <div>
+                                    <p class="text-gray-500 text-sm">Doctor</p>
+                                    <p class="font-medium text-gray-800">Dr. {{ $doctorDetails->user->name }}</p>
+                                    <p class="text-sky-600 text-sm">{{ $doctorDetails->department->name }}</p>
+                                </div>
+                            </div>
+                            @endif
+                            
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">Date</p>
+                                    <p class="font-medium text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('l, F j, Y') }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm">Time</p>
                                     <p class="font-medium text-gray-800">{{ $appointmentTime }}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="ml-auto text-right">
-                            <p class="text-xs text-gray-500">Consultation Fee</p>
-                            <p class="text-xl font-bold text-gray-900">₹500</p>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-center mb-3">
+                                <p class="text-gray-600">Consultation Fee</p>
+                                <p class="font-semibold text-gray-800">₹500</p>
+                            </div>
+                            <div class="flex justify-between items-center mb-3">
+                                <p class="text-gray-600">Payment Method</p>
+                                <p class="font-semibold text-gray-800 capitalize">{{ $payment_method }}</p>
+                            </div>
+                            <div class="border-t border-gray-200 pt-3 mt-2">
+                                <div class="flex justify-between items-center">
+                                    <p class="font-medium text-gray-700">Total</p>
+                                    <p class="font-bold text-gray-800">₹500</p>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">To be paid at the hospital</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                @endif
-            </div>
-
-            <div class="border border-gray-200 rounded-lg mb-6 overflow-hidden">
-                <div class="bg-sky-50 px-5 py-4 flex items-center border-b border-gray-200">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-sky-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-gray-900">Patient Information</h3>
-                        <p class="text-gray-600 text-sm">{{ $name }} • {{ $phone }}</p>
-                    </div>
-                    <div class="ml-auto text-right">
-                        <button 
-                            wire:click="$set('step', 2)" 
-                            type="button" 
-                            class="text-sm text-sky-600 font-medium hover:text-sky-700 flex items-center"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            Edit
-                        </button>
                     </div>
                 </div>
                 
-                <div class="px-5 py-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Patient Details -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 border-b border-gray-200 pb-2 mb-3">Patient Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-500">Full Name</p>
-                                <p class="font-medium">{{ $name }}</p>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-500">Email</p>
-                                <p class="font-medium">{{ $email }}</p>
-                            </div>
-                            <div class="mb-4 md:mb-0">
-                                <p class="text-sm text-gray-500">Phone</p>
-                                <p class="font-medium">{{ $phone }}</p>
-                            </div>
+                            <p class="text-sm text-gray-500">Full Name</p>
+                            <p class="font-medium text-gray-800">{{ $name }}</p>
                         </div>
-                        
                         <div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-500">Gender</p>
-                                <p class="font-medium">{{ ucfirst($gender ?? '') }}</p>
-                            </div>
-                            <div class="mb-4">
-                                <p class="text-sm text-gray-500">Date of Birth</p>
-                                <p class="font-medium">{{ $dob ? \Carbon\Carbon::parse($dob)->format('d F Y') : '' }}</p>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">Address</p>
-                                <p class="font-medium">{{ $address }}, {{ $city }}, {{ $state }} - {{ $pincode }}</p>
-                            </div>
+                            <p class="text-sm text-gray-500">Phone</p>
+                            <p class="font-medium text-gray-800">{{ $phone }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Email</p>
+                            <p class="font-medium text-gray-800">{{ $email ?: 'Not provided' }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Gender</p>
+                            <p class="font-medium text-gray-800 capitalize">{{ $gender }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Address</p>
+                            <p class="font-medium text-gray-800">{{ $address }}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">City</p>
+                            <p class="font-medium text-gray-800">{{ $city }}, {{ $state }} {{ $pincode }}</p>
                         </div>
                     </div>
                     
                     @if($notes)
-                    <div class="mt-4 pt-4 border-t border-gray-200">
+                    <div class="mt-4 p-4 bg-gray-50 rounded-md">
                         <p class="text-sm text-gray-500">Notes</p>
-                        <p class="font-medium">{{ $notes }}</p>
+                        <p class="text-gray-800">{{ $notes }}</p>
                     </div>
                     @endif
                 </div>
-            </div>
-            
-            <div class="border border-gray-200 rounded-lg mb-6 overflow-hidden">
-                <div class="bg-sky-50 px-5 py-4 flex items-center border-b border-gray-200">
-                    <div class="flex-shrink-0 mr-4">
-                        <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center text-sky-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="font-semibold text-gray-900">Payment Method</h3>
-                    </div>
-                </div>
                 
-                <div class="px-5 py-4">
-                    <div class="space-y-3">
-                        <label class="flex items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input wire:model="payment_method" type="radio" value="cash" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300">
-                            <div class="ml-3">
-                                <span class="font-medium text-gray-800">Pay at Hospital</span>
-                                <p class="text-sm text-gray-500">Pay the consultation fee at the hospital reception</p>
-                            </div>
-                        </label>
-                        <label class="flex items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input wire:model="payment_method" type="radio" value="online" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-gray-300">
-                            <div class="ml-3">
-                                <span class="font-medium text-gray-800">Pay Online</span>
-                                <p class="text-sm text-gray-500">Pay securely using Credit/Debit card, UPI, or Net Banking</p>
-                            </div>
-                        </label>
-                    </div>
+                <!-- Navigation -->
+                <div class="mt-8 flex justify-between">
+                    <button 
+                        wire:click="previousStep" 
+                        wire:loading.attr="disabled"
+                        type="button" 
+                        class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        onclick="showLoader('Going back...')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Edit Details
+                    </button>
+                    <button 
+                        wire:click="bookAppointment" 
+                        wire:loading.attr="disabled"
+                        type="button" 
+                        class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                        onclick="showLoader('Confirming your appointment...')">
+                        <span>Confirm Booking</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span wire:loading wire:target="bookAppointment" class="ml-2">
+                            <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                    </button>
                 </div>
-            </div>
-            
-            <div class="bg-sky-50 border-l-4 border-sky-500 p-4 mb-6 rounded-r-md">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-500" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-sky-700">
-                            Please arrive 15 minutes before your appointment time. Bring any previous medical records if available. By confirming, you agree to our <a href="#" class="font-medium underline">terms and conditions</a>.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Navigation -->
-            <div class="flex justify-between">
-                <button 
-                    wire:click="previousStep" 
-                    wire:loading.attr="disabled"
-                    type="button" 
-                    class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    onclick="showLoader('Going back...')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Back
-                    <span wire:loading wire:target="previousStep" class="ml-2">
-                        <svg class="animate-spin h-4 w-4 text-gray-700 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </span>
-                </button>
-                <button 
-                    wire:click="bookAppointment" 
-                    wire:loading.attr="disabled"
-                    type="button" 
-                    class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    onclick="showLoader('Confirming your appointment...')">
-                    <span>Confirm Appointment</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span wire:loading wire:target="bookAppointment" class="ml-2">
-                        <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </span>
-                </button>
             </div>
         </div>
         @endif
-        
+
         <!-- STEP 4: Confirmation -->
         @if($step === 4)
         <div class="bg-white rounded-xl shadow-sm p-8 text-center">
-            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+            <div class="mb-6 flex justify-center">
+                <div class="bg-green-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
             </div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
-            <p class="text-gray-600 mb-8">Your appointment has been successfully scheduled.</p>
+            <p class="text-gray-600 mb-6">Your appointment has been successfully booked.</p>
             
-            @if($doctorDetails)
-            <div class="bg-gray-50 p-6 max-w-md mx-auto rounded-lg border border-gray-200 mb-8">
-                <div class="text-right mb-4">
-                    <div class="inline-block py-1 px-3 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                        Confirmed
-                    </div>
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8 max-w-md mx-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-500">Appointment ID:</span>
+                    <span class="font-semibold text-gray-800">#{{ $appointmentId }}</span>
                 </div>
-                
-                <div class="flex items-center mb-4 pb-4 border-b border-dashed border-gray-200">
-                    <div class="flex-shrink-0">
-                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-12 h-12 rounded-full object-cover">
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-sm text-gray-500">Appointment with</p>
-                        <p class="font-semibold">Dr. {{ $doctorDetails->user->name }}</p>
-                        <p class="text-xs text-sky-600">{{ $doctorDetails->department->name }}</p>
-                    </div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-500">Date:</span>
+                    <span class="font-semibold text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}</span>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-4 text-left mb-4">
-                    <div>
-                        <p class="text-xs text-gray-500">Appointment ID</p>
-                        <p class="font-semibold">{{ session('appointment_id') ?? 'HTH-' . rand(10000, 99999) }}</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Fee</p>
-                        <p class="font-semibold">₹500</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Date & Time</p>
-                        <p class="font-semibold">{{ \Carbon\Carbon::parse($appointmentDate)->format('d M Y') }} at {{ $appointmentTime }}</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500">Patient</p>
-                        <p class="font-semibold">{{ $name }}</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center justify-center mt-4 text-xs">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span class="text-gray-500">Healing Touch Hospital, Purnea</span>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Time:</span>
+                    <span class="font-semibold text-gray-800">{{ $appointmentTime }}</span>
                 </div>
             </div>
-            @endif
-            
-            <p class="text-gray-600 mb-8">
-                A confirmation has been sent to your email address and phone number. 
-                <br>Please arrive 15 minutes before your scheduled appointment time.
-            </p>
             
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="/" class="inline-flex justify-center py-2.5 px-5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">
+                <button 
+                    wire:click="downloadReceipt"
+                    class="px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    Back to Home
-                </a>
-                <button type="button" 
-                    wire:click="downloadReceipt" 
-                    wire:loading.attr="disabled"
-                    class="inline-flex justify-center py-2.5 px-5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                    onclick="showLoader('Preparing your receipt...')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Download Appointment
-                    <span wire:loading wire:target="downloadReceipt" class="ml-2">
-                        <svg class="animate-spin h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </span>
+                    Download Receipt
                 </button>
+                <a 
+                    href="{{ route('manage.appointments') }}" 
+                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Manage Appointments
+                </a>
             </div>
         </div>
         @endif
