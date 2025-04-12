@@ -55,7 +55,9 @@ class Dashboard extends Component
         $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
         $this->doctor_name = $doctor->name;
         // dd($doctor->id);
-        $query = Appointment::with('patient')->where('doctor_id', $doctor->id);
+        $query = Appointment::with('patient')
+        ->where('doctor_id', $doctor->id)
+        ->whereNotIn('status', ['pending', 'cancelled']);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);

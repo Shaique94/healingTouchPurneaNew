@@ -210,7 +210,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center space-x-2 h-full">
-                                    @if ($appointment->status === 'pending')
+                                    @if ($appointment->status === 'checked_in')
                                     <button wire:click="markAsCompleted({{ $appointment->id }})" wire:confirm="Are you sure you want to mark this appointment as completed?" class="text-green-600 hover:text-green-900">Mark as completed</button>
                                     @else
                                     <button disabled class="text-gray-400 cursor-not-allowed">Mark as completed</button>
