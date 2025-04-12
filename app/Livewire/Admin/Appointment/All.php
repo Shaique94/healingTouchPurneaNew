@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Admin\Appointment;
 
+use App\Exports\AllAppointmentsExport;
 use App\Models\Appointment;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class All extends Component
 {
@@ -21,6 +23,35 @@ class All extends Component
         $this->startDate = $today;
         $this->endDate = $today;
     }
+    
+public function export()
+{
+    $query = Appointment::with('doctor.user', 'patient');
+
+    // Apply the same filters as in render
+    if ($this->search) {
+        $query->where(function($q) {
+            $q->whereHas('doctor.user', function($query) {
+                $query->where('name', 'like', '%'.$this->search.'%')
+                      ->orWhere('email', 'like', '%'.$this->search.'%');
+            })
+            ->orWhereHas('patient', function($query) {
+                $query->where('name', 'like', '%'.$this->search.'%');
+            });
+        });
+    }
+
+    if ($this->showToday) {
+        $today = Carbon::today()->format('Y-m-d');
+        $query->where('appointment_date', $today);
+    } elseif ($this->startDate && $this->endDate) {
+        $query->whereBetween('appointment_date', [$this->startDate, $this->endDate]);
+    }
+
+    $appointments = $query->latest()->get();
+
+    return Excel::download(new AllAppointmentsExport($appointments), 'appointments.xlsx');
+}
 
     public function updateStatus($appointmentId, $newStatus)
     {

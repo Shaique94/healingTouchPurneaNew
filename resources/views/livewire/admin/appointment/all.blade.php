@@ -8,9 +8,12 @@
         <div class="d-flex justify-content-between mb-3 p-3">
             <!-- Search Input -->
             <input type="text" class="form-control w-25" placeholder="Search by doctor or patient" wire:model.live.debounce.300s="search">
-    
+
             <!-- Date Range Filters -->
             <div class="d-flex gap-2">
+                <button wire:click="export" class="btn btn-success btn-sm">
+                    <i class="bi bi-download me-1"></i>Export Excel
+                </button>
                 <input type="text" id="dateRangePicker" class="form-control form-control-sm" style="width: 200px;" placeholder="YYYY-MM-DD → YYYY-MM-DD">
                 <button class="btn btn-sm btn-outline-secondary" wire:click="showTodayAppointments">Today</button>
                 <button class="btn btn-sm btn-outline-secondary" wire:click="clearDateFilter">Clear</button>
@@ -68,21 +71,21 @@
 
 
 <script>
-        document.addEventListener('livewire:navigated', function() {
-            // Date Range Picker for Wallet History
-            flatpickr("#dateRangePicker", {
-                mode: "range",
-                dateFormat: "Y-m-d",
-                onClose: function(selectedDates, dateStr) {
-                    let dates = dateStr.split(" to ");
-                    if (dates.length === 2) {
-                        @this.set('startDate', dates[0]);
-                        @this.set('endDate', dates[1]);
-                    } else if (dates.length === 1) {
-                        @this.set('startDate', dates[0]);
-                        @this.set('endDate', dates[0]);
-                    }
+    document.addEventListener('livewire:navigated', function() {
+        // Date Range Picker for Wallet History
+        flatpickr("#dateRangePicker", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            onClose: function(selectedDates, dateStr) {
+                let dates = dateStr.split(" to ");
+                if (dates.length === 2) {
+                    @this.set('startDate', dates[0]);
+                    @this.set('endDate', dates[1]);
+                } else if (dates.length === 1) {
+                    @this.set('startDate', dates[0]);
+                    @this.set('endDate', dates[0]);
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
