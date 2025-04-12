@@ -8,7 +8,7 @@
         <div class="d-flex justify-content-between mb-3 p-3">
             <!-- Search Input -->
             <input type="text" class="form-control w-25" placeholder="Search by doctor or patient" wire:model.live.debounce.300s="search">
-
+    
             <!-- Date Range Filters -->
             <div class="d-flex gap-2">
                 <input type="text" id="dateRangePicker" class="form-control form-control-sm" style="width: 200px;" placeholder="YYYY-MM-DD → YYYY-MM-DD">
