@@ -56,7 +56,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
         Route::get('/department', DeparmentAll::class)->name('department');
         Route::get('/doctor', AllDoctor::class)->name('doctor');
-        Route::get('/qualification', AllQualification::class)->name('qualification');
         Route::get('/appointment', AllAppointment::class)->name('appointment');
       
     });

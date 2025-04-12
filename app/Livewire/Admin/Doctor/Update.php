@@ -15,18 +15,16 @@ class Update extends Component
     use WithFileUploads;
 
     public $department;
-    public $name, $email, $phone, $dept_id, $available_days = [], $checkAllDays = false;
+    public $name, $email, $phone, $dept_id, $available_days = [];
     public $status;
     public $image;
     public $doctorId;
     public $newImage;
-    public $qualification = [];
-    public $qualifications;
+    public $qualification;
 
     public function mount()
     {
         $this->department = Department::all();
-        $this->qualifications = Qualification::all();
     }
 
     #[On('update-doctor')]
@@ -55,7 +53,7 @@ class Update extends Component
             'available_days' => 'required|array|min:1',
             'status' => 'required|boolean',
             'newImage' => 'nullable|image|max:2048',
-            'qualification' => 'required|array|min:1',
+            'qualification' => 'required|string|min:1',
         ]);
 
         $doctor = Doctor::findOrFail($this->doctorId);
@@ -86,12 +84,7 @@ class Update extends Component
         $this->dispatch('success', __('Doctor updated successfully'));
     }
 
-    public function updatedCheckAllDays($value)
-    {
-        $this->available_days = $value
-            ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-            : [];
-    }
+   
 
     public function resetForm()
     {

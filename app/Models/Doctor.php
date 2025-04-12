@@ -24,7 +24,6 @@ class Doctor extends Model
 
     protected $casts = [
         'available_days' => 'array',
-        'qualification' => 'array',
     ];
 
     public function user()
