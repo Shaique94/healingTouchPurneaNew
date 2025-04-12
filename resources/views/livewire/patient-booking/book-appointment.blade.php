@@ -18,6 +18,16 @@
             <h1 class="text-2xl md:text-3xl font-bold">Book Your Appointment</h1>
             <p class="mt-2 text-sky-100">Complete the steps below to schedule your visit with our specialists</p>
             
+            <!-- Add this right after the Page Header with Gradient Background section -->
+            <div class="text-right mb-6">
+                <a href="{{ route('manage.appointments') }}" class="inline-flex items-center text-sky-600 hover:text-sky-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Already have an appointment? Check status or download receipt
+                </a>
+            </div>
+
             <!-- Improved Progress Steps -->
             <div class="mt-8 relative">
                 <!-- Progress Bar Background -->
