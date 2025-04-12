@@ -35,17 +35,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="dashboard-card card h-100 shadow-sm border-0 rounded-4" style="background-color: #e74a3b; color: white;">
-                    <div class="card-body d-flex align-items-center">
-                        <div class="stats-icon me-3"><i class="bi bi-currency-rupee fs-2"></i></div>
-                        <div>
-                            <h6 class="card-title mb-0">Revenue</h6>
-                            <p class="card-text fs-4">₹{{ $Revenue }}</p>
+                <div class="col-6 col-md-3">
+                    <div class="dashboard-card card h-100 shadow-sm border-0 rounded-4" style="background-color: #e74a3b; color: white;">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="stats-icon me-3"><i class="bi bi-currency-rupee fs-2"></i></div>
+                            <div>
+                                <h6 class="card-title mb-0">Revenue</h6>
+                                <button  class="btn btn-black text-white mt-2" wire:click="showRevenue">{{ $hideRevenue ? 'Hide' : 'Show' }}</button>
+                                @if ($hideRevenue)
+                                <p class="card-text fs-4">₹{{ $Revenue }}</p>   
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <!-- Main Content -->

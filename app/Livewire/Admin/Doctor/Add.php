@@ -15,16 +15,16 @@ class Add extends Component
     use WithFileUploads;
 
     public $department;
-    public $name, $email, $phone, $dept_id, $available_days = [], $checkAllDays = false;
+    public $name, $email, $phone, $dept_id, $available_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     public $status;
     public $image;
     public $fee;
-    public $qualification = [];
+    public $qualification;
     public $qualifications;
 
-    public function mount(){
+    public function mount()
+    {
         $this->department = Department::all();
-        $this->qualifications = Qualification::all();
     }
 
     public function saveDoctor()
@@ -38,8 +38,8 @@ class Add extends Component
             'status' => 'required|boolean',
             'image' => 'nullable|image|max:2048',
             'fee' => 'required|numeric|min:0',
-            'qualification' => 'required|array|min:1',
-            
+            'qualification' => 'required|string|min:1',
+
         ]);
 
         // Handle user creation
@@ -73,13 +73,12 @@ class Add extends Component
         $this->dispatch('success', __('Doctor added successfully'));
     }
 
-    public function updatedCheckAllDays($value)
+    public function updatedAvailableDays()
     {
-        $this->available_days = $value
-            ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-            : [];
-    }
+        $allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+        $this->checkAllDays = (count($this->available_days) === count($allDays));
+    }
 
     public function render()
     {
