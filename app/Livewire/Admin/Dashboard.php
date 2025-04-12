@@ -17,10 +17,15 @@ class Dashboard extends Component
     use WithPagination;
     
     public $perPage = 10;
+    public $hideRevenue = false;
     public function exportCsv()
     {
         $today = Carbon::today()->format('Y-m-d');
         return Excel::download(new AppointmentExport($today), 'appointments_' . $today . '.csv', \Maatwebsite\Excel\Excel::CSV);       
+    }
+    public function showRevenue(){
+
+        $this->hideRevenue = !$this->hideRevenue;
     }
 
     #[Layout('components.layouts.admin')]
@@ -30,7 +35,9 @@ class Dashboard extends Component
          $patients = Patient::count();
          $doctors = Doctor::count();
          $appointments = Appointment::count();
-         $revenue = 22;
+         $revenue = Appointment::with('doctor')->get()->sum(function($appointment) {
+             return $appointment->doctor->sum('fee') ?? 0;
+         });
  
          // Today's date
          $today = Carbon::today()->format('Y-m-d');
