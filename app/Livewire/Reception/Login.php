@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class Login extends Component
 {
+    public $email = '';
+    public $password = '';
     public function login()
     {
         $this->validate([
@@ -16,7 +18,7 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            if (Auth::user()->role !== 'counter') {
+            if (Auth::user()->role !== 'reception') {
                 Auth::logout();
                 session()->flash('error', 'Unauthorized access.');
                 return;
@@ -25,9 +27,9 @@ class Login extends Component
             return redirect()->route('reception.dashboard');
         }
 
-        session()->flash('error', 'Invalid credentials.');
+        session()->flash('error', 'Invalid email or password.');
     }
-    #[Layout('layouts.reception')] 
+    #[Layout('layouts.reception')]
     public function render()
     {
         return view('livewire.reception.login');

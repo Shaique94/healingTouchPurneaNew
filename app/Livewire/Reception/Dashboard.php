@@ -126,6 +126,10 @@ class Dashboard extends Component
             $this->loadAppointments();
         }
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('reception.login');
+    }
     #[Layout('layouts.reception')]
     public function render()
     {
