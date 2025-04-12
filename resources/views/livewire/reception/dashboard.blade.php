@@ -169,7 +169,7 @@
                         type="date"
                         id="customDatePicker"
                         class="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:ring focus:ring-blue-200 focus:outline-none"
-                        wire:model="selectedDate">
+                        wire:model.live="selectedDate">
                 </div>
             </div>
 
@@ -226,7 +226,7 @@
                                     class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-full transition duration-200">
                                     Cancel
                                 </button>
-                                @else
+                                @else 
                                 <span class="text-xs text-gray-400 italic">No actions available</span>
                                 @endif
                             </td>

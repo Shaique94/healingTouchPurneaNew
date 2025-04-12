@@ -25,7 +25,7 @@ class Dashboard extends Component
     public $search = '';
     public $doctor;
 
-
+ 
     public function mount()
     {
         $this->dateFilter = now()->toDateString();

@@ -17,7 +17,7 @@ class Dashboard extends Component
     public $appointments_cancelled;
     public $selectedDate = 'today';
     public $search = '';
-    public $showModal= false;
+    public $showModal = false;
     public $doctors;
     public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
     public $doctor_id, $appointment_date, $appointment_time, $notes;
@@ -34,7 +34,7 @@ class Dashboard extends Component
             'email' => 'nullable|email|unique:patients,email',
             'phone' => 'required',
             'doctor_id' => 'required|exists:doctors,id',
-            'address'=>'required',
+            'address' => 'required',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
         ]);
@@ -66,6 +66,10 @@ class Dashboard extends Component
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
+    public function updatedSelectedDate()
+    {
+        $this->loadAppointments();
+    }
     public function updatedSearch()
     {
         $this->loadAppointments();
@@ -78,36 +82,44 @@ class Dashboard extends Component
     public function filterByDate($date)
     {
         $this->selectedDate = $date;
-        
+
         $this->loadAppointments();
     }
-    
+
     public function loadAppointments()
     {
         $query = Appointment::with('patient');
-    
+
         // Filter by date
-        $date = now();
-        if ($this->selectedDate === 'tomorrow') {
-            $date = $date->addDay();
+        if ($this->selectedDate === 'today') {
+            $date = now();
+        } elseif ($this->selectedDate === 'tomorrow') {
+            $date = now()->addDay();
+        } else {
+            // Handle custom date from date picker
+            try {
+                $date = \Carbon\Carbon::parse($this->selectedDate);
+            } catch (\Exception $e) {
+                $date = now();
+            }
         }
+
         $query->whereDate('appointment_date', $date->toDateString());
-    
-        // Filter by search
+        
         if (!empty($this->search)) {
             $query->whereHas('patient', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('phone', 'like', '%' . $this->search . '%');
+                    ->orWhere('phone', 'like', '%' . $this->search . '%');
             });
         }
-    
+
         $this->appointments = $query->get();
-    
+
         $this->appointments_count = $this->appointments->count();
         $this->appointments_checked_in = $this->appointments->where('status', 'checked_in')->count();
         $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
     }
-    
+
     public function checkIn($appointmentId)
     {
         $appointment = Appointment::find($appointmentId);
@@ -126,7 +138,8 @@ class Dashboard extends Component
             $this->loadAppointments();
         }
     }
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('reception.login');
     }
