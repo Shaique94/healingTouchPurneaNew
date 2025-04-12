@@ -215,23 +215,15 @@ class BookAppointment extends Component
         $doctor = Doctor::find($this->selectedDoctor);
 
 
-        $appointment = [
-            'id' => $this->appointmentId,
-            'doctor' => $this->doctor->user->name ?? '',
-            'speciality' => $this->doctor->department->name ?? '',
-            'date' => $this->appointmentDate . ' ' . $this->appointmentTime,
-            'patient' => $this->name ?? '',
-            'phone' => $this->phone ?? '',
-            'gender' => $this->gender ?? '',
-            'fee' => 500,
-            'location' => 'Healing Touch Hospital, Purnea'
-        ];
+        $appointment= Appointment::with(['doctor', 'patient'])
+            ->where('id', $this->appointmentId)
+            ->first();
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'));
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
-        }, 'appointment.pdf');
+        }, 'appointment-receipt.pdf');
     }
 
     #[Layout('layouts.guest')]
