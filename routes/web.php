@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\Appointment\All as AllAppointment;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Department\All as DeparmentAll;
 use App\Livewire\Admin\Doctor\All as AllDoctor;
 use App\Livewire\Admin\Index;
@@ -52,7 +53,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/logout', Logout::class)->name('logout');
     Route::middleware(AdminMiddleware::class)->group(function () {
-        Route::get('/dashboard', Index::class)->name('dashboard');
+        Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
         Route::get('/department', DeparmentAll::class)->name('department');
         Route::get('/doctor', AllDoctor::class)->name('doctor');
         Route::get('/qualification', AllQualification::class)->name('qualification');
