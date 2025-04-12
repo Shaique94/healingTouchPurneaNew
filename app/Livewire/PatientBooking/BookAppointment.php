@@ -37,7 +37,7 @@ class BookAppointment extends Component
     public $dob;
     public $address;
     public $pincode;
-    public $city;
+    public $city="purnea";
     public $state = 'Bihar';
     public $country = 'India';
     public $notes;

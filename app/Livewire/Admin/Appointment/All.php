@@ -5,15 +5,88 @@ namespace App\Livewire\Admin\Appointment;
 use App\Models\Appointment;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class All extends Component
 {
+    public $search = '';
+    public $startDate = '';
+    public $endDate = '';
+    public $showToday = true;
+
+    public function mount()
+    {
+        // Set today's date as default when component loads
+        $today = Carbon::today()->format('Y-m-d');
+        $this->startDate = $today;
+        $this->endDate = $today;
+    }
+
+    public function updateStatus($appointmentId, $newStatus)
+    {
+        $appointment = Appointment::find($appointmentId);
+        
+        if ($appointment) {
+            $appointment->status = $newStatus;
+            $appointment->save();
+            
+            $this->dispatch('success', 'Appointment status updated.');
+        }
+    }
+    
+    public function filterByDateRange()
+    {
+        $this->showToday = false;
+    }
+
+    public function showTodayAppointments()
+    {
+        $today = Carbon::today()->format('Y-m-d');
+        $this->startDate = $today;
+        $this->endDate = $today;
+        $this->showToday = true;
+    }
+
+    public function clearDateFilter()
+    {
+        $this->startDate = '';
+        $this->endDate = '';
+        $this->showToday = false;
+    }
+ 
+
     #[Layout('components.layouts.admin')]
     public function render()
     {
-        $appointment=Appointment::with('doctor','patient')->latest()->get();
-        return view('livewire.admin.appointment.all',[
-            'appointments' => $appointment,
+        $query = Appointment::with('doctor.user', 'patient');
+        
+        // Apply search filter if provided
+        if ($this->search) {
+            $query->where(function($q) {
+                $q->whereHas('doctor.user', function($query) {
+                    $query->where('name', 'like', '%'.$this->search.'%')
+                          ->orWhere('email', 'like', '%'.$this->search.'%');
+                })
+                ->orWhereHas('patient', function($query) {
+                    $query->where('name', 'like', '%'.$this->search.'%');
+                });
+            });
+        }
+        
+        // Apply date filter
+        if ($this->showToday) {
+            // Today's appointments
+            $today = Carbon::today()->format('Y-m-d');
+            $query->where('appointment_date', $today);
+        } elseif ($this->startDate && $this->endDate) {
+            // Date range appointments
+            $query->whereBetween('appointment_date', [$this->startDate, $this->endDate]);
+        }
+        
+        $appointments = $query->latest()->get();
+
+        return view('livewire.admin.appointment.all', [
+            'appointments' => $appointments,
         ]);
     }
 }
