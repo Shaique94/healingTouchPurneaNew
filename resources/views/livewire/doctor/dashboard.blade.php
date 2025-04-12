@@ -29,7 +29,7 @@
                     </svg>
                     <span>Logout</span>
                 </div>
-            </div>
+            </div> 
 
         </nav>
     </div>
