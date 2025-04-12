@@ -3,6 +3,7 @@
 namespace App\Livewire\Doctor;
 
 use App\Models\Appointment;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -22,6 +23,7 @@ class Dashboard extends Component
     public $days_available = [];
     public $dateFilter;
     public $search = '';
+    public $doctor;
 
 
     public function mount()
@@ -33,7 +35,9 @@ class Dashboard extends Component
     #[On('refresh')]
     public function days_available()
     {
-        $this->days_available = auth()->user()->doctor->available_days ?? [];
+        $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
+
+        $this->days_available = $doctor->available_days ?? [];
     }
     public function updatedDateFilter()
     {
@@ -47,9 +51,10 @@ class Dashboard extends Component
     #[On('refresh')]
     public function loadAppointments()
     {
-        $this->doctor_name = auth()->user()->name;
-
-        $doctor = auth()->user()->doctor;
+        
+        $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
+        $this->doctor_name = $doctor->name;
+        // dd($doctor->id);
         $query = Appointment::with('patient')->where('doctor_id', $doctor->id);
 
         if ($this->dateFilter) {
