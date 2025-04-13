@@ -4,11 +4,25 @@ namespace App\Livewire\Admin\Department;
 
 use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Add extends Component
 {
     public $name, $status, $description;
+    public $showModal = false;
+
+    #[On('open-add-department')]
+    public function openModal()
+    {
+        $this->resetData(); 
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     protected $rules = [
         'name' => 'required|string|max:255|unique:departments,name',
@@ -18,7 +32,7 @@ class Add extends Component
 
     public function resetData()
     {
-        $this->reset(['name','status', 'description']);
+        $this->reset(['name', 'status', 'description']);
     }
 
     public function store()
@@ -32,11 +46,9 @@ class Add extends Component
         ]);
 
         $this->resetData();
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-department');
-        $this->dispatch(  'success',__('Department Added successfully'));
-
-       
+        $this->dispatch('success', __('Department Added successfully'));
     }
 
     public function render()

@@ -18,6 +18,17 @@ class Update extends Component
         'password' => '',
     ];
     public $editId;
+    public $showModal = false;
+
+    public function openModal()
+    {
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     // Dynamic rules method
     protected function rules()
@@ -50,7 +61,7 @@ class Update extends Component
         $user->save();
 
         $this->resetForm();
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('success', __('User updated successfully'));
         $this->dispatch('refresh-user');
     }
@@ -59,6 +70,7 @@ class Update extends Component
     public function edit($id)
     {
         $this->editId = $id;
+        $this->openModal();
         $user = User::findOrFail($id);
 
         $this->user = [

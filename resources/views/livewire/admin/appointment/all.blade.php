@@ -1,23 +1,25 @@
 <div class="card shadow-sm border-0">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center flex-wrap gap-2">
         <h5 class="mb-0"><i class="bi bi-calendar-check-fill me-2"></i>Appointments</h5>
     </div>
 
     <div class="card-body p-0">
         <!-- Filters -->
-        <div class="d-flex justify-content-between mb-3 p-3">
+        <div class="d-flex flex-wrap justify-content-between gap-2 mb-3 p-3">
             <!-- Search Input -->
-            <input type="text" class="form-control w-25" placeholder="Search by doctor or patient" wire:model.live.debounce.300s="search">
+            <div class="flex-grow-1" style="min-width: 220px;">
+                <input type="text" class="form-control w-100" placeholder="Search by doctor or patient" wire:model.live.debounce.300s="search">
+            </div>
 
-            <!-- Date Range Filters -->
-            <div class="d-flex gap-2">
+            <!-- Date Range & Buttons -->
+            <div class="d-flex flex-wrap justify-content-end align-items-center gap-2">
                 <button wire:click="export" class="btn btn-success btn-sm">
                     <i class="bi bi-download me-1"></i>Export Excel
                 </button>
-                <input type="text" id="dateRangePicker" class="form-control form-control-sm" style="width: 200px;" placeholder="YYYY-MM-DD → YYYY-MM-DD">
+                <input type="text" id="dateRangePicker" class="form-control form-control-sm" style="width: 200px; min-width: 160px;" placeholder="YYYY-MM-DD → YYYY-MM-DD">
                 <button class="btn btn-sm btn-outline-secondary" wire:click="showTodayAppointments">Today</button>
                 <button class="btn btn-sm btn-outline-secondary" wire:click="clearDateFilter">Clear</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#patientAppointmentModal">
+                <button type="button" class="btn btn-primary btn-sm"  wire:click="$dispatch('open-add-appoinment')">
                     New Patient & Appointment
                 </button>
             </div>
@@ -48,17 +50,17 @@
                         <td>
                             <select class="form-select form-select-sm" wire:change="updateStatus({{ $appointment->id }}, $event.target.value)">
                                 @php
-                                $statuses = ['pending', 'checked_in', 'confirmed', 'cancelled'];
+                                    $statuses = ['pending', 'checked_in', 'confirmed', 'cancelled'];
                                 @endphp
                                 @foreach ($statuses as $status)
-                                <option value="{{ $status }}" @selected($appointment->status === $status)>{{ ucfirst(str_replace('_', ' ', $status)) }}</option>
+                                    <option value="{{ $status }}" @selected($appointment->status === $status)>{{ ucfirst(str_replace('_', ' ', $status)) }}</option>
                                 @endforeach
                             </select>
                         </td>
                         <td>
-                            <!-- <button class="btn btn-sm btn-info me-1"><i class="bi bi-eye-fill"></i></button> -->
-                            <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#UpdatepatientAppointmentModal" wire:click="$dispatch('update-appointment',{id:{{ $appointment->id }}})"><i class="bi bi-pencil-fill"></i></button>
-                            <!-- <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button> -->
+                            <button class="btn btn-sm btn-primary me-1" wire:click="$dispatch('update-appointment',{id:{{ $appointment->id }}})">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
                         </td>
                     </tr>
                     @empty
@@ -74,10 +76,8 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener('livewire:navigated', function() {
-        // Date Range Picker for Wallet History
         flatpickr("#dateRangePicker", {
             mode: "range",
             dateFormat: "Y-m-d",

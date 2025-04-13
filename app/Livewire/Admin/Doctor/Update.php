@@ -20,7 +20,19 @@ class Update extends Component
     public $image;
     public $doctorId;
     public $newImage;
+    public $showModal;
     public $qualification;
+    
+    public function openModal()
+    {
+    
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     public function mount()
     {
@@ -30,6 +42,7 @@ class Update extends Component
     #[On('update-doctor')]
     public function edit($id)
     {
+        $this->openModal();
         $doctor = Doctor::findOrFail($id);
         $this->name = $doctor->user->name;
         $this->email = $doctor->user->email;
@@ -79,7 +92,7 @@ class Update extends Component
 
         $this->resetForm();
 
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-doctor');
         $this->dispatch('success', __('Doctor updated successfully'));
     }

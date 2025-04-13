@@ -1,12 +1,31 @@
 <div class="sidebar" id="sidebar">
-    <div class="d-flex justify-content-center align-items-center mb-4 mt-3" style="gap: 12px; border-radius: 50px;">
-        <img src="{{ asset('healingTouchLogo.jpeg') }}" alt="Healing Touch Logo" style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover;">
-        <span style="font-size: 18px; font-weight: 600; color: white;">Healing Touch</span>
+        <button class="close-btn d-lg-none" id="closeSidebar">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        
+        <div class="sidebar-brand d-flex align-items-center">
+            <img src="{{ asset('healingTouchLogo.jpeg') }}" alt="Healing Touch Logo" class="sidebar-logo">
+            <span class="sidebar-title">Healing Touch</span>
+        </div>
+        
+        <div class="nav-links mt-3">
+            <a wire:navigate href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.appointment') }}" class="{{ request()->routeIs('admin.appointment') ? 'active' : '' }}">
+                <i class="bi bi-calendar-check"></i> <span>Appointments</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.user') }}" class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
+                <i class="bi bi-people"></i> <span>Manage Users</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.department') }}" class="{{ request()->routeIs('admin.department') ? 'active' : '' }}">
+                <i class="bi bi-building"></i> <span>Departments</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.doctor') }}" class="{{ request()->routeIs('admin.doctor') ? 'active' : '' }}">
+                <i class="bi bi-person-badge"></i> <span>Manage Doctors</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.logout') }}">
+                <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
+            </a>
+        </div>
     </div>
-    <a wire:navigate href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a>
-    <a wire:navigate href="{{ route('admin.appointment') }}"><i class="bi bi-people"></i>Appointment</a>
-    <a wire:navigate href="{{ route('admin.user') }}"><i class="bi bi-people"></i>Manage User</a>
-    <a wire:navigate href="{{ route('admin.department') }}"><i class="bi bi-people"></i>Manage Department</a>
-    <a wire:navigate href="{{ route('admin.doctor') }}"><i class="bi bi-gear"></i>Manage Doctor</a>
-    <a wire:navigate href="{{ route('admin.logout') }}"><i class="bi bi-box-arrow-right"></i> Logout</a>
-</div>

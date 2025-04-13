@@ -1,17 +1,15 @@
 <div>
-    <!-- Doctor Update Modal -->
-    <div class="modal fade" id="UpdatedoctorModal" tabindex="-1" aria-labelledby="UpdatedoctorModalLabel" aria-hidden="true" x-data
-        x-on:close-modal.window="() => {
-            const modal = bootstrap.Modal.getInstance($el);
-            if (modal) modal.hide();
-        }"
-        wire:ignore.self>
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content shadow-lg rounded-4">
+    @if($showModal)
+    <div class="modal-backdrop fade show"></div>
+    <div class="modal d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down" role="document">
+            <div class="modal-content shadow-lg border-0">
                 <form wire:submit.prevent="updateDoctor">
-                    <div class="modal-header bg-primary text-white rounded-top-4">
-                        <h5 class="modal-title fw-semibold" id="UpdatedoctorModalLabel">Update Doctor</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="doctorModalLabel">
+                            <i class="bi bi-person-plus-fill me-2"></i>Update Doctor
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" wire:click="closeModal"></button>
                     </div>
 
                     <div class="modal-body px-4 py-3">
@@ -101,22 +99,23 @@
                                 <i class="bi bi-patch-check-fill me-1"></i>Qualifications
                             </label>
                             <div class="d-flex flex-wrap gap-2">
-                               <input type="text" wire:model="qualification" class="form-control">
-                            @error('qualification') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                                <input type="text" wire:model="qualification" class="form-control">
+                                @error('qualification') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    {{-- Footer --}}
-                    <div class="modal-footer bg-light rounded-bottom-4">
-                        <button type="button" class="btn btn-outline-secondary me-2" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle me-1"></i> Cancel
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-save me-1"></i> Update Doctor
-                        </button>
-                    </div>
+                        {{-- Footer --}}
+                        <div class="modal-footer bg-light rounded-bottom-4">
+                            <button type="button" class="btn btn-outline-secondary me-2" wire:click="closeModal">
+                                <i class="bi bi-x-circle me-1"></i> Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i> Update Doctor
+                            </button>
+                        </div>
                 </form>
             </div>
         </div>
     </div>
+    @endif
 </div>

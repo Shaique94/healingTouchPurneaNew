@@ -12,6 +12,19 @@ class Update extends Component
     public $name;
     public $description;
     public $status;
+    public $showModal = false;
+
+    
+    public function openModal()
+    {
+        $this->resetData(); 
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     public function rules()
     {
@@ -32,6 +45,7 @@ class Update extends Component
     #[On('update-department')]
     public function edit($id)
     {
+        $this->openModal();
         $department = Department::findOrFail($id);
         $this->id          = $id;
         $this->name       = $department->name;
@@ -50,7 +64,7 @@ class Update extends Component
         ]);
 
         $this->resetData();
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-department');
         $this->dispatch('success', __('Department  Updated successfully.'));
        

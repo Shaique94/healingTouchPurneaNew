@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Add extends Component
@@ -17,6 +18,18 @@ class Add extends Component
         'password' => '',
     ];
 
+    public $showModal = false;
+
+    #[On('open-add-user')]
+    public function openModal()
+    {
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     protected $rules = [
         'user.name' => 'required|string|max:255',
@@ -39,7 +52,7 @@ class Add extends Component
             'password' => Hash::make($this->user['password']),
         ]);
         $this->resetForm();
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('success', __('User added successfully'));
         $this->dispatch('refresh-user');
 

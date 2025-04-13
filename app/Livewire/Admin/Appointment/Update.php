@@ -13,7 +13,6 @@ class Update extends Component
     public $name;
     public $email;
     public $phone;
-    public $dob;
     public $gender;
     public $address;
     public $pincode;
@@ -28,14 +27,27 @@ class Update extends Component
     public $notes;
     public $doctors;
     public $appointment_id;
+    public $showModal = false;
+
+
+     public function openModal()
+     {
+         $this->showModal = true;
+     }
+ 
+     public function closeModal()
+     {
+         $this->showModal = false;
+     }
+ 
     #[On('update-appointment')]
     public function edit($id){
+        $this->openModal();
         $appointment=Appointment::findOrFail($id);
         $this->appointment_id = $appointment->id;
         $this->name = $appointment->patient->name;
         $this->email = $appointment->patient->email;
         $this->phone = $appointment->patient->phone;
-        $this->dob = $appointment->patient->dob;
         $this->gender = $appointment->patient->gender;
         $this->address = $appointment->patient->address;
         $this->pincode = $appointment->patient->pincode;
@@ -58,7 +70,6 @@ class Update extends Component
             'name'              => 'required|string|max:255',
             'email'             => 'nullable|email|max:255',
             'phone'             => 'required|string|max:20',
-            'dob'               => 'nullable|date',
             'gender'            => 'nullable|in:male,female,other',
             'address'           => 'nullable|string|max:500',
             'pincode'           => 'nullable|digits:6',
@@ -79,7 +90,6 @@ class Update extends Component
         $patient->name = $this->name;
         $patient->email = $this->email;
         $patient->phone = $this->phone;
-        $patient->dob = $this->dob;
         $patient->gender = $this->gender;
         $patient->address = $this->address;
         $patient->pincode = $this->pincode;
@@ -97,7 +107,7 @@ class Update extends Component
         $appointment->notes = $this->notes;
         $appointment->save();
 
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-appointment');
         $this->dispatch('success', __('Appointment Updated successfully'));   
 
@@ -119,7 +129,6 @@ class Update extends Component
         $this->name = '';
         $this->email = '';
         $this->phone = '';
-        $this->dob = '';
         $this->gender = '';
         $this->address = '';
         $this->pincode = '';

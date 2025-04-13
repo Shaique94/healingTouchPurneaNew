@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Qualification;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -21,6 +22,19 @@ class Add extends Component
     public $fee;
     public $qualification;
     public $qualifications;
+    public $showModal = false;
+
+    #[On('open-add-doctor')]
+    public function openModal()
+    {
+    
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     public function mount()
     {
@@ -68,7 +82,7 @@ class Add extends Component
         ]);
 
         $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'qualification']);
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-doctor');
         $this->dispatch('success', __('Doctor added successfully'));
     }

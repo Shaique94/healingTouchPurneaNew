@@ -8,6 +8,7 @@ use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Add extends Component
@@ -15,7 +16,6 @@ class Add extends Component
      public $name;
      public $email;
      public $phone;
-     public $dob;
      public $gender;
      public $address;
      public $pincode;
@@ -29,6 +29,19 @@ class Add extends Component
      public $payment_method = "cash";
      public $notes;
      public $doctors;
+ 
+     public $showModal = false;
+
+     #[On('open-add-appoinment')]
+     public function openModal()
+     {
+         $this->showModal = true;
+     }
+ 
+     public function closeModal()
+     {
+         $this->showModal = false;
+     }
  
 
 
@@ -62,7 +75,6 @@ class Add extends Component
             'name'              => 'required|string|max:255',
             'email'             => 'nullable|email|max:255',
             'phone'             => 'required|string|max:20',
-            'dob'               => 'nullable|date',
             'gender'            => 'nullable|in:male,female,other',
             'address'           => 'nullable|string|max:500',
             'pincode'           => 'nullable|digits:6',
@@ -80,7 +92,6 @@ class Add extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'gender' => $this->gender,
-                'dob' => $this->dob,
                 'address' => $this->address,
                 'pincode' => $this->pincode,
                 'city' => $this->city,
@@ -101,8 +112,9 @@ class Add extends Component
             'notes' => $this->notes,
             'created_by' =>Auth::id()
         ]);
-        $this->dispatch('close-modal');
+        $this->closeModal();
         $this->dispatch('refresh-appointment');
+        $this->resetForm();
         $this->dispatch('success', __('Appointment Booked successfully'));        
     }
     private function convertTimeFormat($timeString)
@@ -122,7 +134,6 @@ class Add extends Component
         $this->name = '';
         $this->email = '';
         $this->phone = '';
-        $this->dob = '';
         $this->gender = '';
         $this->address = '';
         $this->pincode = '';

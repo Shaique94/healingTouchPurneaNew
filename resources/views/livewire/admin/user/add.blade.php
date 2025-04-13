@@ -1,13 +1,12 @@
 <div>
-    <!-- User Modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true" x-data
-        x-on:close-modal.window="() => { const modal = bootstrap.Modal.getInstance($el); if (modal) modal.hide(); }"
-        wire:ignore.self>
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+    @if($showModal)
+    <div class="modal-backdrop fade show"></div>
+    <div class="modal d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down" role="document">
+            <div class="modal-content shadow-lg border-0">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="userModalLabel">Add / Edit User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="userModalLabel">Add User</h5>
+                    <button type="button" class="btn-close" wire:click="closeModal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-3">
@@ -65,11 +64,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  wire:click="closeModal">Cancel</button>
                     <button type="button" class="btn btn-primary" wire:click="save">Save User</button>
                 </div>
             </div>
         </div>
     </div>
-
+    @endif
 </div>

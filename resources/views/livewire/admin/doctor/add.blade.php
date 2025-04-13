@@ -1,20 +1,15 @@
 <div>
-    <!-- Doctor Modal -->
-    <div class="modal fade" id="doctorModal" tabindex="-1" aria-labelledby="doctorModalLabel" aria-hidden="true"
-        x-data
-        x-on:close-modal.window="() => {
-            const modal = bootstrap.Modal.getInstance($el);
-            if (modal) modal.hide();
-        }"
-        wire:ignore.self>
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content shadow-lg border-0 rounded-3">
+    @if($showModal)
+    <div class="modal-backdrop fade show"></div>
+    <div class="modal d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down" role="document">
+            <div class="modal-content shadow-lg border-0">
                 <form wire:submit.prevent="saveDoctor">
                     <div class="modal-header bg-primary text-white">
                         <h5 class="modal-title" id="doctorModalLabel">
                             <i class="bi bi-person-plus-fill me-2"></i>Add Doctor
                         </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" wire:click="closeModal"></button>
                     </div>
 
                     <div class="modal-body bg-light">
@@ -67,7 +62,7 @@
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-calendar-week me-1"></i>Available Days
                                     </label>
-        
+
                                     <div class="d-flex flex-wrap gap-2">
                                         @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
                                         <div class="form-check form-check-inline">
@@ -136,7 +131,7 @@
 
                     {{-- Modal Footer --}}
                     <div class="modal-footer bg-white">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-outline-secondary" wire:click="closeModal">
                             <i class="bi bi-x-circle"></i> Cancel
                         </button>
                         <button type="submit" class="btn btn-primary">
@@ -147,4 +142,5 @@
             </div>
         </div>
     </div>
+    @endif
 </div>

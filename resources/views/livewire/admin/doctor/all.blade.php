@@ -2,7 +2,7 @@
     <!-- Top Bar -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="mb-0">Doctor List</h4>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#doctorModal">
+        <button type="button" class="btn btn-primary" wire:click="$dispatch('open-add-doctor')">
             <i class="bi bi-plus-circle me-1"></i> Add Doctor
         </button>
     </div>
@@ -56,7 +56,7 @@
                     <td>{{ $doc->user->phone }}</td>
                     <td>{{ is_array($doc->available_days) ? implode(', ', $doc->available_days) : '-' }}</td>
                     <td>₹{{ $doc->fee }}</td>
-                    <td class="text-center">
+                    <td class="text-center d-flex justify-content-center align-items-center">
                         <button wire:click="$dispatch('update-doctor', { id: {{ $doc->id }} })" data-bs-toggle="modal" data-bs-target="#UpdatedoctorModal" class="btn btn-sm btn-primary me-1">
                             <i class="bi bi-pencil-square"></i>
                         </button>

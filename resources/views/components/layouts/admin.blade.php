@@ -4,81 +4,133 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Admin' }}</title>
+    <title>{{ $title ?? 'Healing Touch Admin' }}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-<!-- Flatpickr JS -->
-
 
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f1f4f9;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
+        /* Sidebar Styling */
         .sidebar {
-            width: 220px;
+            width: 250px;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            background: #1e1e2f;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
             color: white;
-            z-index: 1000;
+            z-index: 1030;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
-        .sidebar h4 {
-            padding: 20px;
-            border-bottom: 1px solid #444;
+        .sidebar-brand {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-left: 12px;
         }
 
         .sidebar a {
-            color: #bbb;
+            color: rgba(255, 255, 255, 0.7);
             padding: 12px 20px;
             display: flex;
             align-items: center;
             text-decoration: none;
-            transition: 0.3s;
+            transition: all 0.25s ease;
+            border-radius: 6px;
+            margin: 4px 10px;
         }
 
-        .sidebar a:hover {
-            background: #343a40;
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            border-left: 3px solid #4f46e5;
+            background: rgba(79, 70, 229, 0.15);
         }
 
         .sidebar i {
             margin-right: 10px;
+            font-size: 1.1rem;
+            min-width: 24px;
+            text-align: center;
         }
 
+        /* Header Styling */
         .header {
             background: white;
-            padding: 15px 25px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
         }
 
+        /* Main Content */
         .main {
-            margin-left: 220px;
+            margin-left: 250px;
+            padding: 15px 25px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Card Styling */
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
             padding: 20px;
+            margin-bottom: 20px;
+            border: none;
         }
 
-        .toggle-sidebar {
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1025;
             display: none;
-            cursor: pointer;
+            transition: opacity 0.3s ease;
         }
 
-        @media (max-width: 768px) {
+        /* Mobile Responsive */
+        @media (max-width: 991px) {
             .sidebar {
                 transform: translateX(-100%);
-                transition: transform 0.3s ease;
             }
 
             .sidebar.active {
@@ -89,30 +141,128 @@
                 margin-left: 0;
             }
 
-            .toggle-sidebar {
-                display: inline-block;
+            .sidebar-overlay.active {
+                display: block;
             }
+
+            .header {
+                position: sticky;
+                top: 0;
+                z-index: 1020;
+            }
+
+            .sidebar .close-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                color: white;
+                background: transparent;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown .dropdown-item {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-dropdown .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .profile-dropdown .dropdown-item.text-danger:hover {
+            background-color: #fff5f5;
         }
     </style>
     @livewireStyles
 </head>
 
 <body>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- Sidebar -->
-    <x-admin.sidebar />
+    @include('components.admin.sidebar')
     <!-- Main Content -->
-    <div class="main">
+    <div class="main" id="main">
         <!-- Header -->
-        <x-admin.navbar />
+        @include('components.admin.navbar')
 
-        <!-- Blade slot for content -->
+        <!-- Content Area -->
         {{ $slot }}
     </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+
     <script>
+        // Sidebar Toggle Functionality
+        document.addEventListener('livewire:navigated', function() {
+            const sidebar = document.getElementById('sidebar');
+            const main = document.getElementById('main');
+            const toggleBtn = document.getElementById('toggleSidebar');
+            const closeBtn = document.getElementById('closeSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            // Toggle sidebar
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close sidebar
+            closeBtn.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Close when clicking overlay
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Handle resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 991) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Reinitialize Bootstrap components after Livewire updates
         document.addEventListener("livewire:navigated", function() {
             function reloadBootstrap() {
-
                 var tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
                 tooltips.forEach(t => new bootstrap.Tooltip(t));
 
@@ -124,17 +274,9 @@
             }
 
             reloadBootstrap();
-
-            // Livewire.hook('message.processed', () => {
-            //     setTimeout(reloadBootstrap, 500);
-            // });
-
-
         });
-    </script>
-   
 
-    <script>
+        // Sweet Alert Notifications
         const toastSuccess = Swal.mixin({
             toast: true,
             icon: 'success',
@@ -154,6 +296,7 @@
             timer: 3000,
             timerProgressBar: true,
         });
+
         const toastWarning = Swal.mixin({
             toast: true,
             icon: 'warning',
@@ -178,6 +321,7 @@
                     title: message,
                 });
             });
+
             Livewire.on('warning', (message) => {
                 toastWarning.fire({
                     animation: true,
@@ -185,33 +329,23 @@
                 });
             });
         });
-    </script>
-<script>
-    document.addEventListener('livewire:navigated   ', () => {
-  Livewire.hook('message.processed', () => {
-    // Remove any duplicate modal backdrops
-    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-  });
-});
 
-</script>
-<script>
-        flatpickr("#dateRangePicker", {
-            mode: "range",
-            dateFormat: "Y-m-d"
+    
+        // Initialize flatpickr
+        document.addEventListener('livewire:navigated', () => {
+            if (document.getElementById('dateRangePicker')) {
+                flatpickr("#dateRangePicker", {
+                    mode: "range",
+                    dateFormat: "Y-m-d"
+                });
+            }
+        });
+        document.addEventListener('livewire:navigating', () => {
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         });
     </script>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
     @livewireScripts
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 
 </html>
