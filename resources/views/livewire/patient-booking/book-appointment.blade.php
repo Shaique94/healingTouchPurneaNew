@@ -12,7 +12,7 @@
 </div>
 
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 mt-16">
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-6xl mx-auto">
         <!-- More Compact Page Header -->
         <div class="mb-4 md:mb-6 bg-gradient-to-r from-sky-600 to-sky-800 rounded-xl py-3 md:py-4 px-4 md:px-6 text-white shadow-md">
             <div class="flex flex-wrap items-center justify-between">
@@ -26,7 +26,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    Check existing appointment
+                    Already have an Appointment? Check existing appointment
                 </a>
             </div>
 
@@ -902,11 +902,18 @@
         loader.classList.add('opacity-0', 'pointer-events-none');
     }
     
-    // Auto-hide loader for step transitions
+    // Auto-hide loader for step transitions and scroll to top
     document.addEventListener('livewire:load', function() {
         Livewire.on('stepChanged', function() {
             setTimeout(function() {
                 hideLoader();
+                
+                // Scroll to the top of the page smoothly
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
                 // Add fade-in animation to the new step
                 const currentStep = document.querySelector(`[x-show="step === ${Livewire.store.get('step')}"]`);
                 if (currentStep) {
