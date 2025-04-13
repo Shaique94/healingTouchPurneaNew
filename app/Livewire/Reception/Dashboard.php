@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -66,6 +67,30 @@ class Dashboard extends Component
         $this->showModal = false; // for closing modal
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
+    }
+    public function viewAppointment($appointmentId){
+
+    $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
+    if (!$appointment) {
+        session()->flash('error', 'Appointment not found.');
+        return;
+    }
+    
+    $data = [
+        'appointment' => $appointment,
+        'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
+        'hospital_name' => 'Healing Touch Hospital',
+        'hospital_address' => 'Purnea, Bihar',
+        'hospital_contact' => '+91-123-456-7890',
+    ]; 
+    
+    $pdf = Pdf::loadView('pdf.appointment-receipt', $data);
+    
+    return response()->streamDownload(function() use ($pdf) {
+        echo $pdf->stream();
+    }, 'appointment_receipt.pdf');
+
+
     }
     public function updatedSelectedDate()
     {
