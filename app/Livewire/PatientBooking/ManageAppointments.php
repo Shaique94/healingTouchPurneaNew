@@ -97,7 +97,7 @@ class ManageAppointments extends Component
             'hospital_name' => 'Healing Touch Hospital',
             'hospital_address' => 'Purnea, Bihar',
             'hospital_contact' => '+91-123-456-7890',
-        ];
+        ]; 
         
         $pdf = PDF::loadView('pdf.appointment-receipt', $data);
         

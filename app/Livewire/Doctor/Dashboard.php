@@ -52,7 +52,7 @@ class Dashboard extends Component
     #[On('refresh')]
     public function loadAppointments()
     {
-        
+         
         $user = User::where('id', auth()->user()->id)->first();
         // dd($user->id);
         $this->doctor_name = $user->name;
