@@ -440,7 +440,7 @@
                     <div class="sm:col-span-3">
                         <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                         <div class="mt-1">
-                            <input wire:model="name" type="text" name="name" id="name" autocomplete="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="name" type="text" name="name" id="name" autocomplete="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('name') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -449,7 +449,7 @@
                     <div class="sm:col-span-3">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email Address <span class="text-gray-500 text-xs">(optional)</span></label>
                         <div class="mt-1">
-                            <input wire:model="email" type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="email" type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('email') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -458,7 +458,7 @@
                     <div class="sm:col-span-3">
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                         <div class="mt-1">
-                            <input wire:model="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -467,7 +467,7 @@
                     <div class="sm:col-span-3">
                         <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                         <div class="mt-1">
-                            <select wire:model="gender" id="gender" name="gender" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <select wire:model.live="gender" id="gender" name="gender" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -479,9 +479,9 @@
 
                     <!-- Date of Birth -->
                     <div class="sm:col-span-3">
-                        <label for="dob" class="block text-sm font-medium text-gray-700">Age <span class="text-gray-500 text-xs">(optional)</span></label>
+                        <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
                         <div class="mt-1">
-                            <input wire:model="dob" type="number" min="0" max="150" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="dob" type="number" min="0" max="150" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -490,7 +490,7 @@
                     <div class="sm:col-span-6">
                         <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                         <div class="mt-1">
-                            <input wire:model="address" type="text" name="address" id="address" autocomplete="street-address" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="address" type="text" name="address" id="address" autocomplete="street-address" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('address') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -543,7 +543,7 @@
                     <div class="sm:col-span-6">
                         <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor (Optional)</label>
                         <div class="mt-1">
-                            <textarea wire:model="notes" id="notes" name="notes" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
+                            <textarea wire:model.live="notes" id="notes" name="notes" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
                         </div>
                     </div>
                 </div>

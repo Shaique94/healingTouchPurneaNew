@@ -4,7 +4,7 @@ namespace App\Livewire\PatientBooking;
 
 use App\Models\Doctor;
 use App\Models\Patient;
-use App\Models\Appointment; 
+use App\Models\Appointment;
 use App\Models\Department;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
@@ -37,7 +37,7 @@ class BookAppointment extends Component
     public $dob;
     public $address;
     public $pincode;
-    public $city="purnea";
+    public $city = "purnea";
     public $state = 'Bihar';
     public $country = 'India';
     public $notes;
@@ -48,6 +48,35 @@ class BookAppointment extends Component
         $this->appointmentDate = Carbon::now()->format('Y-m-d');
         $this->generateTimeSlots();
     }
+  
+
+    public function updated($property)
+    {
+        $rules = [];
+
+        if ($this->step === 1) {
+            $rules = [
+                'selectedDoctor' => 'required',
+                'appointmentDate' => 'required|date|after_or_equal:today',
+                'appointmentTime' => 'required',
+            ];
+        } elseif ($this->step === 2) {
+            $rules = [
+                'name' => 'required|string|max:255',
+                'email' => 'nullable|email|max:255',
+                'phone' => 'required|string|max:10',
+                'gender' => 'required|in:male,female,other',
+                'dob' => 'nullable',
+                'address' => 'required|string|max:255',
+                'pincode' => 'required|string|max:10',
+                'city' => 'required|string|max:100',
+            ];
+        }
+
+        $this->validateOnly($property, $rules);
+    }
+
+
 
     // When department is changed, reset doctor selection
     public function updatedSelectedDepartment()
@@ -55,7 +84,7 @@ class BookAppointment extends Component
         $this->selectedDoctor = null;
         $this->doctorDetails = null;
     }
-    
+
     // Function to handle tab selection for date
     public function selectDateTab($tab)
     {
@@ -64,7 +93,7 @@ class BookAppointment extends Component
         } else {
             $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
         }
-        
+
         $this->appointmentTime = null; // Reset selected time when changing date
         $this->generateTimeSlots();
     }
@@ -91,7 +120,7 @@ class BookAppointment extends Component
             try {
                 $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
                 $data = $response->json();
-                
+
                 if (isset($data[0]['Status']) && $data[0]['Status'] === 'Success') {
                     $postOffice = $data[0]['PostOffice'][0];
                     $this->city = $postOffice['Block'] ?: $postOffice['Name'];
@@ -120,11 +149,11 @@ class BookAppointment extends Component
     protected function generateTimeSlots()
     {
         $this->availableTimes = [];
-        
+
         if (!$this->selectedDoctor) {
             return;
         }
-        
+
         // Set start and end hours (10am to 6pm)
         $startHour = 10;
         $endHour = 18;   // 6 PM
@@ -134,10 +163,10 @@ class BookAppointment extends Component
         for ($hour = $startHour; $hour < $endHour; $hour++) {
             $formattedHour = $hour <= 12 ? $hour : $hour - 12;
             $ampm = $hour < 12 ? 'AM' : 'PM';
-            
+
             // Add the hour (e.g., "10:00 AM")
             $timeSlots[] = sprintf('%d:00 %s', $formattedHour, $ampm);
-            
+
             // Add the half hour (e.g., "10:30 AM")
             if ($hour < $endHour - 1) { // Don't add 6:30 PM
                 $timeSlots[] = sprintf('%d:30 %s', $formattedHour, $ampm);
@@ -148,16 +177,16 @@ class BookAppointment extends Component
         if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
             $currentTime = Carbon::now();
             $today = Carbon::today();
-            
-            $timeSlots = array_filter($timeSlots, function($timeSlot) use ($currentTime, $today) {
+
+            $timeSlots = array_filter($timeSlots, function ($timeSlot) use ($currentTime, $today) {
                 try {
                     // Parse the time slot and create a Carbon object for the same day
                     $slotDateTime = Carbon::createFromFormat('g:i A', $timeSlot);
                     $slotDateTime->setDateFrom($today);
-                    
+
                     // Add 30 minutes buffer for booking
                     $bufferTime = $currentTime->copy()->addMinutes(30);
-                    
+
                     // Keep this time slot if it's in the future (plus buffer)
                     return $slotDateTime->gt($bufferTime);
                 } catch (\Exception $e) {
@@ -166,7 +195,7 @@ class BookAppointment extends Component
                 }
             });
         }
-        
+
         // Filter out booked slots
         $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
             ->where('appointment_date', $this->appointmentDate)
@@ -180,7 +209,7 @@ class BookAppointment extends Component
                 }
             })
             ->toArray();
-        
+
         $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
     }
 
@@ -211,7 +240,7 @@ class BookAppointment extends Component
         }
 
         $this->step++;
-        
+
         // Emit event for step change to manage loader
         $this->dispatch('stepChanged', ['step' => $this->step]);
     }
@@ -221,7 +250,7 @@ class BookAppointment extends Component
     {
         if ($this->step > 1) {
             $this->step--;
-            
+
             // Emit event for step change
             $this->dispatch('stepChanged', ['step' => $this->step]);
         }
@@ -264,7 +293,7 @@ class BookAppointment extends Component
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
         ]);
-        
+
         $this->appointmentId = $appointment->id;
 
         session()->flash('message', 'Your appointment has been booked successfully!');
@@ -273,7 +302,7 @@ class BookAppointment extends Component
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
-        
+
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
@@ -297,7 +326,7 @@ class BookAppointment extends Component
         $doctor = Doctor::find($this->selectedDoctor);
 
 
-        $appointment= Appointment::with(['doctor', 'patient'])
+        $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
 
