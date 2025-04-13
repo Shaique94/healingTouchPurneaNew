@@ -46,7 +46,9 @@ Route::get('/home', LandingPage::class)->name('userlandingpage');
 
 // Route for reception/counter
 Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
-Route::get('/reception/dashboard',ReceptionDashboard::class)->name('reception.dashboard');
+Route::middleware('reception')->group(function () {
+    Route::get('/reception/dashboard', ReceptionDashboard::class)->name('reception.dashboard');
+});
 
 // Patient Booking Routes
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
