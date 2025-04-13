@@ -14,13 +14,13 @@
         <form wire:submit.prevent="login" class="space-y-4">
             <div>
                 <label class="block text-sm font-medium text-gray-600">Email</label>
-                <input type="email" wire:model.lazy="email" required
+                <input type="email" wire:model.lazy="email" 
                     class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 @error('email') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-600">Password</label>
-                <input type="password" wire:model.lazy="password" required
+                <input type="password" wire:model.lazy="password" 
                     class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 @error('password') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
             </div>
