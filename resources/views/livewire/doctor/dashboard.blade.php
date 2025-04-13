@@ -207,7 +207,7 @@
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ $appointment->status }}
                                 </span>
-                            </td>
+                            </td> 
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center space-x-2 h-full">
                                     @if ($appointment->status === 'checked_in')

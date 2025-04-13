@@ -3,6 +3,7 @@
 namespace App\Livewire\Doctor;
 
 use App\Models\Appointment;
+use App\Models\Doctor;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
@@ -52,8 +53,11 @@ class Dashboard extends Component
     public function loadAppointments()
     {
         
-        $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
-        $this->doctor_name = $doctor->name;
+        $user = User::where('id', auth()->user()->id)->first();
+        // dd($user->id);
+        $this->doctor_name = $user->name;
+        
+        $doctor =Doctor::where('user_id', $user->id)->first();
         // dd($doctor->id);
         $query = Appointment::with('patient')
         ->where('doctor_id', $doctor->id)
