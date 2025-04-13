@@ -17,6 +17,9 @@
                 <input type="text" id="dateRangePicker" class="form-control form-control-sm" style="width: 200px;" placeholder="YYYY-MM-DD → YYYY-MM-DD">
                 <button class="btn btn-sm btn-outline-secondary" wire:click="showTodayAppointments">Today</button>
                 <button class="btn btn-sm btn-outline-secondary" wire:click="clearDateFilter">Clear</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#patientAppointmentModal">
+                    New Patient & Appointment
+                </button>
             </div>
         </div>
 
@@ -53,9 +56,9 @@
                             </select>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-info me-1"><i class="bi bi-eye-fill"></i></button>
-                            <button class="btn btn-sm btn-primary me-1"><i class="bi bi-pencil-fill"></i></button>
-                            <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+                            <!-- <button class="btn btn-sm btn-info me-1"><i class="bi bi-eye-fill"></i></button> -->
+                            <button class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#UpdatepatientAppointmentModal" wire:click="$dispatch('update-appointment',{id:{{ $appointment->id }}})"><i class="bi bi-pencil-fill"></i></button>
+                            <!-- <button class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button> -->
                         </td>
                     </tr>
                     @empty
@@ -65,6 +68,8 @@
                     @endforelse
                 </tbody>
             </table>
+            <livewire:admin.appointment.add/>
+            <livewire:admin.appointment.update/>
         </div>
     </div>
 </div>

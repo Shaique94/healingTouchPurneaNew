@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Carbon\Carbon;
+use Livewire\Attributes\On;
 use Maatwebsite\Excel\Facades\Excel;
 
 class All extends Component
@@ -86,6 +87,7 @@ public function export()
     }
  
 
+    #[On('refresh-appointment')]
     #[Layout('components.layouts.admin')]
     public function render()
     {
