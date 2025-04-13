@@ -148,16 +148,29 @@ class BookAppointment extends Component
         if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
             $currentTime = Carbon::now();
             $timeSlots = array_filter($timeSlots, function($timeSlot) use ($currentTime) {
-                // Add 30 minutes buffer for booking
-                $slotTime = Carbon::createFromFormat('g:i A', $timeSlot);
-                return $slotTime->gt($currentTime);
+                try {
+                    // Add 30 minutes buffer for booking
+                    $slotTime = Carbon::createFromFormat('g:i A', $timeSlot);
+                    return $slotTime->gt($currentTime);
+                } catch (\Exception $e) {
+                    // If time parsing fails, include the slot (safer than excluding)
+                    return true;
+                }
             });
         }
         
         // Filter out booked slots
         $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
             ->where('appointment_date', $this->appointmentDate)
-            ->pluck('appointment_time')
+            ->get()
+            ->map(function ($appointment) {
+                // Convert database time (HH:MM:SS) to display format (h:MM AM/PM)
+                try {
+                    return Carbon::parse($appointment->appointment_time)->format('g:i A');
+                } catch (\Exception $e) {
+                    return $appointment->appointment_time;
+                }
+            })
             ->toArray();
         
         $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
@@ -230,12 +243,15 @@ class BookAppointment extends Component
             ]
         );
 
+        // Convert the time format from "10:00 AM" to MySQL time format "10:00:00"
+        $formattedTime = $this->convertTimeFormat($this->appointmentTime);
+
         // Create the appointment
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->selectedDoctor,
             'appointment_date' => $this->appointmentDate,
-            'appointment_time' => $this->appointmentTime,
+            'appointment_time' => $formattedTime, // Use the converted time format
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
@@ -252,6 +268,20 @@ class BookAppointment extends Component
         
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
+    }
+
+    // Helper function to convert time format from "10:00 AM" to "10:00:00"
+    private function convertTimeFormat($timeString)
+    {
+        try {
+            // Parse the time string using Carbon
+            $time = Carbon::createFromFormat('h:i A', $timeString);
+            // Return the formatted time in 24-hour format without seconds
+            return $time->format('H:i:00');
+        } catch (\Exception $e) {
+            // If parsing fails, try to work with the time as is
+            return $timeString;
+        }
     }
 
     public function downloadReceipt()
