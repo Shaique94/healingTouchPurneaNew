@@ -17,6 +17,8 @@ use App\Livewire\Doctor\Dashboard;
 use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
 use App\Livewire\PatientBooking\ManageAppointments;
+use App\Livewire\PatientBooking\MenuItems\Careers;
+use App\Livewire\PatientBooking\MenuItems\OurDoctors;
 use App\Livewire\Reception\Dashboard as ReceptionDashboard;
 use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
@@ -49,6 +51,8 @@ Route::get('/reception/dashboard',ReceptionDashboard::class)->name('reception.da
 // Patient Booking Routes
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
+Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
+Route::get('/careers-page', Careers::class)->name('careers.page');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', Login::class)->name('login');
