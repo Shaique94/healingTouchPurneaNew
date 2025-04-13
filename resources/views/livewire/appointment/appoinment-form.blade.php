@@ -64,6 +64,6 @@
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
                 Save and next
             </button>
-        </div>
+        </div> 
     </form>
 </div>

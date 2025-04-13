@@ -479,9 +479,9 @@
 
                     <!-- Date of Birth -->
                     <div class="sm:col-span-3">
-                        <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth <span class="text-gray-500 text-xs">(optional)</span></label>
+                        <label for="dob" class="block text-sm font-medium text-gray-700">Age <span class="text-gray-500 text-xs">(optional)</span></label>
                         <div class="mt-1">
-                            <input wire:model="dob" type="date" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model="dob" type="number" min="0" max="150" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>

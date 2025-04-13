@@ -4,7 +4,7 @@ namespace App\Livewire\PatientBooking;
 
 use App\Models\Doctor;
 use App\Models\Patient;
-use App\Models\Appointment;
+use App\Models\Appointment; 
 use App\Models\Department;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
@@ -203,7 +203,7 @@ class BookAppointment extends Component
                 'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'nullable|date|before:today',
+                'dob' => 'nullable|max:150',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',

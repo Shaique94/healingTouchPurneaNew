@@ -181,6 +181,7 @@
                             <th class="px-6 py-3 text-left">Phone</th>
                             <th class="px-6 py-3 text-left">Address</th>
                             <th class="px-6 py-3 text-left">City</th>
+                            <th class="px-6 py-3 text-left">Assigned Doctor</th>
                             <th class="px-6 py-3 text-left">Status</th>
                             <th class="px-6 py-3 text-right">Actions</th>
                         </tr>
@@ -192,6 +193,9 @@
                             <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->phone }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->address }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
+                            <td class="px-6 py-4 text-gray-600">
+                                {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
+                            </td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
                                 @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
@@ -214,6 +218,7 @@
                                     {{ ucfirst($appointment->status) }}
                                 </span>
                             </td>
+                            
                             <td class="px-6 py-4 text-right space-x-1">
                                 @if($appointment->status === 'pending')
                                 <button wire:click.prevent="checkIn({{ $appointment->id }})"
@@ -418,7 +423,7 @@
                                         class="w-full px-3 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none bg-white">
                                         <option value="">Select Doctor</option>
                                         @foreach($doctors as $doctor)
-                                        <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('doctor_id') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror

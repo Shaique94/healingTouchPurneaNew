@@ -5,6 +5,7 @@ namespace App\Livewire\Reception;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -77,7 +78,8 @@ class Dashboard extends Component
     public function openModal()
     {
         $this->showModal = true;
-        $this->doctors = Doctor::all();
+        $this->doctors = User::where('role', 'doctor')->get();
+        // dd($this->doctors);
     }
     public function filterByDate($date)
     {

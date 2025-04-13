@@ -18,7 +18,7 @@ class PatientSeeder extends Seeder
                 'name' => "Patient $i",
                 'email' => "patient$i@example.com",
                 'phone' => '9876543210',
-                'dob' => now()->subYears(20 + $i)->toDateString(),
+                'dob' => rand(1, 100),
                 'gender' => 'male',
                 'city' => 'City ' . $i,
                 'state' => 'State',

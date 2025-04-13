@@ -22,14 +22,5 @@ class UserSeeder extends Seeder
             'role' => 'counter',
         ]);
 
-        // Doctors
-        for ($i = 1; $i <= 3; $i++) {
-            User::create([
-                'name' => "Dr. Doctor $i",
-                'email' => "doctor$i@hospital.com",
-                'password' => Hash::make('password'),
-                'role' => 'doctor',
-            ]);
-        }
     }
 }
