@@ -39,7 +39,7 @@
                             <td><span class="badge bg-secondary">Admin</span></td>
                             <td><span class="badge bg-success">Active</span></td>
                             <td>2025-04-01</td>
-                            <td> 
+                            <td class="d-flex justify-content-center align-items-center gap-2"> 
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateuserModal" wire:click="$dispatch('update-user',{id:{{ $user->id }}})" ><i class="bi bi-pencil-square" ></i></button>
                                 <button class="btn btn-sm btn-danger" wire:click="alertConfirm({{ $user->id }})"><i class="bi bi-trash"></i></button>
                             </td>
