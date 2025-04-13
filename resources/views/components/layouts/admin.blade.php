@@ -340,9 +340,7 @@
                 });
             }
         });
-        document.addEventListener('livewire:navigating', () => {
-            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-        });
+        
     </script>
 
     @livewireScripts
