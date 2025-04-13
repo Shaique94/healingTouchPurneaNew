@@ -37,7 +37,7 @@ class BookAppointment extends Component
     public $dob;
     public $address;
     public $pincode;
-    public $city="purnea";
+    public $city = "purnea";
     public $state = 'Bihar';
     public $country = 'India';
     public $notes;
@@ -48,6 +48,35 @@ class BookAppointment extends Component
         $this->appointmentDate = Carbon::now()->format('Y-m-d');
         $this->generateTimeSlots();
     }
+  
+
+    public function updated($property)
+    {
+        $rules = [];
+
+        if ($this->step === 1) {
+            $rules = [
+                'selectedDoctor' => 'required',
+                'appointmentDate' => 'required|date|after_or_equal:today',
+                'appointmentTime' => 'required',
+            ];
+        } elseif ($this->step === 2) {
+            $rules = [
+                'name' => 'required|string|max:255',
+                'email' => 'nullable|email|max:255',
+                'phone' => 'required|string|max:10',
+                'gender' => 'required|in:male,female,other',
+                'dob' => 'nullable',
+                'address' => 'required|string|max:255',
+                'pincode' => 'required|string|max:10',
+                'city' => 'required|string|max:100',
+            ];
+        }
+
+        $this->validateOnly($property, $rules);
+    }
+
+
 
     // When department is changed, reset doctor selection
     public function updatedSelectedDepartment()
@@ -55,7 +84,7 @@ class BookAppointment extends Component
         $this->selectedDoctor = null;
         $this->doctorDetails = null;
     }
-    
+
     // Function to handle tab selection for date
     public function selectDateTab($tab)
     {
@@ -64,7 +93,7 @@ class BookAppointment extends Component
         } else {
             $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
         }
-        
+
         $this->appointmentTime = null; // Reset selected time when changing date
         $this->generateTimeSlots();
     }
@@ -91,7 +120,7 @@ class BookAppointment extends Component
             try {
                 $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
                 $data = $response->json();
-                
+
                 if (isset($data[0]['Status']) && $data[0]['Status'] === 'Success') {
                     $postOffice = $data[0]['PostOffice'][0];
                     $this->city = $postOffice['Block'] ?: $postOffice['Name'];
@@ -120,11 +149,11 @@ class BookAppointment extends Component
     protected function generateTimeSlots()
     {
         $this->availableTimes = [];
-        
+
         if (!$this->selectedDoctor) {
             return;
         }
-        
+
         // Set start and end hours (10am to 6pm)
         $startHour = 10;
         $endHour = 18;   // 6 PM
@@ -134,10 +163,10 @@ class BookAppointment extends Component
         for ($hour = $startHour; $hour < $endHour; $hour++) {
             $formattedHour = $hour <= 12 ? $hour : $hour - 12;
             $ampm = $hour < 12 ? 'AM' : 'PM';
-            
+
             // Add the hour (e.g., "10:00 AM")
             $timeSlots[] = sprintf('%d:00 %s', $formattedHour, $ampm);
-            
+
             // Add the half hour (e.g., "10:30 AM")
             if ($hour < $endHour - 1) { // Don't add 6:30 PM
                 $timeSlots[] = sprintf('%d:30 %s', $formattedHour, $ampm);
@@ -147,19 +176,40 @@ class BookAppointment extends Component
         // If today, filter out past time slots
         if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
             $currentTime = Carbon::now();
-            $timeSlots = array_filter($timeSlots, function($timeSlot) use ($currentTime) {
-                // Add 30 minutes buffer for booking
-                $slotTime = Carbon::createFromFormat('g:i A', $timeSlot);
-                return $slotTime->gt($currentTime);
+            $today = Carbon::today();
+
+            $timeSlots = array_filter($timeSlots, function ($timeSlot) use ($currentTime, $today) {
+                try {
+                    // Parse the time slot and create a Carbon object for the same day
+                    $slotDateTime = Carbon::createFromFormat('g:i A', $timeSlot);
+                    $slotDateTime->setDateFrom($today);
+
+                    // Add 30 minutes buffer for booking
+                    $bufferTime = $currentTime->copy()->addMinutes(30);
+
+                    // Keep this time slot if it's in the future (plus buffer)
+                    return $slotDateTime->gt($bufferTime);
+                } catch (\Exception $e) {
+                    // If time parsing fails, exclude the slot to be safe
+                    return false;
+                }
             });
         }
-        
+
         // Filter out booked slots
         $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
             ->where('appointment_date', $this->appointmentDate)
-            ->pluck('appointment_time')
+            ->get()
+            ->map(function ($appointment) {
+                // Convert database time (HH:MM:SS) to display format (h:MM AM/PM)
+                try {
+                    return Carbon::parse($appointment->appointment_time)->format('g:i A');
+                } catch (\Exception $e) {
+                    return $appointment->appointment_time;
+                }
+            })
             ->toArray();
-        
+
         $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
     }
 
@@ -182,7 +232,7 @@ class BookAppointment extends Component
                 'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'nullable|date|before:today',
+                'dob' => 'nullable|max:150',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
@@ -190,7 +240,7 @@ class BookAppointment extends Component
         }
 
         $this->step++;
-        
+
         // Emit event for step change to manage loader
         $this->dispatch('stepChanged', ['step' => $this->step]);
     }
@@ -200,7 +250,7 @@ class BookAppointment extends Component
     {
         if ($this->step > 1) {
             $this->step--;
-            
+
             // Emit event for step change
             $this->dispatch('stepChanged', ['step' => $this->step]);
         }
@@ -230,17 +280,20 @@ class BookAppointment extends Component
             ]
         );
 
+        // Convert the time format from "10:00 AM" to MySQL time format "10:00:00"
+        $formattedTime = $this->convertTimeFormat($this->appointmentTime);
+
         // Create the appointment
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->selectedDoctor,
             'appointment_date' => $this->appointmentDate,
-            'appointment_time' => $this->appointmentTime,
+            'appointment_time' => $formattedTime, // Use the converted time format
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
         ]);
-        
+
         $this->appointmentId = $appointment->id;
 
         session()->flash('message', 'Your appointment has been booked successfully!');
@@ -249,9 +302,23 @@ class BookAppointment extends Component
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
-        
+
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
+    }
+
+    // Helper function to convert time format from "10:00 AM" to "10:00:00"
+    private function convertTimeFormat($timeString)
+    {
+        try {
+            // Parse the time string using Carbon
+            $time = Carbon::createFromFormat('h:i A', $timeString);
+            // Return the formatted time in 24-hour format without seconds
+            return $time->format('H:i:00');
+        } catch (\Exception $e) {
+            // If parsing fails, try to work with the time as is
+            return $timeString;
+        }
     }
 
     public function downloadReceipt()
@@ -259,7 +326,7 @@ class BookAppointment extends Component
         $doctor = Doctor::find($this->selectedDoctor);
 
 
-        $appointment= Appointment::with(['doctor', 'patient'])
+        $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
 

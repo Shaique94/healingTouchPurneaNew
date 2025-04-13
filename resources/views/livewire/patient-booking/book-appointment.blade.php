@@ -122,77 +122,158 @@
             
             <!-- Doctors Grid - Improved Compact Layout -->
             <div class="bg-white p-5 rounded-xl shadow-sm">
-                <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    Choose a Doctor
+                <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        {{ $selectedDoctor ? 'Selected Doctor' : 'Choose a Doctor' }}
+                    </div>
+                    @if($selectedDoctor)
+                        <button 
+                            wire:click="$set('selectedDoctor', null)" 
+                            class="text-sm text-sky-600 hover:text-sky-800 flex items-center"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Change Doctor
+                        </button>
+                    @endif
                 </h2>
                 
-                @if(count($doctors) > 0)
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        @foreach($doctors as $doctor)
-                            <div wire:click="selectDoctor({{ $doctor->id }})" 
-                                class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
-                                {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-sky-500 bg-sky-50' : 'hover:shadow-md' }}">
-                                
-                                <div class="flex items-center p-3 border-b">
-                                    <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
+                <!-- Display Selected Doctor Card -->
+                @if($selectedDoctor && $doctorDetails)
+                    <div class="border rounded-lg overflow-hidden bg-sky-50">
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-sky-100">
+                                <div class="text-center">
+                                    <div class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
+                                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-full h-full object-cover">
                                     </div>
-                                    <div class="ml-3">
-                                        <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
-                                        <p class="text-xs text-sky-600">{{ $doctor->department->name }}</p>
-                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900 mt-4">Dr. {{ $doctorDetails->user->name }}</h3>
+                                    <p class="text-sm font-medium text-sky-600">{{ $doctorDetails->department->name }}</p>
                                 </div>
-                                
-                                <div class="p-3 text-xs text-gray-600 space-y-2 flex-grow">
-                                    <div class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                        MBBS, MD
-                                    </div>
-                                    <div class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        ₹500 Fee
-                                    </div>
-                                    <div class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                
-                                <div class="px-3 pb-3">
-                                    <button class="w-full py-1.5 text-xs font-medium rounded-md transition-colors
-                                        {{ $selectedDoctor == $doctor->id ? 'bg-sky-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
-                                        {{ $selectedDoctor == $doctor->id ? 'Selected' : 'Select Doctor' }}
-                                    </button>
-                                </div>
-                                
-                                @if($selectedDoctor == $doctor->id)
-                                    <div class="absolute top-2 right-2 bg-sky-500 rounded-full p-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </div>
-                                @endif
                             </div>
-                        @endforeach
+                            
+                            <div class="md:w-2/3 p-5">
+                                <h4 class="text-sm font-medium text-gray-500 mb-3">Doctor Information</h4>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="flex items-start">
+                                        <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Qualification</p>
+                                            <p class="text-sm font-medium text-gray-800">MBBS, MD</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Consultation Fee</p>
+                                            <p class="text-sm font-medium text-gray-800">₹500</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Department</p>
+                                            <p class="text-sm font-medium text-gray-800">{{ $doctorDetails->department->name }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Available Days</p>
+                                            <p class="text-sm font-medium text-gray-800">Mon - Sat</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-sm text-gray-600">Dr. {{ $doctorDetails->user->name }} is a highly skilled healthcare professional with comprehensive training and experience in the field of {{ $doctorDetails->department->name }}.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                <!-- Show Doctor Grid if no doctor selected -->
                 @else
-                    <div class="flex flex-col items-center justify-center py-12 text-gray-500 bg-gray-50 rounded-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                        </svg>
-                        <p>No doctors available for the selected department.</p>
-                        <button wire:click="$set('selectedDepartment', null)" class="mt-4 text-sky-600 font-medium hover:text-sky-700">
-                            View all departments
-                        </button>
-                    </div>
+                    @if(count($doctors) > 0)
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            @foreach($doctors as $doctor)
+                                <div wire:click="selectDoctor({{ $doctor->id }})" 
+                                    class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
+                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-sky-500 bg-sky-50' : 'hover:shadow-md' }}">
+                                    
+                                    <div class="flex items-center p-3 border-b">
+                                        <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                            <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
+                                            <p class="text-xs text-sky-600">{{ $doctor->department->name }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-3 text-xs text-gray-600 space-y-2 flex-grow">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                            </svg>
+                                            MBBS, MD
+                                        </div>
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            ₹500 Fee
+                                        </div>
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="px-3 pb-3">
+                                        <button class="w-full py-1.5 text-xs font-medium rounded-md transition-colors
+                                            bg-gray-100 text-gray-800 hover:bg-gray-200">
+                                            Select Doctor
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="flex flex-col items-center justify-center py-12 text-gray-500 bg-gray-50 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                            <p>No doctors available for the selected department.</p>
+                            <button wire:click="$set('selectedDepartment', null)" class="mt-4 text-sky-600 font-medium hover:text-sky-700">
+                                View all departments
+                            </button>
+                        </div>
+                    @endif
                 @endif
             </div>
             
@@ -359,7 +440,7 @@
                     <div class="sm:col-span-3">
                         <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                         <div class="mt-1">
-                            <input wire:model="name" type="text" name="name" id="name" autocomplete="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="name" type="text" name="name" id="name" autocomplete="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('name') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -368,7 +449,7 @@
                     <div class="sm:col-span-3">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email Address <span class="text-gray-500 text-xs">(optional)</span></label>
                         <div class="mt-1">
-                            <input wire:model="email" type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="email" type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('email') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -377,7 +458,7 @@
                     <div class="sm:col-span-3">
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                         <div class="mt-1">
-                            <input wire:model="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -386,7 +467,7 @@
                     <div class="sm:col-span-3">
                         <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                         <div class="mt-1">
-                            <select wire:model="gender" id="gender" name="gender" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <select wire:model.live="gender" id="gender" name="gender" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -398,9 +479,9 @@
 
                     <!-- Date of Birth -->
                     <div class="sm:col-span-3">
-                        <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth <span class="text-gray-500 text-xs">(optional)</span></label>
+                        <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
                         <div class="mt-1">
-                            <input wire:model="dob" type="date" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="dob" type="number" min="0" max="150" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -409,7 +490,7 @@
                     <div class="sm:col-span-6">
                         <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                         <div class="mt-1">
-                            <input wire:model="address" type="text" name="address" id="address" autocomplete="street-address" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="address" type="text" name="address" id="address" autocomplete="street-address" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('address') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -462,7 +543,7 @@
                     <div class="sm:col-span-6">
                         <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor (Optional)</label>
                         <div class="mt-1">
-                            <textarea wire:model="notes" id="notes" name="notes" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
+                            <textarea wire:model.live="notes" id="notes" name="notes" rows="3" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
                         </div>
                     </div>
                 </div>
