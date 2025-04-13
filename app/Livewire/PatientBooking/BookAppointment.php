@@ -168,7 +168,7 @@ class BookAppointment extends Component
             $timeSlots[] = sprintf('%d:00 %s', $formattedHour, $ampm);
 
             // Add the half hour (e.g., "10:30 AM")
-            if ($hour < $endHour - 1) { // Don't add 6:30 PM
+            if ($hour <= $endHour) { // Don't add 6:30 PM
                 $timeSlots[] = sprintf('%d:30 %s', $formattedHour, $ampm);
             }
         }
