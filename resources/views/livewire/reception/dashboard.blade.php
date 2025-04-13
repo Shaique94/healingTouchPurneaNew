@@ -231,7 +231,7 @@
                                     class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-full transition duration-200">
                                     Cancel
                                 </button>
-                                @elseif($appointment->status === 'confirmed')
+                                @elseif($appointment->status === 'checked_in')
                                 <a
                                     href=""
                                     target="_blank"

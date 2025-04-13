@@ -84,7 +84,7 @@ class Dashboard extends Component
         'hospital_contact' => '+91-123-456-7890',
     ]; 
     
-    $pdf = Pdf::loadView('pdf.appointment-receipt', $data);
+    $pdf = Pdf::loadView('pdf.patient-reciept', $data);
     
     return response()->streamDownload(function() use ($pdf) {
         echo $pdf->stream();
