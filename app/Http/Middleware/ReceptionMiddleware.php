@@ -16,7 +16,7 @@ class ReceptionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'receptionist') {
+        if (Auth::check() && Auth::user()->role === 'reception') {
             return $next($request);
         }
         return redirect()->route('reception.login')->with('error', 'You are not authorized to access this page.');
