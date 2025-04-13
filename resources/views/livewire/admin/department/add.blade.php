@@ -1,5 +1,5 @@
 <div>
-    <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-hidden="true"  x-data
+    <div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-hidden="true"  #x-data
             x-on:close-modal.window="() => {
                 const modal = bootstrap.Modal.getInstance($el);
                 if (modal) modal.hide();

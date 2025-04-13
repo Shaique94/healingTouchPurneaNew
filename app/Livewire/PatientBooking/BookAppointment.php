@@ -175,25 +175,37 @@ class BookAppointment extends Component
 
         // If today, filter out past time slots
         if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
-            $currentTime = Carbon::now();
-            $today = Carbon::today();
-
-            $timeSlots = array_filter($timeSlots, function ($timeSlot) use ($currentTime, $today) {
-                try {
-                    // Parse the time slot and create a Carbon object for the same day
-                    $slotDateTime = Carbon::createFromFormat('g:i A', $timeSlot);
-                    $slotDateTime->setDateFrom($today);
-
-                    // Add 30 minutes buffer for booking
-                    $bufferTime = $currentTime->copy()->addMinutes(30);
-
-                    // Keep this time slot if it's in the future (plus buffer)
-                    return $slotDateTime->gt($bufferTime);
-                } catch (\Exception $e) {
-                    // If time parsing fails, exclude the slot to be safe
-                    return false;
+            // Get current time with correct timezone
+            $currentTime = Carbon::now('Asia/Kolkata');
+            
+            // Filter time slots more explicitly for debugging
+            $filteredTimeSlots = [];
+            
+            foreach ($timeSlots as $timeSlot) {
+                // Create a datetime object for this slot using today's date
+                $slotTime = Carbon::createFromFormat(
+                    'g:i A', 
+                    $timeSlot, 
+                    'Asia/Kolkata'
+                );
+                
+                // Set the date part to today
+                $slotTime->setDate(
+                    $currentTime->year,
+                    $currentTime->month,
+                    $currentTime->day
+                );
+                
+                // Add 30 minutes buffer from now
+                $bufferTime = $currentTime->copy()->addMinutes(30);
+                
+                // Only keep slots that are at least 30 minutes in the future
+                if ($slotTime->greaterThanOrEqualTo($bufferTime)) {
+                    $filteredTimeSlots[] = $timeSlot;
                 }
-            });
+            }
+            
+            $timeSlots = $filteredTimeSlots;
         }
 
         // Filter out booked slots

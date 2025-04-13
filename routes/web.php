@@ -9,6 +9,7 @@ use App\Livewire\Admin\Index;
 use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Logout;
 use App\Livewire\Admin\Qualification\All as AllQualification;
+use App\Livewire\Admin\Receptioner\All as AllReceptioner;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -57,6 +58,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/department', DeparmentAll::class)->name('department');
         Route::get('/doctor', AllDoctor::class)->name('doctor');
         Route::get('/appointment', AllAppointment::class)->name('appointment');
+        Route::get('/receptioner',AllReceptioner::class)->name('receptioner');
       
     });
 
