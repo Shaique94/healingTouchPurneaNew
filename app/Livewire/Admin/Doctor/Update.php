@@ -95,7 +95,6 @@ class Update extends Component
             'dept_id',
             'available_days',
             'image',
-            'checkAllDays',
             'status',
             'newImage', 
             'doctorId'

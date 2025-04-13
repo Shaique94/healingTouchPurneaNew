@@ -67,18 +67,13 @@ class Add extends Component
             'image' => $imagePath,
         ]);
 
-        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'checkAllDays', 'qualification']);
+        $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'qualification']);
         $this->dispatch('close-modal');
         $this->dispatch('refresh-doctor');
         $this->dispatch('success', __('Doctor added successfully'));
     }
 
-    public function updatedAvailableDays()
-    {
-        $allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-        $this->checkAllDays = (count($this->available_days) === count($allDays));
-    }
+   
 
     public function render()
     {
