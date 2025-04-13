@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('fee')->default(500);
             $table->boolean('status')->default(0);
             $table->string('image')->nullable();
+            $table->string('qualification')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

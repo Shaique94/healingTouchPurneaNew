@@ -1,80 +1,136 @@
-<div>
-    <div class="card shadow border-0 rounded-4">
+<div class="container-fluid">
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
         <!-- Card Header -->
-        <div class="card-header bg-white border-0 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
-            <h5 class="fw-semibold text-primary mb-0">
-                <i class="bi bi-diagram-3-fill me-2 text-primary"></i>Department List
-            </h5>
-            <div class="d-flex gap-2 w-100 w-md-auto">
-                <input
-                    type="text"
-                    wire:model.live="searchTerm"
-                    placeholder="Search Department..."
-                    class="form-control form-control-sm rounded-pill border shadow-sm"
-                    style="max-width: 280px;" />
+     <!-- Card Header -->
+<div class="card-header p-2">
+<div class="row align-items-center gy-2">
+    <!-- Title Section -->
+    <div class="col-md-6 d-flex align-items-center">
+        <h5 class="mb-0 fw-semibold">
+            <i class="bi bi-diagram-3-fill me-2"></i>Department Management
+        </h5>
+    </div>
 
-                <button
-                    class="btn btn-sm btn-primary d-flex align-items-center gap-2 rounded-pill shadow-sm px-3"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addDepartmentModal"
-                    @click="$dispatch('add-Department')">
-                    <i class="bi bi-plus-circle"></i> <span class="d-none d-sm-inline">Add Department</span>
-                </button>
-            </div>
+    <!-- Control Section -->
+    <div class="col-md-6 d-flex flex-wrap justify-content-md-end gap-2">
+        <!-- Search Input -->
+        <div class="input-group input-group-sm" style="max-width: 250px;">
+            <span class="input-group-text bg-white">
+                <i class="bi bi-search"></i>
+            </span>
+            <input
+                type="text"
+                wire:model.live.debounce.300ms="searchTerm"
+                placeholder="Search departments..."
+                class="form-control border-start-0"
+            />
         </div>
 
-        <!-- Table -->
+        <!-- Status Filter -->
+        <select 
+            wire:model.live="statusFilter"
+            class="form-select form-select-sm"
+            style="width: 120px;"
+        >
+            <option value="all">All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+        </select>
+
+        <!-- Add Button -->
+        <button
+            class="btn btn-sm btn-primary d-flex align-items-center gap-1"
+            data-bs-toggle="modal"
+            data-bs-target="#addDepartmentModal"
+            @click="$dispatch('add-Department')"
+        >
+            <i class="bi bi-plus-circle"></i>
+            <span class="d-none d-sm-inline">Add Department</span>
+        </button>
+    </div>
+</div>
+
+</div>
+
+        <!-- Card Body -->
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table align-middle table-hover mb-0">
-                    <thead class="table-light">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-light">
                         <tr>
-                            <th class="text-muted text-uppercase small fw-bold">#</th>
-                            <th class="text-muted text-uppercase small fw-bold">Title</th>
-                            <th class="text-muted text-uppercase small fw-bold">Description</th>
-                            <th class="text-muted text-uppercase small fw-bold">Status</th>
-                            <th class="text-muted text-uppercase small fw-bold text-center">Actions</th>
+                            <th class="fw-semibold text-muted small text-uppercase px-4 py-3">#</th>
+                            <th class="fw-semibold text-muted small text-uppercase px-4 py-3">Department</th>
+                            <th class="fw-semibold text-muted small text-uppercase px-4 py-3">Description</th>
+                            <th class="fw-semibold text-muted small text-uppercase px-4 py-3">Status</th>
+                            <th class="fw-semibold text-muted small text-uppercase px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($departments as $key => $department)
-                        <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td>{{$department->name}}</td>
-                            <td>{{ $department->description }}</td>
-                            <td class="text-right">
-                                <div class="form-check form-switch d-flex">
+                        @forelse ($departments as $key => $department)
+                        <tr class="align-middle">
+                            <td class="px-4">{{ $departments->firstItem() + $key }}</td>
+                            <td class="px-4 fw-medium">{{ $department->name }}</td>
+                            <td class="px-4 text-muted">{{ Str::limit($department->description, 50) }}</td>
+                            <td class="px-4">
+                                <span class="form-check form-switch mb-0">
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
-                                        id="statusSwitch{{ $department->id }}"
                                         wire:click="updateStatus({{ $department->id }})"
                                         wire:loading.attr="disabled"
                                         @if ($department->status) checked @endif
                                     >
+                                </span>
+                            </td>
+                            <td class="px-4 text-center">
+                                <div class="btn-group" role="group">
+                                    <button 
+                                        class="btn btn-sm btn-outline-primary"
+                                        wire:click="$dispatch('update-department', { id: {{ $department->id }} })"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#updateDepartmentModal"
+                                    >
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button 
+                                        class="btn btn-sm btn-outline-danger"
+                                        wire:click="alertConfirm({{ $department->id }})"
+                                    >
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </div>
                             </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-outline-primary" wire:click="$dispatch('update-department', { id: {{ $department->id }} })" data-bs-toggle="modal" data-bs-target="#updateDepartmentModal"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-sm btn-outline-danger" wire:click="alertConfirm({{ $department->id }})"><i class="bi bi-trash"></i></button>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                No departments found
                             </td>
                         </tr>
-                        @endforeach
-
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="card-footer bg-white border-0 d-flex justify-content-end p-3">
-            {{-- {{ $departments->links() }} --}}
+        <!-- Card Footer -->
+        <div class="card-footer bg-white border-0 p-3 d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small">Show</span>
+                <select wire:model.live="perPage" class="form-select form-select-sm" style="width: 70px;">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+                <span class="text-muted small">entries</span>
+            </div>
+            {{ $departments->links('vendor.livewire.bootstrap') }}
         </div>
-
-        <!-- Livewire Modals -->
-        <livewire:admin.department.add />
-        <livewire:admin.department.update/>
     </div>
+
+    <!-- Livewire Modals -->
+    <livewire:admin.department.add />
+    <livewire:admin.department.update />
 
     @script
     <script>
@@ -89,10 +145,35 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    return @this.call('delete', event.detail.departmentId)
+                    @this.call('delete', event.detail.departmentId)
                 }
             })
         });
     </script>
     @endscript
 </div>
+
+@push('styles')
+<style>
+    .card-header.bg-gradient-primary {
+        background: linear-gradient(45deg, #4e73df, #224abe) !important;
+    }
+    
+    .table th, .table td {
+        vertical-align: middle;
+    }
+    
+    .btn-group .btn {
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .form-check-input:checked {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+</style>
+@endpush

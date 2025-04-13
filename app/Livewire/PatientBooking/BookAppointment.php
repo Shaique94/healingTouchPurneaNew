@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
@@ -16,18 +17,18 @@ class BookAppointment extends Component
 {
     // Current step in booking process
     public $step = 1;
-    
+
     // Doctor & Department selection
     public $selectedDepartment = null;
     public $selectedDoctor = null;
     public $appointmentId;
     public $doctorDetails = null;
-    
+
     // Appointment details
     public $appointmentDate = null;
     public $appointmentTime = null;
     public $availableTimes = [];
-    
+
     // Patient details
     public $name;
     public $email;
@@ -36,18 +37,18 @@ class BookAppointment extends Component
     public $dob;
     public $address;
     public $pincode;
-    public $city;
+    public $city="purnea";
     public $state = 'Bihar';
     public $country = 'India';
     public $notes;
     public $payment_method = 'cash';
-    
+
     public function mount()
     {
         $this->appointmentDate = Carbon::now()->format('Y-m-d');
         $this->generateTimeSlots();
     }
-    
+
     // When department is changed, reset doctor selection
     public function updatedSelectedDepartment()
     {
@@ -55,20 +56,57 @@ class BookAppointment extends Component
         $this->doctorDetails = null;
     }
     
+    // Function to handle tab selection for date
+    public function selectDateTab($tab)
+    {
+        if ($tab == 'today') {
+            $this->appointmentDate = Carbon::now()->format('Y-m-d');
+        } else {
+            $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
+        }
+        
+        $this->appointmentTime = null; // Reset selected time when changing date
+        $this->generateTimeSlots();
+    }
+
     // When appointment date is changed, regenerate time slots
     public function updatedAppointmentDate()
     {
         $this->generateTimeSlots();
     }
-    
+
     // When doctor is selected, fetch doctor details
     public function selectDoctor($doctorId)
     {
         $this->selectedDoctor = $doctorId;
         $this->getDoctorDetails();
+        $this->appointmentTime = null; // Reset selected time
         $this->generateTimeSlots();
     }
-    
+
+    // Get city and state from pincode - optimized
+    public function fetchLocationByPincode()
+    {
+        if (strlen($this->pincode) == 6) {
+            try {
+                $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
+                $data = $response->json();
+                
+                if (isset($data[0]['Status']) && $data[0]['Status'] === 'Success') {
+                    $postOffice = $data[0]['PostOffice'][0];
+                    $this->city = $postOffice['Block'] ?: $postOffice['Name'];
+                    $this->state = $postOffice['State'];
+                    $this->country = 'India';
+                    $this->dispatch('pincode-fetched', ['success' => true]);
+                } else {
+                    $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Invalid pincode']);
+                }
+            } catch (\Exception $e) {
+                $this->dispatch('pincode-fetched', ['success' => false, 'message' => 'Could not fetch location data']);
+            }
+        }
+    }
+
     // Get detailed information about the selected doctor
     protected function getDoctorDetails()
     {
@@ -77,24 +115,75 @@ class BookAppointment extends Component
                 ->find($this->selectedDoctor);
         }
     }
-    
+
     // Generate available time slots
     protected function generateTimeSlots()
     {
-        // Generate time slots from 9am to 6pm at 30-minute intervals
         $this->availableTimes = [];
-        $startHour = 9;  // 9 AM
-        $endHour = 18;   // 6 PM
         
-        for ($hour = $startHour; $hour < $endHour; $hour++) {
-            $this->availableTimes[] = sprintf('%02d:00', $hour);
-            $this->availableTimes[] = sprintf('%02d:30', $hour);
+        if (!$this->selectedDoctor) {
+            return;
         }
         
-        // In a real application, you would check the doctor's availability
-        // and remove already booked slots here
+        // Set start and end hours (10am to 6pm)
+        $startHour = 10;
+        $endHour = 18;   // 6 PM
+
+        // Generate time slots at 30-minute intervals
+        $timeSlots = [];
+        for ($hour = $startHour; $hour < $endHour; $hour++) {
+            $formattedHour = $hour <= 12 ? $hour : $hour - 12;
+            $ampm = $hour < 12 ? 'AM' : 'PM';
+            
+            // Add the hour (e.g., "10:00 AM")
+            $timeSlots[] = sprintf('%d:00 %s', $formattedHour, $ampm);
+            
+            // Add the half hour (e.g., "10:30 AM")
+            if ($hour < $endHour - 1) { // Don't add 6:30 PM
+                $timeSlots[] = sprintf('%d:30 %s', $formattedHour, $ampm);
+            }
+        }
+
+        // If today, filter out past time slots
+        if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
+            $currentTime = Carbon::now();
+            $today = Carbon::today();
+            
+            $timeSlots = array_filter($timeSlots, function($timeSlot) use ($currentTime, $today) {
+                try {
+                    // Parse the time slot and create a Carbon object for the same day
+                    $slotDateTime = Carbon::createFromFormat('g:i A', $timeSlot);
+                    $slotDateTime->setDateFrom($today);
+                    
+                    // Add 30 minutes buffer for booking
+                    $bufferTime = $currentTime->copy()->addMinutes(30);
+                    
+                    // Keep this time slot if it's in the future (plus buffer)
+                    return $slotDateTime->gt($bufferTime);
+                } catch (\Exception $e) {
+                    // If time parsing fails, exclude the slot to be safe
+                    return false;
+                }
+            });
+        }
+        
+        // Filter out booked slots
+        $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
+            ->where('appointment_date', $this->appointmentDate)
+            ->get()
+            ->map(function ($appointment) {
+                // Convert database time (HH:MM:SS) to display format (h:MM AM/PM)
+                try {
+                    return Carbon::parse($appointment->appointment_time)->format('g:i A');
+                } catch (\Exception $e) {
+                    return $appointment->appointment_time;
+                }
+            })
+            ->toArray();
+        
+        $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
     }
-    
+
     // Proceed to next step
     public function nextStep()
     {
@@ -111,33 +200,44 @@ class BookAppointment extends Component
         } elseif ($this->step === 2) {
             $this->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|email|max:255',
+                'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'required|date|before:today',
+                'dob' => 'nullable|date|before:today',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
             ]);
         }
-        
+
         $this->step++;
+        
+        // Emit event for step change to manage loader
+        $this->dispatch('stepChanged', ['step' => $this->step]);
     }
-    
+
     // Go back to previous step
     public function previousStep()
     {
         if ($this->step > 1) {
             $this->step--;
+            
+            // Emit event for step change
+            $this->dispatch('stepChanged', ['step' => $this->step]);
         }
     }
-    
-    // Submit the appointment booking
+
+    public function DoctorNotAvailable()
+    {
+        session()->flash('error', 'Doctor is not available for the Appointment.');
+    }
+
+    // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
         // First, create or find the patient
         $patient = Patient::firstOrCreate(
-            ['phone' => $this->phone], // Find by phone
+            ['phone' => $this->phone],
             [
                 'name' => $this->name,
                 'email' => $this->email,
@@ -145,64 +245,75 @@ class BookAppointment extends Component
                 'dob' => $this->dob,
                 'address' => $this->address,
                 'pincode' => $this->pincode,
-                'city' => $this->city, 
+                'city' => $this->city,
                 'state' => $this->state,
                 'country' => $this->country,
             ]
         );
-        
+
+        // Convert the time format from "10:00 AM" to MySQL time format "10:00:00"
+        $formattedTime = $this->convertTimeFormat($this->appointmentTime);
+
         // Create the appointment
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->selectedDoctor,
             'appointment_date' => $this->appointmentDate,
-            'appointment_time' => $this->appointmentTime,
+            'appointment_time' => $formattedTime, // Use the converted time format
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
-            // created_by is null since this is a public booking
         ]);
-        $this->appointmentId=$appointment->id;
-
         
+        $this->appointmentId = $appointment->id;
+
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
-        
+
         // Move to confirmation page
         $this->step = 4;
+        $this->dispatch('stepChanged', ['step' => $this->step]);
+        
+        // Small delay to improve user experience
+        usleep(500000); // 0.5 seconds
     }
-    
+
+    // Helper function to convert time format from "10:00 AM" to "10:00:00"
+    private function convertTimeFormat($timeString)
+    {
+        try {
+            // Parse the time string using Carbon
+            $time = Carbon::createFromFormat('h:i A', $timeString);
+            // Return the formatted time in 24-hour format without seconds
+            return $time->format('H:i:00');
+        } catch (\Exception $e) {
+            // If parsing fails, try to work with the time as is
+            return $timeString;
+        }
+    }
+
     public function downloadReceipt()
     {
-        $doctor=Doctor::find($this->selectedDoctor);
+        $doctor = Doctor::find($this->selectedDoctor);
 
-       
-    $appointment = [
-        'id' => $this->appointmentId,
-        'doctor' => $this->doctor->user->name ?? '',
-        'speciality' => $this->doctor->department->name ?? '',
-        'date' => $this->appointmentDate . ' ' . $this->appointmentTime,
-        'patient' => $this->name ?? '',
-        'phone' => $this->phone ?? '',
-        'gender' => $this->gender ?? '',
-        'fee' => 500,
-        'location' => 'Healing Touch Hospital, Purnea'
-    ];
 
-    $pdf = Pdf::loadView('pdf.appointment', compact('appointment'));
+        $appointment= Appointment::with(['doctor', 'patient'])
+            ->where('id', $this->appointmentId)
+            ->first();
 
-    return response()->streamDownload(function () use ($pdf) {
-        echo $pdf->stream();
-    }, 'appointment.pdf');
+        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'));
 
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'appointment-receipt.pdf');
     }
-    
+
     #[Layout('layouts.guest')]
     public function render()
     {
         return view('livewire.patient-booking.book-appointment', [
-            'departments' => Department::all(),
-            'doctors' => $this->selectedDepartment 
+            'departments' => Department::where('status', 0)->orderBy('name', 'desc')->get(),
+            'doctors' => $this->selectedDepartment
                 ? Doctor::where('department_id', $this->selectedDepartment)->with(['user', 'department'])->get()
                 : Doctor::with(['user', 'department'])->get(),
         ]);

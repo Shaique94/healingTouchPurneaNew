@@ -15,6 +15,7 @@ class Doctor extends Model
         'department_id',
         'phone',
         'fee',
+        'qualification',
         'image',
         'status',
         'available_days',

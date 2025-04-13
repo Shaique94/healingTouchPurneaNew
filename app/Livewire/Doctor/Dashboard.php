@@ -3,6 +3,7 @@
 namespace App\Livewire\Doctor;
 
 use App\Models\Appointment;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -21,8 +22,10 @@ class Dashboard extends Component
     public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     public $days_available = [];
     public $dateFilter;
+    public $search = '';
+    public $doctor;
 
-
+ 
     public function mount()
     {
         $this->dateFilter = now()->toDateString();
@@ -32,22 +35,37 @@ class Dashboard extends Component
     #[On('refresh')]
     public function days_available()
     {
-        $this->days_available = auth()->user()->doctor->available_days ?? [];
+        $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
+
+        $this->days_available = $doctor->available_days ?? [];
     }
     public function updatedDateFilter()
     {
         // dd("shaique");
         $this->loadAppointments();
     }
+    public function updatedSearch()
+    {
+        $this->loadAppointments();
+    }
     #[On('refresh')]
     public function loadAppointments()
     {
-        $this->doctor_name = auth()->user()->name;
-
-        $query = Appointment::where('doctor_id', auth()->user()->id);
+        
+        $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
+        $this->doctor_name = $doctor->name;
+        // dd($doctor->id);
+        $query = Appointment::with('patient')
+        ->where('doctor_id', $doctor->id)
+        ->whereNotIn('status', ['pending', 'cancelled']);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);
+        }
+        if ($this->search) {
+            $query->whereHas('patient', function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%');
+            });
         }
 
         $this->appointments = $query->get();

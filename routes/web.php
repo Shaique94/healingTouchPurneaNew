@@ -1,15 +1,25 @@
 <?php
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Admin\Appointment\All as AllAppointment;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Department\All as DeparmentAll;
 use App\Livewire\Admin\Doctor\All as AllDoctor;
 use App\Livewire\Admin\Index;
+use App\Livewire\Admin\Login;
+use App\Livewire\Admin\Logout;
+use App\Livewire\Admin\Qualification\All as AllQualification;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
 use App\Livewire\Doctor\Dashboard;
 use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
+use App\Livewire\PatientBooking\ManageAppointments;
+use App\Livewire\Reception\Dashboard as ReceptionDashboard;
+use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
+use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'comingsoon');
     
@@ -31,19 +41,50 @@ Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middlewar
 
 Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
 
+// Route for reception/counter
+Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
+Route::get('/reception/dashboard',ReceptionDashboard::class)->name('reception.dashboard');
 
-// Book Appointment Route
+// Patient Booking Routes
 Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', Index::class)->name('dashboard');
-    Route::get('/department', DeparmentAll::class)->name('department');
-    Route::get('/doctor', AllDoctor::class)->name('doctor');
+    Route::get('/login', Login::class)->name('login');
+    Route::get('/logout', Logout::class)->name('logout');
+    Route::middleware(AdminMiddleware::class)->group(function () {
+        Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+        Route::get('/department', DeparmentAll::class)->name('department');
+        Route::get('/doctor', AllDoctor::class)->name('doctor');
+        Route::get('/appointment', AllAppointment::class)->name('appointment');
+      
+    });
+
 });
 
 //Doctor Routes
 Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
 Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 
+// SEO Routes
+Route::get('/doctors', function () {
+    return view('pages.doctors');
+})->name('doctors');
+
+Route::get('/services', function () {
+    return view('pages.services');
+})->name('services');
+
+Route::get('/about-us', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/contact-us', function () {
+    return view('pages.contact');
+})->name('contact');
+
+Route::get('/careers', function () {
+    return view('pages.careers');
+})->name('careers');
 
 require __DIR__.'/auth.php';

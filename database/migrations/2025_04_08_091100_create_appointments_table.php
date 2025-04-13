@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade');
             $table->date('appointment_date');
             $table->time('appointment_time');
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending',' ' ,'confirmed', 'cancelled'])->default('pending');
             $table->string('payment_method')->default('cash')->nullable();
             $table->text('notes')->nullable();
             $table->foreignId('created_by')

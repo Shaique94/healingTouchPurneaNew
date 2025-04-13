@@ -67,10 +67,7 @@
                                     <label class="form-label fw-semibold">
                                         <i class="bi bi-calendar-week me-1"></i>Available Days
                                     </label>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="checkbox" wire:model.live="checkAllDays" id="checkAllDays">
-                                        <label class="form-check-label fw-bold" for="checkAllDays">Check All Days</label>
-                                    </div>
+        
                                     <div class="d-flex flex-wrap gap-2">
                                         @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
                                         <div class="form-check form-check-inline">
@@ -125,8 +122,14 @@
                                     </select>
                                     @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
-
-
+                                {{-- Qualifications --}}
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">
+                                        <i class="bi bi-patch-check-fill me-1"></i>Qualifications
+                                    </label>
+                                    <input type="text" wire:model="qualification" class="form-control" placeholder="Enter qualifications">
+                                    @error('qualification') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                                </div>
                             </div>
                         </div>
                     </div>

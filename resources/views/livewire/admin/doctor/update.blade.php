@@ -37,7 +37,7 @@
                                 <select wire:model="dept_id" id="dept_id" class="form-select">
                                     <option value="">Select Department</option>
                                     @foreach ($department as $dept)
-                                        <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                                    <option value="{{ $dept->id }}">{{ $dept->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('dept_id') <small class="text-danger">{{ $message }}</small> @enderror
@@ -61,10 +61,10 @@
 
                                 <div class="d-flex flex-wrap gap-3">
                                     @foreach(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day)
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" wire:model="available_days" value="{{ $day }}" id="day-{{ $day }}">
-                                            <label class="form-check-label" for="day-{{ $day }}">{{ $day }}</label>
-                                        </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" wire:model="available_days" value="{{ $day }}" id="day-{{ $day }}">
+                                        <label class="form-check-label" for="day-{{ $day }}">{{ $day }}</label>
+                                    </div>
                                     @endforeach
                                 </div>
                                 @error('available_days') <small class="text-danger d-block">{{ $message }}</small> @enderror
@@ -78,15 +78,15 @@
 
                                 {{-- Image Preview --}}
                                 @if ($newImage)
-                                    <div class="mt-3">
-                                        <p class="fw-bold mb-1">New Preview:</p>
-                                        <img src="{{ $newImage->temporaryUrl() }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
-                                    </div>
+                                <div class="mt-3">
+                                    <p class="fw-bold mb-1">New Preview:</p>
+                                    <img src="{{ $newImage->temporaryUrl() }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
+                                </div>
                                 @elseif (is_string($image))
-                                    <div class="mt-3">
-                                        <p class="fw-bold mb-1">Current Image:</p>
-                                        <img src="{{ asset('storage/' . $image) }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
-                                    </div>
+                                <div class="mt-3">
+                                    <p class="fw-bold mb-1">Current Image:</p>
+                                    <img src="{{ asset('storage/' . $image) }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
+                                </div>
                                 @endif
                             </div>
 
@@ -100,6 +100,14 @@
                                 </select>
                                 @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-patch-check-fill me-1"></i>Qualifications
+                            </label>
+                            <div class="d-flex flex-wrap gap-2">
+                               <input type="text" wire:model="qualification" class="form-control">
+                            @error('qualification') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
 
