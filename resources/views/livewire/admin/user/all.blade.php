@@ -41,7 +41,7 @@
                             <td>2025-04-01</td>
                             <td> 
                                 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateuserModal" wire:click="$dispatch('update-user',{id:{{ $user->id }}})" ><i class="bi bi-pencil-square" ></i></button>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-danger" wire:click="alertConfirm({{ $user->id }})"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
                         @endforeach
@@ -53,4 +53,24 @@
             </div>
         </div>
     </div>
+    
+    @script
+    <script>
+        window.addEventListener('swal:confirm', event => {
+            Swal.fire({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('delete', event.detail.userId)
+                }
+            })
+        });
+    </script>
+    @endscript
 </div>

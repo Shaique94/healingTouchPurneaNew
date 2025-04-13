@@ -2,19 +2,23 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class Login extends Component
 {
+    public $email = '';
+    public $password = '';
+
     public function mount()
-{
-    if (Auth::check() && Auth::user()->role === 'admin') {
-        return redirect()->route('admin.dashboard');
+    {
+        if (Auth::check() && Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
     }
-}
-    public $email, $password;
 
     public function login()
     {
@@ -22,25 +26,30 @@ class Login extends Component
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-
-        // Try to get user and verify role before login
-        $credentials = ['email' => $this->email, 'password' => $this->password];
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            if ($user->role !== 'admin') {
-                Auth::logout();
-                session()->flash('error', 'Access denied. Admins only.');
-                return;
-            }
-
-            session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
+    
+        $user = User::where('email', $this->email)->first();
+    
+        if (!$user) {
+            $this->addError('email', 'No account found for this email.');
+            return;
         }
-
-        session()->flash('error', 'Invalid credentials.');
+    
+        if (!Hash::check($this->password, $user->password)) {
+            $this->addError('password', 'Incorrect password.');
+            return;
+        }
+    
+        if ($user->role !== 'admin') {
+            $this->addError('email', 'Access denied. Admins only.');
+            return;
+        }
+    
+        Auth::login($user);
+        session()->regenerate();
+    
+        return redirect()->intended('/admin/dashboard');
     }
+    
 
     #[Layout('layouts.guest')]
     public function render()

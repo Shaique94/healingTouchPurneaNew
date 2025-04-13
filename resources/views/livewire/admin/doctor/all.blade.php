@@ -75,7 +75,7 @@
 
         <!-- Pagination -->
         <div class="mt-3">
-{{ $doctors->links('vendor.livewire.bootstrap') }}
+            {{ $doctors->links('vendor.livewire.bootstrap') }}
         </div>
     </div>
 
@@ -83,6 +83,25 @@
     <livewire:admin.doctor.add />
     <livewire:admin.doctor.update />
 
+    @script
+    <script>
+        window.addEventListener('swal:confirm', event => {
+            Swal.fire({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('delete', event.detail.doctorId)
+                }
+            })
+        });
+    </script>
+    @endscript
     <!-- SweetAlert Script -->
     @push('scripts')
     <script>
