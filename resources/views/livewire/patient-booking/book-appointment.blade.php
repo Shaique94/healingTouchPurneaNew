@@ -903,7 +903,7 @@
     }
     
     // Auto-hide loader for step transitions and scroll to top
-    document.addEventListener('livewire:load', function() {
+    document.addEventListener('livewire:init', function() {
         Livewire.on('stepChanged', function() {
             setTimeout(function() {
                 hideLoader();
