@@ -73,13 +73,13 @@
                     </div>
                     <div class="card-body py-2 py-md-3">
                         <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-sm btn-primary">
+                            <button class="btn btn-sm btn-primary" wire:click="$dispatch('open-add-appoinment')">
                                 <i class="bi bi-plus-circle me-1"></i><span class="d-none d-sm-inline">Add</span> Appointment
                             </button>
-                            <button class="btn btn-sm btn-success">
-                                <i class="bi bi-person-plus-fill me-1"></i><span class="d-none d-sm-inline">Add</span> User
+                            <button class="btn btn-sm btn-success" wire:click="$dispatch('open-add-user')">
+                                <i class="bi bi-person-plus-fill me-1" ></i><span class="d-none d-sm-inline">Add</span> User
                             </button>
-                            <button class="btn btn-sm btn-info">
+                            <button class="btn btn-sm btn-info" wire:click="$dispatch('open-add-doctor')">
                                 <i class="bi bi-heart-pulse-fill me-1"></i><span class="d-none d-sm-inline">Add</span> Doctor
                             </button>
                         </div>
@@ -252,6 +252,9 @@
                 </div>
             </div>
         </div>
+        <livewire:admin.appointment.add/>
+        <livewire:admin.doctor.add/>
+        <livewire:admin.user.add/>
     </div>
 
     <style>
@@ -312,4 +315,5 @@
             }
         }
     </style>
+
 </div>
