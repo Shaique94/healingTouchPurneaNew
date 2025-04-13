@@ -40,7 +40,7 @@ class Dashboard extends Component
             'appointment_time' => 'required',
         ]);
 
-        $patient = Patient::create([
+        $patient = Patient::create([ 
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -78,7 +78,8 @@ class Dashboard extends Component
     public function openModal()
     {
         $this->showModal = true;
-        $this->doctors = User::where('role', 'doctor')->get();
+        // $this->doctors = User::where('role', 'doctor')->get();
+        $this->doctors = Doctor::all();
         // dd($this->doctors);
     }
     public function filterByDate($date)

@@ -78,14 +78,26 @@
 
             <!-- Appointment Button -->
             <div class="hidden md:block">
-            <a href="{{route('book.appointment')}}" 
-                    class="group bg-sky-700 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:bg-sky-900 font-medium flex items-center space-x-2 overflow-hidden"
-                    >
+                <a href="{{route('book.appointment')}}" 
+                    class="group bg-sky-700 text-white px-6 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:bg-sky-900 font-medium flex items-center space-x-2 overflow-hidden">
                     <span class="z-10">Book Appointment</span>
-            </a>
+                </a>
+            </div>
 
-            <!-- Mobile Menu Toggle -->
-            <div class="lg:hidden flex items-center">
+            <!-- Mobile Header Actions -->
+            <div class="lg:hidden flex items-center space-x-3">
+                <!-- Mobile Appointment Button -->
+                <a href="{{route('book.appointment')}}" 
+                    class="bg-sky-700 text-white px-3 py-1.5 text-sm rounded-lg shadow-sm hover:bg-sky-900 transition-colors">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Book
+                    </span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
                 <button type="button" class="text-gray-500 hover:text-sky-600 focus:outline-none" @click="open = !open">
                     <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -170,7 +182,7 @@
 </style>
  <!-- Small Screen Call to Action Button (Fixed) -->
  <div class="md:hidden fixed bottom-4 right-4 z-50">
-        <a href="{{route('book.appointment')}}" 
+        <a href="{{route('manage.appointments')}}" 
             class="bg-gradient-to-r from-sky-500 to-sky-700 hover:from-sky-600 hover:to-sky-800 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:shadow-xl">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

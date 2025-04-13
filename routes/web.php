@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'comingsoon');
     
-Route::view('/home', 'welcome');
+// Route::view('/home', 'welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -40,7 +40,7 @@ Route::get('/appointments/create', AppoinmentForm::class)
 
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
 
-Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
+Route::get('/home', LandingPage::class)->name('userlandingpage');
 
 // Route for reception/counter
 Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');

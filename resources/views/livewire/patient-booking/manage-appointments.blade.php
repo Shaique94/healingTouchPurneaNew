@@ -182,9 +182,25 @@
                     <h2 class="text-xl font-bold text-gray-800">Book a New Appointment</h2>
                 </div>
                 
-                <div class="flex flex-col items-center justify-center py-8 px-4 text-center">
-                    <img src="{{ asset('images/calendar-illustration.svg') }}" alt="Book appointment" class="w-40 h-40 mb-6" 
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/160?text=Calendar'">
+                <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
+                    <!-- Replace missing image with inline SVG calendar illustration -->
+                    <div class="w-40 h-40 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-full h-full text-sky-600">
+                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-sky-200 fill-sky-50"/>
+                            <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Calendar dates -->
+                            <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-sky-500"/>
+                            <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-sky-400"/>
+                            <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-sky-300"/>
+                            <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-sky-300"/>
+                            <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-sky-500"/>
+                            <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-sky-400"/>
+                            <!-- Add a plus sign to indicate appointment booking -->
+                            <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
+                        </svg>
+                    </div>
                     
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Ready to schedule your visit?</h3>
                     <p class="text-gray-600 mb-8">Book an appointment with our specialists and get the quality care you deserve.</p>
