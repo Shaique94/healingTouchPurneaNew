@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Counter Admin',
             'email' => 'counter@hospital.com',
             'password' => Hash::make('password'),
-            'role' => 'counter',
+            'role' => 'reception',
         ]);
 
     }

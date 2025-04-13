@@ -9,7 +9,7 @@ use App\Livewire\Admin\Index;
 use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Logout;
 use App\Livewire\Admin\Qualification\All as AllQualification;
-use App\Livewire\Admin\Receptioner\All as AllReceptioner;
+use App\Livewire\Admin\User\All as AllUser;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'comingsoon');
     
-Route::view('/home', 'welcome');
+// Route::view('/home', 'welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -40,7 +40,7 @@ Route::get('/appointments/create', AppoinmentForm::class)
 
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
 
-Route::get('/userlandingpage', LandingPage::class)->name('userlandingpage');
+Route::get('/home', LandingPage::class)->name('userlandingpage');
 
 // Route for reception/counter
 Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
@@ -58,7 +58,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/department', DeparmentAll::class)->name('department');
         Route::get('/doctor', AllDoctor::class)->name('doctor');
         Route::get('/appointment', AllAppointment::class)->name('appointment');
-        Route::get('/receptioner',AllReceptioner::class)->name('receptioner');
+        Route::get('/user',AllUser::class)->name('user');
       
     });
 
