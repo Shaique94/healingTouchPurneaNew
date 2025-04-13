@@ -1,15 +1,15 @@
 <div>
     <!-- User Modal -->
-<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true" x-data
-     x-on:close-modal.window="() => { const modal = bootstrap.Modal.getInstance($el); if (modal) modal.hide(); }"
-     wire:ignore.self>
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="userModalLabel">Add / Edit User</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true" x-data
+        x-on:close-modal.window="() => { const modal = bootstrap.Modal.getInstance($el); if (modal) modal.hide(); }"
+        wire:ignore.self>
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="userModalLabel">Add / Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="row g-3">
                         <!-- Name -->
                         <div class="col-md-6">
@@ -63,13 +63,13 @@
                             @error('user.password') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" wire:click="save">Save User</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" wire:click="save">Save User</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>

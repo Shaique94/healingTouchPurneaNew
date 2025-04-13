@@ -18,12 +18,8 @@ class All extends Component
 
     public function alertConfirm($id)
     {
-        $this->dispatch('swal:confirm', [
-            'type' => 'warning', 
-            'message' => 'Are you sure?', 
-            'text' => 'If deleted, you will not be able to recover.',
-            'departmentId' => $id
-        ]);
+        $this->dispatch( 'swal:confirm', type: 'warning', message: 'Are you sure?', text: 'If deleted, you will not be able to recover this', departmentId: $id);
+
     }
     
     public function delete($id)
