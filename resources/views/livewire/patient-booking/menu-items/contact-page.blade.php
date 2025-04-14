@@ -17,7 +17,7 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-800 text-lg">Phone</p>
-                                        <p class="text-blue-600 font-medium text-lg mt-1">(555) 123-4567</p>
+                                        <p class="text-blue-600 font-medium text-lg mt-1">+91 9471659700</p>
                                         <p class="text-gray-500 text-sm mt-1">Available 24/7 for emergencies</p>
                                     </div>
                                 </div>
@@ -30,7 +30,7 @@
                                         </div>
                                         <div>
                                             <p class="font-semibold text-gray-800 text-lg">Email</p>
-                                            <p class="text-blue-600 font-medium text-lg mt-1">info@hospital.com</p>
+                                            <p class="text-blue-600 font-medium text-lg mt-1"></p>
                                             <p class="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
                                         </div>
                                     </div>
@@ -45,7 +45,8 @@
                                         </div>
                                         <div>
                                             <p class="font-semibold text-gray-800 text-lg">Address</p>
-                                            <p class="text-gray-700 mt-1">123 Medical Center Blvd.<br>Anytown, US 12345</p>
+                                            <p class="text-gray-700 mt-1">Hope Chauraha, Rambagh Road,
+                                          <br>Linebazar, Purnea</p>
                                             <a href="#" class="inline-flex items-center text-blue-600 font-medium mt-2 hover:text-blue-800 transition-colors">
                                                 Get Directions
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
