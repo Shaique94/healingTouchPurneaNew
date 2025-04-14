@@ -245,62 +245,45 @@
                     Confirmed
                 </div>
 
-                <div class="info-item">
-                    <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
+                <div style="display: flex; gap:3;">
+                    <div class="info-item">
+                        <div class="icon-container">
+                        
+                        </div>
+                        <div class="info-content">
+                            <p class="info-label">Date & Time</p>
+                            <p class="info-value">{{ $appointment->appointment_date }} {{ $appointment->appointment_time }}</p>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <p class="info-label">Date & Time</p>
-                        <p class="info-value">{{ $appointment->appointment_date }} {{ $appointment->appointment_time }}</p>
-                    </div>
-                </div>
 
-                <div class="info-item">
-                    <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
+                    <div class="info-item">
+                        <div class="icon-container">
+                        
+                        </div>
+                        <div class="info-content">
+                            <p class="info-label">Doctor</p>
+                            <p class="info-value">{{ $appointment->doctor->user->name }}, {{ $appointment->qualification }}</p>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <p class="info-label">Doctor</p>
-                        <p class="info-value">{{ $appointment->doctor->user->name }}, {{ $appointment->qualification }}</p>
-                    </div>
-                </div>
 
-                <div class="info-item">
-                    <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"></path>
-                            <path d="M18 14h-6"></path>
-                            <path d="M18 11h-6"></path>
-                            <path d="M18 8h-6"></path>
-                            <circle cx="8" cy="14" r="1"></circle>
-                            <circle cx="8" cy="11" r="1"></circle>
-                            <circle cx="8" cy="8" r="1"></circle>
-                        </svg>
+                    <div class="info-item">
+                        <div class="icon-container">
+                        
+                        </div>
+                        <div class="info-content">
+                            <p class="info-label">Department</p>
+                            <p class="info-value">{{ $appointment->doctor->department->name }}</p>
+                        </div>
                     </div>
-                    <div class="info-content">
-                        <p class="info-label">Department</p>
-                        <p class="info-value">{{ $appointment->doctor->department->name }}</p>
-                    </div>
-                </div>
 
-                <div class="info-item">
-                    <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                    </div>
-                    <div class="info-content">
-                        <p class="info-label">Location</p>
-                        <p class="info-value">Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301</p>
+                    <div class="info-item">
+                        <div class="icon-container">
+                        
+                        </div>
+                        <div class="info-content">
+                            <p class="info-label">Location</p>
+                            <p class="info-value">Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301</p>
+                        </div>
                     </div>
                 </div>
             </div>
