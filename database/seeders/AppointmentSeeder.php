@@ -18,7 +18,7 @@ class AppointmentSeeder extends Seeder
     {
         $patients = Patient::all();
         $doctors = Doctor::all();
-        $counter = User::where('role', 'counter')->first();
+        $counter = User::where('role', 'reception')->first();
 
         foreach ($patients as $patient) {
             Appointment::create([
