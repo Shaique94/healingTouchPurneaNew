@@ -315,7 +315,45 @@
                 </button>
             </div>
         </div>
+        @elseif($step === 4)
+        <!-- STEP 4: Confirmation -->
+        <div class="px-6 py-4 text-center">
+            <div class="text-green-600 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m5-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Scheduled!</h2>
+            <p class="text-gray-600 mb-6">Your appointment has been successfully booked. Thank you for choosing Healing Touch Hospital.</p>
+
+            <div class="flex justify-center gap-4">
+                <a href=""
+                wire:click.prevent="viewAppointment({{ $appointmentId }})"
+                    target="_blank"
+                    class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 4v16m8-8H4" />
+                    </svg>
+                    Download Receipt
+                </a>
+
+                <a href="{{ route('reception.dashboard') }}"
+                    class="inline-flex items-center px-5 py-2.5 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h11M9 21V3m0 0L4 8m5-5l5 5" />
+                    </svg>
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
         @endif
+
         @endif
 
         @if(!$showModal)

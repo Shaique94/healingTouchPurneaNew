@@ -24,6 +24,7 @@ class Dashboard extends Component
     public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
     public $doctor_id, $appointment_date, $appointment_time, $notes;
     public $step = 1;
+    public $appointmentId;
 
 
 
@@ -65,6 +66,7 @@ class Dashboard extends Component
     {
         $this->step--;
     }
+
     public function save()
     {
 
@@ -90,7 +92,7 @@ class Dashboard extends Component
             'country' => $this->country,
         ]);
 
-        \App\Models\Appointment::create([
+        $new_appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
@@ -98,12 +100,15 @@ class Dashboard extends Component
             'notes' => $this->notes,
             'created_by' => auth()->id(),
         ]);
+        $this->step++;
+        
+        $this->appointmentId = $new_appointment->id;
 
-        $this->reset(); // clear form
-        $this->showModal = false; // for closing modal
+        $this->showModal = true; // for closing modal
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
+
     public function viewAppointment($appointmentId)
     {
 
