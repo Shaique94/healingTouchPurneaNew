@@ -23,25 +23,61 @@ class Dashboard extends Component
     public $doctors;
     public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
     public $doctor_id, $appointment_date, $appointment_time, $notes;
+    public $step = 1;
+
 
 
     public function mount()
     {
         $this->loadAppointments();
     }
+    public function nextStep()
+    {
+        // dd('shaique');
+        if ($this->step == 1) { 
+        $this->validate([
+            'name' => 'required|string',
+            'email' => 'nullable|email',
+            'phone' => 'required',
+            'dob' => 'required|numeric',
+            'gender' => 'required',
+            'address' => 'required',
+            'pincode' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+        ]);
+    }
+        if ($this->step == 2) {
+            $this->validate([
+                'doctor_id' => 'required|exists:doctors,id',
+                'appointment_date' => 'required|date',
+                'appointment_time' => 'required',
+                'notes' => 'nullable|string',
+            ]);
+        }
+        // dd($this->step);
+// dd('shaique');
+        $this->step++;
+    }
+
+    public function backStep()
+    {
+        $this->step--;
+    }
     public function save()
     {
+
+
         $this->validate([
-            'name' => 'required',
-            'email' => 'nullable|email|unique:patients,email',
-            'phone' => 'required',
             'doctor_id' => 'required|exists:doctors,id',
-            'address' => 'required',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
         ]);
 
-        $patient = Patient::create([ 
+        // You can save patient and appointment here
+        // Example:
+        $patient = \App\Models\Patient::create([
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -54,13 +90,13 @@ class Dashboard extends Component
             'country' => $this->country,
         ]);
 
-        Appointment::create([
+        \App\Models\Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
             'notes' => $this->notes,
-            'created_by' => Auth::id(),
+            'created_by' => auth()->id(),
         ]);
 
         $this->reset(); // clear form
@@ -68,29 +104,28 @@ class Dashboard extends Component
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
-    public function viewAppointment($appointmentId){
+    public function viewAppointment($appointmentId)
+    {
 
-    $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
-    if (!$appointment) {
-        session()->flash('error', 'Appointment not found.');
-        return;
-    }
-    
-    $data = [
-        'appointment' => $appointment,
-        'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
-        'hospital_name' => 'Healing Touch Hospital',
-        'hospital_address' => 'Purnea, Bihar',
-        'hospital_contact' => '+91-123-456-7890',
-    ]; 
-    
-    $pdf = Pdf::loadView('pdf.patient-reciept', $data);
-    
-    return response()->streamDownload(function() use ($pdf) {
-        echo $pdf->stream();
-    }, 'appointment_receipt.pdf');
+        $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
+        if (!$appointment) {
+            session()->flash('error', 'Appointment not found.');
+            return;
+        }
 
+        $data = [
+            'appointment' => $appointment,
+            'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
+            'hospital_name' => 'Healing Touch Hospital',
+            'hospital_address' => 'Purnea, Bihar',
+            'hospital_contact' => '+91-123-456-7890',
+        ];
 
+        $pdf = Pdf::loadView('pdf.patient-reciept', $data);
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'appointment_receipt.pdf');
     }
     public function updatedSelectedDate()
     {
@@ -133,7 +168,7 @@ class Dashboard extends Component
         }
 
         $query->whereDate('appointment_date', $date->toDateString());
-        
+
         if (!empty($this->search)) {
             $query->whereHas('patient', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')

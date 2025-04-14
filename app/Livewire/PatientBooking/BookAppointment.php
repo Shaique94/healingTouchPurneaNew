@@ -228,7 +228,7 @@ class BookAppointment extends Component
     // Proceed to next step
     public function nextStep()
     {
-        if ($this->step === 1) {
+        if ($this->step === 1) { 
             $this->validate([
                 'selectedDoctor' => 'required',
                 'appointmentDate' => 'required|date|after_or_equal:today',
