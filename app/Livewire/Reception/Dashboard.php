@@ -24,6 +24,7 @@ class Dashboard extends Component
     public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
     public $doctor_id, $appointment_date, $appointment_time, $notes;
     public $step = 1;
+    public $appointmentId;
 
 
 
@@ -38,11 +39,11 @@ class Dashboard extends Component
         $this->validate([
             'name' => 'required|string',
             'email' => 'nullable|email',
-            'phone' => 'required',
-            'dob' => 'required|numeric',
+            'phone' => ['required', 'digits:10'],
+            'dob' => 'required|numeric|between:0,150',
             'gender' => 'required',
             'address' => 'required',
-            'pincode' => 'required',
+            'pincode' => 'nullable',
             'city' => 'required',
             'state' => 'required',
             'country' => 'required',
@@ -65,6 +66,7 @@ class Dashboard extends Component
     {
         $this->step--;
     }
+
     public function save()
     {
 
@@ -90,20 +92,24 @@ class Dashboard extends Component
             'country' => $this->country,
         ]);
 
-        \App\Models\Appointment::create([
+        $new_appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
+            'status' => 'checked_in',
             'notes' => $this->notes,
             'created_by' => auth()->id(),
         ]);
+        $this->step++;
+        
+        $this->appointmentId = $new_appointment->id;
 
-        $this->reset(); // clear form
-        $this->showModal = false; // for closing modal
+        $this->showModal = true; 
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
+
     public function viewAppointment($appointmentId)
     {
 
