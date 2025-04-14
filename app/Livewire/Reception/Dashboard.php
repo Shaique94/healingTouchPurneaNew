@@ -104,7 +104,7 @@ class Dashboard extends Component
         
         $this->appointmentId = $new_appointment->id;
 
-        $this->showModal = true; // for closing modal
+        $this->showModal = true; 
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
