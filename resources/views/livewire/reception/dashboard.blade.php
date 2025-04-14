@@ -53,7 +53,6 @@
             </div>
         </div>
 
-       
 
         <!-- Quick Actions -->
         <div class="flex flex-col sm:flex-row gap-4 items-center">
@@ -83,7 +82,243 @@
                 </button>
             </div>
         </div>
+        @if($showModal)
+        <!-- Multi-step Logic -->
+        @if($step === 1)
+        <!-- STEP 1: Patient Information -->
+        <div class="px-6 py-4">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                Patient Information
+            </h3>
 
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input id="name" type="text" wire:model="name" placeholder="Enter full name"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input id="email" type="email" wire:model="email" placeholder="Enter email"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input id="phone" type="text" wire:model="phone" placeholder="Enter phone number"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('phone') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                    <input id="dob" type="number" wire:model="dob"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('dob') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                    <select id="gender" wire:model="gender"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    @error('gender') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="pincode" class="block text-sm font-medium text-gray-700">pincode</label>
+                    <input id="pincode" type="number" wire:model="pincode" placeholder="Enter pincode"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('pincode') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                    <input id="city" type="text" wire:model="city" placeholder="Enter city"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('city') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+                    <input id="state" type="text" wire:model="state" placeholder="Enter state"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('state') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                    <input id="country" type="text" wire:model="country" placeholder="Enter country"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('country') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+                <div>
+                    <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                    <input id="address" type="text" wire:model="address" placeholder="Enter address"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    @error('address') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="flex justify-end mt-8">
+                <button wire:click="nextStep"
+                    class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        @elseif($step === 2)
+        <!-- STEP 2: Appointment Details -->
+        <div class="px-6 py-4">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 17v-6h6v6h4V9l-7-6-7 6v8h4z" />
+                </svg>
+                Appointment Details
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Doctor Select -->
+                <div>
+                    <label for="doctor_id" class="block text-sm font-medium text-gray-700">Select Doctor</label>
+                    <select id="doctor_id" wire:model="doctor_id"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none bg-white">
+                        <option value="">Choose Doctor</option>
+                        @foreach($doctors as $doctor)
+                        <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Appointment Date -->
+                <div>
+                    <label for="appointment_date" class="block text-sm font-medium text-gray-700">Date</label>
+                    <input id="appointment_date" type="date" wire:model="appointment_date"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none" />
+                    @error('appointment_date') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Time -->
+                <div>
+                    <label for="appointment_time" class="block text-sm font-medium text-gray-700">Time</label>
+                    <input id="appointment_time" type="time" wire:model="appointment_time"
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none" />
+                    @error('time') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                    <textarea id="notes" wire:model="notes" rows="3" placeholder="Optional notes..."
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none resize-none"></textarea>
+                    @error('notes') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+                <button wire:click="backStep"
+                    class="inline-flex items-center px-5 py-2.5 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back
+                </button>
+
+                <button wire:click="nextStep"
+                    class="inline-flex items-center px-5 py-2.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition shadow">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        @elseif($step === 3)
+        <div class="px-6 py-4">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 13l4 4L19 7" />
+                </svg>
+                Review & Confirm Appointment
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-gray-700">
+                <!-- Patient Info -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200">
+                    <h4 class="text-base font-semibold text-gray-800 mb-3">Patient Information</h4>
+                    <p><strong>Name:</strong> {{ $name }}</p>
+                    <p><strong>Email:</strong> {{ $email }}</p>
+                    <p><strong>Phone:</strong> {{ $phone }}</p>
+                    <p><strong>DOB:</strong> {{ $dob }}</p>
+                    <p><strong>Gender:</strong> {{ $gender }}</p>
+                    <p><strong>Address:</strong> {{ $address }}, {{ $city }}, {{ $state }}, {{ $country }} - {{ $pincode }}</p>
+                </div>
+
+                <!-- Appointment Info -->
+                <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-200">
+                    <h4 class="text-base font-semibold text-gray-800 mb-3">Appointment Details</h4>
+                    <p><strong>Doctor:</strong> {{ optional($doctors->find($doctor_id))->name }}</p>
+                    <p><strong>Date:</strong> {{ $appointment_date }}</p>
+                    <p><strong>Time:</strong> {{ $appointment_time }}</p>
+                    <p><strong>Notes:</strong> {{ $notes ?: 'N/A' }}</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end gap-4 mt-8 border-t pt-4">
+                <button
+                    type="button"
+                    wire:click="backStep"
+                    class="inline-flex items-center px-5 py-2.5 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back
+                </button>
+
+                <button
+                    type="button"
+                    wire:click="$set('showModal', false)"
+                    class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition shadow-sm">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    wire:click="save"
+                    class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Schedule Appointment
+                </button>
+            </div>
+        </div>
+        @endif
+        @endif
+
+        @if(!$showModal)
         <!-- Today's Appointments -->
         <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center">
@@ -204,230 +439,9 @@
                 </table>
             </div>
         </div>
+        @endif
+
     </main>
     <!-- Patient Registration Modal -->
-    <div>
-        @if($showModal)
 
-        <div class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-            <div class="bg-white w-full max-w-4xl rounded-xl shadow-2xl overflow-hidden relative animate-fadeIn">
-                <!-- Modal Header with Close Button -->
-
-                <!-- Multi-step Logic -->
-                @if($step === 1)
-                <!-- STEP 1: Patient Information -->
-                <div class="px-6 py-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        Patient Information
-                    </h3>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                            <input id="name" type="text" wire:model="name" placeholder="Enter full name"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input id="email" type="email" wire:model="email" placeholder="Enter email"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                            <input id="phone" type="text" wire:model="phone" placeholder="Enter phone number"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('phone') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth</label>
-                            <input id="dob" type="number" wire:model="dob"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('dob') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                            <select id="gender" wire:model="gender"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
-                                <option value="">Select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                            @error('gender') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-                        <div>
-                            <label for="pincode" class="block text-sm font-medium text-gray-700">pincode</label>
-                            <input id="pincode" type="number" wire:model="pincode" placeholder="Enter pincode"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('pincode') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                            <input id="city" type="text" wire:model="city" placeholder="Enter city"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('city') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div>
-                            <label for="state" class="block text-sm font-medium text-gray-700">State</label>
-                            <input id="state" type="text" wire:model="state" placeholder="Enter state"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('state') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-                        <div>
-                            <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-                            <input id="country" type="text" wire:model="country" placeholder="Enter country"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('country') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-                        <div>
-                            <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                            <input id="address" type="text" wire:model="address" placeholder="Enter address"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                            @error('address') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end mt-8">
-                        <button wire:click="nextStep"
-                            class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition shadow">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-
-
-                @elseif($step === 2)
-                <!-- STEP 2: Appointment Details -->
-                <div class="px-6 py-4">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 17v-6h6v6h4V9l-7-6-7 6v8h4z" />
-                        </svg>
-                        Appointment Details
-                    </h3>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <!-- Doctor Select -->
-                        <div>
-                            <label for="doctor_id" class="block text-sm font-medium text-gray-700">Select Doctor</label>
-                            <select id="doctor_id" wire:model="doctor_id"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none bg-white">
-                                <option value="">Choose Doctor</option>
-                                @foreach($doctors as $doctor)
-                                <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Appointment Date -->
-                        <div>
-                            <label for="appointment_date" class="block text-sm font-medium text-gray-700">Date</label>
-                            <input id="appointment_date" type="date" wire:model="appointment_date"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none" />
-                            @error('appointment_date') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Time -->
-                        <div>
-                            <label for="appointment_time" class="block text-sm font-medium text-gray-700">Time</label>
-                            <input id="appointment_time" type="time" wire:model="appointment_time"
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none" />
-                            @error('time') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Notes -->
-                        <div>
-                            <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
-                            <textarea id="notes" wire:model="notes" rows="3" placeholder="Optional notes..."
-                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none resize-none"></textarea>
-                            @error('notes') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between mt-8">
-                        <button wire:click="backStep"
-                            class="inline-flex items-center px-5 py-2.5 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition shadow">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                            </svg>
-                            Back
-                        </button>
-
-                        <button wire:click="nextStep"
-                            class="inline-flex items-center px-5 py-2.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition shadow">
-                            Next
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                @elseif($step === 3)
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Review & Confirm</h3>
-                    <div class="space-y-4 text-sm text-gray-700">
-                        <div>
-                            <h4 class="font-semibold">Patient Info:</h4>
-                            <p><strong>Name:</strong> {{ $name }}</p>
-                            <p><strong>Email:</strong> {{ $email }}</p>
-                            <p><strong>Phone:</strong> {{ $phone }}</p>
-                            <p><strong>DOB:</strong> {{ $dob }}</p>
-                            <p><strong>Gender:</strong> {{ $gender }}</p>
-                            <p><strong>Address:</strong> {{ $address }}, {{ $city }}, {{ $state }}, {{ $country }} - {{ $pincode }}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold">Appointment:</h4>
-                            <p><strong>Doctor:</strong> </p>
-                            <p><strong>Date:</strong> {{ $appointment_date }}</p>
-                            <p><strong>Time:</strong> {{ $appointment_time }}</p>
-                            <p><strong>Notes:</strong> {{ $notes }}</p>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-100">
-                        <button
-                            type="button"
-                            wire:click="$set('showModal', false)"
-                            class="px-4 py-2 bg-white border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            wire:click="save"
-                            class="px-4 py-2 bg-blue-600 rounded-md text-white font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            Schedule Appointment
-                        </button>
-                    </div>
-                </div>
-                @endif
-
-
-
-
-            </div>
-        </div>
-        @endif
-    </div>
 </div>
