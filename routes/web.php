@@ -19,6 +19,7 @@ use App\Livewire\PatientBooking\LandingPage;
 use App\Livewire\PatientBooking\ManageAppointments;
 use App\Livewire\PatientBooking\MenuItems\Careers;
 use App\Livewire\PatientBooking\MenuItems\OurDoctors;
+use App\Livewire\PatientBooking\MenuItems\Services;
 use App\Livewire\Reception\Dashboard as ReceptionDashboard;
 use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
@@ -55,6 +56,8 @@ Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::cl
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers-page', Careers::class)->name('careers.page');
+Route::get('/services-page', Services::class)->name('services.page');
+// Route::get('/');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', Login::class)->name('login');

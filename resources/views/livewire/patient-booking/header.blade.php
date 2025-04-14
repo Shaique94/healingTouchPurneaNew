@@ -39,7 +39,7 @@
                     <span class="absolute bottom-0 left-0 h-0.5 bg-sky-500 transition-all duration-300" 
                           :class="activeSection === 'home' ? 'w-full' : 'w-0'"></span>
                 </a>
-                <a href="{{ route('services') }}" 
+                <a href="{{ route('services.page') }}" 
                     class="px-4 py-2 rounded-lg text-gray-700 hover:text-sky-600 hover:bg-sky-50 transition-colors relative"
                     :class="{ 'text-sky-600 font-medium': activeSection === 'services' }">
                     Services
