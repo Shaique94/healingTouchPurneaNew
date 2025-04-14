@@ -17,6 +17,7 @@ use App\Livewire\Doctor\Dashboard;
 use App\Livewire\Doctor\DoctorLogin;
 use App\Livewire\PatientBooking\LandingPage;
 use App\Livewire\PatientBooking\ManageAppointments;
+use App\Livewire\PatientBooking\MenuItems\AboutUs;
 use App\Livewire\PatientBooking\MenuItems\Careers;
 use App\Livewire\PatientBooking\MenuItems\ContactPage;
 use App\Livewire\PatientBooking\MenuItems\OurDoctors;
@@ -59,7 +60,7 @@ Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers', Careers::class)->name('careers.page');
 Route::get('/services', Services::class)->name('services.page');
 Route::get('/contact-us',ContactPage::class)->name('contact.page');
-
+Route::get('/about-us',AboutUs::class)->name('about.page');
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/logout', Logout::class)->name('logout');
@@ -87,9 +88,9 @@ Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
 //     return view('pages.services');
 // })->name('services');
 
-Route::get('/about-us', function () {
-    return view('pages.about');
-})->name('about');
+// Route::get('/about-us', function () {
+//     return view('pages.about');
+// })->name('about');
 
 // Route::get('/contact-us', function () {
 //     return view('pages.contact');

@@ -53,7 +53,7 @@
                     <span class="absolute bottom-0 left-0 h-0.5 bg-sky-500 transition-all duration-300" 
                           :class="activeSection === 'doctors' ? 'w-full' : 'w-0'"></span>
                 </a>
-                <a href="{{ route('about') }}" 
+                <a href="{{ route('about.page') }}" 
                     class="px-4 py-2 rounded-lg text-gray-700 hover:text-sky-600 hover:bg-sky-50 transition-colors relative"
                     :class="{ 'text-sky-600 font-medium': activeSection === 'about' }">
                     About Us
@@ -140,7 +140,7 @@
                 </svg>
                 <span>Our Doctors</span>
             </a>
-            <a href="{{ route('about') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-sky-600" @click="open = false;">
+            <a href="{{ route('about.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-sky-600" @click="open = false;">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
