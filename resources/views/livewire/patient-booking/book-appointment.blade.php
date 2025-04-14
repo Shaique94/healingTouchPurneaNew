@@ -145,7 +145,7 @@
                             <div class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-sky-100">
                                 <div class="text-center">
                                     <div class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
-                                        <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-full h-full object-cover">
+                                        <img    src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image): asset('images/default.jpg') }}" class="w-full h-full object-cover">
                                     </div>
                                     <h3 class="text-lg font-bold text-gray-900 mt-4">Dr. {{ $doctorDetails->user->name }}</h3>
                                     <p class="text-sm font-medium text-sky-600">{{ $doctorDetails->department->name }}</p>
@@ -222,7 +222,7 @@
                                     
                                     <div class="flex items-center p-3 border-b">
                                         <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                            <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
+                                            <img src="{{ $doctor->image ? asset('storage/' . $doctor->image): asset('images/default.jpg') }}" alt="Dr. {{ $doctor->user->name }}" class="w-full h-full object-cover">
                                         </div>
                                         <div class="ml-3">
                                             <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr. {{ $doctor->user->name }}</h3>
@@ -235,18 +235,19 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                             </svg>
-                                            MBBS, MD
+                                           {{ $doctor->qualification }}
                                         </div>
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            ₹500 Fee
+                                            ₹{{ $doctor->fee }} Fee
                                         </div>
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
+                                            {{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}
                                         </div>
                                     </div>
                                     
@@ -367,7 +368,7 @@
             
             <!-- Navigation -->
             <div class="flex justify-end">
-                <button 
+                <button  
                     wire:click="nextStep" 
                     wire:loading.attr="disabled" 
                     @if(!$selectedDoctor) disabled @endif 
@@ -395,7 +396,7 @@
             @if($doctorDetails)
             <div class="flex items-center p-5 border-b border-gray-200 bg-sky-50 rounded-t-xl">
                 <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                    <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Dr. {{ $doctorDetails->user->name }}" class="w-full h-full object-cover">
+                    <img  src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image): asset('images/default.jpg') }}" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-grow">
                     <h3 class="text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
@@ -418,7 +419,7 @@
                 </div>
                 <div class="text-right">
                     <p class="text-sm text-gray-500">Consultation Fee</p>
-                    <p class="text-lg font-medium text-gray-900">₹500</p>
+                    <p class="text-lg font-medium text-gray-900">₹{{ $doctorDetails->fee }}</p>
                 </div>
             </div>
             @endif
@@ -607,7 +608,7 @@
                             @if($doctorDetails)
                             <div class="flex items-start mb-4">
                                 <div class="w-16 h-16 rounded-lg overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                                    <img src="{{ asset('images/doctor-placeholder.jpg') }}" alt="Doctor" class="w-full h-full object-cover">
+                                    <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image): asset('images/default.jpg') }}" alt="Doctor" class="w-full h-full object-cover">
                                 </div>
                                 <div>
                                     <p class="text-gray-500 text-sm">Doctor</p>

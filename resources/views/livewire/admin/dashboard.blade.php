@@ -128,7 +128,7 @@
                                             </span>
                                         </td>
                                         <td class="px-2">
-                                            <button class="btn btn-sm btn-outline-info" title="Print Appointment" data-bs-toggle="modal" data-bs-target="#viewAppointmentModal">
+                                            <button class="btn btn-sm btn-outline-info" title="Print Appointment" wire:click="printPdf({{ $appointment->id }})">
                                                 <i class="bi bi-eye-fill"></i><span class="d-none d-md-inline"> Print</span>
                                             </button>
                                         </td>

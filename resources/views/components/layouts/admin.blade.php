@@ -242,8 +242,29 @@
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
             });
+            document.addEventListener("livewire:navigated", () => {
+    initializeBootstrapComponents();
+});
 
-            // Close when clicking overlay
+function initializeBootstrapComponents() {
+    // Tooltips
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+        new bootstrap.Tooltip(el);
+    });
+
+    // Popovers
+    document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+        new bootstrap.Popover(el);
+    });
+
+    // Dropdowns
+    document.querySelectorAll('.dropdown-toggle').forEach(el => {
+        new bootstrap.Dropdown(el);
+    });
+}
+
+
+            // Close when clicking overlay  
             overlay.addEventListener('click', function() {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
@@ -261,20 +282,7 @@
         });
 
         // Reinitialize Bootstrap components after Livewire updates
-        document.addEventListener("livewire:navigated", function() {
-            function reloadBootstrap() {
-                var tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-                tooltips.forEach(t => new bootstrap.Tooltip(t));
-
-                var popovers = document.querySelectorAll('[data-bs-toggle="popover"]');
-                popovers.forEach(p => new bootstrap.Popover(p));
-
-                var dropdowns = document.querySelectorAll('.dropdown-toggle');
-                dropdowns.forEach(d => new bootstrap.Dropdown(d));
-            }
-
-            reloadBootstrap();
-        });
+  
 
         // Sweet Alert Notifications
         const toastSuccess = Swal.mixin({

@@ -228,7 +228,7 @@ class BookAppointment extends Component
     // Proceed to next step
     public function nextStep()
     {
-        if ($this->step === 1) {
+        if ($this->step === 1) { 
             $this->validate([
                 'selectedDoctor' => 'required',
                 'appointmentDate' => 'required|date|after_or_equal:today',
@@ -336,18 +336,19 @@ class BookAppointment extends Component
     public function downloadReceipt()
     {
         $doctor = Doctor::find($this->selectedDoctor);
-
-
+    
         $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
-
-        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'));
-
+    
+        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
+                  ->setPaper('a4');  // Set A4 paper size
+    
         return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->stream();
+            echo $pdf->output();  // Output raw PDF data for download
         }, 'appointment-receipt.pdf');
     }
+    
 
     #[Layout('layouts.guest')]
     public function render()

@@ -6,6 +6,7 @@ use App\Exports\AppointmentExport;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -26,6 +27,20 @@ class Dashboard extends Component
     public function showRevenue(){
 
         $this->hideRevenue = !$this->hideRevenue;
+    }
+    public function printPdf($id){
+        
+    
+        $appointment = Appointment::with(['doctor', 'patient'])
+            ->where('id', $id)
+            ->first();
+    
+        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
+                  ->setPaper('a4');  
+    
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();  // Output raw PDF data for download
+        }, 'appointment-receipt.pdf');
     }
 
     #[Layout('components.layouts.admin')]
