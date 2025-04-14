@@ -7,12 +7,12 @@
             </button>
         </div>
         <div class="card-body">
-            <!-- Search -->
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Search users...">
+                    <input type="text" class="form-control" placeholder="Search users..." wire:model.live.debounce.300ms="search">
                 </div>
             </div>
+
 
             <!-- Table -->
             <div class="table-responsive">
@@ -39,8 +39,8 @@
                             <td><span class="badge bg-secondary">Admin</span></td>
                             <td><span class="badge bg-success">Active</span></td>
                             <td>2025-04-01</td>
-                            <td class="d-flex justify-content-center align-items-center gap-2"> 
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateuserModal" wire:click="$dispatch('update-user',{id:{{ $user->id }}})" ><i class="bi bi-pencil-square" ></i></button>
+                            <td class="d-flex justify-content-center align-items-center gap-2">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateuserModal" wire:click="$dispatch('update-user',{id:{{ $user->id }}})"><i class="bi bi-pencil-square"></i></button>
                                 <button class="btn btn-sm btn-danger" wire:click="alertConfirm({{ $user->id }})"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
@@ -48,12 +48,12 @@
 
                     </tbody>
                 </table>
-                <livewire:admin.User.add/>
-                <livewire:admin.User.update/>
+                <livewire:admin.User.add />
+                <livewire:admin.User.update />
             </div>
         </div>
     </div>
-    
+
     @script
     <script>
         window.addEventListener('swal:confirm', event => {

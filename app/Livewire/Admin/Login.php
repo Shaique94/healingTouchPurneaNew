@@ -51,7 +51,7 @@ class Login extends Component
     }
     
 
-    #[Layout('layouts.guest')]
+    #[Layout('layouts.reception')]
     public function render()
     {
         return view('livewire.admin.login');
