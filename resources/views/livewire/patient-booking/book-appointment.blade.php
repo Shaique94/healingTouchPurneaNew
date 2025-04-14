@@ -367,7 +367,7 @@
             
             <!-- Navigation -->
             <div class="flex justify-end">
-                <button 
+                <button  
                     wire:click="nextStep" 
                     wire:loading.attr="disabled" 
                     @if(!$selectedDoctor) disabled @endif 
