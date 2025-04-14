@@ -1,5 +1,6 @@
 <!-- Quick Actions Card -->
-<div class="max-w-4xl mx-auto p-4">
+<div class="max-w-4xl mx-auto p-4 mt-16">
+    <div class="mt-6"></div>
     <div>
         <div id="contact" class="bg-white rounded-2xl shadow-xl overflow-hidden">
             <div class="bg-gradient-to-r from-blue-600 to-blue-800 py-6 px-8 relative">
@@ -123,4 +124,3 @@
         </div>
     </div>
 </div>
-    
