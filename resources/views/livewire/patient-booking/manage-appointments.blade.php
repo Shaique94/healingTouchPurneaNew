@@ -7,6 +7,71 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center mb-6">
+                    <div class="bg-sky-100 p-3 rounded-full mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Book a New Appointment</h2>
+                </div>
+                
+                <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
+                    <!-- Replace missing image with inline SVG calendar illustration -->
+                    <div class="w-40 h-40 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-full h-full text-sky-600">
+                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-sky-200 fill-sky-50"/>
+                            <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Calendar dates -->
+                            <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-sky-500"/>
+                            <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-sky-400"/>
+                            <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-sky-300"/>
+                            <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-sky-300"/>
+                            <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-sky-500"/>
+                            <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-sky-400"/>
+                            <!-- Add a plus sign to indicate appointment booking -->
+                            <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Ready to schedule your visit?</h3>
+                    <p class="text-gray-600 mb-8">Book an appointment with our specialists and get the quality care you deserve.</p>
+                    
+                    <a href="{{ route('book.appointment') }}" class="px-6 py-3 bg-gradient-to-r from-sky-600 to-sky-800 hover:from-sky-700 hover:to-sky-900 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Book New Appointment
+                    </a>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                    <h4 class="font-medium text-gray-800 mb-2">Why Choose Healing Touch Hospital?</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm text-gray-600">Expert doctors with years of experience</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm text-gray-600">State-of-the-art medical facilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-sm text-gray-600">Convenient online appointment booking</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <!-- Find Existing Appointments Section -->
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <div class="flex items-center mb-6">
@@ -102,7 +167,7 @@
                                 <p class="text-gray-600">No appointments found. Please check your information or book a new appointment.</p>
                             </div>
                         @else
-                            <div class="overflow-hidden border border-gray-200 rounded-md shadow-sm max-h-80 overflow-y-auto">
+                            <div class="overflow-hidden border border-gray-200 rounded-md shadow-sm max-h-80 overflow-y-auto overflow-x-auto">
                                 <table class="min-w-full divide-y divide-gray-200">
                                     <thead class="bg-gray-50 sticky top-0">
                                         <tr>
@@ -172,71 +237,7 @@
             </div>
 
             <!-- Book New Appointment Section -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <div class="flex items-center mb-6">
-                    <div class="bg-sky-100 p-3 rounded-full mr-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h2 class="text-xl font-bold text-gray-800">Book a New Appointment</h2>
-                </div>
-                
-                <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
-                    <!-- Replace missing image with inline SVG calendar illustration -->
-                    <div class="w-40 h-40 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-full h-full text-sky-600">
-                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-sky-200 fill-sky-50"/>
-                            <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Calendar dates -->
-                            <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-sky-500"/>
-                            <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-sky-400"/>
-                            <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-sky-300"/>
-                            <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-sky-300"/>
-                            <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-sky-500"/>
-                            <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-sky-400"/>
-                            <!-- Add a plus sign to indicate appointment booking -->
-                            <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
-                        </svg>
-                    </div>
-                    
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Ready to schedule your visit?</h3>
-                    <p class="text-gray-600 mb-8">Book an appointment with our specialists and get the quality care you deserve.</p>
-                    
-                    <a href="{{ route('book.appointment') }}" class="px-6 py-3 bg-gradient-to-r from-sky-600 to-sky-800 hover:from-sky-700 hover:to-sky-900 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        Book New Appointment
-                    </a>
-                </div>
-                
-                <div class="bg-gray-50 rounded-lg p-4 mt-4">
-                    <h4 class="font-medium text-gray-800 mb-2">Why Choose Healing Touch Hospital?</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm text-gray-600">Expert doctors with years of experience</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm text-gray-600">State-of-the-art medical facilities</span>
-                        </li>
-                        <li class="flex items-start">
-                            <svg class="h-5 w-5 text-sky-500 mr-2 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="text-sm text-gray-600">Convenient online appointment booking</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>
