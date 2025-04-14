@@ -132,17 +132,17 @@
 
                         <!-- Contact Card -->
                         <div class="mt-4 px-6 pb-6">
-    <div class="bg-gray-50 rounded-xl p-4">
-        <h4 class="font-bold text-gray-800 mb-3">Need Help?</h4>
-        <p class="text-gray-600 text-sm mb-3">Contact us for appointments or questions</p>
-        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
-            <span class="mr-2">
-                <i class="fas fa-phone-alt"></i>
-            </span>
-            Call Now
-        </a>
-    </div>
-</div>
+                            <div class="bg-gray-50 rounded-xl p-4">
+                                <h4 class="font-bold text-gray-800 mb-3">Need Help?</h4>
+                                <p class="text-gray-600 text-sm mb-3">Contact us for appointments or questions</p>
+                                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
+                                    <span class="mr-2">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </span>
+                                    Call Now
+                                </a>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
