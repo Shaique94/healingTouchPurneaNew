@@ -97,6 +97,7 @@ class Dashboard extends Component
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
+            'status' => 'checked_in',
             'notes' => $this->notes,
             'created_by' => auth()->id(),
         ]);
