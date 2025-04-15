@@ -145,8 +145,8 @@ class Dashboard extends Component
     {
         $this->showModal = true;
         // $this->doctors = User::where('role', 'doctor')->get();
-        $this->doctors = Doctor::all();
-        // dd($this->doctors);
+        $this->doctors = Doctor::with('user')->get();
+        dd($this->doctors);
     }
     public function filterByDate($date)
     {
