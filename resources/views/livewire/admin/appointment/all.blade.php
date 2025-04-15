@@ -78,7 +78,7 @@
                                 @endforeach
                             </select>
                             @else
-                            {{ $appointment->status }}
+                            <span class="text-success">Checked In</span>
                             @endif
                         </td>
                         <td>
