@@ -58,8 +58,10 @@ class Dashboard extends Component
                 'appointment_time' => 'required',
                 'notes' => 'nullable|string',
             ]);
-            $doctor_name = User::where('id', $this->doctor_id)->first();
-            $this->doctor_name = $doctor_name->name;
+            // dd($this->doctor_id);
+            $doctor_name = Doctor::where('id', $this->doctor_id)->first();
+            // dd($doctor_name);
+            $this->doctor_name = $doctor_name->user->name;
         }
         // dd($this->step);
 // dd('shaique');
