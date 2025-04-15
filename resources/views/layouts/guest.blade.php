@@ -9,7 +9,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- SEO Meta Tags -->
-    <title>Healing Touch Hospital | Online Appointment Booking & Healthcare Services in Purnea, Bihar</title>
     <meta name="description"
         content="Healing Touch Hospital located at Hope Chauraha, Rambagh Road, Linebazar, Purnea, offers online appointment booking, specialist doctors, and comprehensive healthcare services.">
     <meta name="keywords"
@@ -21,7 +20,7 @@
         content="Book your appointment online with specialist doctors at Healing Touch Hospital, Hope Chauraha, Rambagh Road, Linebazar, Purnea. Comprehensive healthcare services available.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://healingtouchpurnea.com/">
-    <meta property="og:image" content="https://healingtouchpurnea.com/assets/images/hospital-og-image.jpg">
+    <meta property="og:image" content="https://healingtouchpurnea.com/healingTouchLogo.jpeg">
 
     <!-- Twitter Card Meta Tags -->
     {{-- <meta name="twitter:card" content="summary_large_image">
@@ -51,25 +50,27 @@
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+91-XXXXXXXXXX",
+        "telephone": "+91-9471659700",
         "contactType": "Customer Support",
         "areaServed": "IN",
         "availableLanguage": ["English", "Hindi"]
       },
       "medicalSpecialty": [
         "Cardiology",
-        "Pediatrics",
+        "Neurology",
         "Orthopedics",
         "Gynecology",
         "General Medicine"
       ],
       "sameAs": [
         "https://www.facebook.com/healingtouchhospital",
-        "https://www.instagram.com/healingtouchhospital",
+        "https://www.instagram.com/_healingtouchhospital_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
         "https://www.linkedin.com/company/healingtouchhospital"
       ]
     }
     </script>
+
+    <link rel="icon" href="https://healingtouchpurnea.com/healingTouchLogo.jpeg" type="image/x-icon">
 
     @php
         $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
