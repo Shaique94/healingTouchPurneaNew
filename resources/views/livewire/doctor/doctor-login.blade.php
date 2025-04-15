@@ -6,7 +6,7 @@
                 <!-- Logo placeholder - replace with your actual logo -->
                 <div class="bg-white p-3 rounded-full shadow-md mr-4">
                     <img src="{{ asset('healingTouchLogo.jpeg') }}" alt="Healing Touch Logo" class="h-10 w-10">
-                </div>              
+                </div>
             </div>
         </div>
 
@@ -21,15 +21,21 @@
                 <div class="mb-5">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-envelope text-gray-400"></i>
+
+                        <div class="relative">
+                            <input type="email" id="email" wire:model="email"
+                                class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                placeholder="doctor@healingtouch.com">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400">
+                                    <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+                                    <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+                                </svg>
+                            </div>
                         </div>
-                        <input type="email" id="email" wire:model.lazy="email"
-                            class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                            placeholder="doctor@healingtouch.com">
                     </div>
                     @error('email')
-                        <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
+                    <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -37,14 +43,16 @@
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-gray-400"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-gray-400">
+                                <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                            </svg>
                         </div>
-                        <input type="password" id="password" wire:model.lazy="password"
+                        <input type="password" id="password" wire:model="password"
                             class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                             placeholder="••••••••">
                     </div>
                     @error('password')
-                        <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
+                    <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -61,16 +69,16 @@
                 </button>
 
                 @if ($errorMessage)
-                    <div class="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-red-700 text-sm">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <i class="fas fa-exclamation-circle"></i>
-                            </div>
-                            <div class="ml-3">
-                                <p>{{ $errorMessage }}</p>
-                            </div>
+                <div class="mt-4 bg-red-50 border-l-4 border-red-500 p-4 text-red-700 text-sm">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p>{{ $errorMessage }}</p>
                         </div>
                     </div>
+                </div>
                 @endif
             </form>
 
