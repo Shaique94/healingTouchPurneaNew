@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Livewire\Admin\Appointment\All as AllAppointment;
+use App\Livewire\Admin\Career\AddCareer;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Department\All as DeparmentAll;
 use App\Livewire\Admin\Doctor\All as AllDoctor;
@@ -10,6 +11,7 @@ use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Logout;
 use App\Livewire\Admin\Qualification\All as AllQualification;
 use App\Livewire\Admin\User\All as AllUser;
+use App\Livewire\PatientBooking\MenuItems\CareerDetail;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
 use App\Livewire\Appointment\ConfirmAppointment;
@@ -60,6 +62,7 @@ Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::cl
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers', Careers::class)->name('careers.page');
+Route::get('/career/{id}', CareerDetail::class)->name('career.detail');
 Route::get('/services', Services::class)->name('services.page');
 Route::get('/contact-us',ContactPage::class)->name('contact.page');
 Route::get('/about-us',AboutUs::class)->name('about.page');
@@ -74,6 +77,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/doctor', AllDoctor::class)->name('doctor');
         Route::get('/appointment', AllAppointment::class)->name('appointment');
         Route::get('/user',AllUser::class)->name('user');
+        Route::get('/career',AddCareer::class)->name('add.career');
       
     });
 

@@ -24,6 +24,9 @@
             <a wire:navigate href="{{ route('admin.doctor') }}" class="{{ request()->routeIs('admin.doctor') ? 'active' : '' }}">
                 <i class="bi bi-person-badge"></i> <span>Manage Doctors</span>
             </a>
+            <a wire:navigate href="{{ route('admin.add.career') }}" class="">
+                <i class="bi bi-backpack4"></i><span>Manage Job</span>
+            </a>
             <a wire:navigate href="{{ route('admin.logout') }}">
                 <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
             </a>
