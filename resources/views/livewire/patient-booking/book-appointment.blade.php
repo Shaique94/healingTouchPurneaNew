@@ -455,7 +455,7 @@
                     <div class="sm:col-span-3">
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                         <div class="mt-1">
-                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"  maxlength="10">
                         </div>
                         @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -478,7 +478,7 @@
                     <div class="sm:col-span-3">
                         <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
                         <div class="mt-1">
-                            <input wire:model.live="dob" type="number" min="0" max="150" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="dob" type="text" min="0" max="150" maxlength="3" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
                         </div>
                         @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -501,7 +501,8 @@
                                 wire:change.blur="fetchLocationByPincode" 
                                 type="text" 
                                 name="pincode" 
-                                id="pincode" 
+                                id="pincode"
+                                maxlength="6" 
                                 autocomplete="postal-code" 
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
                             >
