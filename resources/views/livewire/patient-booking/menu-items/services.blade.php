@@ -13,7 +13,7 @@
                 <div class="lg:w-1/3">
                     <!-- Service List Card -->
                     <div class="bg-white rounded-2xl shadow-xl overflow-hidden sticky top-24">
-                        <div class="bg-blue-600 p-6">
+                        <div class="bg-beige-600 p-6">
                             <h3 class="text-2xl font-bold text-white flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -24,75 +24,75 @@
                         <div class="p-6">
                             <ul class="space-y-1">
                                 <li class="group">
-                                    <a href="#multispeciality" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#multispeciality" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-hospital"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">Multispeciality</span>
+                                        <span class="font-medium group-hover:text-beige-600">Multispeciality</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#icu" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#icu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-procedures"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">ICU</span>
+                                        <span class="font-medium group-hover:text-beige-600">ICU</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#nicu" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#nicu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-baby"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">NICU</span>
+                                        <span class="font-medium group-hover:text-beige-600">NICU</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#ultrasound" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#ultrasound" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-wave-square"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">Ultrasound</span>
+                                        <span class="font-medium group-hover:text-beige-600">Ultrasound</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#neurosurgery" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#neurosurgery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-brain"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">Neurosurgery</span>
+                                        <span class="font-medium group-hover:text-beige-600">Neurosurgery</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#xray" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#xray" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-x-ray"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">X-RAY</span>
+                                        <span class="font-medium group-hover:text-beige-600">X-RAY</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#pathology" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#pathology" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-microscope"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">Pathology</span>
+                                        <span class="font-medium group-hover:text-beige-600">Pathology</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#painless-delivery" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#painless-delivery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-baby-carriage"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">Painless Normal Delivery</span>
+                                        <span class="font-medium group-hover:text-beige-600">Painless Normal Delivery</span>
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#delivery-service" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition duration-300">
-                                        <span class="text-blue-600 mr-3">
+                                    <a href="#delivery-service" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                        <span class="text-beige-600 mr-3">
                                             <i class="fas fa-clock"></i>
                                         </span>
-                                        <span class="font-medium group-hover:text-blue-600">24 hrs Delivery Service</span>
+                                        <span class="font-medium group-hover:text-beige-600">24 hrs Delivery Service</span>
                                     </a>
                                 </li>
                             </ul>
@@ -101,7 +101,7 @@
                         <!-- Hours Card -->
                         <div class="mt-8 border-t border-gray-100 pt-6 px-6 pb-6">
                             <h4 class="font-bold text-lg text-gray-800 mb-4 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 Operating Hours
@@ -109,19 +109,19 @@
                             <div class="space-y-2">
                                 <div class="flex justify-between items-center py-1">
                                     <span class="text-gray-600">Monday - Friday</span>
-                                    <span class="font-medium text-blue-600">8:00 AM - 6:00 PM</span>
+                                    <span class="font-medium text-beige-600">8:00 AM - 6:00 PM</span>
                                 </div>
                                 <div class="flex justify-between items-center py-1">
                                     <span class="text-gray-600">Saturday</span>
-                                    <span class="font-medium text-blue-600">9:00 AM - 4:00 PM</span>
+                                    <span class="font-medium text-beige-600">9:00 AM - 4:00 PM</span>
                                 </div>
                                 <div class="flex justify-between items-center py-1">
                                     <span class="text-gray-600">Sunday</span>
-                                    <span class="font-medium text-blue-600">Closed</span>
+                                    <span class="font-medium text-beige-600">Closed</span>
                                 </div>
                             </div>
-                            <div class="mt-4 bg-blue-50 rounded-lg p-3">
-                                <p class="text-blue-800 text-sm flex items-center">
+                            <div class="mt-4 bg-beige-50 rounded-lg p-3">
+                                <p class="text-beige-800 text-sm flex items-center">
                                     <span class="text-red-600 mr-2">
                                         <i class="fas fa-ambulance"></i>
                                     </span>
@@ -135,7 +135,7 @@
                             <div class="bg-gray-50 rounded-xl p-4">
                                 <h4 class="font-bold text-gray-800 mb-3">Need Help?</h4>
                                 <p class="text-gray-600 text-sm mb-3">Contact us for appointments or questions</p>
-                                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
+                                <a href="#" class="bg-beige-600 hover:bg-beige-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
                                     <span class="mr-2">
                                         <i class="fas fa-phone-alt"></i>
                                     </span>
@@ -153,8 +153,8 @@
                     <!-- Multispeciality -->
                     <div id="multispeciality" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-hospital"></i>
                                 </span>
                             </div>
@@ -168,8 +168,8 @@
                     <!-- ICU -->
                     <div id="icu" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-procedures"></i>
                                 </span>
                             </div>
@@ -183,8 +183,8 @@
                     <!-- NICU -->
                     <div id="nicu" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-baby"></i>
                                 </span>
                             </div>
@@ -198,8 +198,8 @@
                     <!-- Ultrasound -->
                     <div id="ultrasound" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-wave-square"></i>
                                 </span>
                             </div>
@@ -213,8 +213,8 @@
                     <!-- Neurosurgery -->
                     <div id="neurosurgery" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-brain"></i>
                                 </span>
                             </div>
@@ -228,8 +228,8 @@
                     <!-- X-Ray -->
                     <div id="xray" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-x-ray"></i>
                                 </span>
                             </div>
@@ -243,8 +243,8 @@
                     <!-- Pathology -->
                     <div id="pathology" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-microscope"></i>
                                 </span>
                             </div>
@@ -258,8 +258,8 @@
                     <!-- Painless Normal Delivery -->
                     <div id="painless-delivery" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-baby-carriage"></i>
                                 </span>
                             </div>
@@ -273,8 +273,8 @@
                     <!-- 24 hrs Delivery Service -->
                     <div id="delivery-service" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-blue-50 flex items-center justify-center p-6">
-                                <span class="text-blue-600 text-5xl">
+                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
+                                <span class="text-beige-600 text-5xl">
                                     <i class="fas fa-clock"></i>
                                 </span>
                             </div>
