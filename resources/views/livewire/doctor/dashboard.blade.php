@@ -270,7 +270,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach ($days as $day)
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" wire:model.defer="availabilityDays.{{ $day }}" class="form-checkbox h-5 w-5 text-indigo-600">
+                        <input type="checkbox" wire:model.defer="availabilityDays.{{ strtolower($day) }}" class="form-checkbox h-5 w-5 text-indigo-600">
                         <span class="text-sm">{{ ucfirst($day) }}</span>
                     </label>
                     @endforeach

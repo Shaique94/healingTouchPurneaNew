@@ -20,13 +20,13 @@ class Dashboard extends Component
     public $doctor_name;
     public $showSettingsModal = false;
     public array $availabilityDays = [];
-    public $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    public $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     public $days_available = [];
     public $dateFilter;
     public $search = '';
     public $doctor;
 
- 
+
     public function mount()
     {
         $this->dateFilter = now()->toDateString();
@@ -53,16 +53,16 @@ class Dashboard extends Component
     #[On('refresh')]
     public function loadAppointments()
     {
-         
+
         $user = User::where('id', auth()->user()->id)->first();
         // dd($user->id);
         $this->doctor_name = $user->name;
-        
-        $doctor =Doctor::where('user_id', $user->id)->first();
+
+        $doctor = Doctor::where('user_id', $user->id)->first();
         // dd($doctor->id);
         $query = Appointment::with('patient')
-        ->where('doctor_id', $doctor->id)
-        ->whereNotIn('status', ['pending', 'cancelled']);
+            ->where('doctor_id', $doctor->id)
+            ->whereNotIn('status', ['pending', 'cancelled']);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);
@@ -87,9 +87,9 @@ class Dashboard extends Component
         $this->showSettingsModal = true;
 
         $available = auth()->user()->doctor->available_days ?? [];
-
+        // dd($available);
         $this->availabilityDays = collect($available)
-            ->mapWithKeys(fn($day) => [$day => true])
+            ->mapWithKeys(fn($day) => [strtolower($day) => true])
             ->toArray();
     }
     public function closeSettingsModal()
@@ -104,6 +104,7 @@ class Dashboard extends Component
             $selectedDays = collect($this->availabilityDays)
                 ->filter()
                 ->keys()
+                ->map(fn($day) => ucfirst($day)) // Capitalize again for DB consistency
                 ->toArray();
 
             $doctor->update([
