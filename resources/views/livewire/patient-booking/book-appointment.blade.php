@@ -539,19 +539,14 @@
                                 @enderror
                             </div>
 
-                            <!-- Phone -->
-                            <div class="sm:col-span-3">
-                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone
-                                    Number</label>
-                                <div class="mt-1">
-                                    <input wire:model.live="phone" type="tel" name="phone" id="phone"
-                                        autocomplete="tel"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
-                                </div>
-                                @error('phone')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
+                    <!-- Phone -->
+                    <div class="sm:col-span-3">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <div class="mt-1">
+                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"  maxlength="10">
+                        </div>
+                        @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                    </div>
 
                             <!-- Gender -->
                             <div class="sm:col-span-3">
@@ -570,18 +565,14 @@
                                 @enderror
                             </div>
 
-                            <!-- Date of Birth -->
-                            <div class="sm:col-span-3">
-                                <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
-                                <div class="mt-1">
-                                    <input wire:model.live="dob" type="number" min="0" max="150"
-                                        name="dob" id="dob"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
-                                </div>
-                                @error('dob')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
+                    <!-- Date of Birth -->
+                    <div class="sm:col-span-3">
+                        <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
+                        <div class="mt-1">
+                            <input wire:model.live="dob" type="text" min="0" max="150" maxlength="3" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                        </div>
+                        @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                    </div>
 
                             <!-- Address -->
                             <div class="sm:col-span-6">
@@ -596,33 +587,32 @@
                                 @enderror
                             </div>
 
-                            <!-- Pincode -->
-                            <div class="sm:col-span-2">
-                                <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code</label>
-                                <div class="mt-1 relative">
-                                    <input wire:model.debounce.500ms="pincode"
-                                        wire:change.blur="fetchLocationByPincode" type="text" name="pincode"
-                                        id="pincode" autocomplete="postal-code"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
-                                    <div class="pincode-status absolute right-2 top-2">
-                                        <span wire:loading wire:target="fetchLocationByPincode">
-                                            <svg class="animate-spin h-4 w-4 text-sky-500"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                    stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor"
-                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                @error('pincode')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                                <div id="pincode-message" class="mt-1 text-xs"></div>
+                    <!-- Pincode -->
+                    <div class="sm:col-span-2">
+                        <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code</label>
+                        <div class="mt-1 relative">
+                            <input 
+                                wire:model.debounce.500ms="pincode" 
+                                wire:change.blur="fetchLocationByPincode" 
+                                type="text" 
+                                name="pincode" 
+                                id="pincode"
+                                maxlength="6" 
+                                autocomplete="postal-code" 
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                            >
+                            <div class="pincode-status absolute right-2 top-2">
+                                <span wire:loading wire:target="fetchLocationByPincode">
+                                    <svg class="animate-spin h-4 w-4 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </span>
                             </div>
+                        </div>
+                        @error('pincode') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                        <div id="pincode-message" class="mt-1 text-xs"></div>
+                    </div>
 
                             <!-- City -->
                             <div class="sm:col-span-2">
