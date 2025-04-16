@@ -83,6 +83,7 @@ class BookAppointment extends Component
     {
         $this->selectedDoctor = null;
         $this->doctorDetails = null;
+        $this->generateTimeSlots();
     }
 
     // Function to handle tab selection for date
@@ -150,10 +151,23 @@ class BookAppointment extends Component
     {
         $this->availableTimes = [];
 
-        if (!$this->selectedDoctor) {
+        if (!$this->selectedDoctor || !$this->appointmentDate) {
             return;
         }
-
+        $doctor = Doctor::find($this->selectedDoctor);
+        if (!$doctor) {
+            return;
+        }
+        // Check if the doctor is available on the selected date
+        $selectedDate = Carbon::parse($this->appointmentDate);
+        $dayofWeek = $selectedDate->format('l');
+        $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
+        if (!in_array($dayofWeek, $availableDays)) {
+            $this->dispatch('doctor-not-available', [
+                'message' => "This doctor is not available on {$selectedDate->format('l, d M Y')}. Please choose another doctor or date."
+            ]);
+            return;
+        }
         // Set start and end hours (10am to 6pm)
         $startHour = 10;
         $endHour = 18;   // 6 PM
