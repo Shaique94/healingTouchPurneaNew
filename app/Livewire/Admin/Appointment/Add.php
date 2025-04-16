@@ -13,41 +13,42 @@ use Livewire\Component;
 
 class Add extends Component
 {
-     public $name;
-     public $email;
-     public $phone;
-     public $gender;
-     public $address;
-     public $pincode;
-     public $city;
-     public $state = "Bihar";
-     public $country = "India";
- 
-     public $doctor_id;
-     public $appointment_date;
-     public $appointment_time;
-     public $payment_method = "cash";
-     public $notes;
-     public $doctors;
- 
-     public $showModal = false;
+    public $name;
+    public $email;
+    public $phone;
+    public $gender;
+    public $address;
+    public $pincode;
+    public $city;
+    public $state = "Bihar";
+    public $country = "India";
 
-     #[On('open-add-appoinment')]
-     public function openModal()
-     {
-         $this->showModal = true;
-     }
- 
-     public function closeModal()
-     {
-         $this->showModal = false;
-     }
- 
+    public $doctor_id;
+    public $appointment_date;
+    public $appointment_time;
+    public $payment_method = "cash";
+    public $notes;
+    public $doctors;
+
+    public $showModal = false;
 
 
-    public function mount(){
-        $this->doctors=Doctor::all();
-        
+
+
+
+    public function mount()
+    {
+        $this->doctors = Doctor::all();
+    }
+    #[On('open-add-appoinment')]
+    public function openModal()
+    {
+        $this->showModal = true;
+    }
+
+    public function closeModal()
+    {
+        $this->showModal = false;
     }
     public function UpdatedPincode()
     {
@@ -70,7 +71,8 @@ class Add extends Component
             }
         }
     }
-    public function save(){
+    public function save()
+    {
         $this->validate([
             'name'              => 'required|string|max:255',
             'email'             => 'nullable|email|max:255',
@@ -106,16 +108,16 @@ class Add extends Component
             'patient_id' => $patient->id,
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
-            'appointment_time' => $formattedTime, 
+            'appointment_time' => $formattedTime,
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
-            'created_by' =>Auth::id()
+            'created_by' => Auth::id()
         ]);
         $this->closeModal();
         $this->dispatch('refresh-appointment');
         $this->resetForm();
-        $this->dispatch('success', __('Appointment Booked successfully'));        
+        $this->dispatch('success', __('Appointment Booked successfully'));
     }
     private function convertTimeFormat($timeString)
     {

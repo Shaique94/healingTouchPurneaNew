@@ -2,7 +2,7 @@
     <section id="services" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-lime-600">Services</span></h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-sky-600">Services</span></h2>
                 <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
                 <p class="text-gray-600 max-w-3xl mx-auto">
                     We offer a comprehensive range of medical services to meet all your healthcare needs
@@ -13,8 +13,8 @@
                 <!-- Service 1 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-blue-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-center h-16 w-16 bg-sky-100 rounded-full mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
@@ -29,8 +29,8 @@
                 <!-- Service 2 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-blue-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-center h-16 w-16 bg-sky-100 rounded-full mb-4 mx-auto">
+                            <svg xmlns="http://wwbluew.w3.org/2000/svg" class="h-8 w-8 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
@@ -45,8 +45,8 @@
                 <!-- Service 3 -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                     <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-blue-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex items-center justify-center h-16 w-16 bg-sky-100 rounded-full mb-4 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="text-center mt-10">
-                <a href="#" class="inline-block bg-amber-400 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                <a href="#" class="inline-block bg-sky-400 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
                     View All Services
                 </a>
             </div>
@@ -70,7 +70,7 @@
     <section id="doctors" class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Meet Our<span class="text-lime-600"> Healthcare Professionals</span></h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Meet Our<span class="text-sky-600"> Healthcare Professionals</span></h2>
                 <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
                 <p class="text-gray-600 max-w-3xl mx-auto">
                     Our team of experienced doctors and specialists are committed to providing exceptional care

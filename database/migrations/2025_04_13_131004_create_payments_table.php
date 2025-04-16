@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('appointment_id');
+            $table->string('mode')->nullable();
+            $table->bigInteger('paid_amount')->default(0);         
+            $table->boolean('settlement')->default(0);           
+            $table->enum('status', ['due', 'paid'])->default('due');  
             $table->timestamps();
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.

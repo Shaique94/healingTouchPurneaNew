@@ -8,6 +8,7 @@ use App\Models\Patient;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -25,6 +26,7 @@ class Dashboard extends Component
     public $doctor_id, $appointment_date, $appointment_time, $notes;
     public $step = 1;
     public $appointmentId;
+    public $doctor_name;
 
 
 
@@ -56,6 +58,10 @@ class Dashboard extends Component
                 'appointment_time' => 'required',
                 'notes' => 'nullable|string',
             ]);
+            // dd($this->doctor_id);
+            $doctor_name = Doctor::where('id', $this->doctor_id)->first();
+            // dd($doctor_name);
+            $this->doctor_name = $doctor_name->user->name;
         }
         // dd($this->step);
 // dd('shaique');
@@ -133,6 +139,29 @@ class Dashboard extends Component
             echo $pdf->stream();
         }, 'appointment_receipt.pdf');
     }
+    public function updatedPincode($value)
+    {
+        if (strlen($value) == 6) {
+            try {
+                $response = Http::get("https://api.postalpincode.in/pincode/{$value}");
+                $data = $response->json();
+
+                if (!empty($data[0]['PostOffice']) && $data[0]['Status'] === 'Success') {
+                    $postOffice = $data[0]['PostOffice'][0];
+                    $this->city = $postOffice['District'] ?? '';
+                    $this->state = $postOffice['State'] ?? '';
+                    $this->country = $postOffice['Country'] ?? '';
+                } else {
+                    $this->city = $this->state = $this->country = '';
+                }
+            } catch (\Exception $e) {
+                session()->flash('error', 'Error fetching location. Try again later.');
+            }
+        } else {
+            $this->city = $this->state = $this->country = '';
+        }
+    }
+
     public function updatedSelectedDate()
     {
         $this->loadAppointments();
@@ -145,8 +174,8 @@ class Dashboard extends Component
     {
         $this->showModal = true;
         // $this->doctors = User::where('role', 'doctor')->get();
-        $this->doctors = Doctor::all();
-        // dd($this->doctors);
+        $this->doctors = Doctor::with('user')->get();
+
     }
     public function filterByDate($date)
     {

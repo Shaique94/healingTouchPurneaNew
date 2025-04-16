@@ -243,25 +243,25 @@
                 document.body.style.overflow = '';
             });
             document.addEventListener("livewire:navigated", () => {
-    initializeBootstrapComponents();
-});
+                initializeBootstrapComponents();
+            });
 
-function initializeBootstrapComponents() {
-    // Tooltips
-    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-        new bootstrap.Tooltip(el);
-    });
+            function initializeBootstrapComponents() {
+                // Tooltips
+                document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+                    new bootstrap.Tooltip(el);
+                });
 
-    // Popovers
-    document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
-        new bootstrap.Popover(el);
-    });
+                // Popovers
+                document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
+                    new bootstrap.Popover(el);
+                });
 
-    // Dropdowns
-    document.querySelectorAll('.dropdown-toggle').forEach(el => {
-        new bootstrap.Dropdown(el);
-    });
-}
+                // Dropdowns
+                document.querySelectorAll('.dropdown-toggle').forEach(el => {
+                    new bootstrap.Dropdown(el);
+                });
+            }
 
 
             // Close when clicking overlay  
@@ -282,7 +282,7 @@ function initializeBootstrapComponents() {
         });
 
         // Reinitialize Bootstrap components after Livewire updates
-  
+
 
         // Sweet Alert Notifications
         const toastSuccess = Swal.mixin({
@@ -338,7 +338,7 @@ function initializeBootstrapComponents() {
             });
         });
 
-    
+
         // Initialize flatpickr
         document.addEventListener('livewire:navigated', () => {
             if (document.getElementById('dateRangePicker')) {
@@ -348,7 +348,6 @@ function initializeBootstrapComponents() {
                 });
             }
         });
-        
     </script>
 
     @livewireScripts

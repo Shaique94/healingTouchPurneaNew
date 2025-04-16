@@ -142,15 +142,14 @@
                 </div>
 
                 <div class="group">
-                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                    <label for="dob" class="block text-sm font-medium text-gray-700 mb-2">Age</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <input id="dob" type="number" wire:model="dob"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                        <input id="dob" type="text" wire:model="dob" inputmode="text" pattern="\d{3}" maxlength="3" minlength="1" placeholder="Enter age" class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
                         @error('dob') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -188,8 +187,11 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                         </div>
-                        <input id="pincode" type="number" wire:model="pincode" placeholder="Enter pincode"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                        <input id="pincode" type="text" wire:model.live="pincode" placeholder="Enter pincode"
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" inputmode="numeric"
+                            pattern="\d{6}"
+                            maxlength="6"
+                            minlength="6"/>
                         @error('pincode') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -432,7 +434,7 @@
                         <div class="p-4 space-y-3 text-gray-700">
                             <div class="flex border-b border-gray-100 pb-2">
                                 <span class="font-medium w-24">Doctor:</span>
-                                <span>{{ optional($doctors->find($doctor_id))->name }}</span>
+                                <span>{{ $doctor_name }}</span>
                             </div>
                             <div class="flex border-b border-gray-100 pb-2">
                                 <span class="font-medium w-24">Date:</span>
