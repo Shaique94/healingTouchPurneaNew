@@ -89,7 +89,7 @@
             </div>
 
             <!-- STEP 1: Select Doctor -->
-            @if($step === 1)
+            @if($step === 4)
             <div class="space-y-6">
                 <!-- Department Filter Cards -->
                 <div class="bg-white p-5 rounded-xl shadow-sm">
@@ -732,54 +732,53 @@
             @endif
 
         <!-- STEP 4: Confirmation -->
-        @if($step === 4)
+        @if($step === 1)
         <div class="bg-white rounded-xl shadow-sm p-8 text-center">
-            <div class="mb-6 flex justify-center">
-                <div class="bg-green-100 p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
-            <p class="text-gray-600 mb-6">Your appointment has been successfully booked.</p>
-            
-            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8 max-w-md mx-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-gray-500">Appointment ID:</span>
-                    <span class="font-semibold text-gray-800">#{{ $appointmentId }}</span>
-                </div>
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-gray-500">Date:</span>
-                    <span class="font-semibold text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <span class="text-gray-500">Time:</span>
-                    <span class="font-semibold text-gray-800">{{ $appointmentTime }}</span>
-                </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button 
-                    wire:click="downloadReceipt"
-                    class="px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Download Receipt
-                </button>
-                <a 
-                    href="{{ route('manage.appointments') }}" 
-                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    Manage Appointments
-                </a>
-            </div>
+    <!-- Responsive button container: flex-col (stacked) on mobile, flex-row (side by side) on sm screens and up -->
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-6">
+        <a
+            href="{{ route('manage.appointments') }}"
+            class="w-full sm:w-auto px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            Manage Appointments
+        </a>
+        <button
+            wire:click="downloadReceipt"
+            class="w-full sm:w-auto px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download Receipt
+        </button>
+    </div>
+
+    <div class="mb-6 flex justify-center">
+        <div class="bg-green-100 p-3 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
         </div>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
+    <p class="text-gray-600 mb-6">Your appointment has been successfully booked.</p>
+
+    <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8 max-w-md mx-auto">
+        <div class="flex items-center justify-between mb-4">
+            <span class="text-gray-500">Appointment ID:</span>
+            <span class="font-semibold text-gray-800">#{{ $appointmentId }}</span>
+        </div>
+        <div class="flex items-center justify-between mb-4">
+            <span class="text-gray-500">Date:</span>
+            <span class="font-semibold text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+            <span class="text-gray-500">Time:</span>
+            <span class="font-semibold text-gray-800">{{ $appointmentTime }}</span>
+        </div>
+    </div>
+</div>
         @endif
     </div>
     
