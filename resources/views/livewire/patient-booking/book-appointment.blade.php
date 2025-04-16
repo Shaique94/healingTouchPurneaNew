@@ -4,11 +4,11 @@
         class="fixed inset-0 bg-white bg-opacity-80 z-50 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
         <div class="text-center">
             <div class="inline-block relative w-20 h-20">
-                <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-sky-200 rounded-full"></div>
-                <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-sky-600 rounded-full animate-spin"
+                <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-beige-200 rounded-full"></div>
+                <div class="absolute top-0 left-0 right-0 bottom-0 border-4 border-beige-600 rounded-full animate-spin"
                     style="border-bottom-color: transparent; border-left-color: transparent;"></div>
             </div>
-            <p class="mt-4 text-sky-600 text-lg font-medium loading-text">Loading...</p>
+            <p class="mt-4 text-beige-600 text-lg font-medium loading-text">Loading...</p>
         </div>
     </div>
 
@@ -16,16 +16,16 @@
         <div class="max-w-6xl mx-auto">
             <!-- More Compact Page Header -->
             <div
-                class="mb-4 md:mb-6 bg-gradient-to-r from-sky-600 to-sky-800 rounded-xl py-3 md:py-4 px-4 md:px-6 text-white shadow-md">
+                class="mb-4 md:mb-6 bg-gradient-to-r from-beige-600 to-beige-800 rounded-xl py-3 md:py-4 px-4 md:px-6 text-white shadow-md">
                 <div class="flex flex-wrap items-center justify-between">
                     <!-- Title and Appointment Link in Same Row on Mobile -->
                     <div class="w-full md:w-auto">
                         <h1 class="text-lg md:text-xl font-bold">Book Your Appointment</h1>
-                        <p class="text-sky-100 text-xs opacity-90 mt-0.5">Schedule your visit with our specialists</p>
+                        <p class="text-beige-100 text-xs opacity-90 mt-0.5">Schedule your visit with our specialists</p>
                     </div>
 
                     <a href="{{ route('manage.appointments') }}"
-                        class="inline-flex items-center text-white hover:text-sky-200 text-xs mt-1 md:mt-0">
+                        class="inline-flex items-center text-white hover:text-beige-200 text-xs mt-1 md:mt-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -38,7 +38,7 @@
                 <!-- Compact Progress Steps -->
                 <div class="mt-3 relative">
                     <!-- Progress Bar Background -->
-                    <div class="absolute top-3 left-0 right-0 h-0.5 bg-sky-300 rounded-full z-0 mx-6 md:mx-12"></div>
+                    <div class="absolute top-3 left-0 right-0 h-0.5 bg-beige-300 rounded-full z-0 mx-6 md:mx-12"></div>
 
                     <!-- Active Progress Bar -->
                     <div class="absolute top-3 left-0 h-0.5 bg-white rounded-full z-10 transition-all duration-500 mx-6 md:mx-12"
@@ -49,7 +49,7 @@
                         <!-- Step 1 -->
                         <div class="flex flex-col items-center">
                             <div
-                                class="{{ $step >= 1 ? 'bg-white text-sky-700 border-2 border-white' : 'bg-sky-700 text-white border border-sky-300' }} 
+                                class="{{ $step >= 1 ? 'bg-white text-beige-700 border-2 border-white' : 'bg-beige-700 text-white border border-beige-300' }} 
                             w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs transition-all duration-300 shadow-sm">
                                 @if ($step > 1)
                                     <svg class="w-3 h-3 md:w-4 md:h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -67,7 +67,7 @@
                         <!-- Steps 2 & 3 (repeating same pattern with different numbers) -->
                         <div class="flex flex-col items-center">
                             <div
-                                class="{{ $step >= 2 ? 'bg-white text-sky-700 border-2 border-white' : 'bg-sky-700 text-white border border-sky-300' }} 
+                                class="{{ $step >= 2 ? 'bg-white text-beige-700 border-2 border-white' : 'bg-beige-700 text-white border border-beige-300' }} 
                             w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs transition-all duration-300 shadow-sm">
                                 @if ($step > 2)
                                     <svg class="w-3 h-3 md:w-4 md:h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -84,7 +84,7 @@
 
                         <div class="flex flex-col items-center">
                             <div
-                                class="{{ $step >= 3 ? 'bg-white text-sky-700 border-2 border-white' : 'bg-sky-700 text-white border border-sky-300' }} 
+                                class="{{ $step >= 3 ? 'bg-white text-beige-700 border-2 border-white' : 'bg-beige-700 text-white border border-beige-300' }} 
                             w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs transition-all duration-300 shadow-sm">
                                 @if ($step > 3)
                                     <svg class="w-3 h-3 md:w-4 md:h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -108,7 +108,7 @@
                     <!-- Department Filter Cards -->
                     <div class="bg-white p-5 rounded-xl shadow-sm">
                         <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -118,14 +118,14 @@
                         <div class="flex flex-wrap gap-2">
                             <button type="button" wire:click="$set('selectedDepartment', null)"
                                 class="px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 
-                        {{ $selectedDepartment === null ? 'bg-sky-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }}">
+                        {{ $selectedDepartment === null ? 'bg-beige-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }}">
                                 All Departments
                             </button>
 
                             @foreach ($departments as $department)
                                 <button type="button" wire:click="$set('selectedDepartment', {{ $department->id }})"
                                     class="px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200
-                            {{ $selectedDepartment === $department->id ? 'bg-sky-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }}">
+                            {{ $selectedDepartment === $department->id ? 'bg-beige-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }}">
                                     {{ $department->name }}
                                 </button>
                             @endforeach
@@ -136,7 +136,7 @@
                     <div class="bg-white p-5 rounded-xl shadow-sm">
                         <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center justify-between">
                             <div class="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -145,7 +145,7 @@
                             </div>
                             @if ($selectedDoctor)
                                 <button wire:click="$set('selectedDoctor', null)"
-                                    class="text-sm text-sky-600 hover:text-sky-800 flex items-center">
+                                    class="text-sm text-beige-600 hover:text-beige-800 flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -158,10 +158,10 @@
 
                         <!-- Display Selected Doctor Card -->
                         @if ($selectedDoctor && $doctorDetails)
-                            <div class="border rounded-lg overflow-hidden bg-sky-50">
+                            <div class="border rounded-lg overflow-hidden bg-beige-50">
                                 <div class="flex flex-col md:flex-row items-start">
                                     <div
-                                        class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-sky-100">
+                                        class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-beige-100">
                                         <div class="text-center">
                                             <div
                                                 class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
@@ -170,7 +170,7 @@
                                             </div>
                                             <h3 class="text-lg font-bold text-gray-900 mt-4">Dr.
                                                 {{ $doctorDetails->user->name }}</h3>
-                                            <p class="text-sm font-medium text-sky-600">
+                                            <p class="text-sm font-medium text-beige-600">
                                                 {{ $doctorDetails->department->name }}</p>
                                         </div>
                                     </div>
@@ -180,9 +180,9 @@
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div class="flex items-start">
-                                                <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                                <div class="bg-beige-100 p-2 rounded-full mr-3 flex-shrink-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-4 w-4 text-sky-600" fill="none"
+                                                        class="h-4 w-4 text-beige-600" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2"
@@ -197,9 +197,9 @@
                                             </div>
 
                                             <div class="flex items-start">
-                                                <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                                <div class="bg-beige-100 p-2 rounded-full mr-3 flex-shrink-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-4 w-4 text-sky-600" fill="none"
+                                                        class="h-4 w-4 text-beige-600" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2"
@@ -214,9 +214,9 @@
                                             </div>
 
                                             <div class="flex items-start">
-                                                <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                                <div class="bg-beige-100 p-2 rounded-full mr-3 flex-shrink-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-4 w-4 text-sky-600" fill="none"
+                                                        class="h-4 w-4 text-beige-600" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2"
@@ -231,9 +231,9 @@
                                             </div>
 
                                             <div class="flex items-start">
-                                                <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
+                                                <div class="bg-beige-100 p-2 rounded-full mr-3 flex-shrink-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-4 w-4 text-sky-600" fill="none"
+                                                        class="h-4 w-4 text-beige-600" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2"
@@ -264,7 +264,7 @@
                                     @foreach ($doctors as $doctor)
                                         <div wire:click="selectDoctor({{ $doctor->id }})"
                                             class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
-                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-sky-500 bg-sky-50' : 'hover:shadow-md' }}">
+                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md' }}">
 
                                             <div class="flex items-center p-3 border-b">
                                                 <div
@@ -276,7 +276,7 @@
                                                 <div class="ml-3">
                                                     <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr.
                                                         {{ $doctor->user->name }}</h3>
-                                                    <p class="text-xs text-sky-600">{{ $doctor->department->name }}
+                                                    <p class="text-xs text-beige-600">{{ $doctor->department->name }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -334,7 +334,7 @@
                                     </svg>
                                     <p>No doctors available for the selected department.</p>
                                     <button wire:click="$set('selectedDepartment', null)"
-                                        class="mt-4 text-sky-600 font-medium hover:text-sky-700">
+                                        class="mt-4 text-beige-600 font-medium hover:text-beige-700">
                                         View all departments
                                     </button>
                                 </div>
@@ -346,7 +346,7 @@
                         <!-- Date and Time Selection -->
                         <div class="bg-white p-5 rounded-xl shadow-sm">
                             <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -361,13 +361,13 @@
                                 <div class="flex border-b border-gray-200">
                                     <button wire:click="selectDateTab('today')" wire:loading.class="opacity-50"
                                         wire:target="selectDateTab" type="button"
-                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d') ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d') ? 'border-beige-600 text-beige-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
                                         Today
                                         <span class="text-xs block text-gray-500">{{ date('d M') }}</span>
                                     </button>
                                     <button wire:click="selectDateTab('tomorrow')" wire:loading.class="opacity-50"
                                         wire:target="selectDateTab" type="button"
-                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d', strtotime('+1 day')) ? 'border-sky-600 text-sky-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d', strtotime('+1 day')) ? 'border-beige-600 text-beige-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
                                         Tomorrow
                                         <span
                                             class="text-xs block text-gray-500">{{ date('d M', strtotime('+1 day')) }}</span>
@@ -384,7 +384,7 @@
                                     </span>
                                 </label>
                                 <div wire:loading wire:target="selectDateTab" class="py-4 text-center text-gray-500">
-                                    <svg class="animate-spin h-6 w-6 text-sky-600 inline-block"
+                                    <svg class="animate-spin h-6 w-6 text-beige-600 inline-block"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
@@ -400,7 +400,7 @@
                                         <button type="button"
                                             wire:click="$set('appointmentTime', '{{ $time }}')"
                                             class="py-2 px-2 text-sm font-medium rounded-md border transition-colors
-                                    {{ $appointmentTime === $time ? 'bg-sky-600 text-white border-sky-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}">
+                                    {{ $appointmentTime === $time ? 'bg-beige-600 text-white border-beige-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}">
                                             {{ $time }}
                                         </button>
                                     @empty
@@ -414,11 +414,11 @@
                                             <p>No available time slots for this date.</p>
                                             @if ($appointmentDate == date('Y-m-d'))
                                                 <button wire:click="selectDateTab('tomorrow')"
-                                                    class="mt-2 text-sm text-sky-600 hover:underline">
+                                                    class="mt-2 text-sm text-beige-600 hover:underline">
                                                     Check tomorrow's availability
                                                 </button>
                                             @else
-                                            <p class="text-xs text-sky-600">Choose another Doctor
+                                            <p class="text-xs text-beige-600">Choose another Doctor
                                             </p>
                                             @endif
                                            
@@ -436,7 +436,7 @@
                     <div class="flex justify-end">
                         <button wire:click="nextStep" wire:loading.attr="disabled"
                             @if (!$selectedDoctor) disabled @endif
-                            class="px-6 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                            class="px-6 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                             onclick="showLoader('Processing...')">
                             <span>Continue</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
@@ -464,7 +464,7 @@
                 <div class="bg-white rounded-xl shadow-sm">
                     <!-- Selected Doctor Details (on top) -->
                     @if ($doctorDetails)
-                        <div class="flex items-center p-5 border-b border-gray-200 bg-sky-50 rounded-t-xl">
+                        <div class="flex items-center p-5 border-b border-gray-200 bg-beige-50 rounded-t-xl">
                             <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
                                 <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
                                     class="w-full h-full object-cover">
@@ -472,7 +472,7 @@
                             <div class="flex-grow">
                                 <h3 class="text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}
                                 </h3>
-                                <p class="text-sm text-sky-600">{{ $doctorDetails->department->name }}</p>
+                                <p class="text-sm text-beige-600">{{ $doctorDetails->department->name }}</p>
                                 <div class="flex items-center text-sm text-gray-500 mt-1">
                                     <span class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
@@ -502,7 +502,7 @@
 
                     <div class="p-5">
                         <h2 class="text-lg font-medium text-gray-800 mb-5 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -518,7 +518,7 @@
                                 <div class="mt-1">
                                     <input wire:model.live="name" type="text" name="name" id="name"
                                         autocomplete="name"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -532,7 +532,7 @@
                                 <div class="mt-1">
                                     <input wire:model.live="email" type="email" name="email" id="email"
                                         autocomplete="email"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('email')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -543,7 +543,7 @@
                     <div class="sm:col-span-3">
                         <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                         <div class="mt-1">
-                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"  maxlength="10">
+                            <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"  maxlength="10">
                         </div>
                         @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -553,7 +553,7 @@
                                 <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
                                 <div class="mt-1">
                                     <select wire:model.live="gender" id="gender" name="gender"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                         <option value="">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -569,7 +569,7 @@
                     <div class="sm:col-span-3">
                         <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
                         <div class="mt-1">
-                            <input wire:model.live="dob" type="text" min="0" max="150" maxlength="3" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                            <input wire:model.live="dob" type="text" min="0" max="150" maxlength="3" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                         </div>
                         @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
@@ -580,7 +580,7 @@
                                 <div class="mt-1">
                                     <input wire:model.live="address" type="text" name="address" id="address"
                                         autocomplete="street-address"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm">
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('address')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -599,11 +599,11 @@
                                 id="pincode"
                                 maxlength="6" 
                                 autocomplete="postal-code" 
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
                             >
                             <div class="pincode-status absolute right-2 top-2">
                                 <span wire:loading wire:target="fetchLocationByPincode">
-                                    <svg class="animate-spin h-4 w-4 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <svg class="animate-spin h-4 w-4 text-beige-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -620,7 +620,7 @@
                                 <div class="mt-1">
                                     <input wire:model="city" type="text" name="city" id="city"
                                         autocomplete="address-level2"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
                                         readonly>
                                 </div>
                                 @error('city')
@@ -633,7 +633,7 @@
                                 <label for="state" class="block text-sm font-medium text-gray-700">State</label>
                                 <div class="mt-1">
                                     <input wire:model="state" type="text" name="state" id="state"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
                                         readonly>
                                 </div>
                                 @error('state')
@@ -647,7 +647,7 @@
                                     (Optional)</label>
                                 <div class="mt-1">
                                     <textarea wire:model.live="notes" id="notes" name="notes" rows="3"
-                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"></textarea>
+                                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -655,7 +655,7 @@
                         <!-- Navigation -->
                         <div class="mt-8 flex justify-between">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
                                 onclick="showLoader('Going back...')">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -675,7 +675,7 @@
                                 </span>
                             </button>
                             <button wire:click="nextStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
                                 onclick="showLoader('Reviewing your appointment...')">
                                 <span>Review</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
@@ -702,9 +702,9 @@
             <!-- STEP 3: Review Appointment -->
             @if ($step === 3)
                 <div class="bg-white rounded-xl shadow-sm">
-                    <div class="p-6 border-b border-gray-200 bg-sky-50 rounded-t-xl">
+                    <div class="p-6 border-b border-gray-200 bg-beige-50 rounded-t-xl">
                         <h2 class="text-xl font-medium text-gray-800 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-600" fill="none"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-beige-600" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -732,7 +732,7 @@
                                                 <p class="text-gray-500 text-sm">Doctor</p>
                                                 <p class="font-medium text-gray-800">Dr.
                                                     {{ $doctorDetails->user->name }}</p>
-                                                <p class="text-sky-600 text-sm">{{ $doctorDetails->department->name }}
+                                                <p class="text-beige-600 text-sm">{{ $doctorDetails->department->name }}
                                                 </p>
                                             </div>
                                         </div>
@@ -740,8 +740,8 @@
 
                                     <div class="flex items-center mb-4">
                                         <div
-                                            class="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600"
+                                            class="w-8 h-8 rounded-full bg-beige-100 flex items-center justify-center mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige-600"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -756,8 +756,8 @@
 
                                     <div class="flex items-center">
                                         <div
-                                            class="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-sky-600"
+                                            class="w-8 h-8 rounded-full bg-beige-100 flex items-center justify-center mr-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige-600"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -833,7 +833,7 @@
                         <!-- Navigation -->
                         <div class="mt-8 flex justify-between">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
                                 onclick="showLoader('Going back...')">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -843,7 +843,7 @@
                                 Edit Details
                             </button>
                             <button wire:click="bookAppointment" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
                                 onclick="showLoader('Confirming your appointment...')">
                                 <span>Confirm Booking</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
@@ -900,7 +900,7 @@
 
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
                         <button wire:click="downloadReceipt"
-                            class="px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center">
+                            class="px-6 py-2 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 transition-colors flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
