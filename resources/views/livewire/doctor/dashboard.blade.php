@@ -1,8 +1,13 @@
 <div class="min-h-screen bg-gray-100">
-    <!-- Sidebar -->
-    <div class="fixed inset-y-0 left-0 w-64 bg-indigo-800 text-white shadow-lg">
-        <div class="flex items-center justify-center h-16 bg-indigo-900">
+    <!-- Sidebar - Changes to top navigation on mobile -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-indigo-800 text-white shadow-lg transform transition-transform duration-300 lg:translate-x-0 -translate-x-full z-30" id="sidebar">
+        <div class="flex items-center justify-between h-16 bg-indigo-900 px-4">
             <h2 class="text-xl font-bold">Healing Touch</h2>
+            <button class="lg:hidden text-white focus:outline-none" onclick="document.getElementById('sidebar').classList.add('-translate-x-full')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
         </div>
         <nav class="mt-6">
             <div class="px-4 py-3 bg-indigo-900 text-white rounded mx-3">
@@ -30,18 +35,35 @@
                     <span>Logout</span>
                 </div>
             </div> 
-
         </nav>
     </div>
 
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 inset-x-0 bg-indigo-800 text-white z-20 shadow-md">
+        <div class="flex items-center justify-between h-16 px-4">
+            <div class="flex items-center">
+                <button class="text-white focus:outline-none mr-3" onclick="document.getElementById('sidebar').classList.remove('-translate-x-full')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <h2 class="text-xl font-bold">Healing Touch</h2>
+            </div>
+            <div class="flex items-center">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor profile" class="w-8 h-8 rounded-full">
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content Area -->
-    <div class="ml-64 p-8">
-        <div class="flex justify-between items-center mb-8">
+    <div class="lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 lg:mb-8 gap-4">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900">Doctor Dashboard</h1>
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-900">Doctor Dashboard</h1>
                 <p class="text-gray-600">Manage your appointments and patient schedule</p>
             </div>
-            <div class="flex flex-col">
+            
+            <div class="flex flex-col w-full lg:w-auto">
                 <p class="text-sm text-gray-600 font-medium mb-1">My Availablity Days:</p>
                 <div class="flex flex-wrap gap-2">
                     @foreach ($days_available as $day)
@@ -52,18 +74,17 @@
                 </div>
             </div>
 
-
-            <div class="flex items-center space-x-4">
-                <div class="relative">
+            <div class="flex flex-col md:flex-row gap-4 w-full lg:w-auto">
+                <div class="relative w-full md:w-auto">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
                             <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </span>
-                    <input type="text" wire:model.live="search" class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Search...">
+                    <input type="text" wire:model.live="search" class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600" placeholder="Search...">
                 </div>
 
-                <div class="flex items-center px-4 py-2 bg-white rounded-lg shadow-sm">
+                <div class="hidden md:flex items-center px-4 py-2 bg-white rounded-lg shadow-sm">
                     <div class="flex items-center">
                         <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor profile" class="w-8 h-8 rounded-full mr-2">
                         <span class="text-sm font-medium text-gray-700">{{$doctor_name}}</span>
@@ -73,8 +94,8 @@
         </div>
 
         <!-- Stats Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <div class="bg-white rounded-lg shadow p-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow p-4 md:p-6">
                 <div class="flex items-center">
                     <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-lg shadow p-4 md:p-6">
                 <div class="flex items-center">
                     <div class="p-3 rounded-full bg-green-100 text-green-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,7 +121,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-lg shadow p-4 md:p-6">
                 <div class="flex items-center">
                     <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-lg shadow p-4 md:p-6">
                 <div class="flex items-center">
                     <div class="p-3 rounded-full bg-red-100 text-red-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,50 +152,48 @@
         <!-- Filters and Date Selector -->
         <div class="bg-white p-4 rounded-lg shadow mb-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div class="flex space-x-3 mt-3">
+                <div class="flex items-center space-x-4 mb-4 md:mb-0 w-full md:w-auto">
+                    <div class="flex space-x-3 mt-3 w-full md:w-auto">
                         <button
                             wire:click="$set('dateFilter', '{{ now()->toDateString() }}')"
-                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200
-            {{ $dateFilter === now()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
+                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200 flex-1 md:flex-none text-center
+                            {{ $dateFilter === now()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
                             Today
                         </button>
 
                         <button
                             wire:click="$set('dateFilter', '{{ now()->addDay()->toDateString() }}')"
-                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200
-            {{ $dateFilter === now()->addDay()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
+                            class="px-4 py-2 rounded-lg shadow text-sm font-medium transition duration-200 flex-1 md:flex-none text-center
+                            {{ $dateFilter === now()->addDay()->toDateString() ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200' }}">
                             Tomorrow
                         </button>
                     </div>
-                  
                 </div>
-
             </div>
         </div>
 
         <!-- Appointments Table -->
         <div class="bg-white rounded-lg shadow overflow-hidden" x-data="{ appointments: [] }" wire:init="">
-            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <div class="px-4 md:px-6 py-4 border-b border-gray-200 bg-gray-50">
                 <h3 class="text-lg font-medium text-gray-900">Today's Appointments</h3>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Patient
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Time
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                                 Purpose
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Status
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Actions
                             </th>
                         </tr> 
@@ -183,20 +202,20 @@
                         <!-- Example rows, wire:key would be used in a real implementation -->
                         @foreach ($appointments as $appointment)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="ml-4">
+                                    <div class="ml-0 md:ml-4">
                                         <div class="text-sm font-medium text-gray-900">{{ $appointment->patient->name }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $appointment->appointment_time }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-4 md:px-6 py-4 whitespace-nowrap hidden md:table-cell">
                                 <div class="text-sm text-gray-900">{{ $appointment->notes }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-4 md:px-6 py-4 whitespace-nowrap">
                                 @php
                                 $statusColors = [
                                 'confirmed' => 'bg-green-100 text-green-800',
@@ -208,54 +227,50 @@
                                     {{ $appointment->status }}
                                 </span>
                             </td> 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <td class="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex items-center space-x-2 h-full">
                                     @if ($appointment->status === 'checked_in')
-                                    <button wire:click="markAsCompleted({{ $appointment->id }})" wire:confirm="Are you sure you want to mark this appointment as completed?" class="text-green-600 hover:text-green-900">Mark as completed</button>
+                                    <button wire:click="markAsCompleted({{ $appointment->id }})" wire:confirm="Are you sure you want to mark this appointment as completed?" class="text-green-600 hover:text-green-900 text-xs md:text-sm">Complete</button>
                                     @else
-                                    <button disabled class="text-gray-400 cursor-not-allowed">Mark as completed</button>
+                                    <button disabled class="text-gray-400 cursor-not-allowed text-xs md:text-sm">Complete</button>
                                     @endif
-                                    <a href="" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                    <a href="" class="text-indigo-600 hover:text-indigo-900 text-xs md:text-sm">View</a>
                                 </div>
                             </td>
                         </tr>
                         @endforeach
-
-
                         <!-- More appointments... -->
                     </tbody>
                 </table>
             </div>
-            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <div class="px-4 md:px-6 py-4 border-t border-gray-200 bg-gray-50">
                 <div class="flex justify-between items-center">
                     <div class="flex justify-between items-center">
-
                         <div class="inline-flex -space-x-px">
                             <button class="px-3 py-1 rounded-l border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-100">
                                 Previous
                             </button>
-
                             <button class="px-3 py-1 rounded-r border border-gray-300 bg-white text-sm text-gray-700 hover:bg-gray-100">
                                 Next
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+    
     <!-- Availability Modal -->
     @if ($showSettingsModal)
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6">
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+        <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-4 md:p-6">
             <h2 class="text-xl font-semibold mb-4">Update Availability</h2>
 
             <form wire:submit.prevent="saveAvailability">
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach ($days as $day)
                     <label class="flex items-center space-x-2">
-                        <input type="checkbox" wire:model.defer="availabilityDays.{{ $day }}" class="form-checkbox h-5 w-5 text-indigo-600">
+                        <input type="checkbox" wire:model.defer="availabilityDays.{{ strtolower($day) }}" class="form-checkbox h-5 w-5 text-indigo-600">
                         <span class="text-sm">{{ ucfirst($day) }}</span>
                     </label>
                     @endforeach
