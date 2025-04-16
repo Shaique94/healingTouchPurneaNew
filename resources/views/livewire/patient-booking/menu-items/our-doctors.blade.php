@@ -1,7 +1,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-blue-50 to-white">
     {{-- Heading with enhanced styling --}}
     <div class="text-center mb-16">
-        <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Meet Our Expert Physicians</h2>
+        <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Meet Our Expert</h2>
         <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">Browse and schedule consultations with our highly qualified medical professionals</p>
         <div class="mt-2 flex justify-center">
             <div class="h-1 w-24 bg-blue-600 rounded-full"></div>

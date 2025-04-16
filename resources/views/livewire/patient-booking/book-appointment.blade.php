@@ -30,20 +30,20 @@
                     </a>
                 </div>
 
-                <!-- Compact Progress Steps -->
-                <div class="mt-3 relative">
-                    <!-- Progress Bar Background -->
-                    <div class="absolute top-3 left-0 right-0 h-0.5 bg-sky-300 rounded-full z-0 mx-6 md:mx-12"></div>
-
-                    <!-- Active Progress Bar -->
-                    <div class="absolute top-3 left-0 h-0.5 bg-white rounded-full z-10 transition-all duration-500 mx-6 md:mx-12"
-                        style="width: {{ $step == 4 ? '90%' : min(90, ($step-1) * 30) }}%"></div>
-
-                    <!-- More Compact Step Indicators -->
-                    <div class="flex items-center justify-between relative z-20">
-                        <!-- Step 1 -->
-                        <div class="flex flex-col items-center">
-                            <div class="{{ $step >= 1 ? 'bg-white text-sky-700 border-2 border-white' : 'bg-sky-700 text-white border border-sky-300' }} 
+            <!-- Compact Progress Steps -->
+            <div class="mt-3 relative">
+                <!-- Progress Bar Background -->
+                <div class="absolute top-3 left-0 right-0 h-0.5 bg-sky-300 rounded-full z-0 mx-6 md:mx-12"></div>
+                
+                <!-- Active Progress Bar -->
+                <div class="absolute top-3 left-0 h-0.5 bg-white rounded-full z-10 transition-all duration-500 mx-6 md:mx-12"
+                     style="width: {{ $step == 4 ? '90%' : min(90, ($step-1) * 30) }}%"></div>
+                
+                <!-- More Compact Step Indicators -->
+                <div class="flex items-center justify-between relative z-20">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center">
+                        <div class="{{ $step >= 1 ? 'bg-white text-sky-700 border-2 border-white' : 'bg-sky-700 text-white border border-sky-300' }} 
                             w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs transition-all duration-300 shadow-sm">
                                 @if($step > 1)
                                 <svg class="w-3 h-3 md:w-4 md:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
@@ -112,48 +112,49 @@
                             {{ $selectedDepartment === $department->id ? 'bg-sky-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }}">
                             {{ $department->name }}
                         </button>
-                        @endforeach
-                    </div>
+                    @endforeach
                 </div>
-
-                <!-- Doctors Grid - Improved Compact Layout -->
-                <div class="bg-white p-5 rounded-xl shadow-sm">
-                    <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                            {{ $selectedDoctor ? 'Selected Doctor' : 'Choose a Doctor' }}
-                        </div>
-                        @if($selectedDoctor)
-                        <button
-                            wire:click="$set('selectedDoctor', null)"
-                            class="text-sm text-sky-600 hover:text-sky-800 flex items-center">
+            </div>
+            
+            <!-- Doctors Grid - Improved Compact Layout -->
+            <div class="bg-white p-5 rounded-xl shadow-sm">
+                <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        {{ $selectedDoctor ? 'Selected Doctor' : 'Choose a Doctor' }}
+                    </div>
+                    @if($selectedDoctor)
+                        <button 
+                            wire:click="$set('selectedDoctor', null)" 
+                            class="text-sm text-sky-600 hover:text-sky-800 flex items-center"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
                             Change Doctor
                         </button>
-                        @endif
-                    </h2>
-
-                    <!-- Display Selected Doctor Card -->
-                    @if($selectedDoctor && $doctorDetails)
+                    @endif
+                </h2>
+                
+                <!-- Display Selected Doctor Card -->
+                @if($selectedDoctor && $doctorDetails)
                     <div class="border rounded-lg overflow-hidden bg-sky-50">
                         <div class="flex flex-col md:flex-row items-start">
                             <div class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-sky-100">
                                 <div class="text-center">
                                     <div class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
-                                        <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image): asset('images/default.jpg') }}" class="w-full h-full object-cover">
+                                        <img    src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image): asset('images/default.jpg') }}" class="w-full h-full object-cover">
                                     </div>
                                     <h3 class="text-lg font-bold text-gray-900 mt-4">Dr. {{ $doctorDetails->user->name }}</h3>
                                     <p class="text-sm font-medium text-sky-600">{{ $doctorDetails->department->name }}</p>
                                 </div>
                             </div>
-
+                            
                             <div class="md:w-2/3 p-5">
                                 <h4 class="text-sm font-medium text-gray-500 mb-3">Doctor Information</h4>
-
+                                
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="flex items-start">
                                         <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
@@ -166,7 +167,7 @@
                                             <p class="text-sm font-medium text-gray-800">MBBS, MD</p>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="flex items-start">
                                         <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -178,7 +179,7 @@
                                             <p class="text-sm font-medium text-gray-800">₹500</p>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="flex items-start">
                                         <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -190,7 +191,7 @@
                                             <p class="text-sm font-medium text-gray-800">{{ $doctorDetails->department->name }}</p>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="flex items-start">
                                         <div class="bg-sky-100 p-2 rounded-full mr-3 flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -203,20 +204,20 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <div class="mt-4 pt-4 border-t border-gray-200">
                                     <p class="text-sm text-gray-600">Dr. {{ $doctorDetails->user->name }} is a highly skilled healthcare professional with comprehensive training and experience in the field of {{ $doctorDetails->department->name }}.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Show Doctor Grid if no doctor selected -->
-                    @else
+                <!-- Show Doctor Grid if no doctor selected -->
+                @else
                     @if(count($doctors) > 0)
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        @foreach($doctors as $doctor)
-                        <div wire:click="selectDoctor({{ $doctor->id }})"
-                            class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            @foreach($doctors as $doctor)
+                                <div wire:click="selectDoctor({{ $doctor->id }})" 
+                                    class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
                                     {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-sky-500 bg-sky-50' : 'hover:shadow-md' }}">
 
                             <div class="flex items-center p-3 border-b">
@@ -730,59 +731,60 @@
             </div>
             @endif
 
-            <!-- STEP 4: Confirmation -->
-            @if($step === 4)
-            <div class="bg-white rounded-xl shadow-sm p-8 text-center">
-    <!-- Responsive button container: flex-col (stacked) on mobile, flex-row (side by side) on sm screens and up -->
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-6">
-        <a
-            href="{{ route('manage.appointments') }}"
-            class="w-full sm:w-auto px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            Manage Appointments
-        </a>
-        <button
-            wire:click="downloadReceipt"
-            class="w-full sm:w-auto px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Download Receipt
-        </button>
+        <!-- STEP 4: Confirmation -->
+        @if($step === 4)
+        <div class="bg-white rounded-xl shadow-sm p-8 text-center">
+            <div class="mb-6 flex justify-center">
+                <div class="bg-green-100 p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
+            <p class="text-gray-600 mb-6">Your appointment has been successfully booked.</p>
+            
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8 max-w-md mx-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-500">Appointment ID:</span>
+                    <span class="font-semibold text-gray-800">#{{ $appointmentId }}</span>
+                </div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-500">Date:</span>
+                    <span class="font-semibold text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-500">Time:</span>
+                    <span class="font-semibold text-gray-800">{{ $appointmentTime }}</span>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button 
+                    wire:click="downloadReceipt"
+                    class="px-6 py-2 bg-sky-600 text-white rounded-md shadow-sm hover:bg-sky-700 transition-colors flex items-center justify-center"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download Receipt
+                </button>
+                <a 
+                    href="{{ route('manage.appointments') }}" 
+                    class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Manage Appointments
+                </a>
+            </div>
+        </div>
+        @endif
     </div>
-
-    <div class="mb-6 flex justify-center">
-        <div class="bg-green-100 p-3 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-        </div>
-    </div>
-    <h2 class="text-2xl font-bold text-gray-800 mb-2">Appointment Confirmed!</h2>
-    <p class="text-gray-600 mb-6">Your appointment has been successfully booked.</p>
-
-    <div class="bg-gray-50 p-6 rounded-lg border border-gray-100 mb-8 max-w-md mx-auto">
-        <div class="flex items-center justify-between mb-4">
-            <span class="text-gray-500">Appointment ID:</span>
-            <span class="font-semibold text-gray-800">#{{ $appointmentId }}</span>
-        </div>
-        <div class="flex items-center justify-between mb-4">
-            <span class="text-gray-500">Date:</span>
-            <span class="font-semibold text-gray-800">{{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}</span>
-        </div>
-        <div class="flex items-center justify-between">
-            <span class="text-gray-500">Time:</span>
-            <span class="font-semibold text-gray-800">{{ $appointmentTime }}</span>
-        </div>
-    </div>
+    
+  
 </div>
-            @endif
-        </div>
-
-
-    </div>
 
     <style>
         /* Optional animation for the confirmation checkmark */
