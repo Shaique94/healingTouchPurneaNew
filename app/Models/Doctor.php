@@ -20,7 +20,7 @@ class Doctor extends Model
         'status',
         'available_days',
     ];
-    
+     
 
     protected $casts = [
         'available_days' => 'array',
