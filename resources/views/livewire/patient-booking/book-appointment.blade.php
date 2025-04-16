@@ -89,7 +89,7 @@
             </div>
 
             <!-- STEP 1: Select Doctor -->
-            @if($step === 4)
+            @if($step === 1)
             <div class="space-y-6">
                 <!-- Department Filter Cards -->
                 <div class="bg-white p-5 rounded-xl shadow-sm">
@@ -732,7 +732,7 @@
             @endif
 
         <!-- STEP 4: Confirmation -->
-        @if($step === 1)
+        @if($step === 4)
         <div class="bg-white rounded-xl shadow-sm p-8 text-center">
     <!-- Responsive button container: flex-col (stacked) on mobile, flex-row (side by side) on sm screens and up -->
     <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mb-6">
