@@ -37,8 +37,9 @@ class Dashboard extends Component
     public function days_available()
     {
         $doctor = User::where('id', auth()->user()->id)->with('doctor')->first();
-
-        $this->days_available = $doctor->available_days ?? [];
+        // dd($doctor->doctor);
+        $this->days_available = $doctor->doctor->available_days ?? [];
+        // dd($this->days_available);
     }
     public function updatedDateFilter()
     {
