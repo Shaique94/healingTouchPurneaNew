@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Livewire\Admin\Settings;
+
+use App\Models\Setting;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Layout;
+#[Layout('components.layouts.admin')]
+class ManageSetting extends Component
+{
+
+    use WithFileUploads;
+
+    public $hospital_name;
+    public $logo;
+    public $contact_email;
+    public $contact_phone;
+    public $address;
+
+    public function mount()
+    {
+        $this->hospital_name = Setting::get('hospital_name', '');
+        $this->contact_email = Setting::get('contact_email', '');
+        $this->contact_phone = Setting::get('contact_phone', '');
+        $this->address = Setting::get('address', '');
+    }
+
+    public function save()
+    {
+        $this->validate([
+            'hospital_name' => 'nullable|string|max:255',
+            'logo' => 'nullable|image|max:2048',
+            'contact_email' => 'nullable|email|max:255',
+            'contact_phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        Setting::set('hospital_name', $this->hospital_name, 'string', 'general', 'Name of the hospital');
+        if ($this->logo) {
+            Setting::set('logo', $this->logo, 'file', 'branding', 'Hospital logo');
+        }
+        Setting::set('contact_email', $this->contact_email, 'string', 'contact', 'Contact email address');
+        Setting::set('contact_phone', $this->contact_phone, 'string', 'contact', 'Contact phone number');
+        Setting::set('address', $this->address, 'string', 'contact', 'Hospital address');
+
+        session()->flash('message', 'Settings updated successfully!');
+    }
+    public function render()
+    {
+        return view('livewire.admin.settings.manage-setting', [
+            'current_logo' => Setting::get('logo'),
+        ]);
+    }
+}

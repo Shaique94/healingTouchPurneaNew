@@ -10,6 +10,7 @@ use App\Livewire\Admin\Index;
 use App\Livewire\Admin\Login;
 use App\Livewire\Admin\Logout;
 use App\Livewire\Admin\Qualification\All as AllQualification;
+use App\Livewire\Admin\Settings\ManageSetting;
 use App\Livewire\Admin\User\All as AllUser;
 use App\Livewire\PatientBooking\MenuItems\CareerDetail;
 use Illuminate\Support\Facades\Route;
@@ -78,7 +79,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/appointment', AllAppointment::class)->name('appointment');
         Route::get('/user',AllUser::class)->name('user');
         Route::get('/career',AddCareer::class)->name('add.career');
-      
+        Route::get('/settings',ManageSetting::class)->name('settings');
     });
 
 });
