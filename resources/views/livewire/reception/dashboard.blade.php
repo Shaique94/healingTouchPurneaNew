@@ -1,7 +1,37 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
-        <div class="flex items-center space-x-2 mb-8">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex flex-col md:flex-row">
+    <!-- Mobile header with menu toggle -->
+    <div class="md:hidden bg-white shadow-sm p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <div class="bg-blue-600 h-8 w-8 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold text-gray-800">Reception</h2>
+        </div>
+        <button 
+            id="mobileMenuToggle"
+            class="text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label="Toggle menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Sidebar for desktop and mobile (when opened) -->
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-lg p-6 md:block fixed md:static inset-0 z-20 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+        <!-- Close button for mobile -->
+        <button 
+            id="closeMobileMenu"
+            class="md:hidden absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label="Close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+        <div class="flex items-center space-x-2 mb-8 md:mt-0 mt-8">
             <div class="bg-blue-600 h-8 w-8 rounded-lg flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -17,7 +47,7 @@
                 </svg>
                 Dashboard
             </a>
-            <a href="#" class="flex items-center px-4 py-3 rounded-lg bg-blue-50 text-blue-700 font-medium transition-all duration-200" wire:click="openModal">
+            <a href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-all duration-200" wire:click="openModal">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-3-3v6m-6 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-.707-.707A1 1 0 0012 4h-1a1 1 0 00-.707.293l-.707.707A1 1 0 019.586 5H6a2 2 0 00-2 2v13a2 2 0 002 2z" />
@@ -35,7 +65,10 @@
         </nav>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Mobile overlay when menu is open -->
+    <div id="sidebarOverlay" class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-10 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Main content -->
     <main class="flex-1 p-6 space-y-6 overflow-y-auto">
         <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
@@ -657,5 +690,30 @@
         @endif
 
     </main>
-
 </div>
+
+<!-- Simple JavaScript for mobile sidebar toggle -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const toggleButton = document.getElementById('mobileMenuToggle');
+        const closeButton = document.getElementById('closeMobileMenu');
+        
+        function openMobileMenu() {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100', 'pointer-events-auto');
+        }
+        
+        function closeMobileMenu() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.remove('opacity-100', 'pointer-events-auto');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+        
+        toggleButton.addEventListener('click', openMobileMenu);
+        closeButton.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+    });
+</script>

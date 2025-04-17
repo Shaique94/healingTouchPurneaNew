@@ -115,7 +115,7 @@
     <div class="max-w-6xl mx-auto mt-20 mb-16 text-center">
         <h3 class="text-2xl font-semibold text-gray-800 mb-2">Ready to Prioritize Your Health?</h3>
         <p class="text-gray-600 mb-6">Book an appointment or visit us for compassionate, expert care today.</p>
-        <a href="{{ route('contact.page') }}" class="inline-block px-8 py-3 bg-blue-600 text-white font-medium rounded-full shadow hover:bg-blue-700 transition">
+        <a href="{{ route('contact.page') }}" class="inline-block px-8 py-3 bg-beige-600 text-white font-medium rounded-full shadow hover:bg-beige-700 transition">
             Contact Us
         </a>
     </div>

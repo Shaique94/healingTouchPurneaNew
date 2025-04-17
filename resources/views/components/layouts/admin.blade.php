@@ -229,7 +229,6 @@
             const closeBtn = document.getElementById('closeSidebar');
             const overlay = document.getElementById('sidebarOverlay');
 
-            // Toggle sidebar
             toggleBtn.addEventListener('click', function() {
                 sidebar.classList.toggle('active');
                 overlay.classList.toggle('active');
