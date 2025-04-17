@@ -45,7 +45,7 @@ class BookAppointment extends Component
 
     public function mount()
     {
-        $this->appointmentDate = Carbon::now()->format('Y-m-d');
+        $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
         $this->generateTimeSlots();
     }
   
@@ -57,7 +57,7 @@ class BookAppointment extends Component
         if ($this->step === 1) {
             $rules = [
                 'selectedDoctor' => 'required',
-                'appointmentDate' => 'required|date|after_or_equal:today',
+                'appointmentDate' => 'required|date|in:'.Carbon::now()->addDay()->format('Y-m-d'),
                 'appointmentTime' => 'required',
             ];
         } elseif ($this->step === 2) {
@@ -89,19 +89,15 @@ class BookAppointment extends Component
     // Function to handle tab selection for date
     public function selectDateTab($tab)
     {
-        if ($tab == 'today') {
-            $this->appointmentDate = Carbon::now()->format('Y-m-d');
-        } else {
-            $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
-        }
-
-        $this->appointmentTime = null; // Reset selected time when changing date
+        $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
+        $this->appointmentTime = null;
         $this->generateTimeSlots();
     }
 
     // When appointment date is changed, regenerate time slots
     public function updatedAppointmentDate()
     {
+        $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
         $this->generateTimeSlots();
     }
 
@@ -160,6 +156,13 @@ class BookAppointment extends Component
         }
         // Check if the doctor is available on the selected date
         $selectedDate = Carbon::parse($this->appointmentDate);
+        $tomorrow = Carbon::now()->addDay();
+        if (!$selectedDate->isSameDay($tomorrow)) {
+            $this->dispatch('doctor-not-available', [
+                'message' => 'Appointments are only available for tomorrow. Please select tomorrow\'s date.'
+            ]);
+            return;
+        }
         $dayofWeek = $selectedDate->format('l');
         $availableDays = is_array($doctor->available_days) ? $doctor->available_days : [];
         if (!in_array($dayofWeek, $availableDays)) {
@@ -187,40 +190,6 @@ class BookAppointment extends Component
             }
         }
 
-        // If today, filter out past time slots
-        if ($this->appointmentDate == Carbon::now()->format('Y-m-d')) {
-            // Get current time with correct timezone
-            $currentTime = Carbon::now('Asia/Kolkata');
-            
-            // Filter time slots more explicitly for debugging
-            $filteredTimeSlots = [];
-            
-            foreach ($timeSlots as $timeSlot) {
-                // Create a datetime object for this slot using today's date
-                $slotTime = Carbon::createFromFormat(
-                    'g:i A', 
-                    $timeSlot, 
-                    'Asia/Kolkata'
-                );
-                
-                // Set the date part to today
-                $slotTime->setDate(
-                    $currentTime->year,
-                    $currentTime->month,
-                    $currentTime->day
-                );
-                
-                // Add 30 minutes buffer from now
-                $bufferTime = $currentTime->copy()->addMinutes(30);
-                
-                // Only keep slots that are at least 30 minutes in the future
-                if ($slotTime->greaterThanOrEqualTo($bufferTime)) {
-                    $filteredTimeSlots[] = $timeSlot;
-                }
-            }
-            
-            $timeSlots = $filteredTimeSlots;
-        }
 
         // Filter out booked slots
         $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
@@ -245,11 +214,11 @@ class BookAppointment extends Component
         if ($this->step === 1) { 
             $this->validate([
                 'selectedDoctor' => 'required',
-                'appointmentDate' => 'required|date|after_or_equal:today',
+                'appointmentDate' => 'required|date|in:'.Carbon::now()->addDay()->format('Y-m-d'),
                 'appointmentTime' => 'required',
             ], [
                 'selectedDoctor.required' => 'Please select a doctor to continue.',
-                'appointmentDate.after_or_equal' => 'Please select today or a future date.',
+                'appointmentDate.in' => 'Appointments are only available for tomorrow.',
                 'appointmentTime.required' => 'Please select an appointment time.',
             ]);
         } elseif ($this->step === 2) {

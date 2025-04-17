@@ -343,94 +343,81 @@
                     </div>
 
                     @if ($selectedDoctor)
-                        <!-- Date and Time Selection -->
-                        <div class="bg-white p-5 rounded-xl shadow-sm">
-                            <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                Select Date & Time
-                            </h2>
-                            <!-- Doctor Not Available Message -->
-                            <div id="doctor-not-available-message"
-                                class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-md"></div>
-                            <!-- Date Tab Selection (Today/Tomorrow) -->
-                            <div class="mb-6">
-                                <div class="flex border-b border-gray-200">
-                                    <button wire:click="selectDateTab('today')" wire:loading.class="opacity-50"
-                                        wire:target="selectDateTab" type="button"
-                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d') ? 'border-beige-600 text-beige-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
-                                        Today
-                                        <span class="text-xs block text-gray-500">{{ date('d M') }}</span>
-                                    </button>
-                                    <button wire:click="selectDateTab('tomorrow')" wire:loading.class="opacity-50"
-                                        wire:target="selectDateTab" type="button"
-                                        class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none {{ $appointmentDate == date('Y-m-d', strtotime('+1 day')) ? 'border-beige-600 text-beige-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
-                                        Tomorrow
-                                        <span
-                                            class="text-xs block text-gray-500">{{ date('d M', strtotime('+1 day')) }}</span>
-                                    </button>
-                                </div>
+                    <!-- Date and Time Selection -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm">
+                        <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Select Time
+                        </h2>
+                        <!-- Doctor Not Available Message -->
+                        <div id="doctor-not-available-message"
+                            class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-md"></div>
+                        <!-- Date Selection (Fixed to Tomorrow) -->
+                        <div class="mb-6">
+                            <div class="flex border-b border-gray-200">
+                                <button wire:click="selectDateTab('tomorrow')" wire:loading.class="opacity-50"
+                                    wire:target="selectDateTab" type="button"
+                                    class="py-3 px-6 border-b-2 font-medium text-sm focus:outline-none border-beige-600 text-beige-600">
+                                    Tomorrow
+                                    <span class="text-xs block text-gray-500">{{ date('d M', strtotime('+1 day')) }}</span>
+                                </button>
                             </div>
-
-                            <!-- Time Slots -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Available Time Slots
-                                    <span class="text-xs text-gray-500 ml-2">
-                                        {{ count($availableTimes) }} slots available
-                                    </span>
-                                </label>
-                                <div wire:loading wire:target="selectDateTab" class="py-4 text-center text-gray-500">
-                                    <svg class="animate-spin h-6 w-6 text-beige-600 inline-block"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10"
-                                            stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
-                                    </svg>
-                                    <span class="ml-2">Loading time slots...</span>
-                                </div>
-                                <div wire:loading.remove wire:target="selectDateTab"
-                                    class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-                                    @forelse($availableTimes as $time)
-                                        <button type="button"
-                                            wire:click="$set('appointmentTime', '{{ $time }}')"
-                                            class="py-2 px-2 text-sm font-medium rounded-md border transition-colors
-                                    {{ $appointmentTime === $time ? 'bg-beige-600 text-white border-beige-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}">
-                                            {{ $time }}
-                                        </button>
-                                    @empty
-                                        <div class="col-span-full py-6 text-center text-gray-500">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-12 w-12 text-gray-300 mx-auto mb-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            <p>No available time slots for this date.</p>
-                                            @if ($appointmentDate == date('Y-m-d'))
-                                                <button wire:click="selectDateTab('tomorrow')"
-                                                    class="mt-2 text-sm text-beige-600 hover:underline">
-                                                    Check tomorrow's availability
-                                                </button>
-                                            @else
-                                            <p class="text-xs text-beige-600">Choose another Doctor
-                                            </p>
-                                            @endif
-                                           
-                                        </div>
-                                    @endforelse
-                                </div>
-                                @error('appointmentTime')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
+                            @error('appointmentDate')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
-                    @endif
+
+                        <!-- Time Slots -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Available Time Slots
+                                <span class="text-xs text-gray-500 ml-2">
+                                    {{ count($availableTimes) }} slots available
+                                </span>
+                            </label>
+                            <div wire:loading wire:target="selectDateTab" class="py-4 text-center text-gray-500">
+                                <svg class="animate-spin h-6 w-6 text-beige-600 inline-block"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                <span class="ml-2">Loading time slots...</span>
+                            </div>
+                            <div wire:loading.remove wire:target="selectDateTab"
+                                class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+                                @forelse($availableTimes as $time)
+                                    <button type="button"
+                                        wire:click="$set('appointmentTime', '{{ $time }}')"
+                                        class="py-2 px-2 text-sm font-medium rounded-md border transition-colors
+                                        {{ $appointmentTime === $time ? 'bg-beige-600 text-white border-beige-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50' }}">
+                                        {{ $time }}
+                                    </button>
+                                @empty
+                                    <div class="col-span-full py-6 text-center text-gray-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="h-12 w-12 text-gray-300 mx-auto mb-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <p>No available time slots for tomorrow.</p>
+                                        <p class="text-xs text-beige-600">Choose another Doctor</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                            @error('appointmentTime')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                @endif
 
                     <!-- Navigation -->
                     <div class="flex justify-end">
@@ -773,7 +760,7 @@
                                 <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                                     <div class="flex justify-between items-center mb-3">
                                         <p class="text-gray-600">Consultation Fee</p>
-                                        <p class="font-semibold text-gray-800">₹500</p>
+                                        <p class="font-semibold text-gray-800">₹{{ $doctorDetails->fee }}</p>
                                     </div>
                                     <div class="flex justify-between items-center mb-3">
                                         <p class="text-gray-600">Payment Method</p>
@@ -782,7 +769,7 @@
                                     <div class="border-t border-gray-200 pt-3 mt-2">
                                         <div class="flex justify-between items-center">
                                             <p class="font-medium text-gray-700">Total</p>
-                                            <p class="font-bold text-gray-800">₹500</p>
+                                            <p class="font-bold text-gray-800">₹{{ $doctorDetails->fee }}</p>
                                         </div>
                                         <p class="text-xs text-gray-500 mt-1">To be paid at the hospital</p>
                                     </div>
