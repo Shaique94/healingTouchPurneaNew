@@ -27,6 +27,9 @@ class Login extends Component
             'password' => 'required|min:6',
         ]);
     
+        // Simulate processing time
+        sleep(2);
+    
         $user = User::where('email', $this->email)->first();
     
         if (!$user) {
