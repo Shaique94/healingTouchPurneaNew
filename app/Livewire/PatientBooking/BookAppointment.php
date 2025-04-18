@@ -275,14 +275,20 @@ class BookAppointment extends Component
             ]
         );
 
-        // Convert the time format from "10:00 AM" to MySQL time format "10:00:00"
+       
         $formattedTime = $this->convertTimeFormat($this->appointmentTime);
 
-        // Create the appointment
+        $lastQueueNumber = Appointment::where('appointment_date', $this->appointmentDate)
+            ->orderBy('queue_number', 'desc')
+            ->value('queue_number');
+
+        $queueNumber = $lastQueueNumber ? $lastQueueNumber + 1 : 1;
+
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->selectedDoctor,
             'appointment_date' => $this->appointmentDate,
+            'queue_number' => $queueNumber,
             'appointment_time' => $formattedTime, // Use the converted time format
             'status' => 'pending',
             'payment_method' => $this->payment_method,
@@ -309,7 +315,7 @@ class BookAppointment extends Component
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ])->post('https://control.msg91.com/api/v5/flow', [
-                'template_id' => '6802188cd6fc0578a74e7ce2', 
+                'template_id' => '6802188cd6fc0578a74e7ce2',
                 'short_url' => 0,
                 'recipients' => [
                     [
