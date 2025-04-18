@@ -50,8 +50,8 @@ class Dashboard extends Component
          $patients = Patient::count();
          $doctors = Doctor::count();
          $appointments = Appointment::count();
-         $revenue = Appointment::with('doctor')->get()->sum(function($appointment) {
-             return $appointment->doctor->sum('fee') ?? 0;
+         $revenue = Appointment::with('payment')->get()->sum(function($payment) {
+             return $payment?->payment?->sum('paid_amount');
          });
  
          // Today's date

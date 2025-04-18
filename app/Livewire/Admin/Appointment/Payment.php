@@ -37,17 +37,14 @@ class Payment extends Component
         $this->total_amount = $this->appointment->doctor->fee;
         $this->appointment_id = $id;
 
-        // Check if payment already exists
         $this->payment = ModelsPayment::where('appointment_id', $id)->first();
 
         if ($this->payment) {
-            // Prefill the form
             $this->mode = $this->payment->mode;
             $this->paid_amount = $this->payment->paid_amount;
             $this->settlement = $this->payment->settlement;
             $this->status = $this->payment->status;
         } else {
-            // Reset fields for new entry
             $this->mode = 'cash';
             $this->paid_amount = 0;
             $this->settlement = false;

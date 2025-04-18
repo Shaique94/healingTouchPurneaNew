@@ -252,7 +252,6 @@
                 </div>
             </div>
         </div>
-        <livewire:admin.appointment.add/>
         <livewire:admin.doctor.add/>
         <livewire:admin.user.add/>
     </div>
