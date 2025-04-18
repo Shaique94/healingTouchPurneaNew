@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Admin\Appointment\Add as AddAppoinment;
 use App\Livewire\Admin\Appointment\All as AllAppointment;
+use App\Livewire\Admin\Appointment\Update as UpdateAppointment;
 use App\Livewire\Admin\Career\AddCareer;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Department\All as DeparmentAll;
@@ -77,6 +79,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/department', DeparmentAll::class)->name('department');
         Route::get('/doctor', AllDoctor::class)->name('doctor');
         Route::get('/appointment', AllAppointment::class)->name('appointment');
+        Route::get('/appointment/add', AddAppoinment::class)->name('appointment.add');
+        Route::get('/appointment/update/{id}', UpdateAppointment::class)->name('appointment.update');
         Route::get('/user',AllUser::class)->name('user');
         Route::get('/career',AddCareer::class)->name('add.career');
         Route::get('/settings',ManageSetting::class)->name('settings');

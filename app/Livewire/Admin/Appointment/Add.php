@@ -8,6 +8,7 @@ use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -30,26 +31,11 @@ class Add extends Component
     public $notes;
     public $doctors;
 
-    public $showModal = false;
-
-
-
-
-
     public function mount()
     {
         $this->doctors = Doctor::all();
     }
-    #[On('open-add-appoinment')]
-    public function openModal()
-    {
-        $this->showModal = true;
-    }
-
-    public function closeModal()
-    {
-        $this->showModal = false;
-    }
+  
     public function UpdatedPincode()
     {
         if (strlen($this->pincode) == 6) {
@@ -114,17 +100,16 @@ class Add extends Component
             'notes' => $this->notes,
             'created_by' => Auth::id()
         ]);
-        $this->closeModal();
         $this->dispatch('refresh-appointment');
         $this->resetForm();
         $this->dispatch('success', __('Appointment Booked successfully'));
+        $this->redirect('/admin/appointment', navigate: true);
     }
     private function convertTimeFormat($timeString)
     {
         try {
             // Parse the time string using Carbon
             $time = Carbon::createFromFormat('h:i A', $timeString);
-            // Return the formatted time in 24-hour format without seconds
             return $time->format('H:i:00');
         } catch (\Exception $e) {
             // If parsing fails, try to work with the time as is
@@ -147,6 +132,7 @@ class Add extends Component
         $this->appointment_time = '';
         $this->notes = '';
     }
+    #[Layout('components.layouts.admin')]
     public function render()
     {
         return view('livewire.admin.appointment.add');

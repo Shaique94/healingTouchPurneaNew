@@ -17,7 +17,7 @@ class Payment extends Component
     public $ToggleModal = false;
     public $total_amount;
     public $appointment;
-    public $payment;  // Holds existing payment if found
+    public $payment;  
 
     public function rules() {
         return [
@@ -60,6 +60,7 @@ class Payment extends Component
     }
 
     public function closeModal() {
+        $this->dispatch('refresh-appointment');
         $this->ToggleModal = false;
     }
 

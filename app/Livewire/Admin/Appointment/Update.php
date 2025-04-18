@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Appointment;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use Carbon\Carbon;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -27,22 +28,9 @@ class Update extends Component
     public $notes;
     public $doctors;
     public $appointment_id;
-    public $showModal = false;
-
-
-     public function openModal()
-     {
-         $this->showModal = true;
-     }
- 
-     public function closeModal()
-     {
-         $this->showModal = false;
-     }
- 
-    #[On('update-appointment')]
-    public function edit($id){
-        $this->openModal();
+  
+    public function mount($id){
+        $this->doctors=Doctor::all();
         $appointment=Appointment::findOrFail($id);
         $this->appointment_id = $appointment->id;
         $this->name = $appointment->patient->name;
@@ -61,10 +49,8 @@ class Update extends Component
         $this->payment_method = $appointment->payment_method;
         $this->notes = $appointment->notes;
     }
-    public function mount(){
-        $this->doctors=Doctor::all();
-    }
-    public function update(){
+    public function update()
+    {
 
         $this->validate([
             'name'              => 'required|string|max:255',
@@ -107,9 +93,9 @@ class Update extends Component
         $appointment->notes = $this->notes;
         $appointment->save();
 
-        $this->closeModal();
         $this->dispatch('refresh-appointment');
         $this->dispatch('success', __('Appointment Updated successfully'));   
+        $this->redirect('/admin/appointment', navigate: true);
 
     }
     private function convertTimeFormat($timeString)
@@ -140,6 +126,7 @@ class Update extends Component
         $this->appointment_time = '';
         $this->notes = '';
     }
+    #[Layout('components.layouts.admin')]
     public function render()
     {
         return view('livewire.admin.appointment.update');

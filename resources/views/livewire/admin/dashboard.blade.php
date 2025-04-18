@@ -73,7 +73,7 @@
                     </div>
                     <div class="card-body py-2 py-md-3">
                         <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-sm btn-primary" wire:click="$dispatch('open-add-appoinment')">
+                            <button class="btn btn-sm btn-primary" wire:navigate  href="{{ route('admin.appointment.add') }}">
                                 <i class="bi bi-plus-circle me-1"></i><span class="d-none d-sm-inline">Add</span> Appointment
                             </button>
                             <button class="btn btn-sm btn-success" wire:click="$dispatch('open-add-user')">
