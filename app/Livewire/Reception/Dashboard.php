@@ -28,12 +28,16 @@ class Dashboard extends Component
     public $step = 1;
     public $appointmentId;
     public $doctor_name;
+    public $selectedDoctorId;
+
 
 
 
     public function mount()
     {
         $this->loadAppointments();
+        $this->doctors = Doctor::with('user')->get();
+
     }
     public function nextStep()
     {
@@ -75,7 +79,18 @@ class Dashboard extends Component
 
     public function downloadTomorrowAppointmentsPDF(){
         $tomorrow = Carbon::tomorrow()->toDateString();
-        $appointments = Appointment::with(['patient', 'doctor.user'])->whereDate('appointment_date', $tomorrow)->get();
+
+        if (empty($this->selectedDoctorId)) {
+            $appointments = Appointment::with(['patient', 'doctor.user'])
+                ->whereDate('appointment_date', $tomorrow)
+                ->get();
+        } else {
+            // If a doctor is selected, fetch appointments for that specific doctor
+            $appointments = Appointment::with(['patient', 'doctor.user'])
+                ->whereDate('appointment_date', $tomorrow)
+                ->where('doctor_id', $this->selectedDoctorId)
+                ->get();
+        }        
         $pdf = Pdf::loadView('pdf.tomorrow-appointments', compact('appointments'));
 
         return response()->streamDownload(function () use ($pdf) {
