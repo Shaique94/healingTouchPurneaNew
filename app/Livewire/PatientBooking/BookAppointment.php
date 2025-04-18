@@ -48,7 +48,7 @@ class BookAppointment extends Component
         $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
         $this->generateTimeSlots();
     }
-  
+
 
     public function updated($property)
     {
@@ -57,7 +57,7 @@ class BookAppointment extends Component
         if ($this->step === 1) {
             $rules = [
                 'selectedDoctor' => 'required',
-                'appointmentDate' => 'required|date|in:'.Carbon::now()->addDay()->format('Y-m-d'),
+                'appointmentDate' => 'required|date|in:' . Carbon::now()->addDay()->format('Y-m-d'),
                 'appointmentTime' => 'required',
             ];
         } elseif ($this->step === 2) {
@@ -211,10 +211,10 @@ class BookAppointment extends Component
     // Proceed to next step
     public function nextStep()
     {
-        if ($this->step === 1) { 
+        if ($this->step === 1) {
             $this->validate([
                 'selectedDoctor' => 'required',
-                'appointmentDate' => 'required|date|in:'.Carbon::now()->addDay()->format('Y-m-d'),
+                'appointmentDate' => 'required|date|in:' . Carbon::now()->addDay()->format('Y-m-d'),
                 'appointmentTime' => 'required',
             ], [
                 'selectedDoctor.required' => 'Please select a doctor to continue.',
@@ -290,7 +290,7 @@ class BookAppointment extends Component
         ]);
 
         $this->appointmentId = $appointment->id;
-
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
@@ -301,6 +301,35 @@ class BookAppointment extends Component
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
+    private function sendAppointmentSMS($mobile, $name, $appointment)
+    {
+        try {
+            $response = Http::withHeaders([
+                'authkey' => env('MSG91_AUTH_KEY'),
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+            ])->post('https://control.msg91.com/api/v5/flow', [
+                'template_id' => '6802188cd6fc0578a74e7ce2', 
+                'short_url' => 0,
+                'recipients' => [
+                    [
+                        'mobiles' => '91' . $mobile,
+                        'name' => $name,
+                        'datetime' => Carbon::parse($appointment->appointment_date)->format('d-m-Y') . ' ' . Carbon::parse($appointment->appointment_time)->format('h:i A'),
+                    ]
+                ]
+            ]);
+
+            if ($response->successful()) {
+                \Log::info("SMS sent successfully to {$mobile}");
+            } else {
+                \Log::error("SMS sending failed: " . $response->body());
+            }
+        } catch (\Exception $e) {
+            \Log::error("Exception while sending SMS: " . $e->getMessage());
+        }
+    }
+
 
     // Helper function to convert time format from "10:00 AM" to "10:00:00"
     private function convertTimeFormat($timeString)
@@ -319,19 +348,19 @@ class BookAppointment extends Component
     public function downloadReceipt()
     {
         $doctor = Doctor::find($this->selectedDoctor);
-    
+
         $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
-    
+
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-                  ->setPaper('a4');  // Set A4 paper size
-    
+            ->setPaper('a4');  // Set A4 paper size
+
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();  // Output raw PDF data for download
         }, 'appointment-receipt.pdf');
     }
-    
+
 
     #[Layout('layouts.guest')]
     public function render()
