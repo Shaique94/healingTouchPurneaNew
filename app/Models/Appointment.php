@@ -16,6 +16,7 @@ class Appointment extends Model
         'appointment_time',
         'status',
         'payment_method',
+        'queue_number',
         'notes',
         'created_by',
     ];

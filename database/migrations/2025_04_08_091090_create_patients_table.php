@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
-            $table->unsignedSmallInteger('dob')->nullable();
+            $table->unsignedSmallInteger('age')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('address')->nullable();
             $table->string('pincode')->nullable();

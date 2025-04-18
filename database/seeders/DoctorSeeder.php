@@ -128,8 +128,7 @@ class DoctorSeeder extends Seeder
                 'email' => $doctorData['email'],
                 'password' => Hash::make('password'), // Default password
                 'role' => 'doctor',
-                'description' => 'Experienced and compassionate specialist in ' . $doctorData['department'] . '.', 
-
+                'description' => 'Experienced and compassionate specialist in ' . $doctorData['department'] . '.',
             ]);
 
             $department = $departments->where('name', $doctorData['department'])->first();

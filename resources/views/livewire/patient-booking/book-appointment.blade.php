@@ -554,11 +554,11 @@
 
                     <!-- Date of Birth -->
                     <div class="sm:col-span-3">
-                        <label for="dob" class="block text-sm font-medium text-gray-700">Age</label>
+                        <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
                         <div class="mt-1">
-                            <input wire:model.live="dob" type="text" min="0" max="150" maxlength="3" name="dob" id="dob" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
+                            <input wire:model.live="age" type="number" min="0" max="150" maxlength="3" name="age" id="age" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                         </div>
-                        @error('dob') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                        @error('age') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
                     </div>
 
                             <!-- Address -->
@@ -581,7 +581,7 @@
                             <input 
                                 wire:model.debounce.500ms="pincode" 
                                 wire:change.blur="fetchLocationByPincode" 
-                                type="text" 
+                                type="number" 
                                 name="pincode" 
                                 id="pincode"
                                 maxlength="6" 
