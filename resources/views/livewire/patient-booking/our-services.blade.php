@@ -82,7 +82,7 @@
         @foreach($doctors as $doctor)
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 w-full max-w-xs">
                 <div class="h-64 bg-gray-200">
-                    <img src="{{ asset('images/doctor1.png') }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
+                    <img src="{{ asset('storage/'.$doctor->doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" >
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
@@ -104,7 +104,7 @@
         @foreach($doctors as $doctor)
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div class="h-64 bg-gray-200">
-                    <img src="{{ asset('images/doctor1.png') }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
+                    <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>

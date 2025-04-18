@@ -3,11 +3,11 @@
             <i class="bi bi-x-lg"></i>
         </button>
         
-        <div class="sidebar-brand d-flex align-items-center">
+      {{--  <div class="sidebar-brand d-flex align-items-center">
             <img src="{{ \App\Models\Setting::get('logo', asset('healingTouchLogo.jpeg')) }}" alt="Hospital Logo" class="sidebar-logo">
 
             <span class="sidebar-title">{{ \App\Models\Setting::get('hospital_name', 'Healing Touch ') }}</span>
-        </div>
+        </div>--}}
        
         <div class="nav-links mt-3">
             <a wire:navigate href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
