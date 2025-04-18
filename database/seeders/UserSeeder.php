@@ -16,8 +16,9 @@ class UserSeeder extends Seeder
     {
         // Counter staff
         User::create([
-            'name' => 'Counter Admin',
-            'email' => 'counter@hospital.com',
+            'name' => 'Reception',
+            'description' => 'reception',
+            'email' => 'reception@hospital.com',
             'password' => Hash::make('password'),
             'role' => 'reception',
         ]);
