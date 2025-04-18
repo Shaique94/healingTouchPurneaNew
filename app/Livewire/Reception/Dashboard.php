@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
@@ -52,7 +53,7 @@ class Dashboard extends Component
         ]);
     }
         if ($this->step == 2) {
-            $this->validate([
+            $this->validate([ 
                 'doctor_id' => 'required|exists:doctors,id',
                 'appointment_date' => 'required|date',
                 'appointment_time' => 'required',
@@ -63,7 +64,6 @@ class Dashboard extends Component
             // dd($doctor_name);
             $this->doctor_name = $doctor_name->user->name;
         }
-        // dd($this->step);
 // dd('shaique');
         $this->step++;
     }
@@ -71,6 +71,16 @@ class Dashboard extends Component
     public function backStep()
     {
         $this->step--;
+    }
+
+    public function downloadTomorrowAppointmentsPDF(){
+        $tomorrow = Carbon::tomorrow()->toDateString();
+        $appointments = Appointment::with(['patient', 'doctor.user'])->whereDate('appointment_date', $tomorrow)->get();
+        $pdf = Pdf::loadView('pdf.tomorrow-appointments', compact('appointments'));
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'tomorrow-appointments.pdf');
     }
 
     public function save()
