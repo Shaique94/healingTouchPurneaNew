@@ -16,13 +16,34 @@ class All extends Component
     public $search = '';
     public $startDate = '';
     public $endDate = '';
-    public $showToday = true;
-    public $openDropdown = false;
+    public $showToday = false;
     public $showTomorrow = false;
+    public $openDropdown = false;
 
     public function mount()
     {
-        $this->showTodayAppointments(); // Set today as default when component loads
+        $this->applyToday(); // Default show today's appointments
+    }
+
+    public function applyToday()
+    {
+        $this->clearDateFilters();
+        $this->showToday = true;
+    }
+
+    public function applyTomorrow()
+    {
+        $this->clearDateFilters();
+        $this->showTomorrow = true;
+    }
+
+    public function clearDateFilters()
+    {
+        $this->startDate = '';
+        $this->endDate = '';
+        $this->showToday = false;
+        $this->showTomorrow = false;
+        $this->dispatch('dateFiltersCleared');
     }
 
     public function toggleDropdown()
@@ -32,32 +53,7 @@ class All extends Component
 
     public function exportPdf()
     {
-        $query = Appointment::with('doctor.user', 'patient');
-
-        // Apply the same filters as render
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->whereHas('doctor.user', function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('email', 'like', '%' . $this->search . '%');
-                })
-                    ->orWhereHas('patient', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
-            });
-        }
-
-        if ($this->showTomorrow) {
-            $tomorrow = Carbon::tomorrow()->format('Y-m-d');
-            $query->where('appointment_date', $tomorrow);
-        } elseif ($this->showToday) {
-            $today = Carbon::today()->format('Y-m-d');
-            $query->where('appointment_date', $today);
-        } elseif ($this->startDate && $this->endDate) {
-            $query->whereBetween('appointment_date', [$this->startDate, $this->endDate]);
-        }
-
-        $appointments = $query->latest()->get();
+        $appointments = $this->buildQuery()->latest()->get();
 
         $pdf = Pdf::loadView('pdf.appointmentpdf', [
             'appointments' => $appointments
@@ -70,32 +66,7 @@ class All extends Component
 
     public function export()
     {
-        $query = Appointment::with('doctor.user', 'patient');
-
-        // Apply the same filters as in render
-        if ($this->search) {
-            $query->where(function ($q) {
-                $q->whereHas('doctor.user', function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('email', 'like', '%' . $this->search . '%');
-                })
-                    ->orWhereHas('patient', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
-            });
-        }
-
-        if ($this->showTomorrow) {
-            $tomorrow = Carbon::tomorrow()->format('Y-m-d');
-            $query->where('appointment_date', $tomorrow);
-        } elseif ($this->showToday) {
-            $today = Carbon::today()->format('Y-m-d');
-            $query->where('appointment_date', $today);
-        } elseif ($this->startDate && $this->endDate) {
-            $query->whereBetween('appointment_date', [$this->startDate, $this->endDate]);
-        }
-
-        $appointments = $query->latest()->get();
+        $appointments = $this->buildQuery()->latest()->get();
 
         return Excel::download(new AllAppointmentsExport($appointments), 'appointments.xlsx');
     }
@@ -103,7 +74,6 @@ class All extends Component
     public function updateStatus($appointmentId, $newStatus)
     {
         $appointment = Appointment::find($appointmentId);
-
         if ($appointment) {
             $appointment->status = $newStatus;
             $appointment->save();
@@ -112,73 +82,43 @@ class All extends Component
         }
     }
 
-    public function filterByDateRange()
-    {
-        if (!$this->startDate || !$this->endDate) {
-            $this->showTodayAppointments(); // Fallback to today if no date range
-            return;
-        }
-        $this->showToday = false;
-        $this->showTomorrow = false;
-    }
-
-    public function showTomorrowAppointments()
-    {
-        $tomorrow = Carbon::tomorrow()->format('Y-m-d');
-        $this->startDate = $tomorrow;
-        $this->endDate = $tomorrow;
-        $this->showToday = false;
-        $this->showTomorrow = true;
-    }
-
-    public function showTodayAppointments()
-    {
-        $today = Carbon::today()->format('Y-m-d');
-        $this->startDate = $today;
-        $this->endDate = $today;
-        $this->showToday = true;
-        $this->showTomorrow = false;
-    }
-
-    public function clearDateFilter()
-    {
-        $this->showTodayAppointments(); // Reset to today instead of clearing
-    }
-
     #[On('refresh-appointment')]
     #[Layout('components.layouts.admin')]
     public function render()
     {
+        $appointments = $this->buildQuery()->latest()->get();
+
+        return view('livewire.admin.appointment.all', [
+            'appointments' => $appointments
+        ]);
+    }
+
+    private function buildQuery()
+    {
         $query = Appointment::with('doctor.user', 'patient');
 
-        // Always filter by date
         if ($this->showTomorrow) {
-            $tomorrow = Carbon::tomorrow()->format('Y-m-d');
-            $query->where('appointment_date', $tomorrow);
-        } elseif ($this->showToday || (!$this->startDate && !$this->endDate)) {
-            $today = Carbon::today()->format('Y-m-d');
-            $query->where('appointment_date', $today);
+            $tomorrow = Carbon::tomorrow()->toDateString();
+            $query->whereDate('appointment_date', $tomorrow);
+        } elseif ($this->showToday) {
+            $today = Carbon::today()->toDateString();
+            $query->whereDate('appointment_date', $today);
         } elseif ($this->startDate && $this->endDate) {
-            $query->whereBetween('appointment_date', [$this->startDate, $this->endDate]);
+            $query->whereDate('appointment_date', '>=', $this->startDate)
+                  ->whereDate('appointment_date', '<=', $this->endDate);
         }
 
-        // Apply search filter if provided
         if ($this->search) {
             $query->where(function ($q) {
                 $q->whereHas('doctor.user', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('email', 'like', '%' . $this->search . '%');
-                })
-                    ->orWhereHas('patient', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
+                          ->orWhere('email', 'like', '%' . $this->search . '%');
+                })->orWhereHas('patient', function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
             });
         }
 
-        $appointments = $query->latest()->get();
-
-        return view('livewire.admin.appointment.all', [
-            'appointments' => $appointments,
-        ]);
+        return $query;
     }
 }
