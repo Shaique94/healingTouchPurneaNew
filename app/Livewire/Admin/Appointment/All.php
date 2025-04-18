@@ -45,6 +45,21 @@ class All extends Component
         $this->showTomorrow = false;
         $this->dispatch('dateFiltersCleared');
     }
+    public function printPdf($id){
+        
+    
+        $appointment = Appointment::with(['doctor', 'patient'])
+            ->where('id', $id)
+            ->first();
+    
+        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
+                  ->setPaper('a4');  
+    
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->output();  // Output raw PDF data for download
+        }, 'appointment-receipt.pdf');
+    }
+
 
     public function toggleDropdown()
     {
