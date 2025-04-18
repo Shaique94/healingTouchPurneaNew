@@ -34,7 +34,7 @@ class BookAppointment extends Component
     public $email;
     public $phone;
     public $gender;
-    public $dob;
+    public $age;    
     public $address;
     public $pincode;
     public $city = "purnea";
@@ -66,7 +66,7 @@ class BookAppointment extends Component
                 'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:10',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'nullable',
+                'age' => 'nullable',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
@@ -227,7 +227,7 @@ class BookAppointment extends Component
                 'email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:15',
                 'gender' => 'required|in:male,female,other',
-                'dob' => 'nullable|max:150',
+                'age' => 'nullable|max:150',
                 'address' => 'required|string|max:255',
                 'pincode' => 'required|string|max:10',
                 'city' => 'required|string|max:100',
@@ -266,7 +266,7 @@ class BookAppointment extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'gender' => $this->gender,
-                'dob' => $this->dob,
+                'age' => $this->age,
                 'address' => $this->address,
                 'pincode' => $this->pincode,
                 'city' => $this->city,
@@ -296,7 +296,7 @@ class BookAppointment extends Component
         ]);
 
         $this->appointmentId = $appointment->id;
-        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
