@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+<div class="container mx-auto px-4 py-8  md:py-12 max-w-4xl">
     <!-- Back Button -->
     <a href="{{ route('careers.page') }}" class="inline-flex items-center text-beige-600 hover:text-beige-800 mb-6 transition-colors duration-300 group">
         <svg class="h-5 w-5 mr-2 text-beige-600 group-hover:text-beige-800 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

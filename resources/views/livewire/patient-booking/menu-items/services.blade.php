@@ -1,7 +1,7 @@
 <div>
 
     <!-- Service Details -->
-    <section id="services" class="py-16">
+    <section id="services" class="py-16 mt-10">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Medical Services</h2>
