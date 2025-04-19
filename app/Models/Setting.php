@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Setting extends Model
 {
+    protected $table = "settings";
     protected $fillable = ['key', 'value', 'group', 'type', 'description'];
 
     public static function get($key, $default = null)

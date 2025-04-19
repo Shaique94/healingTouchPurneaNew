@@ -21,7 +21,7 @@ class Add extends Component
     public $address;
     public $pincode;
     public $city;
-    public $state ;
+    public $state = "Bihar";
     public $country = "India";
     public $age;
     public $doctor_id;
@@ -38,7 +38,7 @@ class Add extends Component
   
     public function UpdatedPincode()
     {
-        if (!empty($this->pincode) && strlen($this->pincode) == 6) {
+        if (strlen($this->pincode) == 6) {
             try {
                 $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
                 $data = $response->json();
@@ -127,7 +127,7 @@ class Add extends Component
         $this->address = '';
         $this->pincode = '';
         $this->city = '';
-        $this->state = '';
+        $this->state = 'Bihar';
         $this->country = 'India';
         $this->doctor_id = '';
         $this->appointment_date = '';

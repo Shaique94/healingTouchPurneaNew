@@ -1,4 +1,4 @@
-<section class="bg-white py-16 px-4 md:px-12 lg:px-24">
+<section class="bg-white py-16 px-4 md:px-12 mt-10 lg:px-24">
     <div class="max-w-6xl mx-auto text-center mb-12">
         <h1 class="text-4xl font-bold text-gray-900 mb-4">About Healing Touch Hospital</h1>
         <p class="text-lg text-gray-600 mb-12">

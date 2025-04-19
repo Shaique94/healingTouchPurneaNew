@@ -19,7 +19,7 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-800 text-lg">Phone</p>
-                       <a href="tel:{{ $contact_phone }}" target="_blank">+91 {{ $contact_phone }}</a> 
+                        <p class="text-beige-600 font-medium text-lg mt-1">+91 9471659700</p>
                         <p class="text-gray-500 text-sm mt-1">Available 24/7 for emergencies</p>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-800 text-lg">Email</p>
-                        <a href="mailto:{{ $contact_email }}" target="_blank" class="text-beige-600 font-medium text-lg mt-1">{{ $contact_email }}</a>
+                        <p class="text-beige-600 font-medium text-lg mt-1">support@yourdomain.com</p>
                         <p class="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
                     </div>
                 </div>
@@ -51,8 +51,8 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-800 text-lg">Address</p>
-                        <p class="text-gray-700 mt-1">{!! nl2br(e($address)) !!}</p>
-                        <a href="{{ $map_url }}" target="_blank" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
+                        <p class="text-gray-700 mt-1">Hope Chauraha, Rambagh Road,<br>Linebazar, Purnea</p>
+                        <a href="#" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
                             Get Directions
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -89,21 +89,36 @@
                         <div>
                             <p class="font-semibold text-gray-800 text-lg">Social Media</p>
                             <p class="mt-1">
-                                @if($facebook)
-                                <a href="{{ $facebook }}" target="_blank" class="text-beige-600 hover:text-beige-800 mr-4">Facebook</a>
-                            @endif
-                            @if($instagram)
-                                <a href="{{ $instagram }}" target="_blank" class="text-beige-600 hover:text-beige-800 mr-4">Instagram</a>
-                            @endif
-                            @if($twitter)
-                                <a href="{{ $twitter }}" target="_blank" class="text-beige-600 hover:text-beige-800">Twitter</a>
-                            @endif
+                                <a href="#" class="text-beige-600 hover:text-beige-800 mr-4">Facebook</a>
+                                <a href="#" class="text-beige-600 hover:text-beige-800 mr-4">Instagram</a>
+                                <a href="#" class="text-beige-600 hover:text-beige-800">Twitter</a>
                             </p>
                         </div>
                     </div>
                 </div>
 
-               
+                <!-- Live Chat Section -->
+                <div class="border-t border-gray-100 pt-6 flex items-start">
+                    <div class="bg-beige-100 p-3 rounded-full mr-4 flex-shrink-0">
+                        <svg class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4V10a2 2 0 012-2h2" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 text-lg">Live Chat</p>
+                        <p class="text-gray-700 mt-1">Chat with our support team for real-time assistance.</p>
+                        <a href="#"
+                            class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
+                            Start Chat
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -13,7 +13,7 @@ class OurDoctors extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
-        $doctors = Doctor::with('user', 'department')
+        $doctors = Doctor::with('user', 'department') 
             ->when($this->search, function ($query) {
                 return $query->whereHas('user', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
@@ -29,7 +29,6 @@ class OurDoctors extends Component
     }
     public function bookAppointment($doctorId)
     {
-        // Example logic - redirect to appointment form
         return redirect()->route('appointments.create', ['doctor_id' => $doctorId]);
     }
 }

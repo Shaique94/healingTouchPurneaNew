@@ -19,9 +19,7 @@ class ManageSetting extends Component
     public $contact_email;
     public $contact_phone;
     public $address;
-    public $instagram;
-    public $facebook;
-    public $twitter;
+
     public function mount()
     {
         $this->hospital_name = Setting::get('hospital_name', '');
@@ -38,9 +36,6 @@ class ManageSetting extends Component
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
-            'instagram' => 'nullable|string|max:255',
-            'facebook' => 'nullable|string|max:255',
-            'twitter' => 'nullable|string|max:255',
         ]);
 
         Setting::set('hospital_name', $this->hospital_name, 'string', 'general', 'Name of the hospital');
@@ -50,10 +45,8 @@ class ManageSetting extends Component
         Setting::set('contact_email', $this->contact_email, 'string', 'contact', 'Contact email address');
         Setting::set('contact_phone', $this->contact_phone, 'string', 'contact', 'Contact phone number');
         Setting::set('address', $this->address, 'string', 'contact', 'Hospital address');
-        Setting::set('instagram', $this->instagram, 'string', 'social', 'Instagram link');
-        Setting::set('facebook', $this->facebook, 'string', 'social', 'Facebook link');
-        Setting::set('twitter', $this->twitter, 'string', 'social', 'Twitter link');
-        $this->dispatch('success', __('Settings updated successfully!'));
+
+        session()->flash('message', 'Settings updated successfully!');
     }
     public function render()
     {
