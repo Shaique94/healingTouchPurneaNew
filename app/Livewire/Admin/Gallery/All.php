@@ -16,14 +16,19 @@ class All extends Component
     {
         $this->galleries = GalleryImage::latest()->get();
     }
-
+    public function alertConfirm($id)
+    {
+        $this->dispatch( 'swal:confirm', type: 'warning', message: 'Are you sure?', text: 'If deleted, you will not be able to recover this', galleryId: $id);
+ 
+    }
     public function delete($id)
     {
         $gallery = GalleryImage::findOrFail($id);
         $gallery->delete();
-        $this->galleries = GalleryImage::latest()->get();  
+        $this->galleries = GalleryImage::latest()->get(); 
+        $this->dispatch('success', __('Gallery Deleted successfully'));
+ 
 
-        session()->flash('message', 'Gallery item deleted successfully.');
     }
    
     #[Layout('components.layouts.admin')]

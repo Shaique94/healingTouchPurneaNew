@@ -47,8 +47,7 @@
                                 <i class="bi bi-pencil me-1"></i>Edit
                             </button>
                             <button class="btn btn-light btn-sm text-danger" 
-                                    wire:click="delete({{ $gallery->id }})"
-                                    onclick="return confirm('Are you sure you want to delete this image?')">
+                                    wire:click="alertConfirm({{ $gallery->id }})">
                                 <i class="bi bi-trash me-1"></i>Delete
                             </button>
                         </div>
@@ -68,6 +67,25 @@
 
     <livewire:admin.gallery.add/>
     <livewire:admin.gallery.update/>
+    @script
+    <script>
+        window.addEventListener('swal:confirm', event => {
+            Swal.fire({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('delete', event.detail.galleryId)
+                }
+            })
+        });
+    </script>
+    @endscript
 
     <style>
         .hover-card {

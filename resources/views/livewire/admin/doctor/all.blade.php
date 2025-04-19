@@ -102,26 +102,7 @@
         });
     </script>
     @endscript
-    <!-- SweetAlert Script -->
-    @push('scripts')
-    <script>
-        window.addEventListener('swal:confirm', event => {
-            Swal.fire({
-                title: event.detail.message,
-                text: event.detail.text,
-                icon: event.detail.type,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    @this.call('delete', event.detail.doctorId);
-                }
-            })
-        });
-    </script>
-    @endpush
+  
 
     <style>
         .cursor-pointer {
