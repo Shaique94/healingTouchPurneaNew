@@ -1,14 +1,15 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md border border-gray-200">
         <!-- Logo/Icon -->
         <div class="flex justify-center mb-6">
-            <div class="h-16 w-16   flex items-center justify-center shadow-md">
+            <div class="h-16 w-16 bg-beige-100 rounded-full flex items-center justify-center shadow-md">
                 <img src="{{asset('healingTouchLogo.jpeg')}}" alt="healing touch logo" class="h-12 w-12">
             </div>
         </div>
         
-        <h2 class="text-2xl font-bold text-center mb-2 text-gray-800">Reception Login</h2>
-        <p class="text-center text-gray-500 mb-6 text-sm">Enter your credentials to access the dashboard</p>
+        <h2 class="text-2xl font-bold text-center mb-2 text-gray-800">Reception <span class="text-beige-600">Login</span></h2>
+        <div class="w-24 h-1 bg-gray-600 mx-auto mb-4"></div>
+        <p class="text-center text-gray-600 mb-6 text-sm">Enter your credentials to access the dashboard</p>
 
         {{-- Display error message --}}
         @if (session()->has('error'))
@@ -33,7 +34,7 @@
                     <input
                         type="email"
                         wire:model="email"
-                        class="mt-1 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        class="mt-1 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-beige-500 focus:border-beige-500 transition"
                         placeholder="reception@example.com"
                     >
                 </div>
@@ -51,7 +52,7 @@
                     <input
                         type="password"
                         wire:model="password"
-                        class="mt-1 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                        class="mt-1 w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-beige-500 focus:border-beige-500 transition"
                         placeholder="••••••••"
                     >
                 </div>
@@ -61,16 +62,16 @@
             <!-- Remember me and forgot password -->
             <div class="flex items-center justify-between text-sm">
                 <div class="flex items-center">
-                    <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <input id="remember-me" type="checkbox" class="h-4 w-4 text-beige-600 focus:ring-beige-500 border-gray-300 rounded">
                     <label for="remember-me" class="ml-2 block text-gray-700">Remember me</label>
                 </div>
-                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Forgot password?</a>
+                <a href="#" class="text-beige-600 hover:text-beige-800 font-medium">Forgot password?</a>
             </div>
 
             <div>
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl transition duration-200 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md"
+                    class="w-full bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-4 rounded-md transition duration-200 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-beige-500 focus:ring-opacity-50 shadow-md"
                 >
                     Sign In
                 </button>
@@ -78,8 +79,8 @@
         </form>
 
         <!-- Additional help text -->
-        <p class="text-center text-gray-500 text-sm mt-6">
-            Need assistance? Contact <a href="#" class="text-blue-600 hover:underline">Admin</a>
+        <p class="text-center text-gray-600 text-sm mt-6">
+            Need assistance? Contact <a href="#" class="text-beige-600 hover:underline">Admin</a>
         </p>
     </div>
 </div>
