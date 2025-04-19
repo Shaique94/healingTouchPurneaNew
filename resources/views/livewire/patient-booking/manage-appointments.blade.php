@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 mt-16">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-8xl mx-auto">
         <!-- Page Header with Gradient Background -->
         <div class="mb-10 bg-gradient-to-r from-beige-600 to-beige-800 rounded-xl py-8 px-6 text-white shadow-lg">
             <h1 class="text-2xl md:text-3xl font-bold">Manage Your Appointments</h1>
@@ -19,33 +19,33 @@
                 
                 <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
                     <!-- Replace missing image with inline SVG calendar illustration -->
-                    <div class="w-40 h-40 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-full h-full text-beige-600">
-                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-beige-200 fill-beige-50"/>
-                            <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Calendar dates -->
-                            <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-beige-500"/>
-                            <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-beige-400"/>
-                            <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-beige-300"/>
-                            <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-beige-300"/>
-                            <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-beige-500"/>
-                            <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-beige-400"/>
-                            <!-- Add a plus sign to indicate appointment booking -->
-                            <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
-                        </svg>
+                    <div class="flex flex-col items-center space-y-4 mb-6">
+                        <div class="w-28 h-28 bg-gradient-to-r from-beige-600 to-beige-800 rounded-full flex items-center justify-center shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-16 h-16 text-white">
+                                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-beige-200 fill-beige-50"/>
+                                <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-beige-500"/>
+                                <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-beige-400"/>
+                                <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-beige-300"/>
+                                <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-beige-300"/>
+                                <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-beige-500"/>
+                                <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-beige-400"/>
+                                <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
+                            </svg>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-semibold text-gray-900">Schedule Your Visit for Tommorow</h3>
+                            <p class="text-gray-600">Take the first step towards better health by booking an appointment with our specialists.</p>
+                        </div>
+                        <a href="{{ route('book.appointment') }}" class="px-8 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Book Appointment
+                        </a>
                     </div>
-                    
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Ready to schedule your visit?</h3>
-                    <p class="text-gray-600 mb-8">Book an appointment with our specialists and get the quality care you deserve.</p>
-                    
-                    <a href="{{ route('book.appointment') }}" class="px-6 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        Book New Appointment
-                    </a>
                 </div>
                 
                 <div class="bg-gray-50 rounded-lg p-4 mt-4">
