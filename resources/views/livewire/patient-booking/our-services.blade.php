@@ -78,30 +78,33 @@
             </div>
 
             @if($doctorCount <= 3)
-    <div class="flex justify-center flex-wrap gap-8">
-        @foreach($doctors as $doctor)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 w-full max-w-xs">
-                <div class="h-64 bg-gray-200">
-                    <img src="{{ asset('storage/'.$doctor->doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" >
-                </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
-                    <p class="text-beige-600 font-medium mb-2">
-                        {{ is_array($doctor->doctor->qualification ?? null) 
+                <div class="flex justify-center flex-wrap gap-8">
+                @foreach($doctors as $doctor)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 w-full max-w-xs">
+                    <div class="h-64 bg-gray-200">
+                        <img
+                            src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
+                            alt="{{ $doctor->name }}"
+                            class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
+                        <p class="text-beige-600 font-medium mb-2">
+                            {{ is_array($doctor->doctor->qualification ?? null) 
                             ? implode(', ', $doctor->doctor->qualification) 
                             : $doctor->doctor->qualification }}
-                    </p>
-                    <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
-                    <div class="flex justify-center space-x-3">
-                        <!-- social icons -->
+                        </p>
+                        <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
+                        <div class="flex justify-center space-x-3">
+                            <!-- social icons -->
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-@else
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        @foreach($doctors as $doctor)
+                @endforeach
+        </div>
+        @else
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            @foreach($doctors as $doctor)
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
                 <div class="h-64 bg-gray-200">
                     <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
@@ -119,6 +122,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
-@endif
+            @endforeach
+        </div>
+        @endif

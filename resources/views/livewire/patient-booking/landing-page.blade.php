@@ -9,7 +9,7 @@
                 </h1>   
                 <p class="text-lg text-gray-600 mb-8 leading-relaxed">
                     Experience world-class medical care with our team of dedicated specialists and
-                    patient-centered approach. Your health is our priority.
+                    patient-centered ap/our-doctorsproach. Your health is our priority.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="{{route('manage.appointments')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
