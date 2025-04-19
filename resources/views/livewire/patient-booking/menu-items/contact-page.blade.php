@@ -19,11 +19,25 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-800 text-lg">Phone</p>
-                        <p class="text-beige-600 font-medium text-lg mt-1">+91 9471659700</p>
+                       <a href="tel:{{ $contact_phone }}" target="_blank">+91 {{ $contact_phone }}</a> 
                         <p class="text-gray-500 text-sm mt-1">Available 24/7 for emergencies</p>
                     </div>
                 </div>
 
+                <!-- Email Section -->
+                <div class="border-t border-gray-100 pt-6 flex items-start">
+                    <div class="bg-beige-100 p-3 rounded-full mr-4 flex-shrink-0">
+                        <svg class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800 text-lg">Email</p>
+                        <a href="mailto:{{ $contact_email }}" target="_blank" class="text-beige-600 font-medium text-lg mt-1">{{ $contact_email }}</a>
+                        <p class="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
+                    </div>
+                </div>
 
                 <!-- Address Section -->
                 <div class="border-t border-gray-100 pt-6 flex items-start">
@@ -37,8 +51,8 @@
                     </div>
                     <div>
                         <p class="font-semibold text-gray-800 text-lg">Address</p>
-                        <p class="text-gray-700 mt-1">Hope Chauraha, Rambagh Road,<br>Linebazar, Purnea</p>
-                        <a href="#" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
+                        <p class="text-gray-700 mt-1">{!! nl2br(e($address)) !!}</p>
+                        <a href="{{ $map_url }}" target="_blank" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
                             Get Directions
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -64,7 +78,30 @@
                     </div>
                 </div>
 
-                
+                <!-- Social Media Section -->
+                <div class="border-t border-gray-100 pt-6">
+                    <div class="flex items-start">
+                        <div class="bg-beige-100 p-3 rounded-full mr-4 flex-shrink-0">
+                            <svg class="h-6 w-6 text-beige-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12a9.998 9.998 0 0014.49 8.73V14.9h-3.06v-2.9h3.06v-2.22c0-3.04 1.83-4.7 4.57-4.7 1.32 0 2.7.24 2.7.24v2.95h-1.52c-1.5 0-1.97.93-1.97 1.88v2.14h3.34l-.53 2.9h-2.81v5.83A10 10 0 0022 12z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800 text-lg">Social Media</p>
+                            <p class="mt-1">
+                                @if($facebook)
+                                <a href="{{ $facebook }}" target="_blank" class="text-beige-600 hover:text-beige-800 mr-4">Facebook</a>
+                            @endif
+                            @if($instagram)
+                                <a href="{{ $instagram }}" target="_blank" class="text-beige-600 hover:text-beige-800 mr-4">Instagram</a>
+                            @endif
+                            {{-- @if($twitter)
+                                <a href="{{ $twitter }}" target="_blank" class="text-beige-600 hover:text-beige-800">Twitter</a>
+                            @endif --}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
                
 
