@@ -11,28 +11,31 @@
        
         <div class="nav-links mt-3">
             <a wire:navigate href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-speedometer2"></i> <span>Dashboard</span>
+                <i class="bi bi-grid-1x2"></i> <span>Dashboard</span>
             </a>
             <a wire:navigate href="{{ route('admin.appointment') }}" class="{{ request()->routeIs('admin.appointment') ? 'active' : '' }}">
-                <i class="bi bi-calendar-check"></i> <span>Appointments</span>
+                <i class="bi bi-calendar2-check"></i> <span>Appointments</span>
             </a>
             <a wire:navigate href="{{ route('admin.user') }}" class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
-                <i class="bi bi-people"></i> <span>Manage Users</span>
+                <i class="bi bi-people-fill"></i> <span>Manage Users</span>
             </a>
             <a wire:navigate href="{{ route('admin.department') }}" class="{{ request()->routeIs('admin.department') ? 'active' : '' }}">
-                <i class="bi bi-building"></i> <span>Departments</span>
+                <i class="bi bi-hospital"></i> <span>Departments</span>
             </a>
             <a wire:navigate href="{{ route('admin.doctor') }}" class="{{ request()->routeIs('admin.doctor') ? 'active' : '' }}">
-                <i class="bi bi-person-badge"></i> <span>Manage Doctors</span>
+                <i class="bi bi-person-vcard"></i> <span>Manage Doctors</span>
             </a>
             <a wire:navigate href="{{ route('admin.add.career') }}" class="">
-                <i class="bi bi-backpack4"></i><span>Manage Job</span>
+                <i class="bi bi-briefcase"></i><span>Manage Job</span>
+            </a>
+            <a wire:navigate href="{{ route('admin.gallery') }}" class="">
+                <i class="bi bi-images"></i><span>Manage Gallery</span>
             </a>
             <a wire:navigate href="{{ route('admin.settings') }}" class="">
-                <i class="bi bi-backpack4"></i><span>Settings</span>
+                <i class="bi bi-gear"></i><span>Settings</span>
             </a>
             <a wire:navigate href="{{ route('admin.logout') }}">
-                <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
+                <i class="bi bi-power"></i> <span>Logout</span>
             </a>
         </div>
     </div>
