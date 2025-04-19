@@ -608,7 +608,7 @@
                                     <input wire:model="city" type="text" name="city" id="city"
                                         autocomplete="address-level2"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
-                                        readonly>
+                                        >
                                 </div>
                                 @error('city')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -621,7 +621,7 @@
                                 <div class="mt-1">
                                     <input wire:model="state" type="text" name="state" id="state"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
-                                        readonly>
+                                        >
                                 </div>
                                 @error('state')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
