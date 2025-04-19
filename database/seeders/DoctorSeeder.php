@@ -135,12 +135,14 @@ class DoctorSeeder extends Seeder
 
             if ($department) {
                 $qualifications = $specialtyDegrees[$doctorData['department']] ?? ['MBBS'];
+                $qualificationString = implode(', ', $qualifications); // convert to string
+
 
                 Doctor::create([
                     'user_id' => $user->id,
                     'department_id' => $department->id,
                     'available_days' => $doctorData['available_days'],
-                    'qualification' => implode(', ', $qualifications), // Convert array to string
+                    'qualification' => $qualificationString,
                     'fee' => 500,
                     'status' => true,
                     'image' => null,
