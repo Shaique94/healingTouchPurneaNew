@@ -62,10 +62,10 @@
                 </a>
                 <a href="{{ route('gallery.page') }}" 
                     class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
-                    :class="{ 'text-beige-600 font-medium': activeSection === 'about.page' }">
+                    :class="{ 'text-beige-600 font-medium': activeSection === 'gallery.page' }">
                     Gallery
                     <span class="absolute bottom-0 left-0 h-0.5 bg-beige-500 transition-all duration-300" 
-                          :class="activeSection === 'about.page' ? 'w-full' : 'w-0'"></span>
+                    :class="activeSection === 'gallery.page' ? 'w-full' : 'w-0'"></span>
                 </a>
                 <a href="{{ route('careers.page') }}" 
                     class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
