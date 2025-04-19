@@ -25,26 +25,24 @@
         </div>
     </div>
 
-    {{-- Doctor Grid with enhanced cards --}}
+    {{-- Doctor Grid with fixed height cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @forelse ($doctors as $doctor)
-        <a href="{{ route('doctors.detail', $doctor->id) }}" class="block">
-        <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="p-6">
-                <div class="flex items-center gap-5">
+        <a href="{{ route('doctors.detail', $doctor->id) }}" class="block h-full">
+        <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
+            <div class="p-6 flex-grow">
+                <div class="flex items-start gap-5">
                     <div class="flex-shrink-0">
                         <img
                             class="w-20 h-20 rounded-full object-cover border-2 border-beige-100 shadow"
                             src="{{ $doctor->image ? asset('storage/' . $doctor->image): asset('images/default.jpg') }}"
                             alt="Dr. {{ $doctor->user->name }}">
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 px-2">Dr. {{ $doctor->user->name  }}</h3>
-                        <p class="text-sm font-medium text-beige-600 px-2">{{ $doctor->department->name }}</p>
-                        <p class="text-sm font-medium text-gray-600 px-2">{{ $doctor->qualification }}</p>
-                        <p class="font-medium text-xs px-2">{{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}</p>
-
-
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-xl font-bold text-gray-800 truncate">Dr. {{ $doctor->user->name }}</h3>
+                        <p class="text-sm font-medium text-beige-600 truncate">{{ $doctor->department->name }}</p>
+                        <p class="text-sm font-medium text-gray-600 line-clamp-1">{{ $doctor->qualification }}</p>
+                        <p class="font-medium text-xs line-clamp-1">{{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}</p>
                     </div>
                 </div>
 
@@ -54,12 +52,11 @@
                             <svg class="w-4 h-4" fill="#906A39" viewBox="0 0 20 20">
                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                             </svg>
-                            @endfor
+                        @endfor
                     </div>
-
                 </div>
             </div>
-            <div class="bg-gray-50 px-6 py-3 border-t border-gray-100">
+            <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 mt-auto">
                 <div class="flex justify-between text-sm text-gray-500">
                     <span class="flex items-center">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -67,7 +64,6 @@
                         </svg>
                         {{ $doctor->status ? "Available Today" : "NotAvailable" }}
                     </span>
-
                 </div>
             </div>
         </div>
