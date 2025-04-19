@@ -8,7 +8,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
-
+use Livewire\Attributes\Title;
+#[Title('Manage Appointments')]
 #[Layout('layouts.guest')]
 class ManageAppointments extends Component
 {

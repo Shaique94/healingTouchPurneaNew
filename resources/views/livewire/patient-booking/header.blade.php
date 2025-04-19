@@ -13,7 +13,7 @@
     :class="{ 'bg-white/95 backdrop-blur-md shadow-md py-5': scrolled, 'bg-transparent py-4': !scrolled }"
     @scroll.window="scrolled = (window.pageYOffset > 30)">
     
-    <div class="container mx-auto px-4 lg:px-8">
+    <div class="container mx-auto px-4 lg:px-8 ">
         <div class="flex justify-between items-center">
             <!-- Logo Area -->
             <div class="flex items-center">
