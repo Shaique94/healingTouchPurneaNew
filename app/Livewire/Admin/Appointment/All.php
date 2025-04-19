@@ -45,19 +45,23 @@ class All extends Component
         $this->showTomorrow = false;
         $this->dispatch('dateFiltersCleared');
     }
-    public function printPdf($id){
-        
-    
-        $appointment = Appointment::with(['doctor', 'patient'])
+    public function printPdf($id)
+    {
+        $appointment = Appointment::with(['doctor.user', 'doctor.department', 'patient'])
             ->where('id', $id)
             ->first();
-    
+
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-                  ->setPaper('a4');  
-    
+            ->setPaper('A4')
+            ->setOption('defaultFont', 'mangal')
+            ->setOption('fontHeightRatio', 0.9)
+            ->setOption('font-family', 'mangal')
+            ->setOption('isRemoteEnabled', true)
+            ->setOption('chroot', base_path('public/'));
+
         return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();  // Output raw PDF data for download
-        }, 'appointment-receipt.pdf');
+            echo $pdf->output();
+        }, 'appointment-' . $appointment->id . '.pdf');
     }
 
 
