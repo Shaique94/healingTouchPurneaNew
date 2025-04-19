@@ -26,6 +26,7 @@ use App\Livewire\PatientBooking\MenuItems\AboutUs;
 use App\Livewire\PatientBooking\MenuItems\Careers;
 use App\Livewire\PatientBooking\MenuItems\ContactPage;
 use App\Livewire\PatientBooking\MenuItems\DoctorDetails;
+use App\Livewire\PatientBooking\MenuItems\GalleryPage;
 use App\Livewire\PatientBooking\MenuItems\OurDoctors;
 use App\Livewire\PatientBooking\MenuItems\Services;
 use App\Livewire\Reception\Dashboard as ReceptionDashboard;
@@ -71,6 +72,7 @@ Route::get('/services', Services::class)->name('services.page');
 Route::get('/contact-us',ContactPage::class)->name('contact.page');
 Route::get('/about-us',AboutUs::class)->name('about.page');
 Route::get('/doctor/{doctorId}', DoctorDetails::class)->name('doctors.detail');
+Route::get('/gallery', GalleryPage::class)->name('gallery.page');
 
 //Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {

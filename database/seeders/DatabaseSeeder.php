@@ -16,12 +16,13 @@ class DatabaseSeeder extends Seeder
     {
         // Call the department and doctor seeders
         $this->call([
-            DepartmentSeeder::class,
-            UserSeeder::class,
-            AdminUserSeeder::class,
+            // DepartmentSeeder::class,
+            // UserSeeder::class,
+            // AdminUserSeeder::class,
             // DoctorSeeder::class,
-            PatientSeeder::class,
+            // PatientSeeder::class,
             // AppointmentSeeder::class,
+             GalleryImagesTableSeeder::class,
         ]);
     }
 }
