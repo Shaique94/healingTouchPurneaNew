@@ -1,6 +1,7 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-beige-50 to-white">
+<div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gradient-to-b from-beige-50 to-white">
     {{-- Heading with enhanced styling --}}
-    <div class="text-center mb-16">
+    <div class="text-center mb-8">
         <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Meet Our Expert</h2>
         <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">Browse and schedule consultations with our highly qualified medical professionals</p>
         <div class="mt-2 flex justify-center">
@@ -9,7 +10,7 @@
     </div>
 
     {{-- Enhanced Search with icon --}}
-    <div class="flex justify-center mb-12">
+    <div class="flex justify-center mb-8">
         <div class="relative w-full md:w-2/3 lg:w-1/2">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -25,7 +26,7 @@
     </div>
 
     {{-- Doctor Grid with enhanced cards --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @forelse ($doctors as $doctor)
         <a href="{{ route('doctors.detail', $doctor->id) }}" class="block">
         <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -81,6 +82,5 @@
         </div>
         @endforelse
     </div>
-
-
+</div>
 </div>

@@ -28,7 +28,6 @@ class OurDoctors extends Component
     }
     public function bookAppointment($doctorId)
     {
-        // Example logic - redirect to appointment form
         return redirect()->route('appointments.create', ['doctor_id' => $doctorId]);
     }
 }
