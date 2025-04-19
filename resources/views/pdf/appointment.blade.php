@@ -1,326 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healing Touch Hospital Appointment</title>
+    <meta charset="utf-8">
     <style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: #ffffff;
-        margin: 0 auto;
-        padding: 0;
-        width: 100%;
-        max-width: 600px;
-    }
-
-    .card {
-        width: 100%;
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        margin: 10px auto;
-        box-sizing: border-box;
-        padding: 0;
-        box-shadow: none;
-        position: relative;
-    }
-
-    .card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 6px;
-        width: 100%;
-        background: linear-gradient(90deg, #0066ff, #00a3ff);
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 15px;
-        padding: 15px 10px 10px;
-        border-bottom: 1px solid #eaeaea;
-        background: #f9fbff;
-        position: relative;
-    }
-
-    .logo-container {
-        width: 70px;
-        height: 70px;
-        background: #f0f7ff;
-        border-radius: 50%;
-        margin: 0 auto 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #e0e9ff;
-        z-index: 1;
-        position: relative;
-    }
-
-    .logo-container img {
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-
-    .hospital-name {
-        font-size: 20px;
-        font-weight: bold;
-        margin: 0;
-        color: #2d3748;
-    }
-
-    .tagline {
-        font-size: 12px;
-        color: #718096;
-        margin: 3px 0 0;
-    }
-
-    .section-title {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0 0 10px;
-        color: #2d3748;
-        display: flex;
-        align-items: center;
-    }
-
-    .section-title::before {
-        content: "";
-        display: inline-block;
-        width: 3px;
-        height: 14px;
-        background-color: #0066ff;
-        margin-right: 6px;
-        border-radius: 1px;
-    }
-
-    .content-section {
-        padding: 0 15px;
-    }
-
-    .appointment-details {
-        position: relative;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eaeaea;
-    }
-
-    .confirmed-badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: #e6f7ee;
-        color: #0e9f6e;
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-    }
-
-    .confirmed-badge svg {
-        width: 12px;
-        height: 12px;
-        margin-right: 4px;
-    }
-
-    .info-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-
-    .icon-container {
-        width: 34px;
-        height: 34px;
-        background: #ebf5ff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 12px;
-        border: 1px solid #d9e8ff;
-    }
-
-    .icon-container svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .info-content {
-        flex: 1;
-    }
-
-    .info-label {
-        font-size: 11px;
-        color: #718096;
-        margin: 0;
-        font-weight: 600;
-    }
-
-    .info-value {
-        font-size: 13px;
-        font-weight: bold;
-        color: #2d3748;
-        margin: 2px 0 0;
-    }
-
-    .patient-info {
-        background: #fafafa;
-        border-radius: 6px;
-        padding: 12px;
-        margin-bottom: 15px;
-        border: 1px solid #f0f0f0;
-    }
-
-    .patient-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .patient-item {
-        margin-bottom: 5px;
-    }
-
-    .footer {
-        padding: 10px 15px;
-        background: #f9fbff;
-        border-top: 1px solid #eaeaea;
-        text-align: center;
-        font-size: 10px;
-        color: #718096;
-    }
-
-    .footer svg {
-        width: 16px;
-        height: 16px;
-        margin-bottom: 4px;
-    }
-
-    @media print {
-        body, .card {
-            margin: 0;
-            padding: 0;
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            padding: 10px;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+        .box {
+            border: 1px solid #000;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .header {
+            padding: 10px;
+            border-bottom: 2px solid #1a5f7a;
+            background: #f8f9fa;
+            text-align: center;
+            position: relative;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #1a5f7a;
+            border-radius: 50%;
+            padding: 2px;
+            margin: 0 auto 5px;
+            display: block;
+            object-fit: cover;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .hospital-title {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .hospital-title h3 {
+            color: #1a5f7a;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 2px 0;
+            line-height: 1.2;
+        }
+        .tagline {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .appointment-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            border: 1px solid #c8e6c9;
+        }
+        .content-table {
             width: 100%;
-            max-width: none;
-            border: none;
-            box-shadow: none;
+            border-collapse: collapse;
         }
-        .card::before, .confirmed-badge, .header, .patient-info {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-            color-adjust: exact;
+        .content-cell {
+            width: 50%;
+            padding: 10px;
+            vertical-align: top;
         }
-    }
-</style>
-
+        .border-right {
+            border-right: 1px solid #000;
+        }
+        .info-group {
+            margin-bottom: 8px;
+        }
+        .label {
+            color: #666;
+            font-size: 11px;
+            margin-bottom: 1px;
+        }
+        .value {
+            font-weight: bold;
+        }
+        .footer {
+            border-top: 1px solid #000;
+            padding: 8px 10px;
+            background: #f8f8f8;
+            font-size: 11px;
+        }
+        .instructions {
+            border-top: 1px solid #000;
+            padding: 10px;
+        }
+        ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .highlighted-date {
+            background: #f8f9fa;
+            border: 2px solid #1a5f7a;
+            color: #1a5f7a;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: block;
+            margin: 5px 0;
+            text-align: center;
+        }
+        .date-box {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        .day-name {
+            font-size: 12px;
+            color: #666;
+            font-weight: normal;
+        }
+        .time-box {
+            background: #1a5f7a;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .day-highlight {
+            color: #1a5f7a;
+            font-weight: bold;
+        }
+        .date-time-container {
+            margin-top: 8px;
+        }
+        .schedule-item {
+            margin-bottom: 5px;
+            color: #1a5f7a;
+        }
+        .schedule-label {
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+        .schedule-value {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .time-value {
+            color: #1976d2;
+            font-weight: bold;
+        }
+        .day-value {
+            color: #2e7d32;
+        }
+        .box-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+            opacity: 0.8;
+        }
+        .box-value {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="card">
+    <div class="box">
         <div class="header">
-            <svg class="header-decoration" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#0066ff">
-                <path d="M100,0 C95,20 80,40 50,50 C20,60 0,80 0,100 L100,100 L100,0 Z" />
-            </svg>
-            <div class="logo-container">
-                <img src="{{ public_path('healingTouchLogo.jpeg') }}"  alt="" style="object-fit: cover; width: 80px; height:80px">
+            <div class="appointment-status">✓ Confirmed</div>
+            <img src="{{ public_path('healingTouchLogo.jpeg') }}" class="logo" alt="Logo">
+            <div class="hospital-title">
+                <h3>HealingTouch Hospital</h3>
+                <div class="tagline">Excellence in Healthcare</div>
             </div>
-            <h1 class="hospital-name" style="margin-top:12px">HealingTouch Hospital</h1>
-            <p class="tagline">Excellence in Healthcare</p>
+            <div class="label" style="color: #666;">Appointment Ref.</div>
+            <div class="number" style="color: #1a5f7a; font-weight: bold; font-size: 18px;">
+                HTH-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}
+            </div>
         </div>
 
-        <div class="content-section">
-            <div class="appointment-details">
-                <h2 class="section-title">Appointment Details</h2>
-                <div class="confirmed-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e9f6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                    Confirmed
-                </div>
+        <table class="content-table">
+            <tr>
+                <td class="content-cell border-right">
+                    <h3>Patient Information</h3>
+                    <div class="info-group">
+                        <div class="label">Full Name</div>
+                        <div class="value">{{ $appointment->patient->name }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Patient ID</div>
+                        <div class="value">#{{ $appointment->patient->id }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Gender</div>
+                        <div class="value">{{ ucfirst($appointment->patient->gender) }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Contact</div>
+                        <div class="value">{{ $appointment->patient->phone }}</div>
+                    </div>
+                </td>
+                <td class="content-cell">
+                    <h3>Appointment Details</h3>
+                    <div class="info-group">
+                        <div class="label">Doctor</div>
+                        <div class="value">{{ $appointment->doctor->user->name }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Department</div>
+                        <div class="value">{{ $appointment->doctor->department->name }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Consultation Fee</div>
+                        <div class="value">₹{{ number_format($appointment->doctor->fee ?? 0, 2) }}</div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Appointment Schedule</div>
+                        <div class="date-time-container">
+                            <div class="schedule-item">
+                                <div class="schedule-label">Date</div>
+                                <div class="schedule-value">
+                                    {{ Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-label">Day</div>
+                                <div class="schedule-value day-value">
+                                    {{ Carbon\Carbon::parse($appointment->appointment_date)->format('l') }}
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-label">Time</div>
+                                <div class="schedule-value time-value">
+                                    {{ Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <div class="label">Queue Number</div>
+                        <div class="value">#{{ str_pad($appointment->queue_number ?? 1, 3, '0', STR_PAD_LEFT) }}</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-                <div style="display: flex; gap:3;">
-                    <div class="info-item">
-                        <div class="icon-container">
-                        
-                        </div>
-                        <div class="info-content">
-                            <p class="info-label">Date & Time</p>
-                            <p class="info-value">{{ $appointment->appointment_date }} {{ $appointment->appointment_time }}</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="icon-container">
-                        
-                        </div>
-                        <div class="info-content">
-                            <p class="info-label">Doctor</p>
-                            <p class="info-value">{{ $appointment->doctor->user->name }}, {{ $appointment->qualification }}</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="icon-container">
-                        
-                        </div>
-                        <div class="info-content">
-                            <p class="info-label">Department</p>
-                            <p class="info-value">{{ $appointment->doctor->department->name }}</p>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="icon-container">
-                        
-                        </div>
-                        <div class="info-content">
-                            <p class="info-label">Location</p>
-                            <p class="info-value">Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="patient-info">
-                <h2 class="section-title">Patient Information</h2>
-                <div class="patient-grid">
-                    <div class="patient-item">
-                        <p class="info-label">Full Name</p>
-                        <p class="info-value">{{ $appointment->patient->name }}</p>
-                    </div>
-                    <div class="patient-item">
-                        <p class="info-label">Patient ID</p>
-                        <p class="info-value">#{{ $appointment->patient_id }}</p>
-                    </div>
-                    <div class="patient-item">
-                        <p class="info-label">Gender</p>
-                        <p class="info-value">{{ $appointment->patient->gender }}</p>
-                    </div>
-                    <div class="patient-item">
-                        <p class="info-label">Phone</p>
-                        <p class="info-value">{{ $appointment->patient->phone }}</p>
-                    </div>
-                    <div class="patient-item">
-                        <p class="info-label">Email</p>
-                        <p class="info-value">{{ $appointment->patient->email }}</p>
-                    </div>
-                </div>
-            </div>
+        <div class="instructions">
+            <h3>Important Instructions</h3>
+            <ul>
+                <li>Please arrive 15 minutes before your scheduled appointment time</li>
+                <li>Bring this appointment slip or Pdf</li>
+                <li>Carry all relevant medical records and reports</li>
+                <li>For rescheduling, contact 24 hours in advance</li>
+            </ul>
         </div>
 
         <div class="footer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-            <p>Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301 • +91 9471659700</p>
+            <strong>Contact:</strong> +91 9471659700 | 
+            <strong>Address:</strong> Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301
         </div>
     </div>
 </body>
