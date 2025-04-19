@@ -94,7 +94,7 @@
 
 <body class="w-full flex flex-col min-h-screen">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-0 bg-gray-100">
-        <div class="w-full bg-white shadow-md overflow-hidden rounded-lg">
+        <div class="w-full  shadow-md overflow-hidden rounded-lg">
             {{ $slot }}
         </div>
     </div>

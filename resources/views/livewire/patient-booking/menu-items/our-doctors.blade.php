@@ -27,6 +27,7 @@
     {{-- Doctor Grid with enhanced cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         @forelse ($doctors as $doctor)
+        <a href="{{ route('doctors.detail', $doctor->id) }}" class="block">
         <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="p-6">
                 <div class="flex items-center gap-5">
@@ -69,6 +70,7 @@
                 </div>
             </div>
         </div>
+        </a>
         @empty
         <div class="col-span-full py-16 text-center">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
