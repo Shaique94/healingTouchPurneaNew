@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-4 py-12 space-y-12">
+<div class="max-w-7xl mx-auto mt-10 px-4 py-12 space-y-12">
     {{-- Header Section --}}
     <div class="text-center">
         <h1 class="text-4xl font-bold text-gray-800">Join Our Team</h1>
