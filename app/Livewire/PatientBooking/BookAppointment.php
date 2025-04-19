@@ -12,7 +12,8 @@ use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
-
+use Livewire\Attributes\Title;
+#[Title('Book Appointment')]
 class BookAppointment extends Component
 {
     // Current step in booking process

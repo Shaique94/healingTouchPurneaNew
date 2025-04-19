@@ -5,7 +5,8 @@ namespace App\Livewire\PatientBooking\MenuItems;
 use App\Models\Doctor;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-
+use Livewire\Attributes\Title;
+#[Title('Our Doctors')]
 class OurDoctors extends Component
 {
     public $search = '';

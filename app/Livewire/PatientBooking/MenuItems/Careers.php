@@ -5,7 +5,8 @@ namespace App\Livewire\PatientBooking\MenuItems;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Career;
-
+use Livewire\Attributes\Title;
+#[Title('Jobs')]
 class Careers extends Component
 {
     public $search = '';

@@ -5,6 +5,8 @@ namespace App\Livewire\PatientBooking\MenuItems;
 use Livewire\Component;
 use App\Models\Career;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Title('Job Details')]
 #[Layout('layouts.guest')]
 class CareerDetail extends Component
 {

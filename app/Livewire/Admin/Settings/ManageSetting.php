@@ -6,6 +6,8 @@ use App\Models\Setting;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+#[Title('Manage Settings')]
 #[Layout('components.layouts.admin')]
 class ManageSetting extends Component
 {

@@ -5,7 +5,8 @@ namespace App\Livewire\PatientBooking\MenuItems;
 use App\Models\GalleryImage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-
+use Livewire\Attributes\Title;
+#[Title('Gallery')]
 class GalleryPage extends Component
 {
     public $images;
