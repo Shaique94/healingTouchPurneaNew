@@ -60,6 +60,13 @@
                     <span class="absolute bottom-0 left-0 h-0.5 bg-beige-500 transition-all duration-300" 
                           :class="activeSection === 'about.page' ? 'w-full' : 'w-0'"></span>
                 </a>
+                <a href="{{ route('gallery.page') }}" 
+                    class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
+                    :class="{ 'text-beige-600 font-medium': activeSection === 'about.page' }">
+                    Gallery
+                    <span class="absolute bottom-0 left-0 h-0.5 bg-beige-500 transition-all duration-300" 
+                          :class="activeSection === 'about.page' ? 'w-full' : 'w-0'"></span>
+                </a>
                 <a href="{{ route('careers.page') }}" 
                     class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
                     :class="{ 'text-beige-600 font-medium': activeSection === 'careers.page' }">
@@ -152,6 +159,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v9.364M5 7l7 7 7-7" />
             </svg>
             <span>About</span>
+        </a>
+        <a href="{{ route('gallery.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v9.364M5 7l7 7 7-7" />
+            </svg>
+            <span>Gallery</span>
         </a>
 
         <!-- Careers Link with Icon -->
