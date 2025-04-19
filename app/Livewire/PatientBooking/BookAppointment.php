@@ -37,9 +37,9 @@ class BookAppointment extends Component
     public $age;    
     public $address;
     public $pincode;
-    public $city = "purnea";
-    public $state = 'Bihar';
-    public $country = 'India';
+    public $city ;
+    public $state ;
+    public $country ;
     public $notes;
     public $payment_method = 'cash';
 
@@ -68,7 +68,7 @@ class BookAppointment extends Component
                 'gender' => 'required|in:male,female,other',
                 'age' => 'nullable',
                 'address' => 'required|string|max:255',
-                'pincode' => 'required|string|max:10',
+                'pincode' => 'nullable|string|max:10',
                 'city' => 'required|string|max:100',
             ];
         }
@@ -113,7 +113,7 @@ class BookAppointment extends Component
     // Get city and state from pincode - optimized
     public function fetchLocationByPincode()
     {
-        if (strlen($this->pincode) == 6) {
+        if (!empty($this->pincode) && strlen($this->pincode) == 6) {
             try {
                 $response = Http::get('https://api.postalpincode.in/pincode/' . $this->pincode);
                 $data = $response->json();
@@ -229,7 +229,7 @@ class BookAppointment extends Component
                 'gender' => 'required|in:male,female,other',
                 'age' => 'nullable|max:150',
                 'address' => 'required|string|max:255',
-                'pincode' => 'required|string|max:10',
+                'pincode' => 'nullable|string|max:10',
                 'city' => 'required|string|max:100',
             ]);
         }

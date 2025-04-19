@@ -23,7 +23,7 @@ class Add extends Component
     public $city;
     public $state = "Bihar";
     public $country = "India";
-
+    public $age;
     public $doctor_id;
     public $appointment_date;
     public $appointment_time;
@@ -73,6 +73,7 @@ class Add extends Component
             'appointment_date'  => 'required|date|after_or_equal:today',
             'appointment_time'  => 'required',
             'notes'             => 'nullable|string|max:500',
+            'age'               => 'nullable|integer|min:0|max:150',
         ]);
         $patient = Patient::firstOrCreate(
             ['phone' => $this->phone],
@@ -85,6 +86,7 @@ class Add extends Component
                 'city' => $this->city,
                 'state' => $this->state,
                 'country' => $this->country,
+                'age' => $this->age,
             ]
         );
 
@@ -131,6 +133,7 @@ class Add extends Component
         $this->appointment_date = '';
         $this->appointment_time = '';
         $this->notes = '';
+        $this->age = '';
     }
     #[Layout('components.layouts.admin')]
     public function render()

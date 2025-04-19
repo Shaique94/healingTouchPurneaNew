@@ -41,6 +41,11 @@
                     @error('gender') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
                 <div class="col-md-6">
+                    <label class="form-label">Age</label>
+                    <input type="text" class="form-control" wire:model="age" placeholder="Your age">
+                    @error('age') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+                <div class="col-md-6">
                     <label class="form-label">Address</label>
                     <input type="text" class="form-control" wire:model="address" placeholder="Your address">
                     @error('address') <small class="text-danger">{{ $message }}</small> @enderror

@@ -28,7 +28,7 @@ class Update extends Component
     public $notes;
     public $doctors;
     public $appointment_id;
-  
+    public $age;
     public function mount($id){
         $this->doctors=Doctor::all();
         $appointment=Appointment::findOrFail($id);
@@ -37,6 +37,7 @@ class Update extends Component
         $this->email = $appointment->patient->email;
         $this->phone = $appointment->patient->phone;
         $this->gender = $appointment->patient->gender;
+        $this->age = $appointment->patient->age;
         $this->address = $appointment->patient->address;
         $this->pincode = $appointment->patient->pincode;
         $this->city = $appointment->patient->city;
@@ -57,6 +58,7 @@ class Update extends Component
             'email'             => 'nullable|email|max:255',
             'phone'             => 'required|string|max:20',
             'gender'            => 'nullable|in:male,female,other',
+            'age'               => 'nullable|integer|min:0|max:150',
             'address'           => 'nullable|string|max:500',
             'pincode'           => 'nullable|digits:6',
             'city'              => 'nullable|string|max:100',
@@ -67,6 +69,7 @@ class Update extends Component
             'appointment_time'  => 'required',
             'payment_method'    => 'nullable|string',
             'notes'             => 'nullable|string|max:500',
+
         ]);
 
         $appointment = Appointment::findOrFail($this->appointment_id);
@@ -77,6 +80,7 @@ class Update extends Component
         $patient->email = $this->email;
         $patient->phone = $this->phone;
         $patient->gender = $this->gender;
+        $patient->age = $this->age;
         $patient->address = $this->address;
         $patient->pincode = $this->pincode;
         $patient->city = $this->city;
@@ -116,6 +120,7 @@ class Update extends Component
         $this->email = '';
         $this->phone = '';
         $this->gender = '';
+        $this->age = '';
         $this->address = '';
         $this->pincode = '';
         $this->city = '';
