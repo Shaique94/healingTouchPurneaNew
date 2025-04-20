@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name', 'Healing Touch Hospital') }}</title>
+    <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
     <!-- SEO Meta Tags -->
     <meta name="description"
         content="Healing Touch Hospital located at Hope Chauraha, Rambagh Road, Linebazar, Purnea, offers online appointment booking, specialist doctors, and comprehensive healthcare services.">

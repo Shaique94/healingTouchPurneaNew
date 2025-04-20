@@ -5,8 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
         @php
     $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
     $js = $manifest['resources/js/app.js']['file'] ?? null;
