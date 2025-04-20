@@ -102,7 +102,7 @@
             margin-bottom: 20px;
         }
     </style>
-</head>
+</head> 
 <body>
     <div class="container">
         <div class="header">

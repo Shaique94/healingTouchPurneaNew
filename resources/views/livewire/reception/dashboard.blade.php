@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex flex-col md:flex-row">
+<div class="min-h-screen bg-gradient-to-br from-beige-50 to-gray-100 flex flex-col md:flex-row">
     <!-- Mobile header with menu toggle -->
     <div class="md:hidden bg-white shadow-md p-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">

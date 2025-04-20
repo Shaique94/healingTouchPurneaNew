@@ -164,7 +164,7 @@ class Dashboard extends Component
             echo $pdf->stream();
         }, 'appointment_receipt.pdf');
     }
-    public function updatedPincode($value)
+    public function updatedPincode($value) 
     {
         if (strlen($value) == 6) {
             try {
