@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Reception;
 
+use App\Mail\AppointmentReceiptMail;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -10,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -37,27 +39,26 @@ class Dashboard extends Component
     {
         $this->loadAppointments();
         $this->doctors = Doctor::with('user')->get();
-
     }
     public function nextStep()
     {
         // dd('shaique');
-        if ($this->step == 1) { 
-        $this->validate([
-            'name' => 'required|string',
-            'email' => 'nullable|email',
-            'phone' => ['required', 'digits:10'],
-            'dob' => 'required|numeric|between:0,150',
-            'gender' => 'required',
-            'address' => 'required',
-            'pincode' => 'nullable',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
-        ]);
-    }
+        if ($this->step == 1) {
+            $this->validate([
+                'name' => 'required|string',
+                'email' => 'nullable|email',
+                'phone' => ['required', 'digits:10'],
+                'dob' => 'required|numeric|between:0,150',
+                'gender' => 'required',
+                'address' => 'required',
+                'pincode' => 'nullable',
+                'city' => 'required',
+                'state' => 'required',
+                'country' => 'required',
+            ]);
+        }
         if ($this->step == 2) {
-            $this->validate([ 
+            $this->validate([
                 'doctor_id' => 'required|exists:doctors,id',
                 'appointment_date' => 'required|date',
                 'appointment_time' => 'required',
@@ -68,7 +69,7 @@ class Dashboard extends Component
             // dd($doctor_name);
             $this->doctor_name = $doctor_name->user->name;
         }
-// dd('shaique');
+        // dd('shaique');
         $this->step++;
     }
 
@@ -77,7 +78,8 @@ class Dashboard extends Component
         $this->step--;
     }
 
-    public function downloadTomorrowAppointmentsPDF(){
+    public function downloadTomorrowAppointmentsPDF()
+    {
         $tomorrow = Carbon::tomorrow()->toDateString();
 
         if (empty($this->selectedDoctorId)) {
@@ -90,8 +92,22 @@ class Dashboard extends Component
                 ->whereDate('appointment_date', $tomorrow)
                 ->where('doctor_id', $this->selectedDoctorId)
                 ->get();
-        }        
+            // dd($appointments->doctor->user->email);
+            // Send email to the doctor with PDF attachment
+            $doctor = Doctor::find($this->selectedDoctorId);
+            $doctorEmail = $doctor->user->email;
+            $data = [
+                'appointments' => $appointments,
+                'doctor_name' => $doctor->user->name,
+                'date' => Carbon::tomorrow()->format('d-m-Y'),
+            ];
+            $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
+            Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data,$pdf));
+        }
+        
         $pdf = Pdf::loadView('pdf.tomorrow-appointments', compact('appointments'));
+         // Send email to the doctor with PDF attachment
+        
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
@@ -133,10 +149,10 @@ class Dashboard extends Component
             'created_by' => auth()->id(),
         ]);
         $this->step++;
-        
+
         $this->appointmentId = $new_appointment->id;
 
-        $this->showModal = true; 
+        $this->showModal = true;
         $this->loadAppointments();
         session()->flash('success', 'Patient and appointment created successfully.');
     }
@@ -158,13 +174,15 @@ class Dashboard extends Component
             'hospital_contact' => '+91-123-456-7890',
         ];
 
-        $pdf = Pdf::loadView('pdf.patient-reciept', $data);
+        // $pdf = Pdf::loadView('pdf.patient-reciept', $data);
+
+       
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, 'appointment_receipt.pdf');
     }
-    public function updatedPincode($value) 
+    public function updatedPincode($value)
     {
         if (strlen($value) == 6) {
             try {
@@ -200,7 +218,6 @@ class Dashboard extends Component
         $this->showModal = true;
         // $this->doctors = User::where('role', 'doctor')->get();
         $this->doctors = Doctor::with('user')->get();
-
     }
     public function filterByDate($date)
     {
@@ -215,8 +232,7 @@ class Dashboard extends Component
         // Filter by date
         if ($this->selectedDate === 'tomorrow') {
             $date = now()->addDay();
-        } 
-         else {
+        } else {
             // Handle custom date from date picker
             try {
                 $date = \Carbon\Carbon::parse($this->selectedDate);

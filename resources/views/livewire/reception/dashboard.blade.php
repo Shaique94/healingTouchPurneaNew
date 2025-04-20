@@ -72,14 +72,31 @@
                 </select>
 
                 <button wire:click="downloadTomorrowAppointmentsPDF"
-                    class="w-full flex items-center justify-center px-3 py-2 rounded-md bg-beige-600 text-white text-sm hover:bg-beige-700 transition">
+                    wire:loading.attr="disabled"
+                    class="w-full flex items-center justify-center px-3 py-2 rounded-md bg-beige-600 text-white text-sm hover:bg-beige-700 transition relative">
+
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
                     </svg>
-                    Download PDF
+
+                    <span wire:loading.remove>
+                        Download PDF
+                    </span>
+
+                    <span wire:loading class="absolute right-3">
+                        <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16v-4l-3 3 3 3v-4a8 8 0 01-8-8z">
+                            </path>
+                        </svg>
+                    </span>
                 </button>
+
             </a>
 
             <div class="pt-6 mt-6 border-t border-gray-200">
@@ -597,121 +614,121 @@
         @if(!$showModal)
         <!-- Today's Appointments -->
         <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-        <h2 class="text-lg font-bold text-gray-800 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Appointments
-        </h2>
+            <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                <h2 class="text-lg font-bold text-gray-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Appointments
+                </h2>
 
-        <!-- Filter Buttons -->
-        <div class="flex space-x-2 mt-3 sm:mt-0">
+                <!-- Filter Buttons -->
+                <div class="flex space-x-2 mt-3 sm:mt-0">
 
-            <button
-                wire:click="filterByDate('tomorrow')"
-                class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
+                    <button
+                        wire:click="filterByDate('tomorrow')"
+                        class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
                             {{ $selectedDate === 'tomorrow' ? 'bg-beige-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                Tomorrow
-            </button>
-            <input
-                type="date"
-                id="customDatePicker"
-                class="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:ring focus:ring-beige-200 focus:outline-none"
-                wire:model.live="selectedDate">
-        </div>
-    </div>
+                        Tomorrow
+                    </button>
+                    <input
+                        type="date"
+                        id="customDatePicker"
+                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:ring focus:ring-beige-200 focus:outline-none"
+                        wire:model.live="selectedDate">
+                </div>
+            </div>
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider font-medium">
-                <tr>
-                    <th class="px-6 py-3 text-left">Patient Name</th>
-                    <th class="px-6 py-3 text-left">Phone</th>
-                    <th class="px-6 py-3 text-left">Address</th>
-                    <th class="px-6 py-3 text-left">City</th>
-                    <th class="px-6 py-3 text-left">Assigned Doctor</th>
-                    <th class="px-6 py-3 text-left">Status</th>
-                    <th class="px-6 py-3 text-right">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-                @foreach($appointments as $appointment)
-                <tr class="hover:bg-gray-50 transition duration-150">
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $appointment->patient->name }}</td>
-                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->phone }}</td>
-                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->address }}</td>
-                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
-                    <td class="px-6 py-4 text-gray-600">
-                        {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
-                    </td>
-                    <td class="px-6 py-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider font-medium">
+                        <tr>
+                            <th class="px-6 py-3 text-left">Patient Name</th>
+                            <th class="px-6 py-3 text-left">Phone</th>
+                            <th class="px-6 py-3 text-left">Address</th>
+                            <th class="px-6 py-3 text-left">City</th>
+                            <th class="px-6 py-3 text-left">Assigned Doctor</th>
+                            <th class="px-6 py-3 text-left">Status</th>
+                            <th class="px-6 py-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @foreach($appointments as $appointment)
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="px-6 py-4 font-medium text-gray-800">{{ $appointment->patient->name }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->phone }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->address }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
+                            <td class="px-6 py-4 text-gray-600">
+                                {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
                                     @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
                                     @elseif($appointment->status === 'checked_in') bg-blue-100 text-blue-800
                                     @elseif($appointment->status === 'cancelled') bg-red-100 text-red-800
                                     @endif">
-                            @if($appointment->status === 'pending')
-                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                            </svg>
-                            @elseif($appointment->status === 'checked-in')
-                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            @elseif($appointment->status === 'cancelled')
-                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                            </svg>
-                            @endif
-                            {{ ucfirst($appointment->status) }}
-                        </span>
-                    </td>
+                                    @if($appointment->status === 'pending')
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                    </svg>
+                                    @elseif($appointment->status === 'checked-in')
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    @elseif($appointment->status === 'cancelled')
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                    @endif
+                                    {{ ucfirst($appointment->status) }}
+                                </span>
+                            </td>
 
-                    <td class="px-6 py-4 text-right">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
-        @if($appointment->status === 'pending')
-            <button wire:click.prevent="checkIn({{ $appointment->id }})"
-                wire:confirm="Are you sure you want to check in this post?"
-                class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
-                CheckIn
-            </button>
-            <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
-                wire:confirm="Are you sure you want to cancel the appointment?"
-                class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
-                Cancel
-            </button>
-        @elseif($appointment->status === 'checked_in')
-            <a href=""
-                target="_blank"
-                class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
-                wire:click.prevent="viewAppointment({{ $appointment->id }})">
-                View PDF
-            </a>
-        @else
-            <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
-        @endif
-    </div>
-</td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+                                    @if($appointment->status === 'pending')
+                                    <button wire:click.prevent="checkIn({{ $appointment->id }})"
+                                        wire:confirm="Are you sure you want to check in this post?"
+                                        class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
+                                        CheckIn
+                                    </button>
+                                    <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
+                                        wire:confirm="Are you sure you want to cancel the appointment?"
+                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
+                                        Cancel
+                                    </button>
+                                    @elseif($appointment->status === 'checked_in')
+                                    <a href=""
+                                        target="_blank"
+                                        class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
+                                        wire:click.prevent="viewAppointment({{ $appointment->id }})">
+                                        View PDF
+                                    </a>
+                                    @else
+                                    <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
+                                    @endif
+                                </div>
+                            </td>
 
-                </tr>
-                @endforeach
+                        </tr>
+                        @endforeach
 
-                @if(count($appointments) === 0)
-                <tr>
-                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>No appointments found for the selected day</p>
-                        <p class="text-sm mt-1">Try another date or create a new appointment</p>
-                    </td>
-                </tr>
-                @endif
-            </tbody>
-        </table>
-    </div>
-</div>
+                        @if(count($appointments) === 0)
+                        <tr>
+                            <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p>No appointments found for the selected day</p>
+                                <p class="text-sm mt-1">Try another date or create a new appointment</p>
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
         @endif
 
     </main>
