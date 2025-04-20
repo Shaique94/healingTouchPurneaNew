@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}  | Online Doctor Booking</title>
+    <title>
+        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
+        | Online Doctor Booking</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
@@ -30,7 +32,8 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
-    <meta property="og:title" content="{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}  | Online Doctor Booking">
+    <meta property="og:title"
+        content="{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}  | Online Doctor Booking">
 
     <!-- Structured Data with JSON-LD -->
     <script type="application/ld+json">
@@ -39,7 +42,7 @@
       "@type": "Hospital",
       "name": "Healing Touch Hospital",
       "url": "https://healingtouchpurnea.com/",
-      "logo": "https://healingtouchpurnea.com/assets/images/logo.png",
+      "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
@@ -56,6 +59,7 @@
         "availableLanguage": ["English", "Hindi"]
       },
       "medicalSpecialty": [
+        "Surgeon"
         "Cardiology",
         "Neurology",
         "Orthopedics",
@@ -63,9 +67,8 @@
         "General Medicine"
       ],
       "sameAs": [
-        "https://www.facebook.com/healingtouchhospital",
-        "https://www.instagram.com/_healingtouchhospital_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-        "https://www.linkedin.com/company/healingtouchhospital"
+        "https://www.facebook.com/profile.php?id=61573927387041",
+        "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",
       ]
     }
     </script>

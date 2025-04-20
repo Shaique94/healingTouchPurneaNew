@@ -9,8 +9,44 @@
     <title>
         {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
         | Online Doctor Booking</title>
-        <meta property="og:url" content="{{ url()->current() }}">
-        <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "Hospital",
+              "name": "Healing Touch Hospital",
+              "url": "https://healingtouchpurnea.com/",
+              "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
+                "addressLocality": "Purnea",
+                "addressRegion": "Bihar",
+                "postalCode": "854301",
+                "addressCountry": "India"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-9471659700",
+                "contactType": "Customer Support",
+                "areaServed": "IN",
+                "availableLanguage": ["English", "Hindi"]
+              },
+              "medicalSpecialty": [
+                "Surgeon"
+                "Cardiology",
+                "Neurology",
+                "Orthopedics",
+                "Gynecology",
+                "General Medicine"
+              ],
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61573927387041",
+                "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",
+              ]
+            }
+            </script>
     @php
         $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
         $js = $manifest['resources/js/app.js']['file'] ?? null;

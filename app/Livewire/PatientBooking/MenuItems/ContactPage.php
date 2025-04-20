@@ -6,7 +6,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Setting;
 use Livewire\Attributes\Title;
-#[Title('Contact Us')]
+#[Title('Contact')]
 #[Layout('layouts.guest')]
 class ContactPage extends Component
 {
