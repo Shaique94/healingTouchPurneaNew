@@ -46,7 +46,7 @@
         "addressLocality": "Purnea",
         "addressRegion": "Bihar",
         "postalCode": "854301",
-        "addressCountry": "India"
+        "addressCountry": "IN"
       },
       "contactPoint": {
         "@type": "ContactPoint",
