@@ -19,7 +19,7 @@ class Dashboard extends Component
     public $appointments_count;
     public $appointments_checked_in;
     public $appointments_cancelled;
-    public $selectedDate = 'today';
+    public $selectedDate = 'tomorrow';
     public $search = '';
     public $showModal = false;
     public $doctors;
@@ -114,7 +114,7 @@ class Dashboard extends Component
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'dob' => $this->dob,
+            'age' => $this->dob,
             'gender' => $this->gender,
             'address' => $this->address,
             'pincode' => $this->pincode,
@@ -205,7 +205,6 @@ class Dashboard extends Component
     public function filterByDate($date)
     {
         $this->selectedDate = $date;
-
         $this->loadAppointments();
     }
 
@@ -214,16 +213,15 @@ class Dashboard extends Component
         $query = Appointment::with('patient');
 
         // Filter by date
-        if ($this->selectedDate === 'today') {
-            $date = now();
-        } elseif ($this->selectedDate === 'tomorrow') {
+        if ($this->selectedDate === 'tomorrow') {
             $date = now()->addDay();
-        } else {
+        } 
+         else {
             // Handle custom date from date picker
             try {
                 $date = \Carbon\Carbon::parse($this->selectedDate);
             } catch (\Exception $e) {
-                $date = now();
+                $date = now()->addDay();
             }
         }
 

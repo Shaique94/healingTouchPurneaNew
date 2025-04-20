@@ -1,8 +1,8 @@
 <div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex flex-col md:flex-row">
     <!-- Mobile header with menu toggle -->
-    <div class="md:hidden bg-white shadow-sm p-4 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-            <div class="bg-blue-600 h-8 w-8 rounded-lg flex items-center justify-center">
+    <div class="md:hidden bg-white shadow-md p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="bg-beige-600 h-9 w-9 rounded-lg flex items-center justify-center shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -11,7 +11,7 @@
         </div>
         <button
             id="mobileMenuToggle"
-            class="text-gray-500 hover:text-gray-700 focus:outline-none"
+            class="text-gray-600 hover:text-beige-700 focus:outline-none transition-colors"
             aria-label="Toggle menu">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -31,8 +31,8 @@
             </svg>
         </button>
 
-        <div class="flex items-center space-x-2 mb-8 md:mt-0 mt-8">
-            <div class="bg-blue-600 h-8 w-8 rounded-lg flex items-center justify-center">
+        <div class="flex items-center space-x-3 mb-8 md:mt-0 mt-8">
+            <div class="bg-beige-600 h-9 w-9 rounded-lg flex items-center justify-center shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -41,46 +41,46 @@
         </div>
 
         <nav class="space-y-2">
-            <a href="#" class="flex items-center px-4 py-3 rounded-lg bg-blue-50 text-blue-700 font-medium transition-all duration-200">
+            <a href="{{ route('reception.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg bg-beige-100 text-beige-700 font-medium transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 Dashboard
             </a>
-            <a href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-all duration-200" wire:click="openModal">
+            <a href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200" wire:click="openModal">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-3-3v6m-6 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-.707-.707A1 1 0 0012 4h-1a1 1 0 00-.707.293l-.707.707A1 1 0 019.586 5H6a2 2 0 00-2 2v13a2 2 0 002 2z" />
                 </svg>
                 Add OPD Patient
             </a>
-            <a class="flex flex-col px-4 py-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-all duration-200">
-    <div class="flex items-center mb-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-        </svg>
-        <span>Nextday Appointments</span>
-    </div>
-    
-    <select id="doctor-select" wire:model="selectedDoctorId"
-        class="mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-        <option value="">All Doctors</option>
-        @foreach ($doctors as $doctor)
-            <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
-        @endforeach
-    </select>
+            <a class="flex flex-col px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200">
+                <div class="flex items-center mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                    </svg>
+                    <span>Nextday Appointments</span>
+                </div>
 
-    <button wire:click="downloadTomorrowAppointmentsPDF"
-        class="w-full flex items-center justify-center px-3 py-2 rounded-md bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-        </svg>
-        Download PDF
-    </button>
-</a>
+                <select id="doctor-select" wire:model="selectedDoctorId"
+                    class="mb-2 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:ring-beige-500 focus:border-beige-500">
+                    <option value="">All Doctors</option>
+                    @foreach ($doctors as $doctor)
+                    <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
+                    @endforeach
+                </select>
+
+                <button wire:click="downloadTomorrowAppointmentsPDF"
+                    class="w-full flex items-center justify-center px-3 py-2 rounded-md bg-beige-600 text-white text-sm hover:bg-beige-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                    </svg>
+                    Download PDF
+                </button>
+            </a>
 
             <div class="pt-6 mt-6 border-t border-gray-200">
                 <a href="#" wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
@@ -102,12 +102,12 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <div class="mb-4 sm:mb-0">
                 <h1 class="text-2xl font-bold text-gray-800 flex items-center">
-                    Welcome, <span class="text-blue-600 ml-2">{{ Auth::user()->name }}</span>
+                    Welcome, <span class="text-beige-600 ml-2">{{ Auth::user()->name }}</span>
                 </h1>
                 <p class="text-sm text-gray-600 mt-1">Managing your reception dashboard</p>
             </div>
-            <div class="bg-white px-4 py-2 rounded-lg shadow-sm text-sm text-gray-600 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="bg-white px-4 py-2 rounded-lg shadow-md text-sm text-gray-600 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-beige-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 {{ now()->format('l, d M Y') }}
@@ -128,14 +128,14 @@
                     type="text"
                     wire:model.live="search"
                     placeholder="Search patients..."
-                    class="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white shadow-sm text-sm">
+                    class="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-beige-500 focus:border-beige-500 transition duration-200 bg-white shadow-sm text-sm">
             </div>
 
             <!-- New Patient Button (no spacer in between) -->
             <div>
                 <button
                     wire:click="openModal"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center text-sm">
+                    class="bg-beige-600 hover:bg-beige-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -149,7 +149,7 @@
         <!-- STEP 1: Patient Information -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-beige-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 Patient Information
@@ -165,7 +165,7 @@
                             </svg>
                         </div>
                         <input id="name" type="text" wire:model="name" placeholder="Enter full name"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                             </svg>
                         </div>
                         <input id="email" type="email" wire:model="email" placeholder="Enter email"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                             pattern="\d{10}"
                             maxlength="10"
                             minlength="10" wire:model="phone" placeholder="Enter phone number"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('phone') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -210,7 +210,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <input id="dob" type="text" wire:model="dob" inputmode="text" pattern="\d{3}" maxlength="3" minlength="1" placeholder="Enter age" class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                        <input id="dob" type="text" wire:model="dob" inputmode="text" pattern="\d{3}" maxlength="3" minlength="1" placeholder="Enter age" class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('dob') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -224,7 +224,7 @@
                             </svg>
                         </div>
                         <select id="gender" wire:model="gender"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none bg-white appearance-none transition-colors">
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
                             <option value="">Select</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -249,7 +249,7 @@
                             </svg>
                         </div>
                         <input id="pincode" type="text" wire:model.live="pincode" placeholder="Enter pincode"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" inputmode="numeric"
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" inputmode="numeric"
                             pattern="\d{6}"
                             maxlength="6"
                             minlength="6" />
@@ -266,7 +266,7 @@
                             </svg>
                         </div>
                         <input id="city" type="text" wire:model="city" placeholder="Enter city"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('city') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -280,7 +280,7 @@
                             </svg>
                         </div>
                         <input id="state" type="text" wire:model="state" placeholder="Enter state"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('state') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -294,7 +294,7 @@
                             </svg>
                         </div>
                         <input id="country" type="text" wire:model="country" placeholder="Enter country"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('country') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -308,7 +308,7 @@
                             </svg>
                         </div>
                         <textarea id="address" wire:model="address" placeholder="Enter address" rows="2"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors"></textarea>
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors"></textarea>
                         @error('address') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -316,7 +316,7 @@
 
             <div class="flex justify-end mt-8">
                 <button wire:click="nextStep"
-                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none">
+                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-beige-400 to-beige-600 text-white rounded-lg hover:from-beige-600 hover:to-beige-700 transition shadow-md focus:ring-2 focus:ring-beige-500 focus:ring-offset-2 focus:outline-none">
                     Next
                     <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -329,7 +329,7 @@
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-beige-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 17v-6h6v6h4V9l-7-6-7 6v8h4z" />
                 </svg>
@@ -347,7 +347,7 @@
                             </svg>
                         </div>
                         <select id="doctor_id" wire:model="doctor_id"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none bg-white appearance-none transition-colors">
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
                             <option value="">Choose Doctor</option>
                             @foreach($doctors as $doctor)
                             <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
@@ -372,7 +372,7 @@
                             </svg>
                         </div>
                         <input id="appointment_date" type="date" wire:model="appointment_date"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('appointment_date') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -387,7 +387,7 @@
                             </svg>
                         </div>
                         <input id="appointment_time" type="time" wire:model="appointment_time"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors" />
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none transition-colors" />
                         @error('time') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -402,7 +402,7 @@
                             </svg>
                         </div>
                         <textarea id="notes" wire:model="notes" rows="3" placeholder="Optional notes..."
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none resize-none transition-colors"></textarea>
+                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none resize-none transition-colors"></textarea>
                         @error('notes') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -419,7 +419,7 @@
                 </button>
 
                 <button wire:click="nextStep"
-                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-colors shadow-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none">
+                    class="inline-flex items-center px-5 py-2.5 bg-beige-600 hover:bg-beige-700 text-white rounded-lg transition-colors shadow-md focus:ring-2 focus:ring-beige-500 focus:ring-offset-2 focus:outline-none">
                     Next
                     <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -431,14 +431,14 @@
         @elseif($step === 3)
         <div class="bg-white rounded-xl shadow-md overflow-hidden">
             <!-- Header -->
-            <div class="px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600">
+            <div class="px-6 py-4 bg-beige-600">
                 <h3 class="text-xl font-bold text-white mb-1 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                     Review & Confirm Appointment
                 </h3>
-                <p class="text-blue-100 text-sm">Please verify all details before scheduling</p>
+                <p class="text-beige-100 text-sm">Please verify all details before scheduling</p>
             </div>
 
             <!-- Content -->
@@ -446,8 +446,8 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <!-- Patient Info Card -->
                     <div class="bg-white rounded-lg shadow border border-gray-100 overflow-hidden">
-                        <div class="bg-blue-50 px-4 py-3 border-b border-gray-100">
-                            <h4 class="text-blue-800 font-semibold flex items-center">
+                        <div class="bg-beige-50 px-4 py-3 border-b border-gray-100">
+                            <h4 class="text-beige-800 font-semibold flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
@@ -484,8 +484,8 @@
 
                     <!-- Appointment Info Card -->
                     <div class="bg-white rounded-lg shadow border border-gray-100 overflow-hidden">
-                        <div class="bg-blue-50 px-4 py-3 border-b border-gray-100">
-                            <h4 class="text-blue-800 font-semibold flex items-center">
+                        <div class="bg-beige-50 px-4 py-3 border-b border-gray-100">
+                            <h4 class="text-beige-800 font-semibold flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
@@ -535,7 +535,7 @@
                     <button
                         type="submit"
                         wire:click="save"
-                        class="inline-flex items-center justify-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        class="inline-flex items-center justify-center px-5 py-2.5 bg-beige-600 text-white rounded-lg hover:bg-beige-700 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -573,7 +573,7 @@
                 <a href=""
                     wire:click.prevent="viewAppointment({{ $appointmentId }})"
                     target="_blank"
-                    class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md">
+                    class="inline-flex items-center justify-center px-6 py-3 bg-beige-600 text-white rounded-lg hover:bg-beige-700 transition-colors duration-200 shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -597,124 +597,121 @@
         @if(!$showModal)
         <!-- Today's Appointments -->
         <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                <h2 class="text-lg font-bold text-gray-800 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    Appointments
-                </h2>
+    <div class="px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <h2 class="text-lg font-bold text-gray-800 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Appointments
+        </h2>
 
-                <!-- Filter Buttons -->
-                <div class="flex space-x-2 mt-3 sm:mt-0">
-                    <button
-                        wire:click="filterByDate('today')"
-                        class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
-                                    {{ $selectedDate === 'today' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                        Today
-                    </button>
-                    <button
-                        wire:click="filterByDate('tomorrow')"
-                        class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
-                                    {{ $selectedDate === 'tomorrow' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                        Tomorrow
-                    </button>
-                    <input
-                        type="date"
-                        id="customDatePicker"
-                        class="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:ring focus:ring-blue-200 focus:outline-none"
-                        wire:model.live="selectedDate">
-                </div>
-            </div>
+        <!-- Filter Buttons -->
+        <div class="flex space-x-2 mt-3 sm:mt-0">
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
-                    <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider font-medium">
-                        <tr>
-                            <th class="px-6 py-3 text-left">Patient Name</th>
-                            <th class="px-6 py-3 text-left">Phone</th>
-                            <th class="px-6 py-3 text-left">Address</th>
-                            <th class="px-6 py-3 text-left">City</th>
-                            <th class="px-6 py-3 text-left">Assigned Doctor</th>
-                            <th class="px-6 py-3 text-left">Status</th>
-                            <th class="px-6 py-3 text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        @foreach($appointments as $appointment)
-                        <tr class="hover:bg-gray-50 transition duration-150">
-                            <td class="px-6 py-4 font-medium text-gray-800">{{ $appointment->patient->name }}</td>
-                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->phone }}</td>
-                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->address }}</td>
-                            <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
-                            <td class="px-6 py-4 text-gray-600">
-                                {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-                                            @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
-                                            @elseif($appointment->status === 'checked_in') bg-blue-100 text-blue-800
-                                            @elseif($appointment->status === 'cancelled') bg-red-100 text-red-800
-                                            @endif">
-                                    @if($appointment->status === 'pending')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                                    </svg>
-                                    @elseif($appointment->status === 'checked-in')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                    </svg>
-                                    @elseif($appointment->status === 'cancelled')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                    </svg>
-                                    @endif
-                                    {{ ucfirst($appointment->status) }}
-                                </span>
-                            </td>
-
-                            <td class="px-6 py-4 text-right space-x-1">
-                                @if($appointment->status === 'pending')
-                                <button wire:click.prevent="checkIn({{ $appointment->id }})"
-                                    wire:confirm="Are you sure you want to check in this post?"
-                                    class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-full transition duration-200">
-                                    Check-In
-                                </button>
-                                <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
-                                    wire:confirm="Are you sure you want to cancel the appointment?"
-                                    class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded-full transition duration-200">
-                                    Cancel
-                                </button>
-                                @elseif($appointment->status === 'checked_in')
-                                <a
-                                    href=""
-                                    target="_blank"
-                                    class="text-blue-600 hover:text-blue-900"
-                                    wire:click.prevent="viewAppointment({{ $appointment->id }})">
-                                    View PDF
-                                </a>
-                                @else
-                                <span class="text-xs text-gray-400 italic">No actions available</span>
-                                @endif
-                            </td>
-                        </tr>
-                        @endforeach
-
-                        @if(count($appointments) === 0)
-                        <tr>
-                            <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <p>No appointments found for the selected day</p>
-                                <p class="text-sm mt-1">Try another date or create a new appointment</p>
-                            </td>
-                        </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </div>
+            <button
+                wire:click="filterByDate('tomorrow')"
+                class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
+                            {{ $selectedDate === 'tomorrow' ? 'bg-beige-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                Tomorrow
+            </button>
+            <input
+                type="date"
+                id="customDatePicker"
+                class="px-4 py-2 text-sm rounded-lg border border-gray-300 focus:ring focus:ring-beige-200 focus:outline-none"
+                wire:model.live="selectedDate">
         </div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 text-gray-600 uppercase tracking-wider font-medium">
+                <tr>
+                    <th class="px-6 py-3 text-left">Patient Name</th>
+                    <th class="px-6 py-3 text-left">Phone</th>
+                    <th class="px-6 py-3 text-left">Address</th>
+                    <th class="px-6 py-3 text-left">City</th>
+                    <th class="px-6 py-3 text-left">Assigned Doctor</th>
+                    <th class="px-6 py-3 text-left">Status</th>
+                    <th class="px-6 py-3 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach($appointments as $appointment)
+                <tr class="hover:bg-gray-50 transition duration-150">
+                    <td class="px-6 py-4 font-medium text-gray-800">{{ $appointment->patient->name }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->phone }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->address }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
+                    <td class="px-6 py-4 text-gray-600">
+                        {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+                                    @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
+                                    @elseif($appointment->status === 'checked_in') bg-blue-100 text-blue-800
+                                    @elseif($appointment->status === 'cancelled') bg-red-100 text-red-800
+                                    @endif">
+                            @if($appointment->status === 'pending')
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                            </svg>
+                            @elseif($appointment->status === 'checked-in')
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            @elseif($appointment->status === 'cancelled')
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                            @endif
+                            {{ ucfirst($appointment->status) }}
+                        </span>
+                    </td>
+
+                    <td class="px-6 py-4 text-right">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+        @if($appointment->status === 'pending')
+            <button wire:click.prevent="checkIn({{ $appointment->id }})"
+                wire:confirm="Are you sure you want to check in this post?"
+                class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
+                CheckIn
+            </button>
+            <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
+                wire:confirm="Are you sure you want to cancel the appointment?"
+                class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
+                Cancel
+            </button>
+        @elseif($appointment->status === 'checked_in')
+            <a href=""
+                target="_blank"
+                class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
+                wire:click.prevent="viewAppointment({{ $appointment->id }})">
+                View PDF
+            </a>
+        @else
+            <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
+        @endif
+    </div>
+</td>
+
+                </tr>
+                @endforeach
+
+                @if(count($appointments) === 0)
+                <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-gray-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>No appointments found for the selected day</p>
+                        <p class="text-sm mt-1">Try another date or create a new appointment</p>
+                    </td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
+    </div>
+</div>
         @endif
 
     </main>
