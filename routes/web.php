@@ -35,6 +35,40 @@ use App\Livewire\Reception\Dashboard as ReceptionDashboard;
 use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+
+// SEO Routes
+
+Route::get('/generate-sitemap', function () {
+    Sitemap::create()
+        ->add(Url::create('/'))
+        ->add(Url::create('/services'))
+        ->add(Url::create('/our-doctors'))
+        ->add(Url::create('/book-appointment'))
+        ->add(Url::create('/about-us'))
+        ->add(Url::create('/contact-us'))
+        ->add(Url::create('/gallery'))
+        ->add(Url::create('/careers'));
+
+    Sitemap::create()
+        ->add(Url::create('/'))
+        ->add(Url::create('/services'))
+        ->add(Url::create('/our-doctors'))
+        ->add(Url::create('/book-appointment'))
+        ->add(Url::create('/about-us'))
+        ->add(Url::create('/contact-us'))
+        ->add(Url::create('/gallery'))
+        ->add(Url::create('/careers'))
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return 'Sitemap generated!';
+});
+
+Route::get('/sitemap.xml', function () {
+    return response()->file(public_path('sitemap.xml'));
+});
+
 
 // Route::view('/', 'comingsoon');
 // Route::view('/home', 'welcome');

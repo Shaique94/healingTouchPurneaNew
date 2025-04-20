@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
+    <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}  | Online Doctor Booking</title>
+
     <!-- SEO Meta Tags -->
     <meta name="description"
         content="Healing Touch Hospital located at Hope Chauraha, Rambagh Road, Linebazar, Purnea, offers online appointment booking, specialist doctors, and comprehensive healthcare services.">
@@ -14,11 +15,10 @@
         content="Healing Touch Hospital, hospital Purnea, online doctor appointment Purnea, healthcare services Linebazar, specialist doctors Rambagh Road, medical consultation Purnea, best hospital Bihar, online healthcare booking, emergency hospital services Purnea">
 
     <!-- Open Graph Meta Tags for Social Media -->
-    <meta property="og:title" content="Healing Touch Hospital | Quality Healthcare & Online Appointments">
     <meta property="og:description"
         content="Book your appointment online with specialist doctors at Healing Touch Hospital, Hope Chauraha, Rambagh Road, Linebazar, Purnea. Comprehensive healthcare services available.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://healingtouchpurnea.com/">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="https://healingtouchpurnea.com/healingTouchLogo.jpeg">
 
     <!-- Twitter Card Meta Tags -->
@@ -29,7 +29,8 @@
     <meta name="twitter:image" content="https://healingtouchpurnea.com/assets/images/hospital-twitter-card.jpg"> --}}
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://healingtouchpurnea.com/">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:title" content="{{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}  | Online Doctor Booking">
 
     <!-- Structured Data with JSON-LD -->
     <script type="application/ld+json">
