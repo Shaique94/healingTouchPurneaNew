@@ -94,20 +94,22 @@ class Dashboard extends Component
                 ->get();
             // dd($appointments->doctor->user->email);
             // Send email to the doctor with PDF attachment
-            $doctor = Doctor::find($this->selectedDoctorId);
-            $doctorEmail = $doctor->user->email;
-            $data = [
-                'appointments' => $appointments,
-                'doctor_name' => $doctor->user->name,
-                'date' => Carbon::tomorrow()->format('d-m-Y'),
-            ];
-            $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
-            Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data,$pdf));
+            if ($this->selectedDoctorId && $appointments->isNotEmpty()) {
+                $doctor = Doctor::find($this->selectedDoctorId);
+                $doctorEmail = $doctor->user->email;
+                $data = [
+                    'appointments' => $appointments,
+                    'doctor_name' => $doctor->user->name,
+                    'date' => Carbon::tomorrow()->format('d-m-Y'),
+                ];
+                $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
+                Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data, $pdf));
+            }
         }
-        
+
         $pdf = Pdf::loadView('pdf.tomorrow-appointments', compact('appointments'));
-         // Send email to the doctor with PDF attachment
-        
+        // Send email to the doctor with PDF attachment
+
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
@@ -176,7 +178,7 @@ class Dashboard extends Component
 
         // $pdf = Pdf::loadView('pdf.patient-reciept', $data);
 
-       
+
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
