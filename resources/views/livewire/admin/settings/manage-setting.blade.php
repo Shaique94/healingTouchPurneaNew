@@ -57,7 +57,29 @@
                 <div class="text-danger small">{{ $message }}</div>
             @enderror
         </div>
-
+        <div class="mb-3">
+            <label for="instagram" class="form-label">Instagram Link</label>
+            <input wire:model="instagram_link" type="url" class="form-control" id="instagram" placeholder="Enter Instagram link">
+            @error('instagram_link')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
+        <!-- Facebook Link -->
+        <div class="mb-3">
+            <label for="facebook" class="form-label">Facebook Link</label>
+            <input wire:model="facebook_link" type="url" class="form-control" id="facebook" placeholder="Enter Facebook link">
+            @error('facebook_link')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
+        <!-- Twitter Link -->
+        <div class="mb-3">
+            <label for="twitter" class="form-label">Twitter Link</label>
+            <input wire:model="twitter_link" type="url" class="form-control" id="twitter" placeholder="Enter Twitter link">
+            @error('twitter_link')
+                <div class="text-danger small">{{ $message }}</div>
+            @enderror
+        </div>
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Save Settings</button>
     </form>

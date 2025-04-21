@@ -34,91 +34,91 @@ class DoctorSeeder extends Seeder
                 'name' => 'Sunil Sharma',
                 'email' => 'sunil.sharma@healing-touch.com',
                 'department' => 'Cardiology',
-                'available_days' => ['monday','wednesday','friday']
+                'available_days' => ['Monday','Wednesday','Friday']
             ],
             [
                 'name' => 'Priya Patel',
                 'email' => 'priya.patel@healing-touch.com',
                 'department' => 'Neurology',
-                'available_days' => ['tuesday','thursday','saturday']
+                'available_days' => ['Tuesday','Thursday','Saturday']
             ],
             [
                 'name' => 'Rajiv Kumar',
                 'email' => 'rajiv.kumar@healing-touch.com',
                 'department' => 'Orthopedics',
-                'available_days' => ['monday','tuesday','friday']
+                'available_days' => ['Monday','Tuesday','Friday']
             ],
             [
                 'name' => 'Anita Singh',
                 'email' => 'anita.singh@healing-touch.com',
                 'department' => 'Pediatrics',
-                'available_days' => ['wednesday','thursday','saturday']
+                'available_days' => ['Wednesday','Thursday','Saturday']
             ],
             [
                 'name' => 'Vikram Desai',
                 'email' => 'vikram.desai@healing-touch.com',
                 'department' => 'Dermatology',
-                'available_days' => ['monday','wednesday','saturday']
+                'available_days' => ['Monday','Wednesday','Saturday']
             ],
             [
                 'name' => 'Neha Gupta',
                 'email' => 'neha.gupta@healing-touch.com',
                 'department' => 'Ophthalmology',
-                'available_days' => ['tuesday','friday','saturday']
+                'available_days' => ['Tuesday','Friday','Saturday']
             ],
             [
                 'name' => 'Arjun Reddy',
                 'email' => 'arjun.reddy@healing-touch.com',
                 'department' => 'ENT',
-                'available_days' => ['monday','thursday','saturday']
+                'available_days' => ['Monday','Thursday','Saturday']
             ],
             [
                 'name' => 'Shreya Verma',
                 'email' => 'shreya.verma@healing-touch.com',
                 'department' => 'Gynecology',
-                'available_days' => ['tuesday', 'wednesday', 'friday']
+                'available_days' => ['Tuesday', 'Wednesday', 'Friday']
             ],
             [
                 'name' => 'Amit Choudhary',
                 'email' => 'amit.choudhary@healing-touch.com',
                 'department' => 'Urology',
-                'available_days' => ['monday','wednesday','friday']
+                'available_days' => ['Monday','Wednesday','Friday']
             ],
             [
                 'name' => 'Divya Prakash',
                 'email' => 'divya.prakash@healing-touch.com',
                 'department' => 'Dentistry',
-                'available_days' => ['tuesday','thursday','saturday']
+                'available_days' => ['Tuesday','Thursday','Saturday']
             ],
             [
                 'name' => 'Ramesh Jha',
                 'email' => 'ramesh.jha@healing-touch.com',
                 'department' => 'General Medicine',
-                'available_days' => ['monday','wednesday','friday','saturday']
+                'available_days' => ['Monday','Wednesday','Friday','Saturday']
             ],
             [
                 'name' => 'Sonali Bose',
                 'email' => 'sonali.bose@healing-touch.com',
                 'department' => 'Psychiatry',
-                'available_days' => ['tuesday','thursday','friday']
+                'available_days' => ['Tuesday','Thursday','Friday']
             ],
             [
                 'name' => 'Anil Kapoor',
                 'email' => 'anil.kapoor@healing-touch.com',
                 'department' => 'Cardiology',
-                'available_days' => ['tuesday','thursday','saturday']
+                'available_days' => ['Tuesday','Thursday','Saturday']
             ],
             [
                 'name' => 'Kiran Shah',
                 'email' => 'kiran.shah@healing-touch.com',
                 'department' => 'Pediatrics',
-                'available_days' => ['monday','tuesday','friday']
+                'available_days' => ['Monday','Tuesday','Friday']
             ],
             [
                 'name' => 'Sanjay Mehta',
                 'email' => 'sanjay.mehta@healing-touch.com',
                 'department' => 'General Medicine',
-                'available_days' => ['tuesday','thursday','saturday']
+                'available_days' => ['Tuesday','Thursday','Saturday']
             ]
         ];
 
