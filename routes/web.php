@@ -99,7 +99,7 @@ Route::middleware('reception')->group(function () {
 });
 
 // Patient Booking Routes
-Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+Route::get('/book-appointment/{doctorId?}', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers', Careers::class)->name('careers.page');
