@@ -1,3 +1,4 @@
+<div>
 <!DOCTYPE html>
 <html>
 
@@ -220,32 +221,19 @@
             opacity: 0.3;
             object-fit: contain;
         }
-        .qr-code {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 10px;
-        }
-        .qr-code img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
     </style>
 </head>
 
 <body>
  @if ($appointment?->payment?->status == 'paid')
  <div class="watermark">
-        <img src="{{ public_path('images/paid.png') }}" alt="">
+        <img src="{{ asset('images/paid.png') }}" alt="">
     </div>
  @endif
     <div class="box">
         <div class="header">
             <div class="appointment-status">✓ Confirmed</div>
-            <div class="qr-code">
-                <img src="{{ public_path('storage/'.$appointment->qrPath) }}" alt="Appointment QR">
-            </div>
-            <img src="{{ public_path('healingTouchLogo.jpeg') }}" class="logo" alt="Logo">
+            <img src="{{ asset('healingTouchLogo.jpeg') }}" class="logo" alt="Logo">
             <div class="hospital-title">
                 <h3>HealingTouch Hospital</h3>
                 <div class="tagline">Excellence in Healthcare</div>
@@ -340,3 +328,4 @@
 </body>
 
 </html>
+</div>
