@@ -38,7 +38,7 @@ class ManageSetting extends Component
         $this->validate([
             'hospital_name' => 'nullable|string|max:255',
             'logo' => 'nullable|image|max:2048',
-            'contact_email' => 'nullable|email|max:255|dns', 
+            'contact_email' => 'nullable|email|max:255', 
             'contact_phone' => ['nullable', 'max:20', 'regex:/^[\+]?[0-9\s\-()]{7,20}$/'],
             'address' => 'nullable|string|max:255|min:5',
             'instagram_link' => 'nullable|url|max:255',
