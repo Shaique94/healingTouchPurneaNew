@@ -67,13 +67,7 @@
                         <span class="absolute bottom-0 left-0 h-0.5 bg-beige-500 transition-all duration-300"
                             :class="activeSection === 'gallery.page' ? 'w-full' : 'w-0'"></span>
                     </a>
-                    <a href="{{ route('careers.page') }}"
-                        class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
-                        :class="{ 'text-beige-600 font-medium': activeSection === 'careers.page' }">
-                        Careers
-                        <span class="absolute bottom-0 left-0 h-0.5 bg-beige-500 transition-all duration-300"
-                            :class="activeSection === 'careers.page' ? 'w-full' : 'w-0'"></span>
-                    </a>
+                 
                     <a href="{{ route('contact.page') }}"
                         class="px-4 py-2 rounded-lg text-gray-700 hover:text-beige-600 hover:bg-beige-50 transition-colors relative"
                         :class="{ 'text-beige-600 font-medium': activeSection === 'contact.page' }">

@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Carbon\Carbon;
 #[Title('Doctors')]
 class OurDoctors extends Component
 {
@@ -23,7 +24,20 @@ class OurDoctors extends Component
                 })
                 ->orWhere('qualification', 'like', '%' . $this->search . '%');
             })
-            ->get();
+            ->get()
+            ->map(function ($doctor) {
+                $availableDays = is_array($doctor->available_days)
+                    ? $doctor->available_days
+                    : (is_string($doctor->available_days)
+                        ? explode(', ', $doctor->available_days)
+                        : []);
+
+                $isAvailableToday = $doctor->status && in_array(Carbon::now()->format('l'), $availableDays);
+
+                $doctor->isAvailableToday = $isAvailableToday;
+
+                return $doctor;
+            });
 
         return view('livewire.patient-booking.menu-items.our-doctors', compact('doctors'));
     }

@@ -1,6 +1,6 @@
 <!-- Book Appointment Banner -->
-<div class="w-full mx-auto mb-5 ">
-    <div class="flex flex-col items-center justify-between border border-beige-200 bg-white rounded-2xl p-4 lg:p-6 ">
+<div class="w-full mx-auto mb-5">
+    <div class="flex flex-col items-center justify-between border border-beige-200 bg-white rounded-2xl p-4 lg:p-6">
         <div class="mb-5 text-center w-full">
             <h2 class="text-xl lg:text-2xl font-bold text-gray-800 mb-2">Book Your Appointment for Tomorrow</h2>
             <p class="text-gray-600 text-sm lg:text-base">
@@ -23,13 +23,19 @@
             </ul>
         </div>
         <div class="w-full">
-            <a href="{{ route('book.appointment') }}" class="w-full inline-flex items-center justify-center bg-beige-600 border-0 py-2 lg:py-3 px-4 lg:px-6 focus:outline-none hover:bg-beige-700 rounded-lg text-white font-medium transition-colors">
+            <button 
+                wire:click="bookAppointment" 
+                class="w-full inline-flex items-center justify-center bg-beige-600 border-0 py-2 lg:py-3 px-4 lg:px-6 focus:outline-none hover:bg-beige-700 rounded-lg text-white font-medium transition-colors {{ $doctorStatus ? '' : 'opacity-50 cursor-not-allowed' }}"
+                @if(!$doctorStatus) disabled @endif
+            >
                 <svg class="w-4 h-4 lg:w-5 lg:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
                 Book Appointment
+            </button>
+            <a href="tel:+91{{ $contact_phone }}" class="text-xs text-gray-500 mt-2 text-center">
+                Or call us at: +91 {{ number_format($contact_phone, 0, '', ' ') }}
             </a>
-            <p class="text-xs text-gray-500 mt-2 text-center">Or call us at: +91 {{ $contact_phone ?? '1234567890' }}</p>
         </div>
     </div>
 </div>
