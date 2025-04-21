@@ -17,6 +17,7 @@ class Appointment extends Model
         'status',
         'payment_method',
         'queue_number',
+        'barcode_path',
         'notes',
         'created_by',
     ];

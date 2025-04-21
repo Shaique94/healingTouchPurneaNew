@@ -1,3 +1,4 @@
+<div>
 <!DOCTYPE html>
 <html>
 
@@ -220,64 +221,26 @@
             opacity: 0.3;
             object-fit: contain;
         }
-        .qr-code {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 10px;
-        }
-        .qr-code img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .barcode-container {
-            margin: 10px auto;
-            max-width: 280px;
-        }
-        .barcode {
-            width: 100%;
-            text-align: center;
-        }
-        .barcode img {
-            max-width: 220px;
-            height: 35px;
-        }
-        .appointment-number {
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-top: 2px;
-        }
-        .queue-number {
-            color: #000;
-            font-size: 28px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 5px;
-            letter-spacing: 1px;
-        }
     </style>
 </head>
 
 <body>
  @if ($appointment?->payment?->status == 'paid')
  <div class="watermark">
-        <img src="{{ public_path('images/paid.png') }}" alt="">
+        <img src="{{ asset('images/paid.png') }}" alt="">
     </div>
  @endif
     <div class="box">
         <div class="header">
             <div class="appointment-status">✓ Confirmed</div>
-            <img src="{{ public_path('healingTouchLogo.jpeg') }}" class="logo" alt="Logo">
+            <img src="{{ asset('healingTouchLogo.jpeg') }}" class="logo" alt="Logo">
             <div class="hospital-title">
                 <h3>HealingTouch Hospital</h3>
                 <div class="tagline">Excellence in Healthcare</div>
             </div>
-            <div class="barcode-container">
-                <div class="barcode">
-                    <img src="{{ public_path('storage/' . $appointment->barcode_path) }}" alt="Barcode">
-                </div>
-                <div class="appointment-number">ID: {{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}</div>
+            <div class="label" style="color: #666;">Appointment Ref.</div>
+            <div class="number" style="color: #1a5f7a; font-weight: bold; font-size: 18px;">
+                HTH-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}
             </div>
         </div>
 
@@ -285,21 +248,6 @@
             <tr>
                 <td class="content-cell border-right">
                     <h3>Patient Information</h3>
-                    <div class="info-group">
-                        <div class="label">Appointment Ref.</div>
-                        <div class="value" style="color: #1a5f7a; font-size: 16px;">
-                            HTH-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}
-                        </div>
-                    </div>
-                    <div class="info-group">
-                        <div class="label">Amount Paid</div>
-                        <div class="value" style="color: #2e7d32; font-size:medium;">
-                            ₹{{ number_format($appointment->payment->paid_amount ?? 0, 2) }}
-                            <span style="font-size: 11px; color: #666; margin-left: 5px; font-size: medium;">
-                                ({{ $appointment->payment->status ?? 'pending' }})
-                            </span>
-                        </div>
-                    </div>
                     <div class="info-group">
                         <div class="label">Full Name</div>
                         <div class="value">{{ $appointment->patient->name }}</div>
@@ -347,7 +295,7 @@
                                 </div>
                             </div>
                             <div class="schedule-item">
-                                <div class="schedule-label">Reporting Time</div>
+                                <div class="schedule-label">Time</div>
                                 <div class="schedule-value time-value">
                                     {{ Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                                 </div>
@@ -356,9 +304,7 @@
                     </div>
                     <div class="info-group">
                         <div class="label">Queue Number</div>
-                        <div class="queue-number">
-                            #{{ str_pad($appointment->queue_number ?? 1, 3, '0', STR_PAD_LEFT) }}
-                        </div>
+                        <div class="value">#{{ str_pad($appointment->queue_number ?? 1, 3, '0', STR_PAD_LEFT) }}</div>
                     </div>
                 </td>
             </tr>
@@ -382,3 +328,4 @@
 </body>
 
 </html>
+</div>
