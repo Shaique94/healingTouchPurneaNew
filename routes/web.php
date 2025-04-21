@@ -99,7 +99,7 @@ Route::middleware('reception')->group(function () {
 });
 
 // Patient Booking Routes
-Route::get('/book-appointment', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+Route::get('/book-appointment/{doctorId?}', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers', Careers::class)->name('careers.page');
@@ -130,8 +130,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 //Doctor Routes
-Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
-Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
+Route::get('doc/login', DoctorLogin::class)->name('doctor.login');
+// Route::get('doc/login');
+Route::get('doc/dashboard', Dashboard::class)->name('doctor.dashboard');
 
 // SEO Routes
 // Route::get('/doctors', function () {

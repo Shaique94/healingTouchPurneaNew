@@ -29,10 +29,11 @@
                     <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
                         <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#doctors" class="text-gray-400 hover:text-white transition-colors">Our Doctors</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="{{ route('services.page') }}" wire:navigate class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="{{ route('about.page') }}" wire:navigate class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="{{ route('our.doctors') }}" wire:navigate class="text-gray-400 hover:text-white transition-colors">Our Doctors</a></li>
+                        <li><a href="{{route('contact.page')}}" wire:navigate class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="{{route('careers.page')}}" wire:navigate class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
                     </ul>
                 </div>
                 

@@ -47,10 +47,14 @@ class BookAppointment extends Component
     public $notes;
     public $payment_method = 'cash';
 
-    public function mount()
+    public function mount($doctorId = null)
     {
         $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
-        $this->generateTimeSlots();
+        if ($doctorId) {
+            $this->selectedDoctor = $doctorId;
+            $this->getDoctorDetails();
+            $this->generateTimeSlots();
+        }
     }
 
 
