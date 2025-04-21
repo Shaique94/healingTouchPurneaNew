@@ -27,7 +27,7 @@
                         <!-- Phone -->
                         <div class="col-md-6">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" wire:model.defer="user.phone" placeholder="+917894561234">
+                            <input type="number" class="form-control" wire:model.defer="user.phone" placeholder="+917894561234">
                             @error('user.phone') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
 

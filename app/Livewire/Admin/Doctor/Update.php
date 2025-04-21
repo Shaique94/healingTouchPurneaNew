@@ -18,6 +18,7 @@ class Update extends Component
     public $name, $email, $phone, $dept_id, $available_days = [];
     public $status;
     public $image;
+    public $fee;
     public $doctorId;
     public $newImage;
     public $showModal;
@@ -47,6 +48,7 @@ class Update extends Component
         $this->name = $doctor->user->name;
         $this->email = $doctor->user->email;
         $this->phone = $doctor->user->phone;
+        $this->fee = $doctor->fee;
         $this->dept_id = $doctor->department_id;
         $this->available_days = $doctor->available_days;
         $this->image = $doctor->image;
@@ -61,7 +63,7 @@ class Update extends Component
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . Doctor::find($this->doctorId)->user_id,
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|max:10',
             'dept_id' => 'required|exists:departments,id',
             'available_days' => 'required|array|min:1',
             'status' => 'required|boolean',
