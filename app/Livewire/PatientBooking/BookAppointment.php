@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 #[Title('Book Appointment')]
 class BookAppointment extends Component
 {
@@ -363,6 +366,25 @@ class BookAppointment extends Component
         $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
+              // Generate unique QR code data using app URL
+        $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
+        
+        // Generate unique filename for QR code
+        $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
+        $qrPath = 'appointments/qr/' . $qrFileName;
+
+        // Generate QR code
+        $qrImage = QrCode::format('svg')
+            ->size(150)
+            ->generate($qrData);
+
+        // Store QR code
+        Storage::disk('public')->put($qrPath, $qrImage);
+
+        // Get public URL
+        $qrPublicUrl = Storage::disk('public')->url($qrPath);
+
+        $appointment['qrPath']=$qrPath;
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
             ->setPaper('a4');  // Set A4 paper size
@@ -376,22 +398,11 @@ class BookAppointment extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
-        $activeDepartments = Department::where('status', 1)->orderBy('name', 'desc')->get();
-        
-        $doctors = $this->selectedDepartment
-            ? Doctor::whereHas('department', function($query) {
-                $query->where('status', 1);
-            })->where('department_id', $this->selectedDepartment)
-              ->with(['user', 'department'])
-              ->get()
-            : Doctor::whereHas('department', function($query) {
-                $query->where('status', 1);
-            })->with(['user', 'department'])
-              ->get();
-
         return view('livewire.patient-booking.book-appointment', [
-            'departments' => $activeDepartments,
-            'doctors' => $doctors
+            'departments' => Department::where('status', 1)->orderBy('name', 'desc')->get(),
+            'doctors' => $this->selectedDepartment
+                ? Doctor::where('department_id', $this->selectedDepartment)->with(['user', 'department'])->get()
+                : Doctor::with(['user', 'department'])->get(),
         ]);
     }
 }

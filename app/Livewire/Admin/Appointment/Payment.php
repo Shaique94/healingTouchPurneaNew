@@ -64,7 +64,6 @@ class Payment extends Component
     public function save() {
         $this->validate();
 
-        if ($this->settlement) {
             // Create or update logic
             ModelsPayment::updateOrCreate(
                 ['appointment_id' => $this->appointment_id],
@@ -84,9 +83,7 @@ class Payment extends Component
             $this->closeModal();
             $this->dispatch('success', __('Payment added or updated successfully'));
             $this->reset();
-        } else {
-            session()->flash('warning', 'Settlement is required before proceeding.');
-        }
+       
     }
 
     public function updatedPaidAmount($value) {

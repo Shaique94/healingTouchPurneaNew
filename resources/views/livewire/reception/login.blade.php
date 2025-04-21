@@ -77,7 +77,7 @@
                 </button>
             </div>
         </form>
-
+        
         <!-- Additional help text -->
         <p class="text-center text-gray-600 text-sm mt-6">
             Need assistance? Contact <a href="#" class="text-beige-600 hover:underline">Admin</a>

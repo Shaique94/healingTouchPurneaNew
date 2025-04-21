@@ -16,6 +16,7 @@ use App\Livewire\Admin\Qualification\All as AllQualification;
 use App\Livewire\Admin\Settings\ManageSetting;
 use App\Livewire\Admin\User\All as AllUser;
 use App\Livewire\PatientBooking\MenuItems\CareerDetail;
+use App\Livewire\Viewappoinment;
 use App\Models\GalleryImage;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Appointment\AppoinmentForm;
@@ -91,8 +92,7 @@ Route::get('/appointments/create', AppoinmentForm::class)
 
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
 
-
-// Route for reception/counter
+Route::get('/viewappointment/{id}',Viewappoinment::class)->name('show.appointment');
 Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
 Route::middleware('reception')->group(function () {
     Route::get('/reception/dashboard', ReceptionDashboard::class)->name('reception.dashboard');
@@ -130,8 +130,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 //Doctor Routes
-Route::get('doctor/login', DoctorLogin::class)->name('doctor.login');
-Route::get('doctor/dashboard', Dashboard::class)->name('doctor.dashboard');
+Route::get('doc/login', DoctorLogin::class)->name('doctor.login');
+// Route::get('doc/login');
+Route::get('doc/dashboard', Dashboard::class)->name('doctor.dashboard');
 
 // SEO Routes
 // Route::get('/doctors', function () {
