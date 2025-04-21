@@ -25,6 +25,7 @@ class Dashboard extends Component
     public $dateFilter;
     public $search = '';
     public $doctor;
+    public $doctor_image;
 
 
     public function mount()
@@ -56,10 +57,16 @@ class Dashboard extends Component
 
         $user = User::where('id', auth()->user()->id)->first();
         // dd($user->id);
+        
         $this->doctor_name = $user->name;
+
 
         $doctor = Doctor::where('user_id', $user->id)->first();
         // dd($doctor->id);
+        $this->doctor_image = $doctor->image;
+        // dd($this->doctor_image);
+       
+
         $query = Appointment::with('patient')
             ->where('doctor_id', $doctor->id)
             ->whereNotIn('status', ['pending', 'cancelled']);
