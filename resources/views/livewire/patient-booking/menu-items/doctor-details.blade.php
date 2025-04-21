@@ -159,9 +159,17 @@
                 <div class="px-6 py-5 bg-beige-600 text-white">
                     <h3 class="text-xl font-bold">Book an Appointment</h3>
                 </div>
-                <div class="p-6">
-                    <livewire:comman.appointment-card />
-                </div>
+                <div class="p-6 flex justify-between items-center">
+                    <div class="flex-shrink-0">
+                <a href="{{ route('book.appointment') }}" class="self-center inline-flex items-center bg-beige-600 border-0 py-3 px-6 focus:outline-none hover:bg-beige-700 rounded-lg text-white font-medium transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    Book Appointment
+                </a>
+                <p class="text-xs text-gray-500 mt-2 text-center">Or call us at: +91 {{ $contact_phone ?? '1234567890' }}</p>
+            </div>
+            </div>
             </div>
         </div>
     </div>
