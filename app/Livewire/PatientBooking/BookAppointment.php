@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
 
 #[Title('Book Appointment')]
 class BookAppointment extends Component
@@ -303,6 +304,24 @@ class BookAppointment extends Component
             'notes' => $this->notes,
         ]);
 
+        try {
+            // Generate barcode
+            $barcodeFileName = 'barcode-appointment-' . $appointment->id . '.png';
+            $barcodePath = 'appointments/barcodes/' . $barcodeFileName;
+            
+            // Convert appointment ID to string and generate barcode
+            $barcodeString = (string) $appointment->id;
+            $barcodeImage = DNS1D::getBarcodePNG($barcodeString, 'C128', 2, 60);
+            
+            if ($barcodeImage && is_string($barcodeImage)) {
+                Storage::disk('public')->put($barcodePath, base64_decode($barcodeImage));
+                $appointment->update(['barcode_path' => $barcodePath]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Barcode generation failed: ' . $e->getMessage());
+            // Continue without barcode if generation fails
+        }
+
         $this->appointmentId = $appointment->id;
         // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
@@ -367,24 +386,27 @@ class BookAppointment extends Component
             ->where('id', $this->appointmentId)
             ->first();
               // Generate unique QR code data using app URL
-        $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
+        // $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
         
-        // Generate unique filename for QR code
-        $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
-        $qrPath = 'appointments/qr/' . $qrFileName;
+        // // Generate unique filename for QR code
+        // $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
+        // $qrPath = 'appointments/qr/' . $qrFileName;
 
-        // Generate QR code
-        $qrImage = QrCode::format('svg')
-            ->size(150)
-            ->generate($qrData);
+        // // Generate QR code
+        // $qrImage = QrCode::format('svg')
+        //     ->size(150)
+        //     ->generate($qrData);
 
-        // Store QR code
-        Storage::disk('public')->put($qrPath, $qrImage);
+        // // Store QR code
+        // Storage::disk('public')->put($qrPath, $qrImage);
 
-        // Get public URL
-        $qrPublicUrl = Storage::disk('public')->url($qrPath);
+        // // Get public URL
+        // $qrPublicUrl = Storage::disk('public')->url($qrPath);
 
-        $appointment['qrPath']=$qrPath;
+        // $appointment['qrPath']=$qrPath;
+
+        // // Get barcode path
+        // $appointment['barcodePath'] = Storage::disk('public')->url($appointment->barcode_path);
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
             ->setPaper('a4');  // Set A4 paper size
