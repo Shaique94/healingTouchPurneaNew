@@ -7,6 +7,7 @@
                 Take a glimpse into our world-class infrastructure and care environment
             </p>
         </div>
+                <livewire:comman.appointment-card />
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @forelse($images as $image)

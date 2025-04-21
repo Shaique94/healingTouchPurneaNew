@@ -1,10 +1,16 @@
-<section class="bg-white py-16 px-4 md:px-12 mt-10 lg:px-24">
+<div>
+
+
+<section class="bg-white py-16 px-4 md:px-12 mt-10 lg:px-24 mt-20">
     <div class="max-w-6xl mx-auto text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">About Healing Touch Hospital</h1>
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">About Healing Touch Hospital, Purnea (Bihar) </h1>
         <p class="text-lg text-gray-600 mb-12">
             At Healing Touch Hospital, we are committed to providing compassionate, high-quality healthcare with a focus on patient well-being and comfort.
         </p>
     </div>
+
+    <livewire:comman.appointment-card />
+
 
     <!-- Mission & Services Section -->
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 mb-16 items-center">
@@ -120,3 +126,5 @@
         </a>
     </div>
 </section>
+
+</div>

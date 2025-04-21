@@ -11,7 +11,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                     <div class="p-6">
                         <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -27,7 +27,7 @@
                 </div>
 
                 <!-- Service 2 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                     <div class="p-6">
                         <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
                             <svg xmlns="http://wwbeigew.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -43,7 +43,7 @@
                 </div>
 
                 <!-- Service 3 -->
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                     <div class="p-6">
                         <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -80,7 +80,7 @@
             @if($doctorCount <= 3)
                 <div class="flex justify-center flex-wrap gap-8">
                 @foreach($doctors as $doctor)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 w-full max-w-xs">
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1 w-full max-w-xs">
                     <div class="h-64 bg-gray-200">
                         <img
                             src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
@@ -105,7 +105,7 @@
         @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($doctors as $doctor)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1">
+            <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
                 <div class="h-64 bg-gray-200">
                     <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
                 </div>

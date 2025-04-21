@@ -1,13 +1,12 @@
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 mt-16">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-8xl mx-auto">
         <!-- Page Header with Gradient Background -->
         <div class="mb-10 bg-gradient-to-r from-beige-600 to-beige-800 rounded-xl py-8 px-6 text-white shadow-lg">
             <h1 class="text-2xl md:text-3xl font-bold">Manage Your Appointments</h1>
             <p class="mt-2 text-beige-100">Find your existing appointments or schedule a new one</p>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="bg-white rounded-xl shadow-sm p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-sm p-6 ">
                 <div class="flex items-center mb-6">
                     <div class="bg-beige-100 p-3 rounded-full mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -16,36 +15,35 @@
                     </div>
                     <h2 class="text-xl font-bold text-gray-800">Book a New Appointment</h2>
                 </div>
-                
-                <div class="flex flex-col items-center justify-center py-2 px-4 text-center">
+                <div class="flex flex-col items-center  col-span-2 justify-center py-2 px-4 text-center">
                     <!-- Replace missing image with inline SVG calendar illustration -->
-                    <div class="w-40 h-40 mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-full h-full text-beige-600">
-                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-beige-200 fill-beige-50"/>
-                            <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <!-- Calendar dates -->
-                            <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-beige-500"/>
-                            <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-beige-400"/>
-                            <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-beige-300"/>
-                            <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-beige-300"/>
-                            <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-beige-500"/>
-                            <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-beige-400"/>
-                            <!-- Add a plus sign to indicate appointment booking -->
-                            <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
-                        </svg>
+                    <div class="flex flex-col items-center space-y-4 mb-6">
+                        <div class="w-28 h-28 bg-gradient-to-r from-beige-600 to-beige-800 rounded-full flex items-center justify-center shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-16 h-16 text-white">
+                                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" class="text-beige-200 fill-beige-50"/>
+                                <path d="M3 10H21" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 2L8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M16 2L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="8" cy="14" r="1.5" fill="currentColor" class="text-beige-500"/>
+                                <circle cx="12" cy="14" r="1.5" fill="currentColor" class="text-beige-400"/>
+                                <circle cx="16" cy="14" r="1.5" fill="currentColor" class="text-beige-300"/>
+                                <circle cx="8" cy="18" r="1.5" fill="currentColor" class="text-beige-300"/>
+                                <circle cx="12" cy="18" r="1.5" fill="currentColor" class="text-beige-500"/>
+                                <circle cx="16" cy="18" r="1.5" fill="currentColor" class="text-beige-400"/>
+                                <path d="M12 12.5V15.5M10.5 14H13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-green-500"/>
+                            </svg>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-semibold text-gray-900">Schedule Your Visit for Tommorow</h3>
+                            <p class="text-gray-600">Take the first step towards better health by booking an appointment with our specialists.</p>
+                        </div>
+                        <a href="{{ route('book.appointment') }}" class="px-8 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Book Appointment
+                        </a>
                     </div>
-                    
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Ready to schedule your visit?</h3>
-                    <p class="text-gray-600 mb-8">Book an appointment with our specialists and get the quality care you deserve.</p>
-                    
-                    <a href="{{ route('book.appointment') }}" class="px-6 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        Book New Appointment
-                    </a>
                 </div>
                 
                 <div class="bg-gray-50 rounded-lg p-4 mt-4">
@@ -73,7 +71,7 @@
                 </div>
             </div>
             <!-- Find Existing Appointments Section -->
-            <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="bg-white rounded-xl shadow-sm p-6 col-span-2">
                 <div class="flex items-center mb-6">
                     <div class="bg-beige-100 p-3 rounded-full mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -84,75 +82,76 @@
                 </div>
 
                 <!-- Search Inputs -->
-                <div class="mb-6">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <label class="flex items-center">
-                            <input type="radio" wire:model="searchMethod" value="phone" class="form-radio h-4 w-4 text-beige-600">
-                            <span class="ml-2 text-gray-700">Search by Phone</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="radio" wire:model="searchMethod" value="email" class="form-radio h-4 w-4 text-beige-600">
-                            <span class="ml-2 text-gray-700">Search by Email</span>
-                        </label>
-                    </div>
-
-                    @if($searchMethod === 'phone')
-                    <div class="mb-4">
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <div class="relative">
-                            <input 
-                                wire:model="phone" 
-                                type="tel" 
-                                id="phone" 
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
-                                placeholder="Enter your phone number"
-                            >
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                            </div>
+                <form wire:submit.prevent="findAppointments" class="w-1/3"  >
+                    <div class="mb-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <label class="flex items-center">
+                                <input type="radio" wire:model="searchMethod" value="phone" class="form-radio h-4 w-4 text-beige-600">
+                                <span class="ml-2 text-gray-700">Search by Phone</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" wire:model="searchMethod" value="email" class="form-radio h-4 w-4 text-beige-600">
+                                <span class="ml-2 text-gray-700">Search by Email</span>
+                            </label>
                         </div>
-                        @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-                    </div>
-                    @elseif($searchMethod === 'email')
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                        <div class="relative">
-                            <input 
-                                wire:model="email" 
-                                type="email" 
-                                id="email" 
-                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
-                                placeholder="Enter your email address"
-                            >
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                                </svg>
-                            </div>
-                        </div>
-                        @error('email') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
-                    </div>
-                    @endif
 
-                    <button 
-                        wire:click="findAppointments" 
-                        type="button" 
-                        class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-beige-600 hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 flex items-center justify-center"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        Find My Appointments
-                        <span wire:loading wire:target="findAppointments" class="ml-2">
-                            <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        @if($searchMethod === 'phone')
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <div class="relative">
+                                <input 
+                                    wire:model="phone" 
+                                    type="tel" 
+                                    id="phone" 
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
+                                    placeholder="Enter your phone number"
+                                >
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            @error('phone') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                        </div>
+                        @elseif($searchMethod === 'email')
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <div class="relative">
+                                <input 
+                                    wire:model="email" 
+                                    type="email" 
+                                    id="email" 
+                                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
+                                    placeholder="Enter your email address"
+                                >
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                                    </svg>
+                                </div>
+                            </div>
+                            @error('email') <p class="mt-1 text-sm text-red-500">{{ $message }}</p> @enderror
+                        </div>
+                        @endif
+
+                        <button 
+                            type="submit" 
+                            class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-beige-600 hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 flex items-center justify-center"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
-                        </span>
-                    </button>
-                </div>
+                            Find My Appointments
+                            <span wire:loading wire:target="findAppointments" class="ml-2">
+                                <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </form>
 
                 <!-- Results Section -->
                 @if($searchPerformed)

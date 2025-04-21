@@ -1,5 +1,5 @@
 <div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12 bg-gradient-to-b from-beige-50 to-white">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-20 to-white">
     {{-- Heading with enhanced styling --}}
     <div class="text-center mb-8">
         <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">Meet Our Expert</h2>

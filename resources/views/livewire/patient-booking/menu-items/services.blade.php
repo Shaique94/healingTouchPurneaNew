@@ -1,18 +1,20 @@
 <div>
 
     <!-- Service Details -->
-    <section id="services" class="py-16 mt-10">
+    <section id="services" class="py-16 mt-14">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Medical Services</h2>
                 <p class="text-gray-600 max-w-3xl mx-auto">We offer a comprehensive range of medical services designed to meet the needs of our community with excellence and compassion.</p>
             </div>
-            <div class="flex flex-col lg:flex-row gap-16">
 
+                <livewire:comman.appointment-card />
+
+            <div class="flex flex-col lg:flex-row gap-16 lg:px-10">
                 <!-- Sidebar -->
                 <div class="lg:w-1/3">
                     <!-- Service List Card -->
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden sticky top-24">
+                    <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden sticky top-24">
                         <div class="bg-beige-600 p-6">
                             <h3 class="text-2xl font-bold text-white flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -151,12 +153,15 @@
                 <div class="lg:w-2/3 space-y-8">
 
                     <!-- Multispeciality -->
-                    <div id="multispeciality" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="multispeciality" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-hospital"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/multispeciality.jpg') }}" alt="Multispeciality Care" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Multispeciality'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-hospital"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Multispeciality Care</h3>
@@ -166,12 +171,15 @@
                     </div>
 
                     <!-- ICU -->
-                    <div id="icu" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="icu" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-procedures"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/icu.jpg') }}" alt="ICU Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=ICU'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-procedures"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">ICU Services</h3>
@@ -181,12 +189,15 @@
                     </div>
 
                     <!-- NICU -->
-                    <div id="nicu" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="nicu" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-baby"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/nicu.jpg') }}" alt="NICU Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=NICU'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-baby"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">NICU Services</h3>
@@ -196,12 +207,15 @@
                     </div>
 
                     <!-- Ultrasound -->
-                    <div id="ultrasound" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="ultrasound" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-wave-square"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/ultrasound.jpg') }}" alt="Ultrasound Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Ultrasound'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-wave-square"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Ultrasound Services</h3>
@@ -211,12 +225,15 @@
                     </div>
 
                     <!-- Neurosurgery -->
-                    <div id="neurosurgery" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="neurosurgery" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-brain"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/neurosurgery.jpg') }}" alt="Neurosurgery" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Neurosurgery'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-brain"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Neurosurgery</h3>
@@ -226,12 +243,15 @@
                     </div>
 
                     <!-- X-Ray -->
-                    <div id="xray" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="xray" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-x-ray"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/xray.jpg') }}" alt="X-RAY Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=X-Ray'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-x-ray"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">X-RAY Services</h3>
@@ -241,12 +261,15 @@
                     </div>
 
                     <!-- Pathology -->
-                    <div id="pathology" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="pathology" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-microscope"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/pathology.jpg') }}" alt="Pathology Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Pathology'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-microscope"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Pathology Services</h3>
@@ -256,12 +279,15 @@
                     </div>
 
                     <!-- Painless Normal Delivery -->
-                    <div id="painless-delivery" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="painless-delivery" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-baby-carriage"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/painless-delivery.jpg') }}" alt="Painless Normal Delivery" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Painless+Delivery'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-baby-carriage"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Painless Normal Delivery</h3>
@@ -271,12 +297,15 @@
                     </div>
 
                     <!-- 24 hrs Delivery Service -->
-                    <div id="delivery-service" class="bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:shadow-2xl">
+                    <div id="delivery-service" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 bg-beige-50 flex items-center justify-center p-6">
-                                <span class="text-beige-600 text-5xl">
-                                    <i class="fas fa-clock"></i>
-                                </span>
+                            <div class="md:w-1/3 relative overflow-hidden">
+                                <img src="{{ asset('images/services/24hr-delivery.jpg') }}" alt="24 hrs Delivery Service" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=24hr+Service'; this.onerror=null;">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
+                                    <span class="text-white text-5xl">
+                                        <i class="fas fa-clock"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">24 hrs Delivery Service</h3>
