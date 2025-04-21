@@ -14,7 +14,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="description"
-    content="Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.">
+        content="Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -56,6 +56,7 @@
                 "jobTitle": "Senior Surgeon"
             }
             },
+        ]
     {
       "@type": "MedicalClinic",
       "name": "Gynecology Department",

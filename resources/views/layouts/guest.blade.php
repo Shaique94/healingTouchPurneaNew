@@ -75,6 +75,7 @@
                 "jobTitle": "Senior Surgeon"
             }
             },
+        ]
     {
       "@type": "MedicalClinic",
       "name": "Gynecology Department",
