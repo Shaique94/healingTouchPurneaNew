@@ -11,6 +11,10 @@
         | Online Doctor Booking</title>
     <meta property="og:url" content="{{ url()->current() }}">
     <link rel="canonical" href="{{ url()->current() }}">
+
+    <meta name="description"
+    content="Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.">
+
     <script type="application/ld+json">
             {
               "@context": "https://schema.org",
@@ -33,14 +37,31 @@
                 "areaServed": "IN",
                 "availableLanguage": ["English", "Hindi"]
               },
-              "medicalSpecialty": [
-                "Surgeon"
-                "Cardiology",
-                "Neurology",
-                "Orthopedics",
-                "Gynecology",
-                "General Medicine"
-              ],
+              "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
+        "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
+        "department": [
+            {
+            "@type": "MedicalClinic",
+            "name": "Surgery Department",
+            "medicalSpecialty": "General Surgery",
+            "availableService": "Laparoscopic and laser surgeries",
+            "physician": {
+                "@type": "Physician",
+                "name": "Dr. Charly Kumar Sinha",
+                "medicalSpecialty": "Surgery",
+                "jobTitle": "Senior Surgeon"
+            }
+            },
+    {
+      "@type": "MedicalClinic",
+      "name": "Gynecology Department",
+      "medicalSpecialty": "Gynecology",
+      "physician": {
+        "@type": "Physician",
+        "name": "Dr. Kiran Kumari",
+        "medicalSpecialty": "Gynecology"
+      }
+    }
               "sameAs": [
                 "https://www.facebook.com/profile.php?id=61573927387041",
                 "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",

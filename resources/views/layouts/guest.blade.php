@@ -12,13 +12,15 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Healing Touch Hospital located at Hope Chauraha, Rambagh Road, Linebazar, Purnea, offers online appointment booking, specialist doctors, and comprehensive healthcare services.">
+        content="Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.">
+
     <meta name="keywords"
-        content="Healing Touch Hospital, hospital Purnea, online doctor appointment Purnea, healthcare services Linebazar, specialist doctors Rambagh Road, medical consultation Purnea, best hospital Bihar, online healthcare booking, emergency hospital services Purnea">
+        content="Healing Touch Hospital, online doctor appointment Purnea, healthcare services Linebazar, specialist doctors Rambagh Road, medical consultation Purnea, best hospital Bihar, online healthcare booking, emergency hospital services Purnea">
 
     <!-- Open Graph Meta Tags for Social Media -->
     <meta property="og:description"
-        content="Book your appointment online with specialist doctors at Healing Touch Hospital, Hope Chauraha, Rambagh Road, Linebazar, Purnea. Comprehensive healthcare services available.">
+        content="Book appointments with top doctors at Healing Touch Hospital, Linebazar, Purnea. Quality healthcare services under one roof.">
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="https://healingtouchpurnea.com/healingTouchLogo.jpeg">
@@ -58,14 +60,31 @@
         "areaServed": "IN",
         "availableLanguage": ["English", "Hindi"]
       },
-      "medicalSpecialty": [
-        "Surgeon"
-        "Cardiology",
-        "Neurology",
-        "Orthopedics",
-        "Gynecology",
-        "General Medicine"
-      ],
+      "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
+        "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
+        "department": [
+            {
+            "@type": "MedicalClinic",
+            "name": "Surgery Department",
+            "medicalSpecialty": "General Surgery",
+            "availableService": "Laparoscopic and laser surgeries",
+            "physician": {
+                "@type": "Physician",
+                "name": "Dr. Charly Kumar Sinha",
+                "medicalSpecialty": "Surgery",
+                "jobTitle": "Senior Surgeon"
+            }
+            },
+    {
+      "@type": "MedicalClinic",
+      "name": "Gynecology Department",
+      "medicalSpecialty": "Gynecology",
+      "physician": {
+        "@type": "Physician",
+        "name": "Dr. Kiran Kumari",
+        "medicalSpecialty": "Gynecology"
+      }
+    }
       "sameAs": [
         "https://www.facebook.com/profile.php?id=61573927387041",
         "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",
