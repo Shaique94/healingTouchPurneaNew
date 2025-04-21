@@ -1,58 +1,111 @@
-<div class="container-fluid mt-4">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">User List</h5>
-            <button class="btn btn-light btn-sm" wire:click="$dispatch('open-add-user')">
-                <i class="bi bi-plus-circle me-1"></i> Add User
-            </button>
+<div class="container-fluid py-4 px-4 bg-light min-vh-100">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center bg-white p-4 rounded-3 shadow-sm mb-4">
+        <div>
+            <h4 class="mb-1">User Management</h4>
+            <p class="text-muted mb-0">Manage system users and their roles</p>
         </div>
+        <button class="btn btn-primary d-flex align-items-center gap-2" wire:click="$dispatch('open-add-user')">
+            <i class="bi bi-person-plus"></i> Add New User
+        </button>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="card shadow-sm mb-4">
         <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Search users..." wire:model.live.debounce.300ms="search">
-                </div>
-            </div>
-
-
-            <!-- Table -->
-            <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Registered At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $key => $user )
-                        <tr>
-                            <td>{{ $key + 1  }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->phone }}</td>
-                            <td><span class="badge bg-secondary">Admin</span></td>
-                            <td><span class="badge bg-success">Active</span></td>
-                            <td>2025-04-01</td>
-                            <td class="d-flex justify-content-center align-items-center gap-2">
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateuserModal" wire:click="$dispatch('update-user',{id:{{ $user->id }}})"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-sm btn-danger" wire:click="alertConfirm({{ $user->id }})"><i class="bi bi-trash"></i></button>
-                            </td>
-                        </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-                <livewire:admin.User.add />
-                <livewire:admin.User.update />
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control border-start-0 ps-0" 
+                       placeholder="Search users by name, email or phone..." 
+                       wire:model.live.debounce.300ms="search">
             </div>
         </div>
     </div>
+
+    <!-- Users Grid -->
+    <div class="row g-4">
+        @foreach($users as $key => $user)
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar-initial rounded-circle me-3 
+                             {{ $user->isActive ? 'bg-success' : 'bg-secondary' }}">
+                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">{{ $user->name }}</h6>
+                            <div class="d-flex align-items-center text-muted small">
+                                <i class="bi bi-envelope me-2"></i>
+                                {{ $user->email }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-top pt-3">
+                        <div class="row g-2 text-muted small">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-telephone me-2"></i>
+                                    {{ $user->phone }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-shield-check me-2"></i>
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        {{ ucfirst($user->role) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-clock me-1"></i>
+                            {{ $user->created_at->format('d M Y') }}
+                        </small>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" 
+                                    wire:click="$dispatch('update-user',{id:{{ $user->id }}})">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" 
+                                    wire:click="alertConfirm({{ $user->id }})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
+    <livewire:admin.User.add />
+    <livewire:admin.User.update />
+
+    <style>
+        .hover-card {
+            transition: transform 0.2s ease;
+        }
+        .hover-card:hover {
+            transform: translateY(-3px);
+        }
+        .avatar-initial {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
 
     @script
     <script>

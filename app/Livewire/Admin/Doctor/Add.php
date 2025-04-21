@@ -46,7 +46,7 @@ class Add extends Component
         $data = $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|max:10',
             'dept_id' => 'required|exists:departments,id',
             'available_days' => 'required|array|min:1',
             'status' => 'required|boolean',

@@ -53,7 +53,7 @@
                                     <label class="form-label fw-semibold" for="phone">
                                         <i class="bi bi-telephone-fill me-1"></i>Phone
                                     </label>
-                                    <input type="text" wire:model="phone" id="phone" class="form-control" placeholder="Enter phone number">
+                                    <input type="number" wire:model="phone" id="phone" class="form-control" placeholder="Enter phone number">
                                     @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
