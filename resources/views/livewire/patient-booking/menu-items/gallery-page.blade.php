@@ -34,7 +34,7 @@
         </div>
 
         <div class="text-center mt-10">
-            <a href="#" class="inline-block bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+            <a wire:navigate  href="#" class="inline-block bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
                 View Full Gallery
             </a>
         </div>

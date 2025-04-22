@@ -12,7 +12,7 @@
                     patient-centered ap/our-doctorsproach. Your health is our priority.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{route('manage.appointments')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
+                    <a wire:navigate  href="{{route('manage.appointments')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
                         <span>Book Appointment</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -25,7 +25,7 @@
                         </span>
                     </a>
                     
-                    <a href="#about" class="bg-transparent border-2 border-neutral-700 hover:bg-neutral-700 hover:text-white text-neutral-700 px-8 py-3.5 rounded-lg transition-colors duration-300 text-lg font-medium flex items-center justify-center">
+                    <a wire:navigate  href="#about" class="bg-transparent border-2 border-neutral-700 hover:bg-neutral-700 hover:text-white text-neutral-700 px-8 py-3.5 rounded-lg transition-colors duration-300 text-lg font-medium flex items-center justify-center">
                         Learn More
                     </a>
                 </div>

@@ -24,7 +24,7 @@
                         <p class="text-beige-100 text-xs opacity-90 mt-0.5">Schedule your visit with our specialists</p>
                     </div>
 
-                    <a href="{{ route('manage.appointments') }}"
+                    <a wire:navigate href="{{ route('manage.appointments') }}"
                         class="inline-flex items-center text-white hover:text-beige-200 text-xs mt-1 md:mt-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -104,7 +104,7 @@
 
             <!-- STEP 1: Select Doctor -->
             @if ($step === 1)
-                <div class="space-y-6">
+                <div class="space-y-6" data-step="1">
                     <!-- Department Filter Cards -->
                     <div class="bg-white p-5 rounded-xl shadow-sm">
                         <h2 class="text-lg font-medium text-gray-800 mb-4 flex items-center">
@@ -407,7 +407,7 @@
 
             <!-- STEP 2: Patient Details -->
             @if ($step === 2)
-                <div class="bg-white rounded-xl shadow-sm">
+                <div class="bg-white rounded-xl shadow-sm" data-step="2">
                     <!-- Selected Doctor Details (on top) -->
                     @if ($doctorDetails)
                         <div class="flex items-center p-5 border-b border-gray-200 bg-beige-50 rounded-t-xl">
@@ -656,7 +656,7 @@
 
             <!-- STEP 3: Review Appointment -->
             @if ($step === 3)
-                <div class="bg-white rounded-xl shadow-sm">
+                <div class="bg-white rounded-xl shadow-sm" data-step="3">
                     <div class="p-6 border-b border-gray-200 bg-beige-50 rounded-t-xl">
                         <h2 class="text-xl font-medium text-gray-800 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-beige-600"
@@ -825,7 +825,7 @@
 
             <!-- STEP 4: Confirmation -->
             @if ($step === 4)
-                <div class="bg-white rounded-xl shadow-sm p-8 text-center">
+                <div class="bg-white rounded-xl shadow-sm p-8 text-center" data-step="4">
                     <div class="mb-6 flex justify-center">
                         <div class="bg-green-100 p-3 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-600" fill="none"
@@ -864,7 +864,7 @@
                             </svg>
                             Download Receipt
                         </button>
-                        <a href="{{ route('manage.appointments') }}"
+                        <a wire:navigate href="{{ route('manage.appointments') }}"
                             class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -973,7 +973,8 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all event listeners and hooks - make this reusable
+        function initializeAppointmentPage() {
             // Handle pincode status updates
             Livewire.on('pincode-fetched', function(data) {
                 const messageElement = document.getElementById('pincode-message');
@@ -994,46 +995,17 @@
                 }
             });
 
-            // Show loader when Livewire is processing
-            const loader = document.getElementById('fullpage-loader');
-
-            Livewire.hook('message.sent', () => {
-                loader.classList.remove('opacity-0', 'pointer-events-none');
+            // Handle doctor not available message
+            Livewire.on('doctor-not-available', function(data) {
+                const messageElement = document.getElementById('doctor-not-available-message');
+                if (messageElement) {
+                    messageElement.textContent = data.message;
+                    messageElement.classList.remove('hidden');
+                }
             });
 
-            Livewire.hook('message.processed', () => {
-                setTimeout(() => {
-                    loader.classList.add('opacity-0', 'pointer-events-none');
-                }, 500); // Short delay for better UX
-            });
-
-            // Handle navigation events
-            window.addEventListener('beforeunload', function() {
-                loader.classList.remove('opacity-0', 'pointer-events-none');
-            });
-        });
-
-        // Function to show the loader with custom message
-        function showLoader(message = 'Loading...') {
-            const loader = document.getElementById('fullpage-loader');
-            const loadingText = document.querySelector('.loading-text');
-
-            if (loadingText) {
-                loadingText.textContent = message;
-            }
-
-            loader.classList.remove('opacity-0', 'pointer-events-none');
-        }
-
-        // Function to hide the loader
-        function hideLoader() {
-            const loader = document.getElementById('fullpage-loader');
-            loader.classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        // Auto-hide loader for step transitions and scroll to top
-        document.addEventListener('livewire:init', function() {
-            Livewire.on('stepChanged', function() {
+            // Handle step changes and animations
+            Livewire.on('stepChanged', function(data) {
                 setTimeout(function() {
                     hideLoader();
 
@@ -1044,32 +1016,69 @@
                     });
 
                     // Add fade-in animation to the new step
-                    const currentStep = document.querySelector(
-                        `[x-show="step === ${Livewire.store.get('step')}"]`);
-                    if (currentStep) {
-                        currentStep.classList.add('fade-in');
+                    const step = data.step || Livewire.store?.get('step');
+                    if (step) {
+                        const currentStep = document.querySelector(`[data-step="${step}"]`);
+                        if (currentStep) {
+                            currentStep.classList.add('fade-in');
+                        }
+                    }
+                    
+                    // Add highlight animation to the current step
+                    const stepElements = document.querySelectorAll('.flex-col.items-center');
+                    if (step && step <= stepElements.length) {
+                        const roundedEl = stepElements[step - 1]?.querySelector('.rounded-full');
+                        if (roundedEl) {
+                            roundedEl.classList.add('active-step');
+                        }
                     }
                 }, 800);
             });
-        });
+            
+            // Set up the loader hooks
+            const loader = document.getElementById('fullpage-loader');
+            if (loader) {
+                Livewire.hook('message.sent', () => {
+                    loader.classList.remove('opacity-0', 'pointer-events-none');
+                });
 
-        // Add animation to the active step
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('stepChanged', function(data) {
-                const step = data.step;
-                const stepElements = document.querySelectorAll('.flex-col.items-center');
+                Livewire.hook('message.processed', () => {
+                    setTimeout(() => {
+                        loader.classList.add('opacity-0', 'pointer-events-none');
+                    }, 500);
+                });
+            }
+        }
 
-                // Add highlight animation to the current step
-                if (step <= stepElements.length) {
-                    stepElements[step - 1].querySelector('.rounded-full').classList.add('active-step');
-                }
-            });
-        });
+        // Function to show the loader with custom message
+        function showLoader(message = 'Loading...') {
+            const loader = document.getElementById('fullpage-loader');
+            const loadingText = document.querySelector('.loading-text');
 
-        Livewire.on('doctor-not-available', function(data) {
-            const messageElement = document.getElementById('doctor-not-available-message');
-            messageElement.textContent = data.message;
-            messageElement.classList.remove('hidden');
-        });
+            if (loadingText) {
+                loadingText.textContent = message;
+            }
+
+            if (loader) {
+                loader.classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            const loader = document.getElementById('fullpage-loader');
+            if (loader) {
+                loader.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // Initialize on first page load
+        document.addEventListener('DOMContentLoaded', initializeAppointmentPage);
+
+        // Initialize on Livewire page load/navigation
+        document.addEventListener('livewire:init', initializeAppointmentPage);
+        
+        // Reinitialize when Livewire navigates
+        document.addEventListener('livewire:navigated', initializeAppointmentPage);
     </script>
 </div>
