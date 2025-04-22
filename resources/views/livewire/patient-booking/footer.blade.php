@@ -47,7 +47,7 @@
                     <h3 class="text-xl font-semibold mb-4">Login Links</h3>
                     <ul class="space-y-2">
                         <li><a href="{{route('reception.login')}}" class="text-gray-400 hover:text-white transition-colors">Reception Login</a></li>
-                        <li><a href="{{route('login')}}" class="text-gray-400 hover:text-white transition-colors">Admin Login</a></li>
+                        <li><a href="{{route('admin.login')}}" class="text-gray-400 hover:text-white transition-colors">Admin Login</a></li>
                         <li><a href="{{route('doctor.login')}}" class="text-gray-400 hover:text-white transition-colors">Doctor Login</a></li>
                         
                     </ul>
@@ -85,8 +85,8 @@
                         © {{ date('Y') }} {{ $settings['hospital_name'] ?? 'Healing Touch' }}. All rights reserved.
                     </p>
                     <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
+                        <a href="{{route('privacy.policy')}}" target="_blank" class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="{{route('terms.conditions')}}" target="_blank" class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
                         <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Sitemap</a>
                     </div>
                 </div>

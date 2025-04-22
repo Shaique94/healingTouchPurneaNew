@@ -100,7 +100,7 @@ class ManageAppointments extends Component
             'hospital_contact' => '+91-123-456-7890',
         ]; 
         
-        $pdf = PDF::loadView('pdf.appointment-receipt', $data);
+        $pdf = PDF::loadView('pdf.appointment', $data);
         
         return response()->streamDownload(function() use ($pdf) {
             echo $pdf->stream();

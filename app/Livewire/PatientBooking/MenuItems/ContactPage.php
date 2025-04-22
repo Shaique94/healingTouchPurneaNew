@@ -19,6 +19,8 @@ class ContactPage extends Component
     public $facebook;
     public $twitter;
     public $map_url;
+    public $map_embed_lat;
+    public $map_embed_long;
     public function mount()
     {
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch');
@@ -29,6 +31,8 @@ class ContactPage extends Component
         $this->facebook = Setting::get('facebook', '#');
         $this->twitter = Setting::get('twitter', '#');
         $this->map_url = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($this->address);
+        $this->map_embed_lat = '87.4933251'; 
+    $this->map_embed_long = '25.7888735';
     }
     public function render()
     {

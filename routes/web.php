@@ -16,6 +16,8 @@ use App\Livewire\Admin\Qualification\All as AllQualification;
 use App\Livewire\Admin\Settings\ManageSetting;
 use App\Livewire\Admin\User\All as AllUser;
 use App\Livewire\PatientBooking\MenuItems\CareerDetail;
+use App\Livewire\PatientBooking\MenuItems\PrivacyPolicy;
+use App\Livewire\PatientBooking\MenuItems\TermsCondition;
 use App\Livewire\Viewappoinment;
 use App\Models\GalleryImage;
 use Illuminate\Support\Facades\Route;
@@ -109,6 +111,8 @@ Route::get('/contact-us',ContactPage::class)->name('contact.page');
 Route::get('/about-us',AboutUs::class)->name('about.page');
 Route::get('/doctor/{doctorId}', DoctorDetails::class)->name('doctors.detail');
 Route::get('/gallery', GalleryPage::class)->name('gallery.page');
+Route::get('/terms-conditions', TermsCondition::class)->name('terms.conditions');
+Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy.policy');
 
 //Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {

@@ -123,14 +123,14 @@
                     <h3 class="font-semibold text-lg text-gray-800 mb-4">Our Location</h3>
                     <div class="aspect-video relative rounded-lg overflow-hidden border border-gray-200">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3563.0228457904924!2d{{ $map_embed_lat ?? '87.4753886' }}!3d{{ $map_embed_long ?? '26.7423487' }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e5dcd73a2d91b3%3A0x8dddd96dbc2a9eb9!2sHealing%20Touch%20Multi%20Specialty%20Hospital!5e0!3m2!1sen!2sin!4v1656536891705!5m2!1sen!2sin"
-                            width="100%" 
-                            height="100%" 
-                            class="absolute inset-0"
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3573.094466674104!2d87.4907502!3d25.7888735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eff90052a98551%3A0x4c8f3eaf163940d3!2sHealing%20Touch%20Hospital!5e0!3m2!1sen!2sin!4v1731949200000!5m2!1sen!2sin"
+                    width="100%" 
+                    height="100%" 
+                    class="absolute inset-0"
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe> 
                     </div>
                     <div class="bg-beige-50 rounded-lg p-4 mt-4">
                         <p class="text-gray-700 text-sm">
