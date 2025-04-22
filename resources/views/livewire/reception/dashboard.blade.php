@@ -684,7 +684,7 @@
                                     {{ ucfirst($appointment->status) }}
                                 </span>
                             </td>
-
+ 
                             <td class="px-6 py-4 text-right">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     @if($appointment->status === 'pending')

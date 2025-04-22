@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Reception;
 
+use App\Jobs\SendTomorrowAppointmentsPDF;
 use App\Mail\AppointmentReceiptMail;
 use App\Models\Appointment;
 use App\Models\Doctor;
@@ -103,7 +104,8 @@ class Dashboard extends Component
                     'date' => Carbon::tomorrow()->format('d-m-Y'),
                 ];
                 $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
-                Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data, $pdf));
+                //dispatching job here to send mail
+                SendTomorrowAppointmentsPDF::dispatch($this->selectedDoctorId);
             }
         }
 
@@ -276,7 +278,7 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
-    }
+    } 
     public function logout()
     {
         Auth::logout();
