@@ -234,7 +234,7 @@
                                     @else
                                     <button disabled class="text-gray-400 cursor-not-allowed text-xs md:text-sm">Complete</button>
                                     @endif
-                                    <a href="" class="text-beige-600 hover:text-beige-900 text-xs md:text-sm">View</a>
+                                    <a wire:navigate  href="" class="text-beige-600 hover:text-beige-900 text-xs md:text-sm">View</a>
                                 </div>
                             </td>
                         </tr>

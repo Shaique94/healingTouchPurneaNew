@@ -66,13 +66,13 @@
                             @if ($openDropdown)
                             <ul class="dropdown-menu show">
                                 <li>
-                                    <a href="#" wire:click.prevent="export" class="dropdown-item position-relative">
+                                    <a wire:navigate  href="#" wire:click.prevent="export" class="dropdown-item position-relative">
                                         <i class="bi bi-file-earmark-excel me-1 text-success"></i> Excel
                                         <span wire:loading wire:target="export" class="spinner-border spinner-border-sm float-end"></span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" wire:click.prevent="exportPdf" class="dropdown-item position-relative">
+                                    <a wire:navigate  href="#" wire:click.prevent="exportPdf" class="dropdown-item position-relative">
                                         <i class="bi bi-file-earmark-pdf me-1 text-danger"></i> PDF
                                         <span wire:loading wire:target="exportPdf" class="spinner-border spinner-border-sm float-end"></span>
                                     </a>
@@ -81,7 +81,7 @@
                             @endif
                         </div>
 
-                        <a href="{{ route('admin.appointment.add') }}" class="btn btn-primary btn-sm" wire:navigate>
+                        <a wire:navigate  href="{{ route('admin.appointment.add') }}" class="btn btn-primary btn-sm" wire:navigate>
                             <i class="bi bi-plus-circle me-1"></i> New Appointment
                         </a>
                     </div>

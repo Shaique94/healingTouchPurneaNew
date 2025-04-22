@@ -25,7 +25,7 @@
                             </div>
                             <div>
                                 <p class="font-semibold text-gray-800 text-lg">Phone</p>
-                                <a href="tel:{{ $contact_phone }}" class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">+91 {{ $contact_phone }}</a>
+                                <a wire:navigate  href="tel:{{ $contact_phone }}" class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">+91 {{ $contact_phone }}</a>
                                 <p class="text-gray-500 text-sm mt-1">Available 24/7 for emergencies</p>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             </div>
                             <div>
                                 <p class="font-semibold text-gray-800 text-lg">Email</p>
-                                <a href="mailto:{{ $contact_email }}" class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">{{ $contact_email }}</a>
+                                <a wire:navigate  href="mailto:{{ $contact_email }}" class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">{{ $contact_email }}</a>
                                 <p class="text-gray-500 text-sm mt-1">We respond within 24 hours</p>
                             </div>
                         </div>
@@ -71,14 +71,14 @@
                                 <p class="font-semibold text-gray-800 text-lg">Social Media</p>
                                 <div class="flex mt-2">
                                     @if($facebook)
-                                        <a href="{{ $facebook }}" target="_blank" class="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 mr-3" title="Facebook">
+                                        <a wire:navigate  href="{{ $facebook }}" target="_blank" class="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 mr-3" title="Facebook">
                                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12a9.998 9.998 0 0014.49 8.73V14.9h-3.06v-2.9h3.06v-2.22c0-3.04 1.83-4.7 4.57-4.7 1.32 0 2.7.24 2.7.24v2.95h-1.52c-1.5 0-1.97.93-1.97 1.88v2.14h3.34l-.53 2.9h-2.81v5.83A10 10 0 0022 12z" />
                                             </svg>
                                         </a>
                                     @endif
                                     @if($instagram)
-                                        <a href="{{ $instagram }}" target="_blank" class="bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700" title="Instagram">
+                                        <a wire:navigate  href="{{ $instagram }}" target="_blank" class="bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700" title="Instagram">
                                             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.509-1.105.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.883 4.883 0 01-1.772-1.153 4.883 4.883 0 01-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.883 4.883 0 011.153-1.772A4.883 4.883 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.8c-2.67 0-2.986.01-4.04.06-.976.045-1.505.207-1.858.344-.466.182-.8.398-1.15.748-.35.35-.566.684-.748 1.15-.137.353-.3.882-.344 1.857-.05 1.055-.06 1.37-.06 4.04 0 2.67.01 2.987.06 4.04.044.976.207 1.505.344 1.858.182.466.398.8.748 1.15.35.35.684.566 1.15.748.353.137.882.3 1.857.344 1.054.05 1.37.06 4.04.06 2.67 0 2.987-.01 4.04-.06.976-.044 1.504-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.684.748-1.15.137-.353.3-.882.344-1.857.05-1.054.06-1.37.06-4.04 0-2.67-.01-2.986-.06-4.04-.044-.976-.207-1.505-.344-1.858a3.09 3.09 0 00-.748-1.15 3.09 3.09 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.054-.05-1.37-.06-4.04-.06zm0 3.064A5.136 5.136 0 1 1 6.864 12 5.136 5.136 0 0 1 12 6.864zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.84-7.804a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z" />
                                             </svg>
@@ -103,7 +103,7 @@
                             <div>
                                 <p class="font-semibold text-gray-800 text-lg">Address</p>
                                 <p class="text-gray-700 mt-1">{!! nl2br(e($address)) !!}</p>
-                                <a href="{{ $map_url }}" target="_blank" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
+                                <a wire:navigate  href="{{ $map_url }}" target="_blank" class="inline-flex items-center text-beige-600 font-medium mt-2 hover:text-beige-800 transition-colors">
                                     Get Directions
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

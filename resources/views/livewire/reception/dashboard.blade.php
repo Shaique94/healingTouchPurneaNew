@@ -41,13 +41,13 @@
         </div>
 
         <nav class="space-y-2">
-            <a href="{{ route('reception.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg bg-beige-100 text-beige-700 font-medium transition-all duration-200">
+            <a wire:navigate  href="{{ route('reception.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg bg-beige-100 text-beige-700 font-medium transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 Dashboard
             </a>
-            <a href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200" wire:click="openModal">
+            <a wire:navigate  href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200" wire:click="openModal">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-3-3v6m-6 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-.707-.707A1 1 0 0012 4h-1a1 1 0 00-.707.293l-.707.707A1 1 0 019.586 5H6a2 2 0 00-2 2v13a2 2 0 002 2z" />
@@ -100,7 +100,7 @@
             </a>
 
             <div class="pt-6 mt-6 border-t border-gray-200">
-                <a href="#" wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
+                <a wire:navigate  href="#" wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
@@ -587,7 +587,7 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href=""
+                <a wire:navigate  href=""
                     wire:click.prevent="viewAppointment({{ $appointmentId }})"
                     target="_blank"
                     class="inline-flex items-center justify-center px-6 py-3 bg-beige-600 text-white rounded-lg hover:bg-beige-700 transition-colors duration-200 shadow-md">
@@ -598,7 +598,7 @@
                     Download Receipt
                 </a>
 
-                <a href="{{ route('reception.dashboard') }}"
+                <a wire:navigate  href="{{ route('reception.dashboard') }}"
                     class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -684,7 +684,7 @@
                                     {{ ucfirst($appointment->status) }}
                                 </span>
                             </td>
-
+ 
                             <td class="px-6 py-4 text-right">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     @if($appointment->status === 'pending')
@@ -699,7 +699,7 @@
                                         Cancel
                                     </button>
                                     @elseif($appointment->status === 'checked_in')
-                                    <a href=""
+                                    <a wire:navigate  href=""
                                         target="_blank"
                                         class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
                                         wire:click.prevent="viewAppointment({{ $appointment->id }})">

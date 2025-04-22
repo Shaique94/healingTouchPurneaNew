@@ -33,6 +33,9 @@ class BookAppointment extends Component
     public $appointmentDate = null;
     public $appointmentTime = null;
     public $availableTimes = [];
+    
+    // Add timeSlotCounts to track bookings per slot
+    public $timeSlotCounts = [];
 
     // Patient details
     public $name;
@@ -155,6 +158,7 @@ class BookAppointment extends Component
     protected function generateTimeSlots()
     {
         $this->availableTimes = [];
+        $this->timeSlotCounts = [];
 
         if (!$this->selectedDoctor || !$this->appointmentDate) {
             return;
@@ -199,22 +203,31 @@ class BookAppointment extends Component
             }
         }
 
-
-        // Filter out booked slots
-        $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
+        // Count existing appointments for each time slot
+        $appointments = Appointment::where('doctor_id', $this->selectedDoctor)
             ->where('appointment_date', $this->appointmentDate)
-            ->get()
-            ->map(function ($appointment) {
-                // Convert database time (HH:MM:SS) to display format (h:MM AM/PM)
-                try {
-                    return Carbon::parse($appointment->appointment_time)->format('g:i A');
-                } catch (\Exception $e) {
-                    return $appointment->appointment_time;
-                }
-            })
-            ->toArray();
+            ->get();
+            
+        foreach ($appointments as $appointment) {
+            $formattedTime = Carbon::parse($appointment->appointment_time)->format('g:i A');
+            
+            if (!isset($this->timeSlotCounts[$formattedTime])) {
+                $this->timeSlotCounts[$formattedTime] = 1;
+            } else {
+                $this->timeSlotCounts[$formattedTime]++;
+            }
+        }
+        
+        // Filter out fully booked slots (with 4+ appointments)
+        $fullyBookedSlots = [];
+        foreach ($this->timeSlotCounts as $time => $count) {
+            if ($count >= 4) {
+                $fullyBookedSlots[] = $time;
+            }
+        }
 
-        $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
+        // Get all available time slots, excluding fully booked ones
+        $this->availableTimes = array_values(array_diff($timeSlots, $fullyBookedSlots));
     }
 
     // Proceed to next step
@@ -268,6 +281,22 @@ class BookAppointment extends Component
     // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
+        // Check if the time slot is already fully booked
+        $formattedTime = $this->convertTimeFormat($this->appointmentTime);
+        $timeSlot = Carbon::parse($formattedTime)->format('g:i A');
+        
+        // Get count of existing appointments for this time slot
+        $count = Appointment::where('doctor_id', $this->selectedDoctor)
+            ->where('appointment_date', $this->appointmentDate)
+            ->whereTime('appointment_time', $formattedTime)
+            ->count();
+            
+        // If 4 or more appointments already exist, prevent booking
+        if ($count >= 4) {
+            session()->flash('error', 'This time slot is now fully booked. Please select a different time.');
+            return;
+        }
+        
         // First, create or find the patient
         $patient = Patient::firstOrCreate(
             ['phone' => $this->phone],
