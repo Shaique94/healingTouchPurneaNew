@@ -420,11 +420,20 @@ class BookAppointment extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
+        $activeDepartments = Department::where('status', 1)->orderBy('name', 'desc')->get();
+        
+        $doctors = Doctor::when($this->selectedDepartment, function($query) {
+                return $query->where('department_id', $this->selectedDepartment);
+            })
+            ->whereHas('department', function($query) {
+                $query->where('status', 1);
+            })
+            ->with(['user', 'department'])
+            ->get();
+
         return view('livewire.patient-booking.book-appointment', [
-            'departments' => Department::where('status', 1)->orderBy('name', 'desc')->get(),
-            'doctors' => $this->selectedDepartment
-                ? Doctor::where('department_id', $this->selectedDepartment)->with(['user', 'department'])->get()
-                : Doctor::with(['user', 'department'])->get(),
+            'departments' => $activeDepartments,
+            'doctors' => $doctors,
         ]);
     }
 }
