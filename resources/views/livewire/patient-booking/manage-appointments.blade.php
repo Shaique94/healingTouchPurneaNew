@@ -37,7 +37,7 @@
                             <h3 class="text-xl font-semibold text-gray-900">Schedule Your Visit for Tommorow</h3>
                             <p class="text-gray-600">Take the first step towards better health by booking an appointment with our specialists.</p>
                         </div>
-                        <a href="{{ route('book.appointment') }}" class="px-8 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
+                        <a wire:navigate  href="{{ route('book.appointment') }}" class="px-8 py-3 bg-gradient-to-r from-beige-600 to-beige-800 hover:from-beige-700 hover:to-beige-900 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>

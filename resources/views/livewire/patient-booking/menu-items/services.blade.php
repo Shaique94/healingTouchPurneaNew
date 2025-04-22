@@ -26,7 +26,7 @@
                         <div class="p-6">
                             <ul class="space-y-1">
                                 <li class="group">
-                                    <a href="#multispeciality" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#multispeciality" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-hospital"></i>
                                         </span>
@@ -34,7 +34,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#icu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#icu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-procedures"></i>
                                         </span>
@@ -42,7 +42,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#nicu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#nicu" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-baby"></i>
                                         </span>
@@ -50,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#ultrasound" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#ultrasound" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-wave-square"></i>
                                         </span>
@@ -58,7 +58,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#neurosurgery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#neurosurgery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-brain"></i>
                                         </span>
@@ -66,7 +66,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#xray" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#xray" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-x-ray"></i>
                                         </span>
@@ -74,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#pathology" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#pathology" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-microscope"></i>
                                         </span>
@@ -82,7 +82,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#painless-delivery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#painless-delivery" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-baby-carriage"></i>
                                         </span>
@@ -90,7 +90,7 @@
                                     </a>
                                 </li>
                                 <li class="group">
-                                    <a href="#delivery-service" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
+                                    <a wire:navigate  href="#delivery-service" class="flex items-center p-3 rounded-lg hover:bg-beige-50 transition duration-300">
                                         <span class="text-beige-600 mr-3">
                                             <i class="fas fa-clock"></i>
                                         </span>
@@ -137,7 +137,7 @@
                             <div class="bg-gray-50 rounded-xl p-4">
                                 <h4 class="font-bold text-gray-800 mb-3">Need Help?</h4>
                                 <p class="text-gray-600 text-sm mb-3">Contact us for appointments or questions</p>
-                                <a href="#" class="bg-beige-600 hover:bg-beige-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
+                                <a wire:navigate  href="#" class="bg-beige-600 hover:bg-beige-700 text-white text-center rounded-lg py-2 px-4 block transition duration-300 w-full sm:w-auto">
                                     <span class="mr-2">
                                         <i class="fas fa-phone-alt"></i>
                                     </span>

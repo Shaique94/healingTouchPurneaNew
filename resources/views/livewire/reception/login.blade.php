@@ -65,7 +65,7 @@
                     <input id="remember-me" type="checkbox" class="h-4 w-4 text-beige-600 focus:ring-beige-500 border-gray-300 rounded">
                     <label for="remember-me" class="ml-2 block text-gray-700">Remember me</label>
                 </div>
-                <a href="#" class="text-beige-600 hover:text-beige-800 font-medium">Forgot password?</a>
+                <a wire:navigate  href="#" class="text-beige-600 hover:text-beige-800 font-medium">Forgot password?</a>
             </div>
 
             <div>
@@ -80,7 +80,7 @@
         
         <!-- Additional help text -->
         <p class="text-center text-gray-600 text-sm mt-6">
-            Need assistance? Contact <a href="#" class="text-beige-600 hover:underline">Admin</a>
+            Need assistance? Contact <a wire:navigate  href="#" class="text-beige-600 hover:underline">Admin</a>
         </p>
     </div>
 </div>

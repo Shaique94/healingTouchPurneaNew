@@ -1,12 +1,15 @@
-<div class="container-fluid py-4 px-4 bg-light min-vh-100">
+<div class="container-fluid py-4 px-2 px-sm-4 bg-light min-vh-100">
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center bg-white p-4 rounded-3 shadow-sm mb-4">
-        <div>
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center bg-white p-3 p-sm-4 rounded-3 shadow-sm mb-4 gap-3">
+        <div class="text-center text-sm-start w-100">
             <h4 class="mb-1">User Management</h4>
             <p class="text-muted mb-0">Manage system users and their roles</p>
         </div>
-        <button class="btn btn-primary d-flex align-items-center gap-2" wire:click="$dispatch('open-add-user')">
-            <i class="bi bi-person-plus"></i> Add New User
+        <button class="btn btn-primary btn-lg px-4 d-inline-flex align-items-center gap-2 fs-6" 
+                style="white-space: nowrap; min-width: 160px;"
+                wire:click="$dispatch('open-add-user')">
+            <i class="bi bi-person-plus"></i>
+            <span>Add User</span>
         </button>
     </div>
 
@@ -25,35 +28,35 @@
     </div>
 
     <!-- Users Grid -->
-    <div class="row g-4">
+    <div class="row g-3">
         @foreach($users as $key => $user)
-        <div class="col-12 col-md-6 col-xl-4">
+        <div class="col-12 col-sm-6 col-xl-4">
             <div class="card border-0 shadow-sm hover-card">
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="avatar-initial rounded-circle me-3 
+                    <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start mb-3">
+                        <div class="avatar-initial rounded-circle mb-2 mb-sm-0 me-sm-3 
                              {{ $user->isActive ? 'bg-success' : 'bg-secondary' }}">
                             {{ strtoupper(substr($user->name, 0, 1)) }}
                         </div>
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 text-center text-sm-start">
                             <h6 class="mb-1">{{ $user->name }}</h6>
-                            <div class="d-flex align-items-center text-muted small">
+                            <div class="d-flex align-items-center justify-content-center justify-content-sm-start text-muted small">
                                 <i class="bi bi-envelope me-2"></i>
-                                {{ $user->email }}
+                                <span class="text-truncate">{{ $user->email }}</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-top pt-3">
                         <div class="row g-2 text-muted small">
-                            <div class="col-6">
-                                <div class="d-flex align-items-center">
+                            <div class="col-12 col-sm-6">
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start">
                                     <i class="bi bi-telephone me-2"></i>
                                     {{ $user->phone }}
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="d-flex align-items-center">
+                            <div class="col-12 col-sm-6">
+                                <div class="d-flex align-items-center justify-content-center justify-content-sm-start">
                                     <i class="bi bi-shield-check me-2"></i>
                                     <span class="badge bg-primary-subtle text-primary">
                                         {{ ucfirst($user->role) }}
@@ -104,6 +107,18 @@
             justify-content: center;
             color: white;
             font-weight: bold;
+        }
+        @media (max-width: 575.98px) {
+            .text-truncate {
+                max-width: 200px;
+            }
+            .card-body {
+                padding: 1rem;
+            }
+            .btn-lg {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
 
 #[Title('Book Appointment')]
 class BookAppointment extends Component
@@ -32,6 +33,9 @@ class BookAppointment extends Component
     public $appointmentDate = null;
     public $appointmentTime = null;
     public $availableTimes = [];
+    
+    // Add timeSlotCounts to track bookings per slot
+    public $timeSlotCounts = [];
 
     // Patient details
     public $name;
@@ -154,6 +158,7 @@ class BookAppointment extends Component
     protected function generateTimeSlots()
     {
         $this->availableTimes = [];
+        $this->timeSlotCounts = [];
 
         if (!$this->selectedDoctor || !$this->appointmentDate) {
             return;
@@ -198,22 +203,31 @@ class BookAppointment extends Component
             }
         }
 
-
-        // Filter out booked slots
-        $bookedSlots = Appointment::where('doctor_id', $this->selectedDoctor)
+        // Count existing appointments for each time slot
+        $appointments = Appointment::where('doctor_id', $this->selectedDoctor)
             ->where('appointment_date', $this->appointmentDate)
-            ->get()
-            ->map(function ($appointment) {
-                // Convert database time (HH:MM:SS) to display format (h:MM AM/PM)
-                try {
-                    return Carbon::parse($appointment->appointment_time)->format('g:i A');
-                } catch (\Exception $e) {
-                    return $appointment->appointment_time;
-                }
-            })
-            ->toArray();
+            ->get();
+            
+        foreach ($appointments as $appointment) {
+            $formattedTime = Carbon::parse($appointment->appointment_time)->format('g:i A');
+            
+            if (!isset($this->timeSlotCounts[$formattedTime])) {
+                $this->timeSlotCounts[$formattedTime] = 1;
+            } else {
+                $this->timeSlotCounts[$formattedTime]++;
+            }
+        }
+        
+        // Filter out fully booked slots (with 4+ appointments)
+        $fullyBookedSlots = [];
+        foreach ($this->timeSlotCounts as $time => $count) {
+            if ($count >= 4) {
+                $fullyBookedSlots[] = $time;
+            }
+        }
 
-        $this->availableTimes = array_values(array_diff($timeSlots, $bookedSlots));
+        // Get all available time slots, excluding fully booked ones
+        $this->availableTimes = array_values(array_diff($timeSlots, $fullyBookedSlots));
     }
 
     // Proceed to next step
@@ -267,6 +281,22 @@ class BookAppointment extends Component
     // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
+        // Check if the time slot is already fully booked
+        $formattedTime = $this->convertTimeFormat($this->appointmentTime);
+        $timeSlot = Carbon::parse($formattedTime)->format('g:i A');
+        
+        // Get count of existing appointments for this time slot
+        $count = Appointment::where('doctor_id', $this->selectedDoctor)
+            ->where('appointment_date', $this->appointmentDate)
+            ->whereTime('appointment_time', $formattedTime)
+            ->count();
+            
+        // If 4 or more appointments already exist, prevent booking
+        if ($count >= 4) {
+            session()->flash('error', 'This time slot is now fully booked. Please select a different time.');
+            return;
+        }
+        
         // First, create or find the patient
         $patient = Patient::firstOrCreate(
             ['phone' => $this->phone],
@@ -302,6 +332,24 @@ class BookAppointment extends Component
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
         ]);
+
+        try {
+            // Generate barcode
+            $barcodeFileName = 'barcode-appointment-' . $appointment->id . '.png';
+            $barcodePath = 'appointments/barcodes/' . $barcodeFileName;
+            
+            // Convert appointment ID to string and generate barcode
+            $barcodeString = (string) $appointment->id;
+            $barcodeImage = DNS1D::getBarcodePNG($barcodeString, 'C128', 2, 60);
+            
+            if ($barcodeImage && is_string($barcodeImage)) {
+                Storage::disk('public')->put($barcodePath, base64_decode($barcodeImage));
+                $appointment->update(['barcode_path' => $barcodePath]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Barcode generation failed: ' . $e->getMessage());
+            // Continue without barcode if generation fails
+        }
 
         $this->appointmentId = $appointment->id;
         // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
@@ -367,24 +415,27 @@ class BookAppointment extends Component
             ->where('id', $this->appointmentId)
             ->first();
               // Generate unique QR code data using app URL
-        $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
+        // $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
         
-        // Generate unique filename for QR code
-        $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
-        $qrPath = 'appointments/qr/' . $qrFileName;
+        // // Generate unique filename for QR code
+        // $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
+        // $qrPath = 'appointments/qr/' . $qrFileName;
 
-        // Generate QR code
-        $qrImage = QrCode::format('svg')
-            ->size(150)
-            ->generate($qrData);
+        // // Generate QR code
+        // $qrImage = QrCode::format('svg')
+        //     ->size(150)
+        //     ->generate($qrData);
 
-        // Store QR code
-        Storage::disk('public')->put($qrPath, $qrImage);
+        // // Store QR code
+        // Storage::disk('public')->put($qrPath, $qrImage);
 
-        // Get public URL
-        $qrPublicUrl = Storage::disk('public')->url($qrPath);
+        // // Get public URL
+        // $qrPublicUrl = Storage::disk('public')->url($qrPath);
 
-        $appointment['qrPath']=$qrPath;
+        // $appointment['qrPath']=$qrPath;
+
+        // // Get barcode path
+        // $appointment['barcodePath'] = Storage::disk('public')->url($appointment->barcode_path);
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
             ->setPaper('a4');  // Set A4 paper size
@@ -398,11 +449,20 @@ class BookAppointment extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
+        $activeDepartments = Department::where('status', 1)->orderBy('name', 'desc')->get();
+        
+        $doctors = Doctor::when($this->selectedDepartment, function($query) {
+                return $query->where('department_id', $this->selectedDepartment);
+            })
+            ->whereHas('department', function($query) {
+                $query->where('status', 1);
+            })
+            ->with(['user', 'department'])
+            ->get();
+
         return view('livewire.patient-booking.book-appointment', [
-            'departments' => Department::where('status', 1)->orderBy('name', 'desc')->get(),
-            'doctors' => $this->selectedDepartment
-                ? Doctor::where('department_id', $this->selectedDepartment)->with(['user', 'department'])->get()
-                : Doctor::with(['user', 'department'])->get(),
+            'departments' => $activeDepartments,
+            'doctors' => $doctors,
         ]);
     }
 }

@@ -52,12 +52,8 @@ class All extends Component
             ->first();
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-            ->setPaper('A4')
-            ->setOption('defaultFont', 'mangal')
-            ->setOption('fontHeightRatio', 0.9)
-            ->setOption('font-family', 'mangal')
-            ->setOption('isRemoteEnabled', true)
-            ->setOption('chroot', base_path('public/'));
+        ->setPaper('a4');
+            
 
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();

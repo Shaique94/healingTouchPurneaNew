@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['pending','checked_in' ,'confirmed', 'cancelled'])->default('pending');
             $table->string('payment_method')->default('cash')->nullable();
             $table->integer('queue_number')->nullable();
+            $table->string('barcode_path')->nullable();
             $table->text('notes')->nullable();
             $table->foreignId('created_by')
             ->nullable() 
