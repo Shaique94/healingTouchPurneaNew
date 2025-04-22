@@ -459,39 +459,34 @@
                         <div class="grid grid-cols-1 gap-y-5 gap-x-4 sm:grid-cols-6">
                             <!-- Name -->
                             <div class="sm:col-span-3">
-                                <label for="name" class="block text-sm font-medium text-gray-700">Full
-                                    Name</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name (पूरा नाम)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="name" type="text" name="name" id="name"
-                                        autocomplete="name"
+                                    <input wire:model.live="name" type="text" name="name" id="name" autocomplete="name"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Email -->
                             <div class="sm:col-span-3">
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address
-                                    <span class="text-gray-500 text-xs">(optional)</span></label>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address (ईमेल पता)
+                                    <span class="text-gray-500 text-xs">(optional) (वैकल्पिक)</span></label>
                                 <div class="mt-1">
-                                    <input wire:model.live="email" type="email" name="email" id="email"
-                                        autocomplete="email"
+                                    <input wire:model.live="email" type="email" name="email" id="email" autocomplete="email"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('email')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Phone -->
                             <div class="sm:col-span-3">
-                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone
-                                    Number</label>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number (फोन नंबर)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="phone" type="tel" name="phone" id="phone"
-                                        autocomplete="tel"
+                                    <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
                                         maxlength="10">
                                 </div>
@@ -499,65 +494,61 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Gender -->
                             <div class="sm:col-span-3">
-                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender (लिंग)</label>
                                 <div class="mt-1">
                                     <select wire:model.live="gender" id="gender" name="gender"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
-                                        <option value="">Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="">Select Gender (लिंग चुनें)</option>
+                                        <option value="male">Male (पुरुष)</option>
+                                        <option value="female">Female (महिला)</option>
+                                        <option value="other">Other (अन्य)</option>
                                     </select>
                                 </div>
                                 @error('gender')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Date of Birth -->
                             <div class="sm:col-span-3">
-                                <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                                <label for="age" class="block text-sm font-medium text-gray-700">Age (उम्र)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="age" type="number" min="0" max="150"
-                                        maxlength="3" name="age" id="age"
+                                    <input wire:model.live="age" type="number" min="0" max="150" maxlength="3" name="age" id="age"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('age')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Address -->
                             <div class="sm:col-span-6">
-                                <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                                <label for="address" class="block text-sm font-medium text-gray-700">Address (पता)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="address" type="text" name="address" id="address"
-                                        autocomplete="street-address"
+                                    <input wire:model.live="address" type="text" name="address" id="address" autocomplete="street-address"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('address')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Pincode -->
                             <div class="sm:col-span-2">
-                                <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code</label>
+                                <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code (पिन कोड)</label>
                                 <div class="mt-1 relative">
-                                    <input wire:model.debounce.500ms="pincode"
-                                        wire:change.blur="fetchLocationByPincode" type="number" name="pincode"
-                                        id="pincode" maxlength="6" autocomplete="postal-code"
+                                    <input wire:model.debounce.500ms="pincode" wire:change.blur="fetchLocationByPincode" type="number"
+                                        name="pincode" id="pincode" maxlength="6" autocomplete="postal-code"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                     <div class="pincode-status absolute right-2 top-2">
                                         <span wire:loading wire:target="fetchLocationByPincode">
-                                            <svg class="animate-spin h-4 w-4 text-beige-500"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                    stroke="currentColor" stroke-width="4"></circle>
+                                            <svg class="animate-spin h-4 w-4 text-beige-500" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                    stroke-width="4"></circle>
                                                 <path class="opacity-75" fill="currentColor"
                                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                                 </path>
@@ -570,23 +561,22 @@
                                 @enderror
                                 <div id="pincode-message" class="mt-1 text-xs"></div>
                             </div>
-
+                        
                             <!-- City -->
                             <div class="sm:col-span-2">
-                                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                                <label for="city" class="block text-sm font-medium text-gray-700">City (शहर)</label>
                                 <div class="mt-1">
-                                    <input wire:model="city" type="text" name="city" id="city"
-                                        autocomplete="address-level2"
+                                    <input wire:model="city" type="text" name="city" id="city" autocomplete="address-level2"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('city')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- State -->
                             <div class="sm:col-span-2">
-                                <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+                                <label for="state" class="block text-sm font-medium text-gray-700">State (राज्य)</label>
                                 <div class="mt-1">
                                     <input wire:model="state" type="text" name="state" id="state"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
@@ -595,11 +585,11 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                        
                             <!-- Notes -->
                             <div class="sm:col-span-6">
-                                <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor
-                                    (Optional)</label>
+                                <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor (डॉक्टर के लिए नोट्स)
+                                    <span class="text-gray-500 text-xs">(Optional) (वैकल्पिक)</span></label>
                                 <div class="mt-1">
                                     <textarea wire:model.live="notes" id="notes" name="notes" rows="3"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"></textarea>

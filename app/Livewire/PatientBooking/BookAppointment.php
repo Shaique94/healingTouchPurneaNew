@@ -247,7 +247,7 @@ class BookAppointment extends Component
             $this->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'nullable|email|max:255',
-                'phone' => 'required|string|max:15',
+                'phone' => 'required|string|regex:/^[0-9]{10}$/',
                 'gender' => 'required|in:male,female,other',
                 'age' => 'nullable|max:150',
                 'address' => 'required|string|max:255',
