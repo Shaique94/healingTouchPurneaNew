@@ -33,6 +33,16 @@
                                     @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
+                                {{-- Password --}}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="password">
+                                        <i class="bi bi-key-fill me-1"></i>Password
+                                    </label>
+                                    <input type="password" wire:model="password" id="password" class="form-control" placeholder="Enter new password (optional)">
+                                    <small class="text-muted">Leave blank to keep current password</small>
+                                    @error('password') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                                </div>
+
                                 {{-- Department --}}
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" for="dept_id">

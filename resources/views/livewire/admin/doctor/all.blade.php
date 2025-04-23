@@ -23,10 +23,10 @@
             <thead class="table-light text-center">
                 <tr>
                     <th>Image</th>
-                    <th wire:click="sortBy('user.name')" class="cursor-pointer">Name</th>
-                    <th wire:click="sortBy('user.email')" class="cursor-pointer">Email</th>
+                    <th>Name</th>
+                    <th>Email</th>
                     <th>Department</th>
-                    <th wire:click="sortBy('status')" class="cursor-pointer">Status</th>
+                    <th>Status</th>
                     <th>Phone</th>
                     <th>Available Days</th>
                     <th>Fee</th>

@@ -9,6 +9,7 @@ use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Hash;
 
 class Update extends Component
 {
@@ -24,6 +25,7 @@ class Update extends Component
     public $showModal;
     public $qualification;
     public $description;
+    public $password; // Add this property
     
     public function openModal()
     {
@@ -62,7 +64,7 @@ class Update extends Component
 
     public function updateDoctor()
     {
-        $this->validate([
+        $validationRules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . Doctor::find($this->doctorId)->user_id,
             'phone' => 'required|string|max:10',
@@ -72,18 +74,27 @@ class Update extends Component
             'newImage' => 'nullable|image|max:2048',
             'qualification' => 'required|string|min:1',
             'description' => 'nullable|string|max:1000',
+            'password' => 'nullable|min:6', // Add password validation
+        ];
 
-        ]);
+        $this->validate($validationRules);
 
         $doctor = Doctor::findOrFail($this->doctorId);
         $user = User::findOrFail($doctor->user_id);
 
-        $user->update([
+        $userData = [
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'description' => $this->description,
-        ]);
+        ];
+
+        // Only update password if provided
+        if (!empty($this->password)) {
+            $userData['password'] = Hash::make($this->password);
+        }
+
+        $user->update($userData);
 
         if ($this->newImage) {
             $imagePath = $this->newImage->store('doctors', 'public');
@@ -117,7 +128,8 @@ class Update extends Component
             'image',
             'status',
             'newImage', 
-            'doctorId'
+            'doctorId',
+            'password' // Add password to reset
         ]);
     }
 
