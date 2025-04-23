@@ -588,7 +588,7 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a wire:navigate  href=""
+                <a wire:navigate 
                     wire:click.prevent="viewAppointment({{ $appointmentId }})"
                     target="_blank"
                     class="inline-flex items-center justify-center px-6 py-3 bg-beige-600 text-white rounded-lg hover:bg-beige-700 transition-colors duration-200 shadow-md">
