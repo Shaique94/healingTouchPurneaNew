@@ -1,12 +1,15 @@
-<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 mt-16">
+<div class="min-h-screen bg-gray-50 py-12 px-2 sm:px-6 lg:px-8 mt-16">
     <div class="max-w-8xl mx-auto">
         <!-- Page Header with Gradient Background -->
-        <div class="mb-10 bg-gradient-to-r from-beige-600 to-beige-800 rounded-xl py-8 px-6 text-white shadow-lg">
-            <h1 class="text-2xl md:text-3xl font-bold">Manage Your Appointments</h1>
-            <p class="mt-2 text-beige-100">Find your existing appointments or schedule a new one</p>
+        <div class="mb-6 sm:mb-10 bg-gradient-to-r from-beige-600 to-beige-800 rounded-xl py-6 sm:py-8 px-4 sm:px-6 text-white shadow-lg">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold">Manage Your Appointments</h1>
+            <p class="mt-2 text-sm sm:text-base text-beige-100">Find your existing appointments or schedule a new one</p>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl shadow-sm p-6 ">
+
+        <!-- Grid Container -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+            <!-- Booking Section -->
+            <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6">
                 <div class="flex items-center mb-6">
                     <div class="bg-beige-100 p-3 rounded-full mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +74,7 @@
                 </div>
             </div>
             <!-- Find Existing Appointments Section -->
-            <div class="bg-white rounded-xl shadow-sm p-6 col-span-2">
+            <div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 col-span-2">
                 <div class="flex items-center mb-6">
                     <div class="bg-beige-100 p-3 rounded-full mr-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +85,7 @@
                 </div>
 
                 <!-- Search Inputs -->
-                <form wire:submit.prevent="findAppointments" class="w-1/3"  >
+                <form wire:submit.prevent="findAppointments" class="w-full sm:w-full md:w-full lg:w-full">
                     <div class="mb-6">
                         <div class="flex items-center space-x-4 mb-4">
                             <label class="flex items-center">
@@ -166,77 +169,74 @@
                                 <p class="text-gray-600">No appointments found. Please check your information or book a new appointment.</p>
                             </div>
                         @else
-                            <div class="overflow-hidden border border-gray-200 rounded-md shadow-sm max-h-80 overflow-y-auto overflow-x-auto">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50 sticky top-0">
-                                        <tr>
-                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ref ID</th>
-                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
-                                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th scope="col" class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach($searchResults as $result)
+                            <div class="overflow-hidden border border-gray-200 rounded-md shadow-sm max-h-80 overflow-y-auto">
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50 sticky top-0">
                                             <tr>
-                                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                    {{ $result['reference_id'] }}
-                                                </td>
-                                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ \Carbon\Carbon::parse($result['appointment_date'])->format('d M Y') }}
-                                                    <br>
-                                                    <span class="text-xs">{{ $result['appointment_time'] }}</span>
-                                                </td>
-                                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                                    Dr. {{ $result['doctor_name'] }}
-                                                    <br>
-                                                    <span class="text-xs text-beige-600">{{ $result['department'] }}</span>
-                                                </td>
-                                                <td class="px-4 py-3 whitespace-nowrap">
-                                                    @if($result['status'] === 'confirmed')
-                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                            Completed
-                                                        </span>
-                                                    @elseif($result['status'] === 'cancelled')
-                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                                            Cancelled
-                                                        </span>
-                                                    @else
-                                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-beige-100 text-beige-800">
-                                                            Checked In
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                                <td class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                                                    <button 
-                                                        wire:click="downloadReceipt('{{ $result['id'] }}')" 
-                                                        class="text-beige-600 hover:text-beige-900 flex items-center justify-end"
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                                        </svg>
-                                                        Receipt
-                                                        <span wire:loading wire:target="downloadReceipt('{{ $result['id'] }}')" class="ml-1">
-                                                            <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </button>
-                                                </td>
+                                                <th scope="col" class="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ref ID</th>
+                                                <th scope="col" class="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                                                <th scope="col" class="hidden sm:table-cell px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                                <th scope="col" class="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                                <th scope="col" class="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200">
+                                            @foreach($searchResults as $result)
+                                                <tr>
+                                                    <td class="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
+                                                        {{ $result['reference_id'] }}
+                                                    </td>
+                                                    <td class="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                                                        {{ \Carbon\Carbon::parse($result['appointment_date'])->format('d M Y') }}
+                                                        <span class="block text-xs">{{ $result['appointment_time'] }}</span>
+                                                    </td>
+                                                    <td class="hidden sm:table-cell px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                                                        Dr. {{ $result['doctor_name'] }}
+                                                        <span class="block text-xs text-beige-600">{{ $result['department'] }}</span>
+                                                    </td>
+                                                    <td class="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                                                        @if($result['status'] === 'confirmed')
+                                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                                Completed
+                                                            </span>
+                                                        @elseif($result['status'] === 'cancelled')
+                                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                Cancelled
+                                                            </span>
+                                                        @else
+                                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-beige-100 text-beige-800">
+                                                                Checked In
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
+                                                        <button 
+                                                            wire:click="downloadReceipt('{{ $result['id'] }}')" 
+                                                            class="text-beige-600 hover:text-beige-900 flex items-center justify-end"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                            </svg>
+                                                            Receipt
+                                                            <span wire:loading wire:target="downloadReceipt('{{ $result['id'] }}')" class="ml-1">
+                                                                <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         @endif
                     </div>
                 @endif
             </div>
-
-            <!-- Book New Appointment Section -->
-           
         </div>
     </div>
 </div>

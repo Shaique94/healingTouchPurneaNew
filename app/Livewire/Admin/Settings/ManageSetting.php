@@ -24,10 +24,10 @@ class ManageSetting extends Component
     public $twitter_link;
     public function mount()
     {
-        $this->hospital_name = Setting::get('hospital_name', '');
-        $this->contact_email = Setting::get('contact_email', '');
-        $this->contact_phone = Setting::get('contact_phone', '');
-        $this->address = Setting::get('address', '');
+        $this->hospital_name = Setting::get('hospital_name', 'Healing Touch Hospital');
+        $this->contact_email = Setting::get('contact_email', 'info@healingtouchpurnea.com');
+        $this->contact_phone = Setting::get('contact_phone', '+91 9471659700');
+        $this->address = Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301');
         $this->instagram_link = Setting::get('instagram_link', '');
         $this->facebook_link = Setting::get('facebook_link', '');
         $this->twitter_link = Setting::get('twitter_link', '');

@@ -78,7 +78,7 @@
     </section>
 
     <!-- Facilities Section -->
-    <section class="py-20 bg-white">
+    <section class="py-12 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <span class="text-beige-600 font-semibold text-sm uppercase tracking-wider">World-Class Medical Care</span>
@@ -97,7 +97,7 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-3">Expert Doctors</h3>
                     <p class="text-gray-600 leading-relaxed">Board-certified specialists with years of experience dedicated to providing compassionate patient care.</p>
                     <div class="mt-6 flex items-center text-beige-600 font-medium">
-                        <span>Learn more</span>
+                      <a href="{{route('our.doctors')}}" wire:navigate><span>Learn more</span></a>  
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -113,7 +113,7 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-3">Advanced Facilities</h3>
                     <p class="text-gray-600 leading-relaxed">State-of-the-art medical equipment and modern healing environments designed for optimal patient recovery.</p>
                     <div class="mt-6 flex items-center text-beige-600 font-medium">
-                        <span>Learn more</span>
+                       <a href="{{route('services.page')}}" wire:navigate><span>Learn more</span></a>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -129,7 +129,7 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-3">Patient-Centered Care</h3>
                     <p class="text-gray-600 leading-relaxed">Personalized treatment plans focused on your health and comfort, putting your needs at the center of everything we do.</p>
                     <div class="mt-6 flex items-center text-beige-600 font-medium">
-                        <span>Learn more</span>
+                     <a href="{{route('manage.appointments')}}" wire:navigate><span>Learn more</span></a>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
@@ -142,11 +142,11 @@
 
 
     <!-- About Us Section -->
-    <section id="about" class="py-20 bg-gradient-to-r from-beige-50 to-beige-100">
+    <section id="about" class="py-12 bg-gradient-to-r from-beige-50 to-beige-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <span class="text-beige-600 font-semibold text-sm uppercase tracking-wider">Our Story</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-beige-900 mt-2 mb-4">About <span class="text-beige-600">Healing Touch Hospital</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-beige-900 mt-2 mb-4">About <span class="text-beige-600">{{ $hospital_name }}</span></h2>
                 <div class="w-24 h-1 bg-beige-400 mx-auto mb-6"></div>
                 <p class="text-gray-600 max-w-3xl mx-auto">
                     Founded with a mission to provide accessible and exceptional healthcare to our community, serving with compassion since 1995.
@@ -174,7 +174,7 @@
                         Our Mission
                     </h3>
                     <p class="text-beige-700 mb-8 leading-relaxed">
-                        At Healing Touch Hospital, our mission is to enhance the health and wellbeing of the communities we serve by providing patient-centered care that is compassionate, accessible, and of the highest quality. We're committed to innovation, continuous improvement, and creating a healing environment for our patients and their families.
+                        At {{ $hospital_name }}, our mission is to enhance the health and wellbeing of the communities we serve by providing patient-centered care that is compassionate, accessible, and of the highest quality. We're committed to innovation, continuous improvement, and creating a healing environment for our patients and their families.
                     </p>
 
                     <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
