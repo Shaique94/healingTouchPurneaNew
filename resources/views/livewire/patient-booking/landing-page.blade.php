@@ -25,9 +25,7 @@
                         </span>
                     </a>
                     
-                    <a wire:navigate  href="#about" class="bg-transparent border-2 border-neutral-700 hover:bg-neutral-700 hover:text-white text-neutral-700 px-8 py-3.5 rounded-lg transition-colors duration-300 text-lg font-medium flex items-center justify-center">
-                        Learn More
-                    </a>
+                 
                 </div>
                 
                 <!-- Quick Stats -->
@@ -159,7 +157,7 @@
                 <div class="md:w-1/2">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-gradient-to-r from-beige-200 to-beige-300 rounded-xl blur-lg opacity-70 -z-10"></div>
-                        <img src="{{asset('images/heroImageHt.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
+                        <img src="{{asset('images/hospital1.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                         <!-- Experience Badge -->
                         <div class="absolute -bottom-6 -right-6 bg-white py-3 px-6 rounded-full shadow-lg">
                             <p class="text-gray-800 font-bold text-xl">25+ Years of Excellence</p>

@@ -155,17 +155,19 @@
                     <!-- Multispeciality -->
                     <div id="multispeciality" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/multispeciality.jpg') }}" alt="Multispeciality Care" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Multispeciality'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital1.jpg') }}" 
+                                    alt="Multispeciality Care" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center">
+                                <div class="absolute inset-0 bg-beige-600 bg-opacity-50 flex items-center justify-center">
+                                    <span class="text-white text-4xl">
                                         <i class="fas fa-hospital"></i>
                                     </span>
                                 </div>
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Multispeciality Care</h3>
-                                <p class="text-gray-600">Our multispeciality care unit provides expert consultation and treatment across various specialties including cardiology, orthopedics, gynecology, and more.</p>
+                                <p class="text-gray-600">Our multispeciality care unit provides expert consultation and treatment across various specialties including cardiology, orthopedics, gynecology.</p>
                             </div>
                         </div>
                     </div>
@@ -173,8 +175,10 @@
                     <!-- ICU -->
                     <div id="icu" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/icu.jpg') }}" alt="ICU Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=ICU'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital3.jpg') }}" 
+                                    alt="ICU Services" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-procedures"></i>
@@ -191,8 +195,10 @@
                     <!-- NICU -->
                     <div id="nicu" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/nicu.jpg') }}" alt="NICU Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=NICU'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital4.jpg') }}" 
+                                    alt="NICU Services" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" >
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-baby"></i>
@@ -209,8 +215,11 @@
                     <!-- Ultrasound -->
                     <div id="ultrasound" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/ultrasound.jpg') }}" alt="Ultrasound Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Ultrasound'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital5.jpg') }}" 
+                                    alt="Ultrasound Services" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=Ultrasound'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-wave-square"></i>
@@ -227,8 +236,11 @@
                     <!-- Neurosurgery -->
                     <div id="neurosurgery" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/neurosurgery.jpg') }}" alt="Neurosurgery" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Neurosurgery'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital6.jpg') }}" 
+                                    alt="Neurosurgery" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=Neurosurgery'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-brain"></i>
@@ -245,8 +257,11 @@
                     <!-- X-Ray -->
                     <div id="xray" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/xray.jpg') }}" alt="X-RAY Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=X-Ray'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital7.jpg') }}" 
+                                    alt="X-RAY Services" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=X-Ray'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-x-ray"></i>
@@ -263,8 +278,11 @@
                     <!-- Pathology -->
                     <div id="pathology" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/pathology.jpg') }}" alt="Pathology Services" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Pathology'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital8.jpg') }}" 
+                                    alt="Pathology Services" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=Pathology'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-microscope"></i>
@@ -281,8 +299,11 @@
                     <!-- Painless Normal Delivery -->
                     <div id="painless-delivery" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/painless-delivery.jpg') }}" alt="Painless Normal Delivery" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=Painless+Delivery'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital3.jpg') }}" 
+                                    alt="Painless Normal Delivery" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=Painless+Delivery'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-baby-carriage"></i>
@@ -299,8 +320,11 @@
                     <!-- 24 hrs Delivery Service -->
                     <div id="delivery-service" class="bg-white rounded-2xl border border-gray-200 overflow-hidden transform transition duration-300 hover:-translate-y-1">
                         <div class="md:flex">
-                            <div class="md:w-1/3 relative overflow-hidden">
-                                <img src="{{ asset('images/services/24hr-delivery.jpg') }}" alt="24 hrs Delivery Service" class="h-full w-full object-cover" onerror="this.src='https://via.placeholder.com/300x250?text=24hr+Service'; this.onerror=null;">
+                            <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
+                                <img src="{{ asset('images/hospital5.jpg') }}" 
+                                    alt="24 hrs Delivery Service" 
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
+                                    onerror="this.src='https://via.placeholder.com/300x250?text=24hr+Service'; this.onerror=null;">
                                 <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
                                     <span class="text-white text-5xl">
                                         <i class="fas fa-clock"></i>

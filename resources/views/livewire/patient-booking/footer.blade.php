@@ -90,9 +90,9 @@
                         </p>
                     </div>
                     <div class="flex space-x-6">
-                        <a href="{{route('privacy.policy')}}" target="_blank" class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="{{route('terms.conditions')}}" target="_blank" class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
-                        <a href="#" class="text-gray-400 text-sm hover:text-white transition-colors">Sitemap</a>
+                        <a href="{{route('privacy.policy')}}"  class="text-gray-400 text-sm hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="{{route('terms.conditions')}}"  class="text-gray-400 text-sm hover:text-white transition-colors">Terms of Service</a>
+                        <a href="sitemap.xml" class="text-gray-400 text-sm hover:text-white transition-colors">Sitemap</a>
                     </div>
                 </div>
             </div>

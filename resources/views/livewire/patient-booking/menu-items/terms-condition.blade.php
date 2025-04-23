@@ -1,7 +1,7 @@
-<div class="bg-beige-100 min-h-screen">
-    <div class="bg-white text-beige-600 py-20">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex justify-center mb-4">
+<div class="bg-beige-100 ">
+    <div class="bg-white text-beige-600 py-12 md:py-16"> <!-- Reduced padding -->
+        <div class="container mx-auto px-4 md:px-6 text-center"> <!-- Added responsive padding -->
+            <div class="flex justify-center mb-4 mt-10">
                 <svg class="h-12 w-12 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
@@ -10,9 +10,9 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 py-12">
-        <div class="max-w-4xl mx-auto bg-white p-10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
-            <section class="mb-10">
+    <div class="container mx-auto px-4 md:px-6 py-8 md:py-12"> <!-- Adjusted container padding -->
+        <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 lg:p-10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -24,7 +24,7 @@
                 </p>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -35,14 +35,14 @@
                 <p class="text-gray-700 leading-relaxed">
                     You agree to use our services only for lawful purposes and in accordance with these Terms. You must not:
                 </p>
-                <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <ul class="list-disc pl-6 text-gray-700 mt-3 space-y-2"> <!-- Added space between list items -->
                     <li>Use our services in a way that violates any applicable laws or regulations.</li>
                     <li>Attempt to gain unauthorized access to our systems or networks.</li>
                     <li>Interfere with the proper functioning of our website or services.</li>
                 </ul>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
@@ -54,7 +54,7 @@
                 </p>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -64,14 +64,14 @@
                 <p class="text-gray-700 leading-relaxed">
                     As a patient or user, you are responsible for:
                 </p>
-                <ul class="list-disc pl-6 text-gray-700 mt-2">
+                <ul class="list-disc pl-6 text-gray-700 mt-3 space-y-2"> <!-- Added space between list items -->
                     <li>Providing accurate and complete information during registration and consultations.</li>
                     <li>Complying with medical advice and treatment plans provided by our staff.</li>
                     <li>Paying all applicable fees for services rendered.</li>
                 </ul>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -83,7 +83,7 @@
                 </p>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -95,7 +95,7 @@
                 </p>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -107,7 +107,7 @@
                 </p>
             </section>
 
-            <section class="mb-10">
+            <section class="mb-8"> <!-- Reduced section margin -->
                 <h2 class="text-3xl font-semibold text-beige-600 mb-4 flex items-center">
                     <svg class="h-6 w-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -117,7 +117,7 @@
                 <p class="text-gray-700 leading-relaxed">
                     If you have any questions about these Terms, please contact us at:
                 </p>
-                <ul class="mt-4 space-y-3 text-gray-700">
+                <ul class="mt-3 space-y-2 text-gray-700"> <!-- Adjusted spacing -->
                     <li class="flex items-center">
                         <svg class="h-5 w-5 text-beige-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
