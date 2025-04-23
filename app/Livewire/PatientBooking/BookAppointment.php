@@ -329,11 +329,17 @@ class BookAppointment extends Component
             'doctor_id' => $this->selectedDoctor,
             'appointment_date' => $this->appointmentDate,
             'queue_number' => $queueNumber,
-            'appointment_time' => $formattedTime, // Use the converted time format
+            'appointment_time' => $formattedTime, 
             'status' => 'pending',
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
         ]);
+
+        $datePrefix = Carbon::parse($this->appointmentDate)->format('Ymd');
+        $appointmentNo=$appointment->update([
+            'appointment_no' => intval($datePrefix . str_pad($appointment->id, 4, '0', STR_PAD_LEFT))
+        ]);
+
 
         try {
             // Generate barcode
@@ -341,7 +347,7 @@ class BookAppointment extends Component
             $barcodePath = 'appointments/barcodes/' . $barcodeFileName;
             
             // Convert appointment ID to string and generate barcode
-            $barcodeString = (string) $appointment->id;
+            $barcodeString = (string) intval($datePrefix . str_pad($appointment->id, 4, '0', STR_PAD_LEFT));
             $barcodeImage = DNS1D::getBarcodePNG($barcodeString, 'C128', 2, 60);
             
             if ($barcodeImage && is_string($barcodeImage)) {
