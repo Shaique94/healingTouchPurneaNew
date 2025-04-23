@@ -161,7 +161,7 @@
                             <div class="border rounded-lg overflow-hidden bg-beige-50">
                                 <div class="flex flex-col md:flex-row items-start">
                                     <div
-                                        class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-beige-100">
+                                        class="md:w-1/3  p-5 flex items-center justify-center md:border-r border-beige-100">
                                         <div class="text-center">
                                             <div
                                                 class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
@@ -260,7 +260,7 @@
                             <!-- Show Doctor Grid if no doctor selected -->
                         @else
                             @if (count($doctors) > 0)
-                                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                     @foreach ($doctors as $doctor)
                                         <div wire:click="selectDoctor({{ $doctor->id }})"
                                             class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
@@ -408,56 +408,56 @@
             <!-- STEP 2: Patient Details -->
             @if ($step === 2)
                 <div class="bg-white rounded-xl shadow-sm" data-step="2">
-                    <!-- Selected Doctor Details (on top) -->
+                    <!-- Selected Doctor Details - Made more responsive -->
                     @if ($doctorDetails)
-                        <div class="flex items-center p-5 border-b border-gray-200 bg-beige-50 rounded-t-xl">
-                            <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                                <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
-                                    class="w-full h-full object-cover">
+                        <div class="flex flex-col md:flex-row items-start md:items-center p-4 md:p-5 border-b border-gray-200 bg-beige-50 rounded-t-xl">
+                            <div class="flex items-center mb-4 md:mb-0 w-full md:w-auto">
+                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
+                                    <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-grow md:flex-grow-0">
+                                    <h3 class="text-base md:text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
+                                    <p class="text-sm text-beige-600">{{ $doctorDetails->department->name }}</p>
+                                </div>
                             </div>
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}
-                                </h3>
-                                <p class="text-sm text-beige-600">{{ $doctorDetails->department->name }}</p>
-                                <div class="flex items-center text-sm text-gray-500 mt-1">
+            
+                            <div class="flex flex-col md:flex-row items-start md:items-center justify-between w-full md:ml-6 space-y-3 md:space-y-0">
+                                <div class="flex items-center text-xs md:text-sm text-gray-500">
                                     <span class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                         {{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}
                                     </span>
-                                    <span class="mx-2 text-gray-300">|</span>
-                                    <span class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    <span class="mx-2 text-gray-300 hidden md:inline">|</span>
+                                    <span class="flex items-center mt-1 md:mt-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                         {{ $appointmentTime }}
                                     </span>
                                 </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm text-gray-500">Consultation Fee</p>
-                                <p class="text-lg font-medium text-gray-900">₹{{ $doctorDetails->fee }}</p>
+                                <div class="md:text-right md:ml-auto">
+                                    <p class="text-xs md:text-sm text-gray-500">Consultation Fee</p>
+                                    <p class="text-base md:text-lg font-medium text-gray-900">₹{{ $doctorDetails->fee }}</p>
+                                </div>
                             </div>
                         </div>
                     @endif
-
-                    <div class="p-5">
-                        <h2 class="text-lg font-medium text-gray-800 mb-5 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            
+                    <div class="p-4 md:p-5">
+                        <!-- Form Header -->
+                        <h2 class="text-base md:text-lg font-medium text-gray-800 mb-4 md:mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             Your Information
                         </h2>
-
-                        <div class="grid grid-cols-1 gap-y-5 gap-x-4 sm:grid-cols-6">
-                            <!-- Name -->
+            
+                        <!-- Form Grid - Made more responsive -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
+                            <!-- Existing form fields with responsive adjustments -->
                             <div class="sm:col-span-3">
                                 <label for="name" class="block text-sm font-medium text-gray-700">Full Name (पूरा नाम)</label>
                                 <div class="mt-1">
@@ -471,7 +471,7 @@
                         
                             <!-- Email -->
                             <div class="sm:col-span-3">
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address (ईमेल पता)
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address (ईमेल)
                                     <span class="text-gray-500 text-xs">(optional) (वैकल्पिक)</span></label>
                                 <div class="mt-1">
                                     <input wire:model.live="email" type="email" name="email" id="email" autocomplete="email"
@@ -596,11 +596,11 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Navigation -->
-                        <div class="mt-8 flex justify-between">
+            
+                        <!-- Navigation - Made more responsive -->
+                        <div class="mt-6 md:mt-8 flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
                                 onclick="showLoader('Going back...')">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -620,7 +620,7 @@
                                 </span>
                             </button>
                             <button wire:click="nextStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
                                 onclick="showLoader('Reviewing your appointment...')">
                                 <span>Review</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"

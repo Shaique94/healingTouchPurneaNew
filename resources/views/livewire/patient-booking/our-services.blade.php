@@ -91,10 +91,12 @@
                         <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                         <p class="text-beige-600 font-medium mb-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
-                            ? implode(', ', $doctor->doctor->qualification) 
-                            : $doctor->doctor->qualification }}
+                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 50)
+                            : Str::limit($doctor->doctor->qualification, 20) }}
                         </p>
-                        <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
+                        <p class="text-gray-600 text-sm mb-4">
+                            {{ Str::limit($doctor->description, 50) }}
+                        </p>
                         <div class="flex justify-center space-x-3">
                             <button 
                                 wire:click="bookAppointment({{$doctor->doctor->id}})" 
@@ -122,10 +124,12 @@
                     <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                     <p class="text-beige-600 font-medium mb-2">
                         {{ is_array($doctor->doctor->qualification ?? null) 
-                            ? implode(', ', $doctor->doctor->qualification) 
-                            : $doctor->doctor->qualification }}
+                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 20)
+                            : Str::limit($doctor->doctor->qualification, 20) }}
                     </p>
-                    <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        {{ Str::limit($doctor->description, 50) }}
+                    </p>
                     <div class="flex justify-center space-x-3">
                         <button 
                         wire:click="bookAppointment({{$doctor->doctor->id}})" 
