@@ -25,7 +25,7 @@
                             <span class="sm:inline-block font-bold text-xl text-gray-800 group-hover:text-beige-600 transition-colors duration-300">
                                 <span class="text-beige-600">{{ explode(' ', $hospitalName)[0] }}</span> {{ implode(' ', array_slice(explode(' ', $hospitalName), 1)) }}
                             </span>
-                            <span class="block text-xs text-gray-500">24x7 Service</span>
+                            <span class="block text-xs text-gray-500">Hospital</span>
                         </div>
                     </a>
                 </div>
