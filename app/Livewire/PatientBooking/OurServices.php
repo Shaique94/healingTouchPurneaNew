@@ -9,13 +9,31 @@ class OurServices extends Component
 {
     public $doctors;
     public $doctorCount;
+    public $doctorId;
+    public $doctorStatus;
 
-    public function mount(){
-        $this->doctors = User::with('doctor')->where('role', 'doctor')->where('isActive',1)->take(3)->get();
-        $this->doctorCount =  $this->doctors->count();
-        // dd($this->doctors);
-
+    public function mount($doctorId = null, $doctorStatus = true)
+    {
+        $this->doctorId = $doctorId;
+        $this->doctorStatus = $doctorStatus;
+        $this->doctors = User::with('doctor')
+            ->where('role', 'doctor')
+            ->whereHas('doctor', function($query) {
+                $query->where('status', 1);
+            })
+            ->take(3)
+            ->get();
+        $this->doctorCount = $this->doctors->count();
     }
+    public function bookAppointment($doctorId = null)
+    {
+        $doctorId = $doctorId ?? $this->doctorId;
+        if ($doctorId) {
+            return $this->redirect(route('book.appointment', ['doctorId' => $doctorId]), navigate: true);
+        }
+        return $this->redirect(route('book.appointment'), navigate: true);
+    }
+   
   
     public function render()
     {

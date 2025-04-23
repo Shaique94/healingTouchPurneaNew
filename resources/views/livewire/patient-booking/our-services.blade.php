@@ -88,15 +88,26 @@
                             class="w-full h-full object-cover" />
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
+                        <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                         <p class="text-beige-600 font-medium mb-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
-                            ? implode(', ', $doctor->doctor->qualification) 
-                            : $doctor->doctor->qualification }}
+                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 50)
+                            : Str::limit($doctor->doctor->qualification, 20) }}
                         </p>
-                        <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
+                        <p class="text-gray-600 text-sm mb-4">
+                            {{ Str::limit($doctor->description, 50) }}
+                        </p>
                         <div class="flex justify-center space-x-3">
-                            <!-- social icons -->
+                            <button 
+                                wire:click="bookAppointment({{$doctor->doctor->id}})" 
+                                class="w-full inline-flex items-center justify-center bg-beige-600 border-0 py-2 lg:py-3 px-4 lg:px-6 focus:outline-none hover:bg-beige-700 rounded-lg text-white font-medium transition-colors {{ $doctorStatus ? '' : 'opacity-50 cursor-not-allowed' }}"
+                                @if(!$doctorStatus) disabled @endif
+                            >
+                                <svg class="w-4 h-4 lg:w-5 lg:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Book Appointment
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -110,15 +121,26 @@
                     <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
+                    <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                     <p class="text-beige-600 font-medium mb-2">
                         {{ is_array($doctor->doctor->qualification ?? null) 
-                            ? implode(', ', $doctor->doctor->qualification) 
-                            : $doctor->doctor->qualification }}
+                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 20)
+                            : Str::limit($doctor->doctor->qualification, 20) }}
                     </p>
-                    <p class="text-gray-600 text-sm mb-4">{{$doctor->description}}</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        {{ Str::limit($doctor->description, 50) }}
+                    </p>
                     <div class="flex justify-center space-x-3">
-                        <!-- social icons -->
+                        <button 
+                        wire:click="bookAppointment({{$doctor->doctor->id}})" 
+                        class="w-full inline-flex items-center justify-center bg-beige-600 border-0 py-2 lg:py-3 px-4 lg:px-6 focus:outline-none hover:bg-beige-700 rounded-lg text-white font-medium transition-colors {{ $doctorStatus ? '' : 'opacity-50 cursor-not-allowed' }}"
+                        @if(!$doctorStatus) disabled @endif
+                    >
+                        <svg class="w-4 h-4 lg:w-5 lg:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Book Appointment
+                    </button>
                     </div>
                 </div>
             </div>

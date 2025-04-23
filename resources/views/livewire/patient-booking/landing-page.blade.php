@@ -12,7 +12,7 @@
                     patient-centered ap/our-doctorsproach. Your health is our priority.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a wire:navigate  href="{{route('manage.appointments')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
+                    <a wire:navigate  href="{{route('book.appointment')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
                         <span>Book Appointment</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -231,7 +231,20 @@
     <!-- Our Services Component -->
     <livewire:patient-booking.our-services />
     
-    <!-- Add JavaScript for scroll functionality and animations -->
+    <!-- Mobile Fixed Book Appointment Button -->
+    <div id="mobile-book-btn" 
+         class="fixed bottom-8 right-4 md:hidden z-50 opacity-0 transition-all duration-300 ease-in-out">
+        <a wire:navigate href="{{route('book.appointment')}}" 
+           class="bg-beige-600 hover:bg-beige-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-2xl 
+                  flex items-center gap-2 transition-all duration-300 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="text-sm font-medium whitespace-nowrap">Book Now</span>
+        </a>
+    </div>
+
     <script>
         function scrollToBooking() {
             window.location.href = "{{ route('book.appointment') }}";
@@ -239,7 +252,31 @@
         
         // Add these classes to your tailwind.config.js
         // @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        // @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        // @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1); } }
         // @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        // Mobile booking button scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileBtn = document.getElementById('mobile-book-btn');
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (window.scrollY > 300) {
+                            mobileBtn.style.opacity = '1';
+                            mobileBtn.style.transform = 'translateY(0)';
+                        } else {
+                            mobileBtn.style.opacity = '0';
+                            mobileBtn.style.transform = 'translateY(20px)';
+                        }
+                        lastScrollY = window.scrollY;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        });
     </script>
 </div>

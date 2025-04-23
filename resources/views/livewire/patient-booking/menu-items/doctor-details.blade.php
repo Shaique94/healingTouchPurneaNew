@@ -209,9 +209,9 @@
                                     </svg>
                                     Book Appointment
                                 </button>
-                                {{-- <a href="tel:+91{{ $contact_phone }}" class="text-xs text-gray-500 mt-2 text-center block">
+                              <a href="tel:+91{{ $contact_phone }}" class="text-xs text-gray-500 mt-2 text-center block">
                                     Or call us at: +91 {{ number_format($contact_phone, 0, '', ' ') }}
-                                </a> --}}
+                                </a>
                             </div>
                         </div>
                     </div>

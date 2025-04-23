@@ -36,13 +36,26 @@ class All extends Component
 
     public function alertConfirm($id)
     {
-        $this->dispatch( 'swal:confirm', type: 'warning', message: 'Are you sure?', text: 'If deleted, you will not be able to recover this', doctorId: $id);
- 
+        $doctor = Doctor::with('appointments')->find($id);
+        
+        if ($doctor->appointments->count() > 0) {
+            $this->dispatch('error', __('Cannot delete doctor with existing appointments.'));
+            return;
+        }
+        
+        $this->dispatch('swal:confirm', type: 'warning', message: 'Are you sure?', text: 'If deleted, you will not be able to recover this', doctorId: $id);
     }
 
     public function delete($id)
     {
-        Doctor::find($id)?->delete();
+        $doctor = Doctor::with('appointments')->find($id);
+        
+        if ($doctor->appointments->count() > 0) {
+            $this->dispatch('error', __('Cannot delete doctor with existing appointments.'));
+            return;
+        }
+        
+        $doctor->delete();
         $this->dispatch('success', __('Doctor deleted successfully.'));
     }
 
