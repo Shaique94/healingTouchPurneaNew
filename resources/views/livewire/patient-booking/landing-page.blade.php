@@ -6,39 +6,39 @@
             <div class="md:w-1/2 mb-10 md:mb-0 px-6 animate-fadeIn">
                 <h1 class="text-4xl md:text-5xl font-bold text-neutral-800 leading-tight mb-4">
                     Compassionate Healthcare <span class="text-beige-700 block mt-1">For Your Family</span>
-                </h1>   
+                </h1>
                 <p class="text-lg text-gray-600 mb-8 leading-relaxed">
                     Experience world-class medical care with our team of dedicated specialists and
                     patient-centered ap/our-doctorsproach. Your health is our priority.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a wire:navigate  href="{{route('book.appointment')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
+                    <a wire:navigate href="{{route('book.appointment')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
                         <span>Book Appointment</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
-                        
+
                         <!-- Improved Ping Animation -->
                         <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-beige-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-3 w-3 bg-beige-500"></span>
                         </span>
                     </a>
-                    
-                 
+
+
                 </div>
-                
+
                 <!-- Quick Stats -->
                 <div class="flex flex-wrap gap-6 mt-10">
                     <div class="flex items-center">
                         <div class="bg-beige-100 p-3 rounded-full mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-2xl text-gray-800">25+</p>
-                            <p class="text-sm text-gray-600">Expert Doctors</p>
+                            <p class="font-bold text-2xl text-gray-800">10+</p>
+                            <p class="text-sm text-gray-600">Years of Experience</p>
                         </div>
                     </div>
                     <div class="flex items-center">
@@ -48,19 +48,19 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="font-bold text-2xl text-gray-800">10K+</p>
+                            <p class="font-bold text-2xl text-gray-800">5000+</p>
                             <p class="text-sm text-gray-600">Successful Treatments</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="md:w-1/2 relative animate-slideInRight">
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-beige-200 to-beige-300 rounded-full blur-lg opacity-70"></div>
                     <img src="{{ asset('images/heroImageHt.jpg') }}" alt="Doctor with patient" class="w-full h-auto rounded-2xl shadow-2xl relative" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                 </div>
-                
+
                 <!-- Floating Elements -->
                 <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg flex items-center space-x-3 animate-float">
                     <div class="bg-beige-100 p-2 rounded-full">
@@ -86,7 +86,7 @@
                 <div class="w-24 h-1 bg-beige-400 mx-auto mb-6"></div>
                 <p class="max-w-2xl mx-auto text-gray-600">Experience healthcare excellence with our state-of-the-art facilities and compassionate medical professionals.</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 group hover:-translate-y-1 transition-transform duration-300">
                     <div class="bg-beige-100 p-4 rounded-full inline-block mb-6 group-hover:bg-beige-200 transition-colors duration-300">
@@ -103,7 +103,7 @@
                         </svg>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 group hover:-translate-y-1 transition-transform duration-300">
                     <div class="bg-beige-100 p-4 rounded-full inline-block mb-6 group-hover:bg-beige-200 transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +119,7 @@
                         </svg>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 group hover:-translate-y-1 transition-transform duration-300">
                     <div class="bg-beige-100 p-4 rounded-full inline-block mb-6 group-hover:bg-beige-200 transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,7 +139,7 @@
         </div>
     </section>
 
- 
+
 
     <!-- About Us Section -->
     <section id="about" class="py-20 bg-gradient-to-r from-beige-50 to-beige-100">
@@ -230,16 +230,16 @@
 
     <!-- Our Services Component -->
     <livewire:patient-booking.our-services />
-    
+
     <!-- Mobile Fixed Book Appointment Button -->
-    <div id="mobile-book-btn" 
-         class="fixed bottom-8 right-4 md:hidden z-50 opacity-0 transition-all duration-300 ease-in-out">
-        <a wire:navigate href="{{route('book.appointment')}}" 
-           class="bg-beige-600 hover:bg-beige-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-2xl 
+    <div id="mobile-book-btn"
+        class="fixed bottom-8 right-4 md:hidden z-50 opacity-0 transition-all duration-300 ease-in-out">
+        <a wire:navigate href="{{route('book.appointment')}}"
+            class="bg-beige-600 hover:bg-beige-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-2xl 
                   flex items-center gap-2 transition-all duration-300 group">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <span class="text-sm font-medium whitespace-nowrap">Book Now</span>
         </a>
@@ -249,7 +249,7 @@
         function scrollToBooking() {
             window.location.href = "{{ route('book.appointment') }}";
         }
-        
+
         // Add these classes to your tailwind.config.js
         // @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         // @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1); } }
