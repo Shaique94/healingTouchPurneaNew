@@ -14,7 +14,8 @@ class OurDoctors extends Component
     #[Layout('layouts.guest')]
     public function render()
     {
-        $doctors = Doctor::with('user', 'department') 
+        $doctors = Doctor::with('user', 'department')
+            ->where('status', 1) 
             ->when($this->search, function ($query) {
                 return $query->whereHas('user', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
@@ -32,7 +33,7 @@ class OurDoctors extends Component
                         ? explode(', ', $doctor->available_days)
                         : []);
 
-                $isAvailableToday = $doctor->status && in_array(Carbon::now()->format('l'), $availableDays);
+                $isAvailableToday = in_array(Carbon::now()->format('l'), $availableDays);
 
                 $doctor->isAvailableToday = $isAvailableToday;
 
