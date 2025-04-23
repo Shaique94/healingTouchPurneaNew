@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
+use Illuminate\Support\Facades\Storage;
 
 class Add extends Component
 {
@@ -102,6 +105,31 @@ class Add extends Component
             'notes' => $this->notes,
             'created_by' => Auth::id()
         ]);
+
+        // Generate appointment_no
+        $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
+        $appointmentNo = intval($datePrefix . str_pad($appointment->id, 4, '0', STR_PAD_LEFT));
+        $appointment->update([
+            'appointment_no' => $appointmentNo
+        ]);
+
+        try {
+            // Generate barcode
+            $barcodeFileName = 'barcode-appointment-' . $appointment->id . '.png';
+            $barcodePath = 'appointments/barcodes/' . $barcodeFileName;
+            
+            // Use appointment_no for barcode
+            $barcodeString = (string) $appointmentNo;
+            $barcodeImage = DNS1D::getBarcodePNG($barcodeString, 'C128', 2, 60);
+            
+            if ($barcodeImage && is_string($barcodeImage)) {
+                Storage::disk('public')->put($barcodePath, base64_decode($barcodeImage));
+                $appointment->update(['barcode_path' => $barcodePath]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Barcode generation failed: ' . $e->getMessage());
+        }
+
         $this->dispatch('refresh-appointment');
         $this->resetForm();
         $this->dispatch('success', __('Appointment Booked successfully'));

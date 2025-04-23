@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
+use Milon\Barcode\Facades\DNS1DFacade as DNS1D;
 
 class Update extends Component
 {
@@ -95,6 +97,34 @@ class Update extends Component
         $appointment->appointment_time = $formattedTime;
         $appointment->payment_method = $this->payment_method;
         $appointment->notes = $this->notes;
+        $appointment->save();
+
+        // Regenerate appointment number and barcode
+        $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
+        $appointmentNo = intval($datePrefix . str_pad($appointment->id, 4, '0', STR_PAD_LEFT));
+        $appointment->appointment_no = $appointmentNo;
+
+        try {
+            // Generate new barcode
+            $barcodeFileName = 'barcode-appointment-' . $appointment->id . '.png';
+            $barcodePath = 'appointments/barcodes/' . $barcodeFileName;
+            
+            $barcodeString = (string) $appointmentNo;
+            $barcodeImage = DNS1D::getBarcodePNG($barcodeString, 'C128', 2, 60);
+            
+            if ($barcodeImage && is_string($barcodeImage)) {
+                // Delete old barcode if exists
+                if ($appointment->barcode_path) {
+                    Storage::disk('public')->delete($appointment->barcode_path);
+                }
+                
+                Storage::disk('public')->put($barcodePath, base64_decode($barcodeImage));
+                $appointment->barcode_path = $barcodePath;
+            }
+        } catch (\Exception $e) {
+            \Log::error('Barcode generation failed: ' . $e->getMessage());
+        }
+
         $appointment->save();
 
         $this->dispatch('refresh-appointment');

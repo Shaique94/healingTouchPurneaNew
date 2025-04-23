@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Phone Number (फोन नंबर) <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" wire:model="phone" placeholder="Your phone number">
+                    <input type="number" class="form-control" wire:model="phone" placeholder="Your phone number">
                     @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
                 <div class="col-md-6">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Pincode (पिनकोड)</label>
-                    <input type="text" class="form-control" wire:model.lazy="pincode" placeholder="Postal/ZIP code">
+                    <input type="number" class="form-control" wire:model.lazy="pincode" placeholder="Postal/ZIP code">
                     @error('pincode') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>
                 <div class="col-md-6">
