@@ -47,13 +47,14 @@
                 </svg>
                 Dashboard
             </a>
-            <a wire:navigate  href="#" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200" wire:click="openModal">
+            <a wire:click="openModal"  class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-3-3v6m-6 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-.707-.707A1 1 0 0012 4h-1a1 1 0 00-.707.293l-.707.707A1 1 0 019.586 5H6a2 2 0 00-2 2v13a2 2 0 002 2z" />
                 </svg>
                 Add OPD Patient
             </a>
+
             <a class="flex flex-col px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200">
                 <div class="flex items-center mb-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
