@@ -103,6 +103,16 @@
                                     @endif
                                 </div>
 
+                                {{-- Description --}}
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" for="description">
+                                        <i class="bi bi-file-text-fill me-1"></i>Description
+                                    </label>
+                                    <textarea wire:model="description" id="description" class="form-control" rows="3" 
+                                        placeholder="Enter doctor's description, specializations, or any additional information"></textarea>
+                                    @error('description') <small class="text-danger">{{ $message }}</small> @enderror
+                                </div>
+
                                 {{-- Status --}}
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" for="status">

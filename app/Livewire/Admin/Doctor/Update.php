@@ -23,6 +23,7 @@ class Update extends Component
     public $newImage;
     public $showModal;
     public $qualification;
+    public $description;
     
     public function openModal()
     {
@@ -55,6 +56,7 @@ class Update extends Component
         $this->status = $doctor->status;
         $this->doctorId = $doctor->id;
         $this->qualification = $doctor->qualification;
+        $this->description=$doctor->user->description;
     }
 
 
@@ -69,6 +71,8 @@ class Update extends Component
             'status' => 'required|boolean',
             'newImage' => 'nullable|image|max:2048',
             'qualification' => 'required|string|min:1',
+            'description' => 'nullable|string|max:1000',
+
         ]);
 
         $doctor = Doctor::findOrFail($this->doctorId);
@@ -78,6 +82,7 @@ class Update extends Component
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'description' => $this->description,
         ]);
 
         if ($this->newImage) {

@@ -22,6 +22,7 @@ class Add extends Component
     public $fee;
     public $qualification;
     public $qualifications;
+    public $description;
     public $showModal = false;
 
     #[On('open-add-doctor')]
@@ -41,6 +42,7 @@ class Add extends Component
         $this->department = Department::all();
     }
 
+
     public function saveDoctor()
     {
         $data = $this->validate([
@@ -53,7 +55,7 @@ class Add extends Component
             'image' => 'nullable|image|max:2048',
             'fee' => 'required|numeric|min:0',
             'qualification' => 'required|string|min:1',
-
+            'description' => 'nullable|string|max:1000',
         ]);
 
         // Handle user creation
@@ -62,6 +64,7 @@ class Add extends Component
             'email' => $this->email,
             'phone' => $this->phone,
             'role' => 'doctor',
+            'description' => $this->description,
             'password' => Hash::make('healingtouch123'),
         ]);
 
