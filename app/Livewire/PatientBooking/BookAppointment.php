@@ -117,6 +117,7 @@ class BookAppointment extends Component
     public function selectDoctor($doctorId)
     {
         $this->selectedDoctor = $doctorId;
+        $this->dispatch('doctorSelected');
         $this->getDoctorDetails();
         $this->appointmentTime = null; // Reset selected time
         $this->generateTimeSlots();
@@ -149,6 +150,7 @@ class BookAppointment extends Component
     protected function getDoctorDetails()
     {
         if ($this->selectedDoctor) {
+
             $this->doctorDetails = Doctor::with(['user', 'department'])
                 ->find($this->selectedDoctor);
         }

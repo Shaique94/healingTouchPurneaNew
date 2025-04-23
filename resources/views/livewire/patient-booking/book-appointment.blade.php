@@ -994,6 +994,23 @@
                 }
             });
 
+            // Update the doctor selection scroll behavior
+            Livewire.on("doctorSelected", function() {
+                setTimeout(function() {
+                    const timeSlotSection = document.querySelector('.bg-white.p-5.rounded-xl.shadow-sm');
+                    if (timeSlotSection) {
+                        // Calculate position to scroll to - subtract more from offsetTop for better visibility
+                        const offset = timeSlotSection.offsetTop + 300; 
+                        
+                        // Scroll with smooth behavior
+                        window.scrollTo({
+                            top: offset,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 500); // Increased delay to ensure content is fully loaded
+            });
+
             // Handle step changes and animations
             Livewire.on('stepChanged', function(data) {
                 setTimeout(function() {

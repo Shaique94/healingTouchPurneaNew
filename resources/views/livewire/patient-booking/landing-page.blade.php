@@ -12,7 +12,7 @@
                     patient-centered ap/our-doctorsproach. Your health is our priority.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a wire:navigate  href="{{route('manage.appointments')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
+                    <a wire:navigate  href="{{route('book.appointment')}}" class="group relative bg-beige-600 hover:bg-beige-700 text-white px-8 py-3.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-medium flex items-center justify-center">
                         <span>Book Appointment</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -25,9 +25,7 @@
                         </span>
                     </a>
                     
-                    <a wire:navigate  href="#about" class="bg-transparent border-2 border-neutral-700 hover:bg-neutral-700 hover:text-white text-neutral-700 px-8 py-3.5 rounded-lg transition-colors duration-300 text-lg font-medium flex items-center justify-center">
-                        Learn More
-                    </a>
+                 
                 </div>
                 
                 <!-- Quick Stats -->
@@ -159,7 +157,7 @@
                 <div class="md:w-1/2">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-gradient-to-r from-beige-200 to-beige-300 rounded-xl blur-lg opacity-70 -z-10"></div>
-                        <img src="{{asset('images/heroImageHt.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
+                        <img src="{{asset('images/hospital1.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                         <!-- Experience Badge -->
                         <div class="absolute -bottom-6 -right-6 bg-white py-3 px-6 rounded-full shadow-lg">
                             <p class="text-gray-800 font-bold text-xl">25+ Years of Excellence</p>
