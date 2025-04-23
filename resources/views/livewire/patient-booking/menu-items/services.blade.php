@@ -159,11 +159,7 @@
                                 <img src="{{ asset('images/hospital1.jpg') }}" 
                                     alt="Multispeciality Care" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-50 flex items-center justify-center">
-                                    <span class="text-white text-4xl">
-                                        <i class="fas fa-hospital"></i>
-                                    </span>
-                                </div>
+                                
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Multispeciality Care</h3>
@@ -179,11 +175,7 @@
                                 <img src="{{ asset('images/hospital3.jpg') }}" 
                                     alt="ICU Services" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-procedures"></i>
-                                    </span>
-                                </div>
+                              
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">ICU Services</h3>
@@ -199,11 +191,7 @@
                                 <img src="{{ asset('images/hospital4.jpg') }}" 
                                     alt="NICU Services" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" >
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-baby"></i>
-                                    </span>
-                                </div>
+                              
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">NICU Services</h3>
@@ -219,12 +207,8 @@
                                 <img src="{{ asset('images/hospital5.jpg') }}" 
                                     alt="Ultrasound Services" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" 
-                                    onerror="this.src='https://via.placeholder.com/300x250?text=Ultrasound'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-wave-square"></i>
-                                    </span>
-                                </div>
+                                   >
+                               
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Ultrasound Services</h3>
@@ -240,12 +224,8 @@
                                 <img src="{{ asset('images/hospital6.jpg') }}" 
                                     alt="Neurosurgery" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" 
-                                    onerror="this.src='https://via.placeholder.com/300x250?text=Neurosurgery'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-brain"></i>
-                                    </span>
-                                </div>
+                                   >
+                               
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Neurosurgery</h3>
@@ -262,11 +242,7 @@
                                     alt="X-RAY Services" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" 
                                     onerror="this.src='https://via.placeholder.com/300x250?text=X-Ray'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-x-ray"></i>
-                                    </span>
-                                </div>
+                             
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">X-RAY Services</h3>
@@ -282,12 +258,8 @@
                                 <img src="{{ asset('images/hospital8.jpg') }}" 
                                     alt="Pathology Services" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" 
-                                    onerror="this.src='https://via.placeholder.com/300x250?text=Pathology'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-microscope"></i>
-                                    </span>
-                                </div>
+                                   >
+                            
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Pathology Services</h3>
@@ -303,12 +275,8 @@
                                 <img src="{{ asset('images/hospital3.jpg') }}" 
                                     alt="Painless Normal Delivery" 
                                     class="absolute top-0 left-0 h-full w-full object-cover object-center" 
-                                    onerror="this.src='https://via.placeholder.com/300x250?text=Painless+Delivery'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-baby-carriage"></i>
-                                    </span>
-                                </div>
+                                    >
+                               
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Painless Normal Delivery</h3>
@@ -323,13 +291,7 @@
                             <div class="md:w-1/3 relative overflow-hidden" style="adding-bottom: 33%;"> <!-- 16:9 aspect ratio -->
                                 <img src="{{ asset('images/hospital5.jpg') }}" 
                                     alt="24 hrs Delivery Service" 
-                                    class="absolute top-0 left-0 h-full w-full object-cover object-center" 
-                                    onerror="this.src='https://via.placeholder.com/300x250?text=24hr+Service'; this.onerror=null;">
-                                <div class="absolute inset-0 bg-beige-600 bg-opacity-70 flex items-center justify-center">
-                                    <span class="text-white text-5xl">
-                                        <i class="fas fa-clock"></i>
-                                    </span>
-                                </div>
+                                    class="absolute top-0 left-0 h-full w-full object-cover object-center">
                             </div>
                             <div class="md:w-2/3 p-8">
                                 <h3 class="text-2xl font-bold text-gray-800 mb-4">24 hrs Delivery Service</h3>

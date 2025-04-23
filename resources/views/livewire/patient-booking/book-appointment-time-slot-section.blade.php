@@ -32,7 +32,7 @@
                         // Check if time is morning slot (before 12 PM)
                         $isPM = strpos($time, 'PM') !== false;
                         $hour = (int) substr($time, 0, strpos($time, ':'));
-                        $isNoon = $hour == 12 && $isPM;
+                        $isNoon = $hour == 11 && $isPM;
                         $isMorning = !$isPM || $isNoon;
                         
                         if ($isMorning) $hasmorning = true;
