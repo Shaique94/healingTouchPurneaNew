@@ -159,7 +159,7 @@
                         <!-- Display Selected Doctor Card -->
                         @if ($selectedDoctor && $doctorDetails)
                             <div class="border rounded-lg overflow-hidden bg-beige-50">
-                                <div class="flex flex-col md:flex-row items-start">
+                                <div class="flex flex-col md:flex-row md:items-start">
                                     <div
                                         class="md:w-1/3 p-5 flex items-center justify-center md:border-r border-beige-100">
                                         <div class="text-center">
@@ -378,8 +378,20 @@
                         </div>
                     @endif
 
+                    
+
                     <!-- Navigation -->
-                    <div class="flex justify-end">
+                    <div class="flex justify-between items-center mt-6">
+                                            <a wire:navigate href="{{ route('manage.appointments') }}"
+                        class="inline-flex items-center text-beige-600 hover:underline text-md mt-1 md:mt-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Already have an Appointment? Check existing appointment
+                    </a>
+
                         <button wire:click="nextStep" wire:loading.attr="disabled"
                             @if (!$selectedDoctor) disabled @endif
                             class="px-6 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
