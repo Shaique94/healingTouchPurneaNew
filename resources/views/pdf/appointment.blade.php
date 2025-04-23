@@ -277,7 +277,7 @@
                 <div class="barcode">
                     <img src="{{ public_path('storage/' . $appointment->barcode_path) }}" alt="Barcode">
                 </div>
-                <div class="appointment-number">ID: {{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}</div>
+                <div class="appointment-number">ID: {{$appointment->appointment_no}}</div>
             </div>
         </div>
 
