@@ -16,8 +16,14 @@ class OurServices extends Component
     {
         $this->doctorId = $doctorId;
         $this->doctorStatus = $doctorStatus;
-        $this->doctors = User::with('doctor')->where('role', 'doctor')->where('isActive',1)->take(3)->get();
-        $this->doctorCount =  $this->doctors->count();
+        $this->doctors = User::with('doctor')
+            ->where('role', 'doctor')
+            ->whereHas('doctor', function($query) {
+                $query->where('status', 1);
+            })
+            ->take(3)
+            ->get();
+        $this->doctorCount = $this->doctors->count();
     }
     public function bookAppointment($doctorId = null)
     {
