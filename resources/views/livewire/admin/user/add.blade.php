@@ -37,7 +37,6 @@
                             <select class="form-select" wire:model.defer="user.role">
                                 <option value="">Select Role</option>
                                 <option value="admin">Admin</option>
-                                <option value="user">User</option>
                                 <option value="staff">Staff</option>
                                 <option value="reception">Receptioner</option>
                             </select>
