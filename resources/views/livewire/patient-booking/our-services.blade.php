@@ -88,7 +88,7 @@
                             class="w-full h-full object-cover" />
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
+                        <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                         <p class="text-beige-600 font-medium mb-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
                             ? implode(', ', $doctor->doctor->qualification) 
@@ -119,7 +119,7 @@
                     <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
                 </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-1">{{$doctor->name}}</h3>
+                    <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
                     <p class="text-beige-600 font-medium mb-2">
                         {{ is_array($doctor->doctor->qualification ?? null) 
                             ? implode(', ', $doctor->doctor->qualification) 

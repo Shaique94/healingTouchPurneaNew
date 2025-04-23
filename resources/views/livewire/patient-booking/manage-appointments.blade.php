@@ -204,7 +204,7 @@
                                                         </span>
                                                     @else
                                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-beige-100 text-beige-800">
-                                                            Scheduled
+                                                            Checked In
                                                         </span>
                                                     @endif
                                                 </td>

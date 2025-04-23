@@ -459,6 +459,7 @@ class BookAppointment extends Component
             ->whereHas('department', function($query) {
                 $query->where('status', 1);
             })
+            ->where('status', 1) 
             ->with(['user', 'department'])
             ->get();
 
