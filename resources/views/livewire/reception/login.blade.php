@@ -82,5 +82,13 @@
         <p class="text-center text-gray-600 text-sm mt-6">
             Need assistance? Contact <a wire:navigate  href="#" class="text-beige-600 hover:underline">Admin</a>
         </p>
+        <p class="text-center text-gray-600 text-sm mt-2">
+            <a wire:navigate href="{{route('userlandingpage')}}" class="text-beige-600 hover:underline inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Back to Home
+            </a>
+        </p>
     </div>
 </div>
