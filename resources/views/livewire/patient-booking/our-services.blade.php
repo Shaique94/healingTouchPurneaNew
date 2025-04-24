@@ -85,7 +85,7 @@
                         <img
                             src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
                             alt="{{ $doctor->name }}"
-                            class="w-full h-full" />
+                            class="w-full h-auto" />
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
