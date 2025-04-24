@@ -176,6 +176,7 @@
                         </tbody>
                     </table>
                 </div>
+                <livewire:admin.appointment.payment/>
             </div>
         </div>
     </div>
