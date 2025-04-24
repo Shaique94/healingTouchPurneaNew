@@ -19,6 +19,7 @@ class All extends Component
     public $showToday = false;
     public $showTomorrow = false;
     public $openDropdown = false;
+    public $selectedTimeSlot = '';
 
     public function mount()
     {
@@ -108,6 +109,19 @@ class All extends Component
         ]);
     }
 
+    private function getTimeSlots()
+    {
+        $slots = [];
+        $start = Carbon::createFromTime(9, 0); // Start at 9 AM
+        $end = Carbon::createFromTime(17, 0);  // End at 5 PM
+
+        while ($start <= $end) {
+            $slots[] = $start->format('H:i');
+            $start->addMinutes(30);
+        }
+        return $slots;
+    }
+
     private function buildQuery()
     {
         $query = Appointment::with('doctor.user', 'patient');
@@ -132,6 +146,13 @@ class All extends Component
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });
             });
+        }
+
+        if ($this->selectedTimeSlot) {
+            $timeStart = Carbon::createFromFormat('H:i', $this->selectedTimeSlot);
+            $timeEnd = (clone $timeStart)->addMinutes(30);
+            $query->whereTime('appointment_time', '>=', $timeStart)
+                  ->whereTime('appointment_time', '<', $timeEnd);
         }
 
         return $query;
