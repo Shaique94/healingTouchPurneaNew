@@ -160,9 +160,12 @@
                                                 wire:click="$dispatch('open-payment',{id:{{ $appointment->id }}})">
                                            <i class="bi bi-currency-rupee"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-outline-info"
-                                                wire:click="printPdf({{ $appointment->id }})">
-                                           <i class="bi bi-eye-fill"></i>
+                                        <button class="btn btn-sm btn-outline-info position-relative"
+                                                wire:click="printPdf({{ $appointment->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="printPdf({{ $appointment->id }})">
+                                           <i class="bi bi-eye-fill" wire:loading.remove wire:target="printPdf({{ $appointment->id }})"></i>
+                                           <span class="spinner-border spinner-border-sm" wire:loading wire:target="printPdf({{ $appointment->id }})"></span>
                                            <span class="d-none d-md-inline"> Print</span>
                                         </button>
                                     </div>
