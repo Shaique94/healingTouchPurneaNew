@@ -360,7 +360,7 @@ class BookAppointment extends Component
         }
 
         $this->appointmentId = $appointment->id;
-        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
@@ -379,7 +379,7 @@ class BookAppointment extends Component
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ])->post('https://control.msg91.com/api/v5/flow', [
-                'template_id' => '6802188cd6fc0578a74e7ce2',
+                'template_id' => '6809e4e7d6fc055acb51b0f2',
                 'short_url' => 0,
                 'recipients' => [
                     [

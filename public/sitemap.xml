@@ -1,27 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-    <url>
-    <loc>https://healingtouchpurnea.com</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/services</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/our-doctors</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/book-appointment</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/about-us</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/contact-us</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/gallery</loc>
-            </url>
-    <url>
-    <loc>https://healingtouchpurnea.com/careers</loc>
-            </url>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://healingtouchpurnea.com/</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/services</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/our-doctors</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/about-us</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/gallery</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/contact-us</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/book-appointment</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/careers</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/manage-appointments</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/reception/login</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/admin/login</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/doc/login</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/privacy-policy</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/terms-conditions</loc>
+	<lastmod>2025-04-24T10:43:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/doctor/1</loc>
+	<lastmod>2025-04-24T10:43:26+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://healingtouchpurnea.com/doctor/2</loc>
+	<lastmod>2025-04-24T10:43:26+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
 </urlset>

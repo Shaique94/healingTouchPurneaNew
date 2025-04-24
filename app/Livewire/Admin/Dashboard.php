@@ -28,19 +28,29 @@ class Dashboard extends Component
 
         $this->hideRevenue = !$this->hideRevenue;
     }
-    public function printPdf($id){
-        
-    
-        $appointment = Appointment::with(['doctor', 'patient'])
-            ->where('id', $id)
-            ->first();
-    
-        $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-                  ->setPaper('a4');  
-    
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->output();  // Output raw PDF data for download
-        }, 'appointment-receipt.pdf');
+        public function printPdf($id)
+    {
+        try {
+            $appointment = Appointment::with(['doctor', 'patient'])
+                ->where('id', $id)
+                ->firstOrFail();
+
+            $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
+                    ->setPaper('a4');
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'appointment-receipt.pdf');
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            \Log::error('Appointment not found: ' . $id);
+            session()->flash('error', 'Appointment not found.');
+            return null;
+        } catch (\Exception $e) {
+            \Log::error('PDF generation failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to generate PDF. Please try again.');
+            return null;
+        }
     }
 
     #[Layout('components.layouts.admin')]
@@ -66,8 +76,6 @@ class Dashboard extends Component
          // Available doctors
          $availableDoctors = Doctor::with('user')
              ->where('status', '1')
-             ->whereDoesntHave('appointments', fn($query) => $query->where('appointment_date', $today)
-                 ->whereIn('status', ['Confirmed', 'Checked In']))
              ->get();
  
          // Upcoming appointments
