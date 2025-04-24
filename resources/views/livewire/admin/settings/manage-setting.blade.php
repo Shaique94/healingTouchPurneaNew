@@ -44,6 +44,20 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- SMS Status -->
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">SMS Notifications</label>
+                                <div class="form-check form-switch">
+                                    <input wire:model="sms_status" class="form-check-input" type="checkbox" role="switch" id="smsStatus" {{ $sms_status ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="smsStatus">
+                                        {{ $sms_status ? 'Enabled' : 'Disabled' }}
+                                    </label>
+                                </div>
+                                <small class="text-muted">Enable or disable SMS notifications for the hospital</small>
+                                @error('sms_status') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                            </div>
+
                         </div>
                     </div>
                 </div>

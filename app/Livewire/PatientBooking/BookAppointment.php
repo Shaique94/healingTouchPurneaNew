@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
+use App\Models\Setting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -367,8 +368,11 @@ class BookAppointment extends Component
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
+        $smsEnabled = Setting::get('sms_status', false);
         
+       if($smsEnabled){
         $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+       }
 
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
