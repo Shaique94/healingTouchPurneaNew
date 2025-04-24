@@ -33,6 +33,16 @@
                                     @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
+                                {{-- Password --}}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="password">
+                                        <i class="bi bi-key-fill me-1"></i>Password
+                                    </label>
+                                    <input type="password" wire:model="password" id="password" class="form-control" placeholder="Enter new password (optional)">
+                                    <small class="text-muted">Leave blank to keep current password</small>
+                                    @error('password') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                                </div>
+
                                 {{-- Department --}}
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" for="dept_id">
@@ -56,14 +66,7 @@
                                     @error('phone') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
-                                {{-- Consultation Fee --}}
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold" for="fee">
-                                        <i class="bi bi-currency-rupee me-1"></i>Consultation Fee
-                                    </label>
-                                    <input type="number" wire:model="fee" id="fee" class="form-control" placeholder="Enter fee amount">
-                                    @error('fee') <small class="text-danger">{{ $message }}</small> @enderror
-                                </div>
+
 
                                 {{-- Available Days --}}
                                 <div class="col-12">
@@ -80,31 +83,52 @@
                                     </div>
                                     @error('available_days') <small class="text-danger d-block">{{ $message }}</small> @enderror
                                 </div>
+                                <div class="d-flex justify-content-center gap-3 align-items-center">
+                                    {{-- Image Upload --}}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold" for="image">
+                                            <i class="bi bi-image-fill me-1"></i>Doctor Image
+                                        </label>
+                                        <input type="file" wire:model="newImage" id="image" class="form-control" accept="image/*">
+                                        @error('newImage') <small class="text-danger">{{ $message }}</small> @enderror
 
-                                {{-- Image Upload --}}
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold" for="image">
-                                        <i class="bi bi-image-fill me-1"></i>Doctor Image
+                                        {{-- Image Preview --}}
+                                        @if ($newImage)
+                                        <div class="mt-3">
+                                            <p class="fw-bold mb-1">New Preview:</p>
+                                            <img src="{{ $newImage->temporaryUrl() }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
+                                        </div>
+                                        @elseif (is_string($image))
+                                        <div class="mt-3">
+                                            <p class="fw-bold mb-1">Current Image:</p>
+                                            <img src="{{ asset('storage/' . $image) }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
+                                        </div>
+                                        @endif
+
+                                    </div>
+                                    {{-- Consultation Fee --}}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold" for="fee">
+                                            <i class="bi bi-currency-rupee me-1"></i>Consultation Fee
+                                        </label>
+                                        <input type="number" wire:model="fee" id="fee" class="form-control" placeholder="Enter fee amount">
+                                        @error('fee') <small class="text-danger">{{ $message }}</small> @enderror
+                                    </div>
+                                </div>
+
+
+                                {{-- Description --}}
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" for="description">
+                                        <i class="bi bi-file-text-fill me-1"></i>Description
                                     </label>
-                                    <input type="file" wire:model="newImage" id="image" class="form-control" accept="image/*">
-                                    @error('newImage') <small class="text-danger">{{ $message }}</small> @enderror
-
-                                    {{-- Image Preview --}}
-                                    @if ($newImage)
-                                    <div class="mt-3">
-                                        <p class="fw-bold mb-1">New Preview:</p>
-                                        <img src="{{ $newImage->temporaryUrl() }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
-                                    </div>
-                                    @elseif (is_string($image))
-                                    <div class="mt-3">
-                                        <p class="fw-bold mb-1">Current Image:</p>
-                                        <img src="{{ asset('storage/' . $image) }}" class="img-fluid rounded border shadow-sm" style="max-height: 180px;">
-                                    </div>
-                                    @endif
+                                    <textarea wire:model="description" id="description" class="form-control" rows="3"
+                                        placeholder="Enter doctor's description, specializations, or any additional information"></textarea>
+                                    @error('description') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
                                 {{-- Status --}}
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label class="form-label fw-semibold" for="status">
                                         <i class="bi bi-toggle-on me-1"></i>Status
                                     </label>

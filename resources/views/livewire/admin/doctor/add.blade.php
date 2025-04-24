@@ -34,6 +34,15 @@
                                     @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
+                                {{-- Password --}}
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold" for="password">
+                                        <i class="bi bi-key-fill me-1"></i>Password
+                                    </label>
+                                    <input type="password" wire:model="password" id="password" class="form-control" placeholder="Enter password">
+                                    @error('password') <small class="text-danger">{{ $message }}</small> @enderror
+                                </div>
+
                                 {{-- Department --}}
                                 <div class="col-md-6">
                                     <label class="form-label fw-semibold" for="dept_id">
@@ -103,6 +112,16 @@
                                     </label>
                                     <input type="number" wire:model="fee" id="fee" class="form-control" placeholder="Enter fee amount">
                                     @error('fee') <small class="text-danger">{{ $message }}</small> @enderror
+                                </div>
+
+                                {{-- Description --}}
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold" for="description">
+                                        <i class="bi bi-file-text-fill me-1"></i>Description
+                                    </label>
+                                    <textarea wire:model="description" id="description" class="form-control" rows="3" 
+                                        placeholder="Enter doctor's description, specializations, or any additional information"></textarea>
+                                    @error('description') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
                                 {{-- Status --}}

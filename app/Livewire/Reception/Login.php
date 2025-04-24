@@ -18,9 +18,19 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            if (Auth::user()->role !== 'reception') {
+            $user = Auth::user();
+            
+            // Check if user is reception and status is active
+            if ($user->role !== 'reception') {
                 Auth::logout();
                 session()->flash('error', 'Unauthorized access.');
+                return;
+            }
+            
+            // Check user status
+            if (!$user->isActive) {
+                Auth::logout();
+                session()->flash('error', 'Your account is currently inactive. Please contact administrator.');
                 return;
             }
 
