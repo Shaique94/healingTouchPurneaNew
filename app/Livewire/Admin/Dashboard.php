@@ -76,8 +76,6 @@ class Dashboard extends Component
          // Available doctors
          $availableDoctors = Doctor::with('user')
              ->where('status', '1')
-             ->whereDoesntHave('appointments', fn($query) => $query->where('appointment_date', $today)
-                 ->whereIn('status', ['Confirmed', 'Checked In']))
              ->get();
  
          // Upcoming appointments
