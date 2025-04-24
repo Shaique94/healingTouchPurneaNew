@@ -360,7 +360,7 @@ class BookAppointment extends Component
         }
 
         $this->appointmentId = $appointment->id;
-        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
