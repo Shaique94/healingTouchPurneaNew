@@ -89,10 +89,10 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
-                        <p class="text-beige-600 font-medium mb-2">
+                        <p class="text-beige-600 font-xs mb-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
-                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 50)
-                            : Str::limit($doctor->doctor->qualification, 20) }}
+                            ? Str::limit(implode(', ', $doctor->doctor->qualification), 80)
+                            : Str::limit($doctor->doctor->qualification, 80) }}
                         </p>
                         <p class="text-gray-600 text-sm mb-4">
                             {{ Str::limit($doctor->description, 50) }}

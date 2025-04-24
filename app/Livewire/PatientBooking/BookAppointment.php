@@ -49,7 +49,7 @@ class BookAppointment extends Component
     public $state ;
     public $country ;
     public $notes;
-    public $payment_method = 'cash';
+    public $payment_method = 'pay_at_hospital'; // Changed default value from 'cash'
 
     public function mount($doctorId = null)
     {

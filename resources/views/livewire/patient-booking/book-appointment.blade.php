@@ -420,54 +420,59 @@
             <!-- STEP 2: Patient Details -->
             @if ($step === 2)
                 <div class="bg-white rounded-xl shadow-sm" data-step="2">
-                    <!-- Selected Doctor Details - Made more responsive -->
+                    <!-- Improved Doctor Details Header -->
                     @if ($doctorDetails)
-                        <div class="flex flex-col md:flex-row items-start md:items-center p-4 md:p-5 border-b border-gray-200 bg-beige-50 rounded-t-xl">
-                            <div class="flex items-center mb-4 md:mb-0 w-full md:w-auto">
-                                <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                                    <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
-                                        class="w-full h-full object-cover">
-                                </div>
-                                <div class="flex-grow md:flex-grow-0">
-                                    <h3 class="text-base md:text-lg font-medium text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
-                                    <p class="text-sm text-beige-600">{{ $doctorDetails->department->name }}</p>
-                                </div>
-                            </div>
-            
-                            <div class="flex flex-col md:flex-row items-start md:items-center justify-between w-full md:ml-6 space-y-3 md:space-y-0">
-                                <div class="flex items-center text-xs md:text-sm text-gray-500">
-                                    <span class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        {{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}
-                                    </span>
-                                    <span class="mx-2 text-gray-300 hidden md:inline">|</span>
-                                    <span class="flex items-center mt-1 md:mt-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        {{ $appointmentTime }}
-                                    </span>
-                                </div>
-                                <div class="md:text-right md:ml-auto">
-                                    <p class="text-xs md:text-sm text-gray-500">Consultation Fee</p>
-                                    <p class="text-base md:text-lg font-medium text-gray-900">₹{{ $doctorDetails->fee }}</p>
+                        <div class="bg-gradient-to-r from-beige-50 to-beige-100 border-b rounded-t-xl">
+                            <div class="px-6 py-4">
+                                <div class="flex items-center space-x-6">
+                                    <!-- Doctor Image -->
+                                    <div class="flex-shrink-0">
+                                        <div class="relative">
+                                            <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
+                                                class="w-20 h-20 rounded-full border-4 border-white shadow-md object-cover">
+                                            <div class="absolute -bottom-1 -right-1 bg-green-500 p-1 rounded-full border-2 border-white">
+                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Doctor Info -->
+                                    <div class="flex-1">
+                                        <h3 class="text-lg font-semibold text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
+                                        <p class="text-beige-600 text-sm">{{ $doctorDetails->department->name }}</p>
+                                        <div class="mt-2 flex items-center text-sm text-gray-500">
+                                            <span class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                {{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}
+                                            </span>
+                                            <span class="mx-2">•</span>
+                                            <span class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                {{ $appointmentTime }}
+                                            </span>
+                                            <span class="mx-2">•</span>
+                                            <span class="flex items-center font-medium">
+                                                <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                ₹{{ $doctorDetails->fee }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     @endif
-            
-                    <div class="p-4 md:p-5">
-                        <!-- Form Header -->
-                        <h2 class="text-base md:text-lg font-medium text-gray-800 mb-4 md:mb-5 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                            Your Information
-                        </h2>
-            
-                        <!-- Form Grid - Made more responsive -->
+
+                    <!-- Rest of the patient form -->
+                    <div class="p-6">
+                        <!-- Your existing patient form code continues here -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
                             <!-- Existing form fields with responsive adjustments -->
                             <div class="sm:col-span-3">
@@ -607,6 +612,38 @@
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"></textarea>
                                 </div>
                             </div>
+
+                            <!-- Payment Method Selection -->
+                            <div class="sm:col-span-6 mt-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Payment Method (भुगतान का तरीका)</label>
+                                <div class="space-y-3">
+                                    <!-- Pay at Hospital Option -->
+                                    <label class="relative flex p-4 border rounded-lg cursor-pointer hover:border-beige-500 transition-colors group">
+                                        <input type="radio" name="payment_method" wire:model="payment_method" value="pay_at_hospital" 
+                                            class="mt-0.5 h-4 w-4 text-beige-600 border-gray-300 focus:ring-beige-500">
+                                        <div class="ml-3">
+                                            <span class="text-sm font-medium text-gray-900">Pay at Hospital</span>
+                                            <span class="text-sm text-gray-500 block">Pay with cash or card when you arrive at the hospital</span>
+                                        </div>
+                                        <div class="absolute inset-0 rounded-lg pointer-events-none border border-beige-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    </label>
+
+                                    <!-- Pay Online Option (Disabled) -->
+                                    <div class="relative p-4 border rounded-lg bg-gray-50 cursor-not-allowed">
+                                        <div class="flex items-start">
+                                            <input type="radio" disabled class="mt-0.5 h-4 w-4 text-gray-400 border-gray-300 cursor-not-allowed">
+                                            <div class="ml-3">
+                                                <div class="flex items-center">
+                                                    <span class="text-sm font-medium text-gray-400">Pay Online</span>
+                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Coming Soon</span>
+                                                </div>
+                                                <span class="text-sm text-gray-400 block">Online payment options will be available soon</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Payment Method Selection -->
                         </div>
             
                         <!-- Navigation - Made more responsive -->
