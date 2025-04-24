@@ -13,6 +13,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Log;
+
 
 class SendTomorrowAppointmentsPDF implements ShouldQueue
 {
@@ -53,6 +55,7 @@ class SendTomorrowAppointmentsPDF implements ShouldQueue
             ];
 
             $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
+            Log::info("pdf created");
             Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data, $pdf));
         }
     }
