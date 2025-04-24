@@ -85,11 +85,11 @@
                         <img
                             src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
                             alt="{{ $doctor->name }}"
-                            class="w-full h-full object-cover" />
+                            class="w-full h-full" />
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
-                        <p class="text-beige-600 font-xs mb-2">
+                        <p class="text-beige-600 font-xs mb-2 line-clamp-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
                             ? Str::limit(implode(', ', $doctor->doctor->qualification), 80)
                             : Str::limit($doctor->doctor->qualification, 80) }}
