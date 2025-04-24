@@ -81,7 +81,7 @@
                 <div class="flex justify-center flex-wrap gap-8">
                 @foreach($doctors as $doctor)
                 <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1 w-full max-w-xs">
-                    <div class="h-64 bg-gray-200">
+                    <div class="h-auto bg-gray-200">
                         <img
                             src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
                             alt="{{ $doctor->name }}"
