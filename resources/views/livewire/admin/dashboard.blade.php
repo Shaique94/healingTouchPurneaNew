@@ -237,7 +237,7 @@
                             <li class="list-group-item d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center py-2 py-md-3 gap-2">
                                 <div>
                                     <h6 class="mb-1 fs-6">{{ $doctor->user->name }}</h6>
-                                    <small class="text-muted">{{ $doctor->specialization ?? 'N/A' }}</small>
+                                    <small class="text-muted">{{ $doctor->qualification ?? 'N/A' }}</small>
                                 </div>
                                 <span class="badge bg-success rounded-pill">Available</span>
                             </li>
