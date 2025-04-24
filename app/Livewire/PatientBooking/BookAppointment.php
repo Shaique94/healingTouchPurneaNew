@@ -367,11 +367,13 @@ class BookAppointment extends Component
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
+        
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
 
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
-    private function sendAppointmentSMS($mobile, $name, $appointment)
+    private function sendAppointmentSMS($mobile, $name, $appointment): void
     {
         try {
             $response = Http::withHeaders([
