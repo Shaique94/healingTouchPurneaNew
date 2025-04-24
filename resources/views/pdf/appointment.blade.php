@@ -286,9 +286,9 @@
                 <td class="content-cell border-right">
                     <h3>Patient Information</h3>
                     <div class="info-group">
-                        <div class="label">Appointment Ref.</div>
+                        <div class="label">Appointment Number.</div>
                         <div class="value" style="color: #1a5f7a; font-size: 16px;">
-                            HTH-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}
+                           {{ $appointment->appointment_no }}
                         </div>
                     </div>
                     <div class="info-group">
