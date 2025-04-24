@@ -152,7 +152,7 @@
                                 {{ $allAppointments->total() == 1 ? 'appointment' : 'appointments' }}
                             </span>
                             <div class="pagination-container">
-                                {{ $allAppointments->links() }}
+                                {{ $allAppointments->links('vendor.livewire.bootstrap') }}
                             </div>
                         </div>
                     </div>
