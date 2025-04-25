@@ -39,7 +39,7 @@
                     </div>
 
                     <!-- Time Slot Filter -->
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-2">
                         <div class="input-group">
                             <span class="input-group-text bg-light">
                                 <i class="bi bi-clock"></i>
@@ -52,27 +52,8 @@
                             </select>
                         </div>
                     </div>
-
-                    <!-- Quick Filters + Clear -->
-                    <div class="col-lg-6 ">
-                        <div class="d-flex gap-2 flex-wrap justify-content-center">
-                            <button class="btn btn-sm {{ $showToday ? 'btn-primary' : 'btn-outline-primary' }} flex-fill"
-                                    wire:click="applyToday" wire:loading.attr="disabled">
-                                <i class="bi bi-calendar-check me-1"></i> Today
-                            </button>
-                            <button class="btn btn-sm {{ $showTomorrow ? 'btn-primary' : 'btn-outline-primary' }} flex-fill"
-                                    wire:click="applyTomorrow" wire:loading.attr="disabled">
-                                <i class="bi bi-calendar-plus me-1"></i> Tomorrow
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger flex-fill"
-                                    wire:click="clearDateFilters" wire:loading.attr="disabled">
-                                <i class="bi bi-x-circle me-1"></i> Clear
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Export and Add -->
-                    <div class="col-12">
+                     <!-- Export and Add -->
+                     <div class="col-12 col-lg-2">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <div class="dropdown">
                                 <button class="btn btn-success btn-sm dropdown-toggle" type="button"
@@ -97,11 +78,33 @@
                                 @endif
                             </div>
 
+                           
+                        </div>
+                    </div>
+                    <!-- Quick Filters + Clear -->
+                    <div class="col-lg-6 ">
+                       
+                        <div class="d-flex gap-2 flex-wrap justify-content-center">
                             <a wire:navigate  href="{{ route('admin.appointment.add') }}" class="btn btn-primary btn-sm" wire:navigate>
                                 <i class="bi bi-plus-circle me-1"></i> New Appointment
                             </a>
+                            <button class="btn btn-sm {{ $showToday ? 'btn-primary' : 'btn-outline-primary' }} flex-fill"
+                                    wire:click="applyToday" wire:loading.attr="disabled">
+                                <i class="bi bi-calendar-check me-1"></i> Today
+                            </button>
+                            <button class="btn btn-sm {{ $showTomorrow ? 'btn-primary' : 'btn-outline-primary' }} flex-fill"
+                                    wire:click="applyTomorrow" wire:loading.attr="disabled">
+                                <i class="bi bi-calendar-plus me-1"></i> Tomorrow
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger flex-fill"
+                                    wire:click="clearDateFilters" wire:loading.attr="disabled">
+                                <i class="bi bi-x-circle me-1"></i> Clear
+                            </button>
+                            
                         </div>
                     </div>
+
+                   
                 </div>
             </div>
 
@@ -175,6 +178,7 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <livewire:admin.appointment.payment />
                 </div>
             </div>
         </div>

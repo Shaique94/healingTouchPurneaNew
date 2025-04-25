@@ -298,6 +298,19 @@ class BookAppointment extends Component
             session()->flash('error', 'This time slot is now fully booked. Please select a different time.');
             return;
         }
+
+        // Check if phone number already has an appointment with the same doctor for this date
+        $existingAppointment = Appointment::whereHas('patient', function ($query) {
+            $query->where('phone', $this->phone);
+        })
+        ->where('appointment_date', $this->appointmentDate)
+        ->where('doctor_id', $this->selectedDoctor)
+        ->first();
+
+        if ($existingAppointment) {
+            session()->flash('error', 'You already have an appointment scheduled with this doctor for this date. Please select a different doctor or date.');
+            return;
+        }
         
         // First, create or find the patient
         $patient = Patient::firstOrCreate(

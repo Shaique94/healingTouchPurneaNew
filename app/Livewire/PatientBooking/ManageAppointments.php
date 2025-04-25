@@ -19,6 +19,8 @@ class ManageAppointments extends Component
     public $searchResults = [];
     public $noResultsFound = false;
     public $searchPerformed = false;
+    public $showConfirmModal = false;
+    public $appointmentToCancel = null;
 
     protected $rules = [
         'phone' => 'required_if:searchMethod,phone|nullable|string|max:15',
@@ -105,6 +107,46 @@ class ManageAppointments extends Component
         return response()->streamDownload(function() use ($pdf) {
             echo $pdf->stream();
         }, 'appointment_receipt.pdf');
+    }
+
+    public function confirmCancellation($appointmentId)
+    {
+        $this->appointmentToCancel = $appointmentId;
+        $this->showConfirmModal = true;
+    }
+
+    public function closeConfirmModal()
+    {
+        $this->showConfirmModal = false;
+        $this->appointmentToCancel = null;
+    }
+
+    public function cancelAppointment()
+    {
+        if (!$this->appointmentToCancel) {
+            return;
+        }
+
+        $appointment = Appointment::find($this->appointmentToCancel);
+        
+        if (!$appointment) {
+            session()->flash('error', 'Appointment not found.');
+            $this->closeConfirmModal();
+            return;
+        }
+
+        $appointment->update(['status' => 'cancelled']);
+
+        // Update the status in the search results
+        $this->searchResults = array_map(function($result) {
+            if ($result['id'] == $this->appointmentToCancel) {
+                $result['status'] = 'cancelled';
+            }
+            return $result;
+        }, $this->searchResults);
+
+        session()->flash('success', 'Appointment cancelled successfully.');
+        $this->closeConfirmModal();
     }
 
     public function render()

@@ -858,6 +858,13 @@
                                 </span>
                             </button>
                         </div>
+                        
+                        <!-- Error Message Display -->
+                        @if (session()->has('error'))
+                            <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                                <p class="text-red-600">{{ session('error') }}</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endif
