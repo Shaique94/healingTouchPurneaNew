@@ -835,7 +835,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 19l-7-7 7-7" />
                                 </svg>
-                                Edit Details
+                                Edit Details 
                             </button>
                             <button wire:click="bookAppointment" wire:loading.attr="disabled" type="button"
                                 class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"

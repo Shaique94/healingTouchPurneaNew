@@ -260,6 +260,7 @@
 </head>
 
 <body>
+    
  @if ($appointment?->payment?->status == 'paid')
  <div class="watermark">
         <img src="{{ public_path('images/paid.png') }}" alt="">
@@ -274,9 +275,9 @@
                 <div class="tagline">Excellence in Healthcare</div>
             </div>
             <div class="barcode-container">
-                <div class="barcode">
+                <!-- <div class="barcode">
                     <img src="{{ public_path('storage/' . $appointment->barcode_path) }}" alt="Barcode">
-                </div>
+                </div> -->
                 <div class="appointment-number">ID: {{$appointment->appointment_no}}</div>
             </div>
         </div>

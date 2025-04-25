@@ -404,7 +404,7 @@ class BookAppointment extends Component
         } catch (\Exception $e) {
             \Log::error('Barcode generation failed: ' . $e->getMessage());
             // Continue without barcode if generation fails
-        }
+        } 
 
         $this->appointmentId = $appointment->id;
         session()->flash('message', 'Your appointment has been booked successfully!');
