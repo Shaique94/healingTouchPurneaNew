@@ -381,7 +381,7 @@
                     
 
                     <!-- Navigation -->
-                    <div class="flex justify-between items-center mt-6">
+                    <div class="flex justify-between text-sm text-balance items-center mt-6">
                                             <a wire:navigate href="{{ route('manage.appointments') }}"
                         class="inline-flex items-center text-beige-600 hover:underline text-md mt-1 md:mt-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
@@ -389,7 +389,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        Already have an Appointment? Check existing appointment
+                        Check your appointment.
                     </a>
 
                         <button wire:click="nextStep" wire:loading.attr="disabled"
