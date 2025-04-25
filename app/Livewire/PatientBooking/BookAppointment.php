@@ -117,6 +117,19 @@ class BookAppointment extends Component
     // When doctor is selected, fetch doctor details
     public function selectDoctor($doctorId)
     {
+        $doctor = Doctor::with('department')->find($doctorId);
+        if (!$doctor || $doctor->status != '1') {
+            $this->dispatch('doctor-not-available', [
+                'message' => 'The selected doctor is not available for booking.'
+            ]);
+            return;
+        }
+        if (!$doctor->department || $doctor->department->status != 1) {
+            $this->dispatch('doctor-not-available', [
+                'message' => 'The selected doctor’s department is not available for booking.'
+            ]);
+            return;
+        }
         $this->selectedDoctor = $doctorId;
         $this->dispatch('doctorSelected');
         $this->getDoctorDetails();
@@ -151,9 +164,19 @@ class BookAppointment extends Component
     protected function getDoctorDetails()
     {
         if ($this->selectedDoctor) {
-
             $this->doctorDetails = Doctor::with(['user', 'department'])
+                ->where('status', '1')
+                ->whereHas('department', function($query) {
+                    $query->where('status', 1);
+                })
                 ->find($this->selectedDoctor);
+    
+            if (!$this->doctorDetails) {
+                $this->dispatch('doctor-not-available', [
+                    'message' => 'The selected doctor or their department is not available.'
+                ]);
+                $this->selectedDoctor = null;
+            }
         }
     }
 
@@ -284,6 +307,16 @@ class BookAppointment extends Component
     // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
+        // Validate doctor status before proceeding
+        $doctor = Doctor::with('department')->find($this->selectedDoctor);
+        if (!$doctor || $doctor->status != '1') {
+            session()->flash('error', 'The selected doctor is not available for booking appointments.');
+            return;
+        }
+        if (!$doctor->department || $doctor->department->status != 1) {
+            session()->flash('error', 'The selected doctor’s department is not available for booking appointments.');
+            return;
+        }
         // Check if the time slot is already fully booked
         $formattedTime = $this->convertTimeFormat($this->appointmentTime);
         $timeSlot = Carbon::parse($formattedTime)->format('g:i A');
@@ -484,7 +517,7 @@ class BookAppointment extends Component
             ->whereHas('department', function($query) {
                 $query->where('status', 1);
             })
-            ->where('status', 1) 
+            ->where('status', '1') 
             ->with(['user', 'department'])
             ->get();
 

@@ -19,7 +19,7 @@ class OurServices extends Component
         $this->doctors = User::with('doctor')
             ->where('role', 'doctor')
             ->whereHas('doctor', function($query) {
-                $query->where('status', 1);
+                $query->where('status', ['1','2']);
             })
             ->take(3)
             ->get();
