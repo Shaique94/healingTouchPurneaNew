@@ -64,7 +64,7 @@ class Payment extends Component
     public function save() {
         $this->validate();
 
-            // Create or update logic
+            // Create or update logic 
             ModelsPayment::updateOrCreate(
                 ['appointment_id' => $this->appointment_id],
                 [
