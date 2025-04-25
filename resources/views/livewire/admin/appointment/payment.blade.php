@@ -1,6 +1,7 @@
 <div>
     <div>
         @if ($ToggleModal)
+        <div class="modal-backdrop fade show"></div>
         <div class="modal d-block" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down" role="document">
                 <div class="modal-content shadow-lg border-0">
@@ -55,6 +56,16 @@
                                     <option value="due">Due</option>
                                     <option value="paid">Paid</option>
                                 </select>
+                                @if (session()->has('due'))
+                                <div class="">
+                                    <span class="text-warning text-small">{{ session('due') }}</span>
+                                </div>
+                                @endif
+                                @if (session()->has('whensettle'))
+                                <div class="">
+                                    <span class="text-warning text-small">{{ session('whensettle') }}</span>
+                                </div>
+                                @endif
                                 @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 

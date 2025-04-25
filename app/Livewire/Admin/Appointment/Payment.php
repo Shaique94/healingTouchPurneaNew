@@ -46,9 +46,9 @@ class Payment extends Component
             $this->status = $this->payment->status;
         } else {
             $this->mode = 'cash';
-            $this->paid_amount = 0;
-            $this->settlement = false;
-            $this->status = 'due';
+            $this->paid_amount = $this->total_amount;
+            $this->settlement = true;
+            $this->status = 'paid';
         }
     }
 
@@ -64,25 +64,43 @@ class Payment extends Component
     public function save() {
         $this->validate();
 
-            // Create or update logic 
-            ModelsPayment::updateOrCreate(
-                ['appointment_id' => $this->appointment_id],
-                [
+            if($this->payment){
+                $this->payment->update([
+                    'appointment_id' => $this->appointment_id,
                     'mode'        => $this->mode,
                     'paid_amount' => $this->paid_amount,
                     'settlement'  => $this->settlement,
                     'status'      => $this->status,
-                ]
-            );
+                ]);
 
-            // Update appointment status to checked_in
-            $this->appointment->status = 'checked_in';
-            $this->appointment->save();
-
-            $this->dispatch('refresh-appointment');
-            $this->closeModal();
-            $this->dispatch('success', __('Payment added or updated successfully'));
-            $this->reset();
+                $this->appointment->status = 'checked_in';
+                $this->appointment->save();
+    
+                $this->dispatch('refresh-appointment');
+                $this->dispatch('success', __('Payment added or updated successfully'));
+                $this->reset();
+                $this->closeModal();
+    
+               
+            }else{
+                ModelsPayment::create(
+                    [
+                        'appointment_id' => $this->appointment_id,
+                        'mode'        => $this->mode,
+                        'paid_amount' => $this->paid_amount,
+                        'settlement'  => $this->settlement,
+                        'status'      => $this->status,
+                    ]
+                );
+                 $this->appointment->status = 'checked_in';
+                 $this->appointment->save();
+     
+                 $this->dispatch('refresh-appointment');
+                 $this->dispatch('success', __('Payment added or updated successfully'));
+                 $this->reset();
+                 $this->closeModal();
+              
+            }
        
     }
 
@@ -94,6 +112,37 @@ class Payment extends Component
             $this->settlement = false;
             $this->status = 'due';
         }
+    }
+    public function UpdatedSettlement($value){
+        if($value){
+        $this->status="paid";
+        }
+        else{
+            if($this->paid_amount == $this->appointment->doctor->fee){
+                $this->settlement=true;
+                session()->flash('warning', 'You Cannot Make it Unsettelment this payment.');
+            }
+            else{
+                $this->status="due";
+            }
+        
+        }
+      
+    }
+    public function UpdatedStatus(){
+        if ($this->paid_amount == $this->appointment->doctor->fee) {
+            $this->status = 'paid';
+            session()->flash('due', 'This payment is already complete. You cannot mark it as due.');
+            return;
+        }
+        
+        if ($this->settlement) {
+            $this->status = 'paid';
+            session()->flash('whensettle', 'This payment has been settled. You cannot mark it as due.');
+            return;
+        }
+        
+       
     }
 
     public function render() {

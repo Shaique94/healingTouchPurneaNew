@@ -181,7 +181,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <livewire:admin.appointment.payment />
                 </div>
                 <livewire:admin.appointment.payment/>
             </div>
