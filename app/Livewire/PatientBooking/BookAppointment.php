@@ -361,7 +361,6 @@ class BookAppointment extends Component
         }
 
         $this->appointmentId = $appointment->id;
-        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
@@ -369,8 +368,9 @@ class BookAppointment extends Component
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
         $smsEnabled = Setting::get('sms_status', false);
-        
-       if($smsEnabled){
+        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+
+       if($smsEnabled === "1"){
         $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
        }
 
