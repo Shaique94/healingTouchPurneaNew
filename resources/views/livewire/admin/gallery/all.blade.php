@@ -8,7 +8,7 @@
             <p class="text-muted mb-0">Manage your gallery images and media</p>
         </div>
         <button class="btn btn-primary d-flex align-items-center gap-2" wire:click="$dispatch('openModal')">
-            <i class="bi bi-plus-lg"></i> Add New Image
+            <i class="bi bi-plus-lg"></i> Add
         </button>
     </div>
 
@@ -41,12 +41,12 @@
 
                     <!-- Actions Section -->
                     <div class="card-footer border-0 bg-transparent pt-0">
-                        <div class="btn-group w-100">
-                            <button class="btn btn-light btn-sm" 
+                        <div class="d-grid gap-2 d-sm-flex">
+                            <button class="btn btn-light btn-sm flex-fill d-flex align-items-center justify-content-center" 
                                     wire:click="$dispatch('openUpdateModal', { id: {{ $gallery->id }} })">
                                 <i class="bi bi-pencil me-1"></i>Edit
                             </button>
-                            <button class="btn btn-light btn-sm text-danger" 
+                            <button class="btn btn-light btn-sm flex-fill d-flex align-items-center justify-content-center text-danger" 
                                     wire:click="alertConfirm({{ $gallery->id }})">
                                 <i class="bi bi-trash me-1"></i>Delete
                             </button>
@@ -102,6 +102,17 @@
         .btn-light:hover {
             background-color: #e9ecef;
             border-color: #e9ecef;
+        }
+        /* Add these new styles */
+        .btn-sm {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            min-width: 80px;
+        }
+        @media (max-width: 575.98px) {
+            .d-grid.gap-2 {
+                gap: 0.5rem !important;
+            }
         }
     </style>
 </div>

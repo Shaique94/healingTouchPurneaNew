@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
+use App\Models\Setting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -373,18 +374,23 @@ class BookAppointment extends Component
         }
 
         $this->appointmentId = $appointment->id;
-        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
+        $smsEnabled = Setting::get('sms_status', false);
+        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+
+       if($smsEnabled === "1"){
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+       }
 
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
-    private function sendAppointmentSMS($mobile, $name, $appointment)
+    private function sendAppointmentSMS($mobile, $name, $appointment): void
     {
         try {
             $response = Http::withHeaders([

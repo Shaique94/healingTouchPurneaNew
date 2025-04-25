@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Doctors Card -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="dashboard-card card h-100 shadow-sm border-0 rounded-3 rounded-md-4" style="background-color: #1cc88a; color: white;">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Appointments Card -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="dashboard-card card h-100 shadow-sm border-0 rounded-3 rounded-md-4" style="background-color: #f6c23e; color: white;">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Revenue Card -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="dashboard-card card h-100 shadow-sm border-0 rounded-3 rounded-md-4" style="background-color: #e74a3b; color: white;">
@@ -73,11 +73,11 @@
                     </div>
                     <div class="card-body py-2 py-md-3">
                         <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-sm btn-primary" wire:navigate  href="{{ route('admin.appointment.add') }}">
+                            <button class="btn btn-sm btn-primary" wire:navigate href="{{ route('admin.appointment.add') }}">
                                 <i class="bi bi-plus-circle me-1"></i><span class="d-none d-sm-inline">Add</span> Appointment
                             </button>
                             <button class="btn btn-sm btn-success" wire:click="$dispatch('open-add-user')">
-                                <i class="bi bi-person-plus-fill me-1" ></i><span class="d-none d-sm-inline">Add</span> User
+                                <i class="bi bi-person-plus-fill me-1"></i><span class="d-none d-sm-inline">Add</span> User
                             </button>
                             <button class="btn btn-sm btn-info" wire:click="$dispatch('open-add-doctor')">
                                 <i class="bi bi-heart-pulse-fill me-1"></i><span class="d-none d-sm-inline">Add</span> Doctor
@@ -128,10 +128,30 @@
                                             </span>
                                         </td>
                                         <td class="px-2">
-                                            <button class="btn btn-sm btn-outline-info" title="Print Appointment" wire:click="printPdf({{ $appointment->id }})">
-                                                <i class="bi bi-eye-fill"></i><span class="d-none d-md-inline"> Print</span>
+                                            <button class="btn btn-sm btn-outline-info d-flex align-items-center"
+                                                title="Print Appointment"
+                                                wire:click="printPdf({{ $appointment->id }})"
+                                                wire:loading.attr="disabled"
+                                                wire:target="printPdf({{ $appointment->id }})">
+
+                                                <!-- Eye Icon (only visible when not loading) -->
+                                                <i class="bi bi-eye-fill me-1"
+                                                    wire:loading.remove
+                                                    wire:target="printPdf({{ $appointment->id }})"></i>
+
+                                                <!-- Circle Loader (only visible when loading) -->
+                                                <div class="me-1"
+                                                    wire:loading
+                                                    wire:target="printPdf({{ $appointment->id }})">
+                                                    <div class="spinner-border spinner-border-sm text-info" role="status" style="width: 1rem; height: 1rem;">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+
+                                                <span class="d-none d-md-inline">Print</span>
                                             </button>
                                         </td>
+
                                     </tr>
                                     @empty
                                     <tr>
@@ -252,8 +272,8 @@
                 </div>
             </div>
         </div>
-        <livewire:admin.doctor.add/>
-        <livewire:admin.user.add/>
+        <livewire:admin.doctor.add />
+        <livewire:admin.user.add />
     </div>
 
     <style>
@@ -272,6 +292,7 @@
         }
 
         @media (max-width: 767.98px) {
+
             .table th,
             .table td {
                 font-size: 0.8rem;

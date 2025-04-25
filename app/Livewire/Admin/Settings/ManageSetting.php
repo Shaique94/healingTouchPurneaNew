@@ -22,6 +22,8 @@ class ManageSetting extends Component
     public $instagram_link;
     public $facebook_link;
     public $twitter_link;
+    public $sms_status;
+
     public function mount()
     {
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch Hospital');
@@ -31,6 +33,7 @@ class ManageSetting extends Component
         $this->instagram_link = Setting::get('instagram_link', '');
         $this->facebook_link = Setting::get('facebook_link', '');
         $this->twitter_link = Setting::get('twitter_link', '');
+        $this->sms_status = Setting::get('sms_status', false);
     }
 
     public function save()
@@ -44,6 +47,7 @@ class ManageSetting extends Component
             'instagram_link' => 'nullable|url|max:255',
             'facebook_link' => 'nullable|url|max:255',
             'twitter_link' => 'nullable|url|max:255',
+            'sms_status' => 'boolean',
         ]);
 
         if (!empty($this->hospital_name)) {
@@ -70,6 +74,9 @@ class ManageSetting extends Component
         if (!empty($this->twitter_link)) {
             Setting::set('twitter_link', $this->twitter_link, 'string', 'social', 'Twitter profile link');
         }
+        
+        Setting::set('sms_status', $this->sms_status, 'boolean', 'notifications', 'SMS notification status');
+        
         $this->dispatch('success', __('Settings updated successfully!'));
     }
 
