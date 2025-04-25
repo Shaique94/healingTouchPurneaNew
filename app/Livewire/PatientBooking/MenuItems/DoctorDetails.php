@@ -14,14 +14,17 @@ class DoctorDetails extends Component
     public $doctorId;
     public $doctorStatus;
     public $contactPhone ; 
-   
+    public $canBookAppointment;
     public function mount($doctorId = null, $doctorStatus = true)
     {
-        $this->doctor = Doctor::with(['user', 'department'])->findOrFail($doctorId);
-
+        $this->doctor = Doctor::with(['user', 'department'])
+        ->whereIn('status', ['1', '2'])
+        ->findOrFail($doctorId);
         $this->doctorId = $doctorId;
         $this->doctorStatus = $doctorStatus;
         $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '9471659700';
+        $this->canBookAppointment = $this->doctor->status == 1 && 
+            ($this->doctor->department?->status ?? 1) != 0;
     }
     public function bookAppointment()
     {

@@ -15,7 +15,7 @@ class OurDoctors extends Component
     public function render()
     {
         $doctors = Doctor::with('user', 'department')
-            ->where('status', 1) 
+        ->whereIn('status', ['1', '2'])
             ->when($this->search, function ($query) {
                 return $query->whereHas('user', function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
@@ -36,7 +36,6 @@ class OurDoctors extends Component
                 $isAvailableToday = in_array(Carbon::now()->format('l'), $availableDays);
 
                 $doctor->isAvailableToday = $isAvailableToday;
-
                 return $doctor;
             });
 

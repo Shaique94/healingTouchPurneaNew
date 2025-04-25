@@ -8,9 +8,9 @@
     </div>
 
     <!-- Filters -->
-    <div class="d-flex justify-content-between mb-2">
-        <input type="text" wire:model.live.debounce.500ms="search" class="form-control w-25" placeholder="Search name or email...">
-        <select wire:model.live="perPage" class="form-select w-auto">
+    <div class="d-flex flex-column flex-md-row gap-2 mb-3">
+        <input type="text" wire:model.live.debounce.500ms="search" class="form-control" placeholder="Search name or email...">
+        <select wire:model.live="perPage" class="form-select" style="width: auto">
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
@@ -24,11 +24,11 @@
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th class="d-none d-md-table-cell">Email</th>
                     <th>Department</th>
                     <th>Status</th>
-                    <th>Phone</th>
-                    <th>Available Days</th>
+                    <th class="d-none d-lg-table-cell">Phone</th>
+                    <th class="d-none d-xl-table-cell">Available Days</th>
                     <th>Fee</th>
                     <th>Actions</th>
                 </tr>
@@ -36,33 +36,44 @@
             <tbody>
                 @forelse($doctors as $doc)
                 <tr>
-                    <td class="text-center align-middle">
-                        <img src="{{ $doc->image ? asset('storage/' . $doc->image) : asset('images/default.jpg') }}" width="60" class="img-thumbnail" alt="Doctor Image">
+                    <td class="text-center">
+                        <img src="{{ $doc->image ? asset('storage/' . $doc->image) : asset('images/default.jpg') }}" 
+                             class="img-thumbnail" alt="Doctor Image"
+                             style="width: 50px; height: 50px; object-fit: cover;">
                     </td>
                     <td>{{ $doc->user->name }}</td>
-                    <td>{{ $doc->user->email }}</td>
+                    <td class="d-none d-md-table-cell">{{ $doc->user->email }}</td>
                     <td>{{ $doc->department->name ?? '-' }}</td>
-                    <td>
-                        <div class="form-check form-switch d-flex">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                wire:click="updateStatus({{ $doc->id }})"
+                    <td class="text-center" style="min-width: 120px;">
+                        <div class="status-select-wrapper">
+                            <select
+                                class="form-select form-select-sm status-select"
+                                wire:model.live="doctors.{{ $loop->index }}.status"
+                                wire:change="updateStatus({{ $doc->id }}, $event.target.value)"
                                 wire:loading.attr="disabled"
-                                @if($doc->status) checked @endif
                             >
+                                <option value="1" @if($doc->status === 1) selected @endif>Active</option>
+                                <option value="0" @if($doc->status === 0) selected @endif>Inactive</option>
+                                <option value="2" @if($doc->status === 2) selected @endif>Disabled</option>
+                            </select>
                         </div>
                     </td>
-                    <td>{{ $doc->user->phone }}</td>
-                    <td>{{ is_array($doc->available_days) ? implode(', ', $doc->available_days) : '-' }}</td>
+                    <td class="d-none d-lg-table-cell">{{ $doc->user->phone }}</td>
+                    <td class="d-none d-xl-table-cell">{{ is_array($doc->available_days) ? implode(', ', $doc->available_days) : '-' }}</td>
                     <td>₹{{ $doc->fee }}</td>
-                    <td class="text-center d-flex justify-content-center align-items-center">
-                        <button wire:click="$dispatch('update-doctor', { id: {{ $doc->id }} })" data-bs-toggle="modal" data-bs-target="#UpdatedoctorModal" class="btn btn-sm btn-primary me-1">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button wire:click="alertConfirm({{ $doc->id }})" class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash3"></i>
-                        </button>
+                    <td class="text-center">
+                        <div class="d-flex gap-1 justify-content-center">
+                            <button wire:click="$dispatch('update-doctor', { id: {{ $doc->id }} })" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#UpdatedoctorModal" 
+                                    class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button wire:click="alertConfirm({{ $doc->id }})" 
+                                    class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @empty
@@ -107,6 +118,38 @@
     <style>
         .cursor-pointer {
             cursor: pointer;
+        }
+        
+        .status-select-wrapper {
+            position: relative;
+        }
+        
+        .status-select {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: 0.2rem;
+            width: 100%;
+            min-width: 100px;
+            background-color: #fff;
+        }
+        
+        .status-select option {
+            padding: 8px;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .table-responsive {
+                border: 0;
+            }
+            
+            .table td, .table th {
+                padding: 0.5rem;
+            }
+            
+            .btn-sm {
+                padding: 0.25rem 0.4rem;
+            }
         }
     </style>
 </div>

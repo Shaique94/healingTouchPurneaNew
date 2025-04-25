@@ -59,10 +59,10 @@ class All extends Component
         $this->dispatch('success', __('Doctor deleted successfully.'));
     }
 
-    public function updateStatus($id)
+    public function updateStatus($id, $status)
     {
         $doctor = Doctor::find($id);
-        $doctor->status = !$doctor->status;
+        $doctor->status = $status;
         $doctor->save();
 
         $this->dispatch('success', __('Doctor status updated successfully.'));

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
             $table->json('available_days')->nullable();
             $table->bigInteger('fee')->default(500);
-            $table->boolean('status')->default(0);
+            $table->enum('status', [0, 1, 2])->default(0); // 0: inactive, 1: active, 2: disable
             $table->string('image')->nullable();
             $table->string('qualification')->nullable();
             $table->softDeletes();
