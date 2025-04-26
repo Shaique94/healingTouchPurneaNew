@@ -10,12 +10,9 @@
         {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.">
-
-    <meta name="keywords"
-        content="Healing Touch Hospital, online doctor appointment Purnea, healthcare services Linebazar, specialist doctors Rambagh Road, medical consultation Purnea, best hospital Bihar, online healthcare booking, emergency hospital services Purnea">
-
+   
+        <meta name="keywords" content="{{ $metaKeywords ?? 'Healing Touch Hospital, online doctor appointment Purnea, healthcare services Linebazar, specialist doctors Rambagh Road, medical consultation Purnea, best hospital Bihar, online healthcare booking, emergency hospital services Purnea' }}">
+        <meta name="description" content="{{ $metaDescription ?? 'Healing Touch Hospital, Linebazar, Purnea offers online appointments, specialist doctors, and complete healthcare services.' }}">
     <!-- Open Graph Meta Tags for Social Media -->
     <meta property="og:description"
         content="Book appointments with top doctors at Healing Touch Hospital, Linebazar, Purnea. Quality healthcare services under one roof.">
