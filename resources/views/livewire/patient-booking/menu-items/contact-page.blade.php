@@ -1,6 +1,6 @@
 <div class="py-10 px-4 sm:px-6 lg:px-8 max-w-6xl mt-12 mx-auto">
     <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Get in Touch</h2>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Get in Touch</h1>
         <p class="text-gray-600 max-w-2xl mx-auto">We're here to help and answer any questions you might have. We look
             forward to hearing from you.</p>
     </div>

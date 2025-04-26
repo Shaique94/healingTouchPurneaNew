@@ -24,7 +24,7 @@
             <div class="mt-6 md:mt-0 md:ml-6 text-center md:text-left flex-1">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800">Dr. {{ $doctor->user->name }}</h2>
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Dr. {{ $doctor->user->name }}</h1>
                         <p class="text-beige-600 font-medium mt-1">{{ $doctor->qualification ?? 'N/A' }}</p>
                     </div>
 
