@@ -343,7 +343,7 @@
                 </button>
             </div>
         </div>
-        @elseif($step === 2)
+        @elseif($step === 2) 
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
