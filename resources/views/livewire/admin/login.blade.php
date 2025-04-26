@@ -7,7 +7,7 @@
         </div>
 
         <!-- Title -->
-        <h2 class="text-center text-2xl font-bold text-gray-700">Hospital Admin Login</h2>
+        <h1 class="text-center text-2xl font-bold text-gray-700">Hospital Admin Login</h1>
 
         <!-- Login Form -->
         <form wire:submit.prevent="login" class="space-y-4 relative">

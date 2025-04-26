@@ -7,7 +7,7 @@
             </div>
         </div>
         
-        <h2 class="text-2xl font-bold text-center mb-2 text-gray-800">Doctor <span class="text-beige-600">Login</span></h2>
+        <h1 class="text-2xl font-bold text-center mb-2 text-gray-800">Doctor <span class="text-beige-600">Login</span></h1>
         <div class="w-24 h-1 bg-gray-600 mx-auto mb-4"></div>
         <p class="text-center text-gray-600 mb-6 text-sm">Secure access to patient records & appointments</p>
 
