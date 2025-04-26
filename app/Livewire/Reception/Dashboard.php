@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -32,6 +33,7 @@ class Dashboard extends Component
     public $appointmentId;
     public $doctor_name;
     public $selectedDoctorId;
+    public $editpatientModal = false;
 
 
 
@@ -72,6 +74,18 @@ class Dashboard extends Component
         }
         // dd('shaique');
         $this->step++;
+    }
+
+    public function editAppointment($appointmentId)
+    {
+        $this->editpatientModal = true;
+        $this->appointmentId = $appointmentId;
+    }
+
+    #[On("closeEditModal")]
+    public function closeEditModal()
+    {
+        $this->editpatientModal = false;
     }
 
     public function backStep()
@@ -142,7 +156,7 @@ class Dashboard extends Component
             'state' => $this->state,
             'country' => $this->country,
         ]);
-        
+
         $lastQueueNumber = Appointment::where('appointment_date', $this->appointment_date)
             ->orderBy('queue_number', 'desc')
             ->value('queue_number');
@@ -161,7 +175,7 @@ class Dashboard extends Component
         ]);
 
         $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
-        $appointmentNo=$new_appointment->update([
+        $appointmentNo = $new_appointment->update([
             'appointment_no' => intval($datePrefix . str_pad($new_appointment->id, 4, '0', STR_PAD_LEFT))
         ]);
         //work left here to make it dynamic
@@ -170,11 +184,11 @@ class Dashboard extends Component
             'appointment_id' => $new_appointment->id,
             'paid_amount' => $doctor_details->fee,
             'mode' => 'Cash',
-            'settlement'=> true,
+            'settlement' => true,
             'status' => 'paid',
         ];
         $new_appointment->payment()->create($payment_details);
-        
+
 
         $this->step++;
 
@@ -211,12 +225,11 @@ class Dashboard extends Component
                 ->firstOrFail();
 
             $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-                    ->setPaper('a4');
+                ->setPaper('a4');
 
             return response()->streamDownload(function () use ($pdf) {
                 echo $pdf->output();
             }, 'appointment-receipt.pdf');
-
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             \Log::error('Appointment not found: ' . $id);
             session()->flash('error', 'Appointment not found.');
@@ -319,7 +332,7 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
-    } 
+    }
     public function logout()
     {
         Auth::logout();
