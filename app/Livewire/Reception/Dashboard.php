@@ -164,7 +164,16 @@ class Dashboard extends Component
         $appointmentNo=$new_appointment->update([
             'appointment_no' => intval($datePrefix . str_pad($new_appointment->id, 4, '0', STR_PAD_LEFT))
         ]);
-
+        //work left here to make it dynamic
+        $doctor_details = Doctor::where('id', $this->doctor_id)->first();
+        $payment_details = [
+            'appointment_id' => $new_appointment->id,
+            'paid_amount' => $doctor_details->fee,
+            'mode' => 'Cash',
+            'settlement'=> true,
+            'status' => 'paid',
+        ];
+        $new_appointment->payment()->create($payment_details);
         
 
         $this->step++;
