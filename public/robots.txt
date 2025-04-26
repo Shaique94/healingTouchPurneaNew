@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /doc
 Disallow: /desk
 Disallow: /admin
 Allow: /
