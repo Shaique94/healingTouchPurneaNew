@@ -54,26 +54,19 @@ class Dashboard extends Component
     #[On('refresh')]
     public function loadAppointments()
     {
-
         $user = User::where('id', auth()->user()->id)->first();
-        // dd($user->id);
-        
         $this->doctor_name = $user->name;
 
-
         $doctor = Doctor::where('user_id', $user->id)->first();
-        // dd($doctor->id);
         $this->doctor_image = $doctor->image;
-        // dd($this->doctor_image);
-       
 
         $query = Appointment::with('patient')
-            ->where('doctor_id', $doctor->id)
-            ->whereNotIn('status', ['pending', 'cancelled']);
+            ->where('doctor_id', $doctor->id);
 
         if ($this->dateFilter) {
             $query->whereDate('appointment_date', $this->dateFilter);
         }
+        
         if ($this->search) {
             $query->whereHas('patient', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
@@ -82,10 +75,10 @@ class Dashboard extends Component
 
         $this->appointments = $query->get();
 
-        $this->appointments_count = $this->appointments->count();
-        $this->appointments_completed = $this->appointments->where('status', 'confirmed')->count();
-        $this->appointments_upcoming = $this->appointments->where('status', 'pending')->count();
-        $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
+        $this->appointments_count = $this->appointments->count(); 
+        $this->appointments_completed = $this->appointments->where('status', 'confirmed')->count(); 
+        $this->appointments_upcoming = $this->appointments->where('status', 'pending')->count(); 
+        $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count(); 
     }
 
     public function openAvailablityModal()

@@ -51,7 +51,7 @@ class Add extends Component
             'phone' => 'required|string|max:10',
             'dept_id' => 'required|exists:departments,id',
             'available_days' => 'required|array|min:1',
-            'status' => 'required|boolean',
+            'status' => 'required|in:0,1,2',
             'image' => 'nullable|image|max:2048',
             'fee' => 'required|numeric|min:0',
             'qualification' => 'required|string|min:1',

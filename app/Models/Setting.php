@@ -10,21 +10,32 @@ class Setting extends Model
     protected $table = "settings";
     protected $fillable = ['key', 'value', 'group', 'type', 'description'];
 
+    protected static array $defaults = [
+        'hospital_name'   => 'Healing Touch',
+        'logo'            => '/healingTouchLogo.jpeg',
+        'contact_email'   => 'info@healingtouchpurnea.com',
+        'contact_phone'   => '+919471659700',
+        'address'         => 'Healing Touch Hospital,Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301',
+    ];
+
     public static function get($key, $default = null)
     {
         $setting = static::where('key', $key)->first();
 
-        if (!$setting) {
-            return $default;
+        $value = $setting?->value;
+        $type = $setting?->type;
+
+        if (!$value && isset(static::$defaults[$key])) {
+            $default = static::$defaults[$key];
         }
 
-        switch ($setting->type) {
+        switch ($type) {
             case 'file':
-                return $setting->value ? Storage::url($setting->value) : $default;
+                return $value ? Storage::url($value) : $default;
             case 'json':
-                return json_decode($setting->value, true) ?? $default;
+                return json_decode($value, true) ?? $default;
             default:
-                return $setting->value ?? $default;
+                return $value ?? $default;
         }
     }
 

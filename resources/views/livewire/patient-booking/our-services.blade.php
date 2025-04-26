@@ -61,7 +61,7 @@
             </div>
 
             <div class="text-center mt-10">
-                <a wire:navigate  href="#" class="inline-block bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
+                <a wire:navigate  href="{{route('services.page')}}" class="inline-block bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
                     View All Services
                 </a>
             </div>
@@ -81,14 +81,18 @@
                 <div class="flex justify-center flex-wrap gap-8">
                 @foreach($doctors as $doctor)
                 <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1 w-full max-w-xs">
-                    <div class="h-auto bg-gray-200">
-                        <img
-                            src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
-                            alt="{{ $doctor->name }}"
-                            class="w-full h-auto" />
-                    </div>
+                    <a href="{{ route('doctors.detail', ['doctorId' => $doctor->doctor->id]) }}" wire:navigate class="block">
+                        <div class="h-auto bg-gray-200">
+                            <img
+                                src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
+                                alt="{{ $doctor->name }}"
+                                class="w-full h-auto hover:opacity-90 transition-opacity" />
+                        </div>
+                    </a>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
+                        <a href="{{ route('doctors.detail', ['doctorId' => $doctor->doctor->id]) }}" wire:navigate class="block hover:text-beige-600 transition-colors">
+                            <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
+                        </a>
                         <p class="text-beige-600 font-xs mb-2 line-clamp-2">
                             {{ is_array($doctor->doctor->qualification ?? null) 
                             ? Str::limit(implode(', ', $doctor->doctor->qualification), 80)
@@ -117,11 +121,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($doctors as $doctor)
             <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-                <div class="h-64 bg-gray-200">
-                    <img src="{{ asset('storage/'.$doctor->image) }}" alt="{{$doctor->name}}" class="w-full h-full object-cover" onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
-                </div>
+                <a href="{{ route('doctors.detail', ['doctorId' => $doctor->doctor->id]) }}" wire:navigate class="block">
+                    <div class="h-64 bg-gray-200">
+                        <img src="{{ asset('storage/'.$doctor->image) }}" 
+                             alt="{{$doctor->name}}" 
+                             class="w-full h-full object-cover hover:opacity-90 transition-opacity" 
+                             onerror="this.src='/api/placeholder/300/300'; this.onerror=null;">
+                    </div>
+                </a>
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
+                    <a href="{{ route('doctors.detail', ['doctorId' => $doctor->doctor->id]) }}" wire:navigate class="block hover:text-beige-600 transition-colors">
+                        <h3 class="text-xl font-semibold mb-1">Dr. {{$doctor->name}}</h3>
+                    </a>
                     <p class="text-beige-600 font-medium mb-2">
                         {{ is_array($doctor->doctor->qualification ?? null) 
                             ? Str::limit(implode(', ', $doctor->doctor->qualification), 20)

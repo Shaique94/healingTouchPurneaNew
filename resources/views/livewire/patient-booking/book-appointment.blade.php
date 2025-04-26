@@ -381,7 +381,7 @@
                     
 
                     <!-- Navigation -->
-                    <div class="flex justify-between items-center mt-6">
+                    <div class="flex justify-between text-sm text-balance items-center mt-6">
                                             <a wire:navigate href="{{ route('manage.appointments') }}"
                         class="inline-flex items-center text-beige-600 hover:underline text-md mt-1 md:mt-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
@@ -389,7 +389,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        Already have an Appointment? Check existing appointment
+                        Check your appointment.
                     </a>
 
                         <button wire:click="nextStep" wire:loading.attr="disabled"
@@ -835,7 +835,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 19l-7-7 7-7" />
                                 </svg>
-                                Edit Details
+                                Edit Details 
                             </button>
                             <button wire:click="bookAppointment" wire:loading.attr="disabled" type="button"
                                 class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
@@ -858,6 +858,13 @@
                                 </span>
                             </button>
                         </div>
+                        
+                        <!-- Error Message Display -->
+                        @if (session()->has('error'))
+                            <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                                <p class="text-red-600">{{ session('error') }}</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endif
@@ -894,15 +901,31 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button wire:click="downloadReceipt"
-                            class="px-6 py-2 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 transition-colors flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Download Receipt
-                        </button>
+                    <button wire:click="downloadReceipt"
+    wire:loading.attr="disabled"
+    wire:target="downloadReceipt"
+    class="px-6 py-2 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 transition-colors flex items-center justify-center">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor"
+        wire:loading.remove wire:target="downloadReceipt">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+
+    <!-- Loader spinner -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        wire:loading wire:target="downloadReceipt">
+        <circle class="opacity-25" cx="12" cy="12" r="10"
+            stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+
+    <span>Download Receipt</span>
+</button>
+
                         <a wire:navigate href="{{ route('manage.appointments') }}"
                             class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"

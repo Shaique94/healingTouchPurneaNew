@@ -44,6 +44,20 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- SMS Status -->
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">SMS Notifications</label>
+                                <div class="form-check form-switch">
+                                    <input wire:model="sms_status" class="form-check-input" type="checkbox" role="switch" id="smsStatus" {{ $sms_status ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="smsStatus">
+                                        {{ $sms_status ? 'Enabled' : 'Disabled' }}
+                                    </label>
+                                </div>
+                                <small class="text-muted">Enable or disable SMS notifications for the hospital</small>
+                                @error('sms_status') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -138,12 +152,12 @@
                     @if ($current_logo)
                         <img src="{{ $current_logo }}" class="mb-3 rounded shadow-sm" style="max-width: 150px;">
                     @endif
-                    <h5 class="mb-2">{{ $hospital_name ?: 'Hospital Name' }}</h5>
-                    <p class="text-muted mb-3">{{ $address ?: 'Hospital Address' }}</p>
+                    <h5 class="mb-2 text-break">{{ $hospital_name ?: 'Hospital Name' }}</h5>
+                    <p class="text-muted mb-3 text-break">{{ $address ?: 'Hospital Address' }}</p>
                     <hr>
-                    <div class="d-flex justify-content-center gap-3">
-                        <div><i class="bi bi-envelope me-2"></i>{{ $contact_email ?: 'Email' }}</div>
-                        <div><i class="bi bi-telephone me-2"></i>{{ $contact_phone ?: 'Phone' }}</div>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                        <div class="text-break"><i class="bi bi-envelope me-2"></i>{{ $contact_email ?: 'Email' }}</div>
+                        <div class="text-break"><i class="bi bi-telephone me-2"></i>{{ $contact_phone ?: 'Phone' }}</div>
                     </div>
                 </div>
             </div>
@@ -158,6 +172,17 @@
     .form-control:focus {
         border-color: #0d6efd;
         box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    }
+    /* Add these new styles */
+    .text-break {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+    @media (max-width: 575.98px) {
+        .d-flex.flex-column.flex-sm-row {
+            gap: 0.5rem !important;
+        }
     }
 </style>
 </div>

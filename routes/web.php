@@ -37,6 +37,7 @@ use App\Livewire\PatientBooking\MenuItems\Services;
 use App\Livewire\Reception\Dashboard as ReceptionDashboard;
 use App\Livewire\Reception\Login as ReceptionLogin;
 use Illuminate\Console\View\Components\Confirm;
+use App\Livewire\Doctor\ViewPatientdetail;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -137,6 +138,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('doc/login', DoctorLogin::class)->name('doctor.login');
 // Route::get('doc/login');
 Route::get('doc/dashboard', Dashboard::class)->name('doctor.dashboard');
+Route::get('/doctor/patient/{appointment_id}', ViewPatientdetail::class)->name('doctor.view-patient');
 
 // SEO Routes
 // Route::get('/doctors', function () {

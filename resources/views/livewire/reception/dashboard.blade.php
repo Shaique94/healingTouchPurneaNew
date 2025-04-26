@@ -18,7 +18,7 @@
             </svg>
         </button>
     </div>
-
+ 
     <!-- Sidebar for desktop and mobile (when opened) -->
     <aside id="sidebar" class="w-full md:w-64 bg-white shadow-lg p-6 md:block fixed md:static inset-0 z-20 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Close button for mobile -->
@@ -101,7 +101,7 @@
             </a>
 
             <div class="pt-6 mt-6 border-t border-gray-200">
-                <a wire:navigate  href="#" wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
+                <a wire:navigate   wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
@@ -700,12 +700,13 @@
                                         Cancel
                                     </button>
                                     @elseif($appointment->status === 'checked_in')
-                                    <a wire:navigate  href=""
+                                    <a wire:navigate  
                                         target="_blank"
                                         class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
                                         wire:click.prevent="viewAppointment({{ $appointment->id }})">
                                         View PDF
                                     </a>
+
                                     @else
                                     <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
                                     @endif

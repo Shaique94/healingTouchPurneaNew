@@ -6,6 +6,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
 use App\Models\Department;
+use App\Models\Setting;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -116,6 +117,19 @@ class BookAppointment extends Component
     // When doctor is selected, fetch doctor details
     public function selectDoctor($doctorId)
     {
+        $doctor = Doctor::with('department')->find($doctorId);
+        if (!$doctor || $doctor->status != '1') {
+            $this->dispatch('doctor-not-available', [
+                'message' => 'The selected doctor is not available for booking.'
+            ]);
+            return;
+        }
+        if (!$doctor->department || $doctor->department->status != 1) {
+            $this->dispatch('doctor-not-available', [
+                'message' => 'The selected doctor’s department is not available for booking.'
+            ]);
+            return;
+        }
         $this->selectedDoctor = $doctorId;
         $this->dispatch('doctorSelected');
         $this->getDoctorDetails();
@@ -150,9 +164,19 @@ class BookAppointment extends Component
     protected function getDoctorDetails()
     {
         if ($this->selectedDoctor) {
-
             $this->doctorDetails = Doctor::with(['user', 'department'])
+                ->where('status', '1')
+                ->whereHas('department', function($query) {
+                    $query->where('status', 1);
+                })
                 ->find($this->selectedDoctor);
+    
+            if (!$this->doctorDetails) {
+                $this->dispatch('doctor-not-available', [
+                    'message' => 'The selected doctor or their department is not available.'
+                ]);
+                $this->selectedDoctor = null;
+            }
         }
     }
 
@@ -283,6 +307,16 @@ class BookAppointment extends Component
     // Submit the appointment booking - with loading state
     public function bookAppointment()
     {
+        // Validate doctor status before proceeding
+        $doctor = Doctor::with('department')->find($this->selectedDoctor);
+        if (!$doctor || $doctor->status != '1') {
+            session()->flash('error', 'The selected doctor is not available for booking appointments.');
+            return;
+        }
+        if (!$doctor->department || $doctor->department->status != 1) {
+            session()->flash('error', 'The selected doctor’s department is not available for booking appointments.');
+            return;
+        }
         // Check if the time slot is already fully booked
         $formattedTime = $this->convertTimeFormat($this->appointmentTime);
         $timeSlot = Carbon::parse($formattedTime)->format('g:i A');
@@ -296,6 +330,19 @@ class BookAppointment extends Component
         // If 4 or more appointments already exist, prevent booking
         if ($count >= 4) {
             session()->flash('error', 'This time slot is now fully booked. Please select a different time.');
+            return;
+        }
+
+        // Check if phone number already has an appointment with the same doctor for this date
+        $existingAppointment = Appointment::whereHas('patient', function ($query) {
+            $query->where('phone', $this->phone);
+        })
+        ->where('appointment_date', $this->appointmentDate)
+        ->where('doctor_id', $this->selectedDoctor)
+        ->first();
+
+        if ($existingAppointment) {
+            session()->flash('error', 'You already have an appointment scheduled with this doctor for this date. Please select a different doctor or date.');
             return;
         }
         
@@ -357,21 +404,26 @@ class BookAppointment extends Component
         } catch (\Exception $e) {
             \Log::error('Barcode generation failed: ' . $e->getMessage());
             // Continue without barcode if generation fails
-        }
+        } 
 
         $this->appointmentId = $appointment->id;
-        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
         session()->flash('message', 'Your appointment has been booked successfully!');
         session()->flash('appointment_id', $appointment->id);
 
         // Move to confirmation page
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
+        $smsEnabled = Setting::get('sms_status', false);
+        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+
+       if($smsEnabled === "1"){
+        $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
+       }
 
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
-    private function sendAppointmentSMS($mobile, $name, $appointment)
+    private function sendAppointmentSMS($mobile, $name, $appointment): void
     {
         try {
             $response = Http::withHeaders([
@@ -465,7 +517,7 @@ class BookAppointment extends Component
             ->whereHas('department', function($query) {
                 $query->where('status', 1);
             })
-            ->where('status', 1) 
+            ->where('status', '1') 
             ->with(['user', 'department'])
             ->get();
 

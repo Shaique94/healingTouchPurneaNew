@@ -136,6 +136,7 @@
                                         <option value="">Select Status</option>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>
+                                        <option value="2">Disabled</option>
                                     </select>
                                     @error('status') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>

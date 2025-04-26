@@ -70,7 +70,7 @@ class Update extends Component
             'phone' => 'required|string|max:10',
             'dept_id' => 'required|exists:departments,id',
             'available_days' => 'required|array|min:1',
-            'status' => 'required|boolean',
+            'status' => 'required|in:0,1,2',
             'newImage' => 'nullable|image|max:2048',
             'qualification' => 'required|string|min:1',
             'description' => 'nullable|string|max:1000',
