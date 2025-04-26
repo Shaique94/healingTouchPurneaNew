@@ -10,6 +10,8 @@ use App\Models\Setting;
 #[Layout('layouts.guest')]
 class TermsCondition extends Component
 {
+    public $metaKeywords;
+    public $metaDescription;
     public $settings = [];
 
     public function mount()
@@ -20,6 +22,9 @@ class TermsCondition extends Component
             'contact_phone' => Setting::get('contact_phone', '+91 9471659700'),
             'address' => Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301'),
         ];
+        $this->metaKeywords = "$this->hospital_name terms, hospital service terms, $this->hospital_name hospital conditions, hospital policies, service usage rules";
+$this->metaDescription = "Read the terms and conditions for using services at $this->hospital_name, Purnea. Understand your rights and responsibilities clearly.";
+
     }
     public function render()
     {
