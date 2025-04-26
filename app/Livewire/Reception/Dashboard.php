@@ -142,16 +142,40 @@ class Dashboard extends Component
             'state' => $this->state,
             'country' => $this->country,
         ]);
+        
+        $lastQueueNumber = Appointment::where('appointment_date', $this->appointment_date)
+            ->orderBy('queue_number', 'desc')
+            ->value('queue_number');
+
+        $queueNumber = $lastQueueNumber ? $lastQueueNumber + 1 : 1;
 
         $new_appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->doctor_id,
             'appointment_date' => $this->appointment_date,
             'appointment_time' => $this->appointment_time,
+            'queue_number' => $queueNumber,
             'status' => 'checked_in',
             'notes' => $this->notes,
             'created_by' => auth()->id(),
         ]);
+
+        $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
+        $appointmentNo=$new_appointment->update([
+            'appointment_no' => intval($datePrefix . str_pad($new_appointment->id, 4, '0', STR_PAD_LEFT))
+        ]);
+        //work left here to make it dynamic
+        $doctor_details = Doctor::where('id', $this->doctor_id)->first();
+        $payment_details = [
+            'appointment_id' => $new_appointment->id,
+            'paid_amount' => $doctor_details->fee,
+            'mode' => 'Cash',
+            'settlement'=> true,
+            'status' => 'paid',
+        ];
+        $new_appointment->payment()->create($payment_details);
+        
+
         $this->step++;
 
         $this->appointmentId = $new_appointment->id;
@@ -163,25 +187,45 @@ class Dashboard extends Component
 
     public function viewAppointment($appointmentId)
     {
+        // $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
+        // if (!$appointment) {
+        //     session()->flash('error', 'Appointment not found.');
+        //     return;
+        // }
 
-        $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
-        if (!$appointment) {
+        // $data = [
+        //     'appointment' => $appointment,
+        //     'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
+        //     'hospital_name' => 'Healing Touch Hospital',
+        //     'hospital_address' => 'Purnea, Bihar',
+        //     'hospital_contact' => '+91-123-456-7890',
+        // ];
+
+        // $pdf = Pdf::loadView('pdf.patient-reciept', $data);
+        // return response()->streamDownload(function () use ($pdf) {
+        //     echo $pdf->stream();
+        // }, 'appointment_receipt.pdf');
+        try {
+            $appointment = Appointment::with(['doctor', 'patient'])
+                ->where('id', $appointmentId)
+                ->firstOrFail();
+
+            $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
+                    ->setPaper('a4');
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'appointment-receipt.pdf');
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            \Log::error('Appointment not found: ' . $id);
             session()->flash('error', 'Appointment not found.');
-            return;
+            return null;
+        } catch (\Exception $e) {
+            \Log::error('PDF generation failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to generate PDF. Please try again.');
+            return null;
         }
-
-        $data = [
-            'appointment' => $appointment,
-            'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
-            'hospital_name' => 'Healing Touch Hospital',
-            'hospital_address' => 'Purnea, Bihar',
-            'hospital_contact' => '+91-123-456-7890',
-        ];
-
-        $pdf = Pdf::loadView('pdf.patient-reciept', $data);
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->stream();
-        }, 'appointment_receipt.pdf');
     }
     public function updatedPincode($value)
     {

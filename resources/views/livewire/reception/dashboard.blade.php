@@ -18,7 +18,7 @@
             </svg>
         </button>
     </div>
-
+ 
     <!-- Sidebar for desktop and mobile (when opened) -->
     <aside id="sidebar" class="w-full md:w-64 bg-white shadow-lg p-6 md:block fixed md:static inset-0 z-20 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Close button for mobile -->
@@ -343,7 +343,7 @@
                 </button>
             </div>
         </div>
-        @elseif($step === 2)
+        @elseif($step === 2) 
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -700,12 +700,13 @@
                                         Cancel
                                     </button>
                                     @elseif($appointment->status === 'checked_in')
-                                    <a wire:navigate  href=""
+                                    <a wire:navigate  
                                         target="_blank"
                                         class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
                                         wire:click.prevent="viewAppointment({{ $appointment->id }})">
                                         View PDF
                                     </a>
+
                                     @else
                                     <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
                                     @endif

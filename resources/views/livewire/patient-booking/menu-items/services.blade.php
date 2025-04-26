@@ -4,7 +4,7 @@
     <section id="services" class="py-16 mt-14">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Medical Services</h2>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Medical Services</h1>
                 <p class="text-gray-600 max-w-3xl mx-auto">We offer a comprehensive range of medical services designed to meet the needs of our community with excellence and compassion.</p>
             </div>
 

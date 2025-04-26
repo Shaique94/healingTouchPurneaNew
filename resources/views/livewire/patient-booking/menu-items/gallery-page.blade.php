@@ -1,7 +1,7 @@
 <div class="py-16 bg-gray-50">
     <div class="container mx-auto px-4 mt-10">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-beige-600">Facility Gallery</span></h2>
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-beige-600">Facility Gallery</span></h1>
             <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
             <p class="text-gray-600 max-w-3xl mx-auto">
                 Take a glimpse into our world-class infrastructure and care environment

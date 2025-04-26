@@ -8,6 +8,16 @@ use Livewire\Component;
 
 class LandingPage extends Component
 {
+    public $metaKeywords;
+    public $metaDescription;
+    public $hospital_name;
+
+    public function mount(){
+        $this->hospital_name = Setting::get('hospital_name');
+        $this->metaKeywords = "$this->hospital_name, best hospital in Purnea, healthcare services Bihar, top doctors, emergency hospital Purnea";
+$this->metaDescription = "Welcome to $this->hospital_name, the leading hospital in Purnea offering top healthcare services, online appointments, and emergency care.";
+
+    }
     #[Layout('layouts.guest')] 
     public function render()
     {
