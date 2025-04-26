@@ -9,7 +9,6 @@
 
   <title>
     {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
-    | Online Doctor Booking
   </title>
 
   <meta property="og:url" content="{{ url()->current() }}">

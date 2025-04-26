@@ -612,38 +612,6 @@
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"></textarea>
                                 </div>
                             </div>
-
-                            <!-- Payment Method Selection -->
-                            <div class="sm:col-span-6 mt-6">
-                                <label class="block text-sm font-medium text-gray-700 mb-3">Payment Method (भुगतान का तरीका)</label>
-                                <div class="space-y-3">
-                                    <!-- Pay at Hospital Option -->
-                                    <label class="relative flex p-4 border rounded-lg cursor-pointer hover:border-beige-500 transition-colors group">
-                                        <input type="radio" name="payment_method" wire:model="payment_method" value="pay_at_hospital" 
-                                            class="mt-0.5 h-4 w-4 text-beige-600 border-gray-300 focus:ring-beige-500">
-                                        <div class="ml-3">
-                                            <span class="text-sm font-medium text-gray-900">Pay at Hospital</span>
-                                            <span class="text-sm text-gray-500 block">Pay with cash or card when you arrive at the hospital</span>
-                                        </div>
-                                        <div class="absolute inset-0 rounded-lg pointer-events-none border border-beige-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                    </label>
-
-                                    <!-- Pay Online Option (Disabled) -->
-                                    <div class="relative p-4 border rounded-lg bg-gray-50 cursor-not-allowed">
-                                        <div class="flex items-start">
-                                            <input type="radio" disabled class="mt-0.5 h-4 w-4 text-gray-400 border-gray-300 cursor-not-allowed">
-                                            <div class="ml-3">
-                                                <div class="flex items-center">
-                                                    <span class="text-sm font-medium text-gray-400">Pay Online</span>
-                                                    <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Coming Soon</span>
-                                                </div>
-                                                <span class="text-sm text-gray-400 block">Online payment options will be available soon</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Payment Method Selection -->
                         </div>
             
                         <!-- Navigation - Made more responsive -->
@@ -823,6 +791,37 @@
                                     <p class="text-gray-800">{{ $notes }}</p>
                                 </div>
                             @endif
+                        </div>
+
+                        <!-- Move the payment selection here, just before the navigation buttons -->
+                        <div class="mt-8 border-t border-gray-200 pt-6">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">Payment Method</h3>
+                            <div class="space-y-4 max-w-2xl">
+                                <!-- Pay at Hospital Option -->
+                                <label class="relative flex p-4 border rounded-lg cursor-pointer hover:border-beige-500 transition-colors group">
+                                    <input type="radio" name="payment_method" wire:model="payment_method" value="pay_at_hospital" 
+                                        class="mt-0.5 h-4 w-4 text-beige-600 border-gray-300 focus:ring-beige-500">
+                                    <div class="ml-3">
+                                        <span class="text-sm font-medium text-gray-900">Pay at Hospital</span>
+                                        <span class="text-sm text-gray-500 block">Pay with cash or card when you arrive at the hospital</span>
+                                    </div>
+                                    <div class="absolute inset-0 rounded-lg pointer-events-none border border-beige-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                </label>
+
+                                <!-- Pay Online Option (Disabled) -->
+                                <div class="relative p-4 border rounded-lg bg-gray-50 cursor-not-allowed">
+                                    <div class="flex items-start">
+                                        <input type="radio" disabled class="mt-0.5 h-4 w-4 text-gray-400 border-gray-300 cursor-not-allowed">
+                                        <div class="ml-3">
+                                            <div class="flex items-center">
+                                                <span class="text-sm font-medium text-gray-400">Pay Online</span>
+                                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Coming Soon</span>
+                                            </div>
+                                            <span class="text-sm text-gray-400 block">Online payment options will be available soon</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Navigation -->

@@ -21,7 +21,8 @@ class ContactPage extends Component
     public $map_url;
     public $map_embed_lat;
     public $map_embed_long;
-
+    public $metaKeywords;
+    public $metaDescription;
     public function mount()
     {
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch');
@@ -34,6 +35,9 @@ class ContactPage extends Component
         $this->map_url = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($this->address);
         $this->map_embed_lat = '25.7888735';
         $this->map_embed_long = '87.4933251'; 
+        $this->metaKeywords = "$this->hospital_name contact, hospital address Purnea, contact $this->hospital_name, call hospital Purnea, hospital phone number";
+$this->metaDescription = "Get in touch with $this->hospital_name, Purnea. Find our contact details, location map, and reach out for appointments or inquiries.";
+
     }
 
     public function render()
