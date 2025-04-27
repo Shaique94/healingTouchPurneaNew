@@ -364,7 +364,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <select id="doctor_id" wire:model="doctor_id"
+                        <select id="doctor_id" wire:model.lazy="doctor_id" 
                             class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
                             <option value="">Choose Doctor</option>
                             @foreach($doctors as $doctor)
@@ -378,6 +378,7 @@
                         </div>
                         @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
+
                 </div>
 
                 <!-- Appointment Date -->
@@ -425,6 +426,21 @@
                     </div>
                 </div>
             </div>
+            <!--here we re adding mark as settled and amount field-->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+                <input
+                    type="number"
+                    wire:model="amount" 
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Doctor's Fees will auto-fill here">
+                @error('amount') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+            </div>
+            <div class="flex items-center mb-4">
+                <input type="checkbox" wire:model="settlement" id="settlement" class="mr-2 leading-tight">
+                <label for="settlement" class="text-sm text-gray-700">Mark as Settled</label>
+            </div>
+
 
             <div class="flex justify-between mt-8">
                 <button wire:click="backStep"
@@ -649,6 +665,7 @@
                             <th class="px-6 py-3 text-left">Address</th>
                             <th class="px-6 py-3 text-left">City</th>
                             <th class="px-6 py-3 text-left">Assigned Doctor</th>
+                            <th class="px-6 py-3 text-left">Payment Status</th>
                             <th class="px-6 py-3 text-left">Status</th>
                             <th class="px-6 py-3 text-right">Actions</th>
                         </tr>
@@ -663,6 +680,8 @@
                             <td class="px-6 py-4 text-gray-600">
                                 {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
                             </td>
+                            <td class="px-6 py-4 text-gray-600">{{ $appointment->payment->status }}</td>
+
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
                                     @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
@@ -738,7 +757,7 @@
         </div>
         @endif
         @if($editpatientModal)
-        <livewire:reception.edit-appointment :appointmentId="$appointmentId"/>
+        <livewire:reception.edit-appointment :appointmentId="$appointmentId" />
         @endif
 
     </main>

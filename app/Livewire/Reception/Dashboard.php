@@ -34,12 +34,16 @@ class Dashboard extends Component
     public $doctor_name;
     public $selectedDoctorId;
     public $editpatientModal = false;
+    public $amount;
+    public $settlement = true;
+
 
 
 
 
     public function mount()
     {
+
         $this->loadAppointments();
         $this->doctors = Doctor::with('user')->get();
     }
@@ -66,6 +70,8 @@ class Dashboard extends Component
                 'appointment_date' => 'required|date',
                 'appointment_time' => 'required',
                 'notes' => 'nullable|string',
+                'amount' => 'required|numeric|min:0',
+                'settlement' => 'boolean',
             ]);
             // dd($this->doctor_id);
             $doctor_name = Doctor::where('id', $this->doctor_id)->first();
@@ -74,6 +80,19 @@ class Dashboard extends Component
         }
         // dd('shaique');
         $this->step++;
+    }
+
+    public function updatedDoctorId($value)
+    {
+        logger('Selected doctor ID:', ['doctor_id' => $value]);
+        $doctor = Doctor::find($value);
+        if ($doctor) {
+            $this->amount = $doctor->fee;
+            logger('Doctor fee set to:', ['fee' => $doctor->fee]);
+        } else {
+            $this->amount = null;
+            logger('No doctor found for ID:', [$value]);
+        }
     }
 
     public function editAppointment($appointmentId)
@@ -140,6 +159,9 @@ class Dashboard extends Component
             'doctor_id' => 'required|exists:doctors,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
+            'amount' => 'required|numeric|min:0',
+            'settlement' => 'boolean',
+            'notes' => 'nullable|string|max:255',
         ]);
 
         // You can save patient and appointment here
@@ -182,10 +204,10 @@ class Dashboard extends Component
         $doctor_details = Doctor::where('id', $this->doctor_id)->first();
         $payment_details = [
             'appointment_id' => $new_appointment->id,
-            'paid_amount' => $doctor_details->fee,
+            'paid_amount' => $this->amount,
             'mode' => 'Cash',
-            'settlement' => true,
-            'status' => 'paid',
+            'settlement' => $this->settlement,
+            'status' => $this->settlement ? 'paid':'due',
         ];
         $new_appointment->payment()->create($payment_details);
 
@@ -201,24 +223,7 @@ class Dashboard extends Component
 
     public function viewAppointment($appointmentId)
     {
-        // $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
-        // if (!$appointment) {
-        //     session()->flash('error', 'Appointment not found.');
-        //     return;
-        // }
-
-        // $data = [
-        //     'appointment' => $appointment,
-        //     'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
-        //     'hospital_name' => 'Healing Touch Hospital',
-        //     'hospital_address' => 'Purnea, Bihar',
-        //     'hospital_contact' => '+91-123-456-7890',
-        // ];
-
-        // $pdf = Pdf::loadView('pdf.patient-reciept', $data);
-        // return response()->streamDownload(function () use ($pdf) {
-        //     echo $pdf->stream();
-        // }, 'appointment_receipt.pdf');
+        
         try {
             $appointment = Appointment::with(['doctor', 'patient'])
                 ->where('id', $appointmentId)
