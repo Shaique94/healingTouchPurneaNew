@@ -163,7 +163,7 @@
         </div>
         @if($showModal)
         <!-- Multi-step Logic -->
-        @if($step === 1)
+        @if($step === 2)
         <!-- STEP 1: Patient Information -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -343,7 +343,7 @@
                 </button>
             </div>
         </div>
-        @elseif($step === 2)
+        @elseif($step === 1)
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -357,28 +357,23 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Doctor Select -->
                 <div class="group">
-                    <label for="doctor_id" class="block text-sm font-medium text-gray-700 mb-2">Select Doctor</label>
+                    <label for="doctor_id" class="block text-sm font-medium text-beige-800 mb-2">Select Doctor</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
                         <select id="doctor_id" wire:model.lazy="doctor_id"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
+                            class="pl-10 w-full px-4 py-2 border border-beige-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-beige-50 appearance-none transition-colors">
                             <option value="">Choose Doctor</option>
                             @foreach($doctors as $doctor)
                             <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
                             @endforeach
                         </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                        @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        
                     </div>
-
+                    @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Appointment Date -->
@@ -428,13 +423,20 @@
             </div>
             <!--here we re adding mark as settled and amount field-->
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
-                <input
-                    type="number"
-                    wire:model="amount"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Doctor's Fees will auto-fill here">
-                @error('amount') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                <label class="block text-beige-800 text-sm font-medium mb-2">Amount</label>
+                <div class="relative max-w-xs">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-beige-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                    <input
+                        type="number"
+                        wire:model="amount"
+                        class="shadow-sm border border-beige-300 bg-beige-50 rounded-lg w-full py-2 pl-10 pr-3 text-beige-800 leading-tight focus:outline-none focus:ring-2 focus:ring-beige-500 focus:border-beige-500 transition duration-200"
+                        placeholder="Doctor's Fees will auto-fill here">
+                </div>
+                @error('amount') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
             </div>
             <div class="flex items-center mb-4">
                 <input type="checkbox" wire:model="settlement" id="settlement" class="mr-2 leading-tight">
