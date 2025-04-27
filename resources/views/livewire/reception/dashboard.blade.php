@@ -364,7 +364,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <select id="doctor_id" wire:model.lazy="doctor_id" 
+                        <select id="doctor_id" wire:model.lazy="doctor_id"
                             class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
                             <option value="">Choose Doctor</option>
                             @foreach($doctors as $doctor)
@@ -431,7 +431,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
                 <input
                     type="number"
-                    wire:model="amount" 
+                    wire:model="amount"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Doctor's Fees will auto-fill here">
                 @error('amount') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -680,8 +680,15 @@
                             <td class="px-6 py-4 text-gray-600">
                                 {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
                             </td>
-                            <td class="px-6 py-4 text-gray-600">{{ $appointment->payment->status }}</td>
-
+                            <td class="px-6 py-4 text-gray-600">
+                                @if($appointment->payment->status === 'due')
+                                <button wire:click="confirmCollect({{ $appointment->id }})" class="text-red-600 underline">
+                                    {{ ucfirst($appointment->payment->status) }}
+                                </button>
+                                @else
+                                {{ ucfirst($appointment->payment->status) }}
+                                @endif
+                            </td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
                                     @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800

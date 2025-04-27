@@ -81,6 +81,28 @@ class Dashboard extends Component
         // dd('shaique');
         $this->step++;
     }
+    public function confirmCollect($appointmentId)
+    {
+        $appointment = Appointment::findOrFail($appointmentId);
+        $pendingAmount = $appointment->doctor->fee - $appointment->payment->paid_amount; // or calculate how much is due
+// dd($pendingAmount);
+
+        $this->dispatch('show-collect-confirmation', [
+            'appointmentId' => $appointmentId,
+            'pendingAmount' => $pendingAmount
+        ]);
+    }
+    #[On('collectNow')]
+    public function collectNow($appointmentId)
+    {
+        $appointment = Appointment::findOrFail($appointmentId);
+        $appointment->payment->update([
+            'status' => 'paid',
+            'settlement' => true,
+        ]);
+
+        $this->dispatch('payment-collected-success'); // You can use this to show a success toast
+    }
 
     public function updatedDoctorId($value)
     {
@@ -207,7 +229,7 @@ class Dashboard extends Component
             'paid_amount' => $this->amount,
             'mode' => 'Cash',
             'settlement' => $this->settlement,
-            'status' => $this->settlement ? 'paid':'due',
+            'status' => $this->settlement ? 'paid' : 'due',
         ];
         $new_appointment->payment()->create($payment_details);
 
@@ -223,7 +245,7 @@ class Dashboard extends Component
 
     public function viewAppointment($appointmentId)
     {
-        
+
         try {
             $appointment = Appointment::with(['doctor', 'patient'])
                 ->where('id', $appointmentId)
