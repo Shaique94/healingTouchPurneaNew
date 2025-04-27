@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -32,12 +33,17 @@ class Dashboard extends Component
     public $appointmentId;
     public $doctor_name;
     public $selectedDoctorId;
+    public $editpatientModal = false;
+    public $amount;
+    public $settlement = true;
+
 
 
 
 
     public function mount()
     {
+
         $this->loadAppointments();
         $this->doctors = Doctor::with('user')->get();
     }
@@ -64,6 +70,8 @@ class Dashboard extends Component
                 'appointment_date' => 'required|date',
                 'appointment_time' => 'required',
                 'notes' => 'nullable|string',
+                'amount' => 'required|numeric|min:0',
+                'settlement' => 'boolean',
             ]);
             // dd($this->doctor_id);
             $doctor_name = Doctor::where('id', $this->doctor_id)->first();
@@ -72,6 +80,54 @@ class Dashboard extends Component
         }
         // dd('shaique');
         $this->step++;
+    }
+    public function confirmCollect($appointmentId)
+    {
+        $appointment = Appointment::findOrFail($appointmentId);
+        $pendingAmount = $appointment->doctor->fee - $appointment->payment->paid_amount; // or calculate how much is due
+// dd($pendingAmount);
+
+        $this->dispatch('show-collect-confirmation', [
+            'appointmentId' => $appointmentId,
+            'pendingAmount' => $pendingAmount
+        ]);
+    }
+    #[On('collectNow')]
+    public function collectNow($appointmentId)
+    {
+        $appointment = Appointment::findOrFail($appointmentId);
+        $appointment->payment->update([
+            'paid_amount' => $appointment->doctor->fee,
+            'status' => 'paid',
+            'settlement' => true,
+        ]);
+
+        $this->dispatch('payment-collected-success'); 
+    }
+
+    public function updatedDoctorId($value)
+    {
+        logger('Selected doctor ID:', ['doctor_id' => $value]);
+        $doctor = Doctor::find($value);
+        if ($doctor) {
+            $this->amount = $doctor->fee;
+            logger('Doctor fee set to:', ['fee' => $doctor->fee]);
+        } else {
+            $this->amount = null;
+            logger('No doctor found for ID:', [$value]);
+        }
+    }
+
+    public function editAppointment($appointmentId)
+    {
+        $this->editpatientModal = true;
+        $this->appointmentId = $appointmentId;
+    }
+
+    #[On("closeEditModal")]
+    public function closeEditModal()
+    {
+        $this->editpatientModal = false;
     }
 
     public function backStep()
@@ -126,6 +182,9 @@ class Dashboard extends Component
             'doctor_id' => 'required|exists:doctors,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
+            'amount' => 'required|numeric|min:0',
+            'settlement' => 'boolean',
+            'notes' => 'nullable|string|max:255',
         ]);
 
         // You can save patient and appointment here
@@ -142,7 +201,7 @@ class Dashboard extends Component
             'state' => $this->state,
             'country' => $this->country,
         ]);
-        
+
         $lastQueueNumber = Appointment::where('appointment_date', $this->appointment_date)
             ->orderBy('queue_number', 'desc')
             ->value('queue_number');
@@ -161,20 +220,20 @@ class Dashboard extends Component
         ]);
 
         $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
-        $appointmentNo=$new_appointment->update([
+        $appointmentNo = $new_appointment->update([
             'appointment_no' => intval($datePrefix . str_pad($new_appointment->id, 4, '0', STR_PAD_LEFT))
         ]);
         //work left here to make it dynamic
         $doctor_details = Doctor::where('id', $this->doctor_id)->first();
         $payment_details = [
             'appointment_id' => $new_appointment->id,
-            'paid_amount' => $doctor_details->fee,
+            'paid_amount' => $this->amount,
             'mode' => 'Cash',
-            'settlement'=> true,
-            'status' => 'paid',
+            'settlement' => $this->settlement,
+            'status' => $this->settlement ? 'paid' : 'due',
         ];
         $new_appointment->payment()->create($payment_details);
-        
+
 
         $this->step++;
 
@@ -187,36 +246,18 @@ class Dashboard extends Component
 
     public function viewAppointment($appointmentId)
     {
-        // $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
-        // if (!$appointment) {
-        //     session()->flash('error', 'Appointment not found.');
-        //     return;
-        // }
 
-        // $data = [
-        //     'appointment' => $appointment,
-        //     'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
-        //     'hospital_name' => 'Healing Touch Hospital',
-        //     'hospital_address' => 'Purnea, Bihar',
-        //     'hospital_contact' => '+91-123-456-7890',
-        // ];
-
-        // $pdf = Pdf::loadView('pdf.patient-reciept', $data);
-        // return response()->streamDownload(function () use ($pdf) {
-        //     echo $pdf->stream();
-        // }, 'appointment_receipt.pdf');
         try {
             $appointment = Appointment::with(['doctor', 'patient'])
                 ->where('id', $appointmentId)
                 ->firstOrFail();
 
             $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
-                    ->setPaper('a4');
+                ->setPaper('a4');
 
             return response()->streamDownload(function () use ($pdf) {
                 echo $pdf->output();
             }, 'appointment-receipt.pdf');
-
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             \Log::error('Appointment not found: ' . $id);
             session()->flash('error', 'Appointment not found.');
@@ -319,7 +360,7 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
-    } 
+    }
     public function logout()
     {
         Auth::logout();

@@ -18,7 +18,7 @@
             </svg>
         </button>
     </div>
- 
+
     <!-- Sidebar for desktop and mobile (when opened) -->
     <aside id="sidebar" class="w-full md:w-64 bg-white shadow-lg p-6 md:block fixed md:static inset-0 z-20 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
         <!-- Close button for mobile -->
@@ -41,13 +41,13 @@
         </div>
 
         <nav class="space-y-2">
-            <a wire:navigate  href="{{ route('reception.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg bg-beige-100 text-beige-700 font-medium transition-all duration-200">
+            <a wire:navigate href="{{ route('reception.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg bg-beige-100 text-beige-700 font-medium transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 Dashboard
             </a>
-            <a wire:click="openModal"  class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200">
+            <a wire:click="openModal" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-beige-100 hover:text-beige-700 font-medium transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12h6m-3-3v6m-6 6h12a2 2 0 002-2V7a2 2 0 00-2-2h-3.586a1 1 0 01-.707-.293l-.707-.707A1 1 0 0012 4h-1a1 1 0 00-.707.293l-.707.707A1 1 0 019.586 5H6a2 2 0 00-2 2v13a2 2 0 002 2z" />
@@ -101,7 +101,7 @@
             </a>
 
             <div class="pt-6 mt-6 border-t border-gray-200">
-                <a wire:navigate   wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
+                <a wire:navigate wire:click="logout" class="flex items-center px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 font-medium transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
@@ -343,7 +343,7 @@
                 </button>
             </div>
         </div>
-        @elseif($step === 2) 
+        @elseif($step === 2)
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -357,27 +357,23 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Doctor Select -->
                 <div class="group">
-                    <label for="doctor_id" class="block text-sm font-medium text-gray-700 mb-2">Select Doctor</label>
+                    <label for="doctor_id" class="block text-sm font-medium text-beige-800 mb-2">Select Doctor</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-beige-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <select id="doctor_id" wire:model="doctor_id"
-                            class="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-white appearance-none transition-colors">
+                        <select id="doctor_id" wire:model.lazy="doctor_id"
+                            class="pl-10 w-full px-4 py-2 border border-beige-300 rounded-lg shadow-sm focus:ring-2 focus:ring-beige-500 focus:border-beige-500 focus:outline-none bg-beige-50 appearance-none transition-colors">
                             <option value="">Choose Doctor</option>
                             @foreach($doctors as $doctor)
                             <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
                             @endforeach
                         </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                        @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
+                        
                     </div>
+                    @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Appointment Date -->
@@ -425,6 +421,28 @@
                     </div>
                 </div>
             </div>
+            <!--here we re adding mark as settled and amount field-->
+            <div class="mb-4">
+                <label class="block text-beige-800 text-sm font-medium mb-2">Amount</label>
+                <div class="relative max-w-xs">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-beige-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                    <input
+                        type="number"
+                        wire:model="amount"
+                        class="shadow-sm border border-beige-300 bg-beige-50 rounded-lg w-full py-2 pl-10 pr-3 text-beige-800 leading-tight focus:outline-none focus:ring-2 focus:ring-beige-500 focus:border-beige-500 transition duration-200"
+                        placeholder="Doctor's Fees will auto-fill here">
+                </div>
+                @error('amount') <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+            </div>
+            <div class="flex items-center mb-4">
+                <input type="checkbox" wire:model="settlement" id="settlement" class="mr-2 leading-tight">
+                <label for="settlement" class="text-sm text-gray-700">Mark as Settled</label>
+            </div>
+
 
             <div class="flex justify-between mt-8">
                 <button wire:click="backStep"
@@ -588,7 +606,7 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a wire:navigate 
+                <a wire:navigate
                     wire:click.prevent="viewAppointment({{ $appointmentId }})"
                     target="_blank"
                     class="inline-flex items-center justify-center px-6 py-3 bg-beige-600 text-white rounded-lg hover:bg-beige-700 transition-colors duration-200 shadow-md">
@@ -599,7 +617,7 @@
                     Download Receipt
                 </a>
 
-                <a wire:navigate  href="{{ route('reception.dashboard') }}"
+                <a wire:navigate href="{{ route('reception.dashboard') }}"
                     class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -649,6 +667,7 @@
                             <th class="px-6 py-3 text-left">Address</th>
                             <th class="px-6 py-3 text-left">City</th>
                             <th class="px-6 py-3 text-left">Assigned Doctor</th>
+                            <th class="px-6 py-3 text-left">Payment Status</th>
                             <th class="px-6 py-3 text-left">Status</th>
                             <th class="px-6 py-3 text-right">Actions</th>
                         </tr>
@@ -662,6 +681,24 @@
                             <td class="px-6 py-4 text-gray-600">{{ $appointment->patient->city }}</td>
                             <td class="px-6 py-4 text-gray-600">
                                 {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
+                            </td>
+                            <td class="px-6 py-4">
+                                @if($appointment->payment && $appointment->payment->status === 'due')
+                                <button wire:click="confirmCollect({{ $appointment->id }})"
+                                    class="bg-red-100 text-red-700 py-1 px-3 rounded-md font-medium text-xs flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {{ ucfirst($appointment->payment->status) }}
+                                </button>
+                                @else
+                                <span class="bg-beige-100 text-beige-700 py-1 px-3 rounded-md font-medium text-xs flex items-center inline-flex">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    {{ ucfirst($appointment->payment->status) }}
+                                </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
@@ -685,7 +722,7 @@
                                     {{ ucfirst($appointment->status) }}
                                 </span>
                             </td>
- 
+
                             <td class="px-6 py-4 text-right">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     @if($appointment->status === 'pending')
@@ -700,7 +737,16 @@
                                         Cancel
                                     </button>
                                     @elseif($appointment->status === 'checked_in')
-                                    <a wire:navigate  
+                                    <button wire:click.prevent="editAppointment({{ $appointment->id }})"
+                                        class="bg-beige-600 hover:bg-beige-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center text-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                        </svg>
+                                        Edit
+                                    </button>
+
+
+                                    <a wire:navigate
                                         target="_blank"
                                         class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
                                         wire:click.prevent="viewAppointment({{ $appointment->id }})">
@@ -731,6 +777,9 @@
                 </table>
             </div>
         </div>
+        @endif
+        @if($editpatientModal)
+        <livewire:reception.edit-appointment :appointmentId="$appointmentId" />
         @endif
 
     </main>
