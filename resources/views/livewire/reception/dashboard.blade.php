@@ -163,7 +163,7 @@
         </div>
         @if($showModal)
         <!-- Multi-step Logic -->
-        @if($step === 2)
+        @if($step === 1)
         <!-- STEP 1: Patient Information -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -343,7 +343,7 @@
                 </button>
             </div>
         </div>
-        @elseif($step === 1)
+        @elseif($step === 2)
         <!-- STEP 2: Appointment Details -->
         <div class="px-6 py-8 bg-white rounded-xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
@@ -683,7 +683,7 @@
                                 {{ $appointment->doctor->user->name }} ({{$appointment->doctor->department->name}})
                             </td>
                             <td class="px-6 py-4">
-                                @if($appointment->payment->status === 'due')
+                                @if($appointment->payment && $appointment->payment->status === 'due')
                                 <button wire:click="confirmCollect({{ $appointment->id }})"
                                     class="bg-red-100 text-red-700 py-1 px-3 rounded-md font-medium text-xs flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
