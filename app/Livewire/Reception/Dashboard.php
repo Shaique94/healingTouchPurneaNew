@@ -97,6 +97,7 @@ class Dashboard extends Component
     {
         $appointment = Appointment::findOrFail($appointmentId);
         $appointment->payment->update([
+            'paid_amount' => $appointment->doctor->fee,
             'status' => 'paid',
             'settlement' => true,
         ]);
