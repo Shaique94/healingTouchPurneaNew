@@ -12,16 +12,6 @@ class Careers extends Component
 {
     public $search = '';
     public $showModal = false;
-    public $metaKeywords;
-    public $metaDescription;
-    public $hospital_name;
-
-    public function mount(){
-        $this->hospital_name = Setting::get('hospital_name');
-        $this->metaKeywords = "hospital jobs Purnea, medical careers Bihar, healthcare job openings, work at $this->hospital_name";
-        $this->metaDescription = "Explore exciting career opportunities at $this->hospital_name, Purnea. Join our team of healthcare professionals and grow your career.";
-        
-    }
     #[Layout('layouts.guest')]
 
     public function openModal()

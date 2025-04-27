@@ -13,16 +13,6 @@ class OurDoctors extends Component
 {
     public $search = '';
 
-    public $metaKeywords;
-    public $metaDescription;
-    public $hospital_name;
-
-    public function mount(){
-        $this->hospital_name = Setting::get('hospital_name');
-        $this->metaKeywords = "best doctors Purnea, specialist doctors Bihar, top consultants $this->hospital_name, find doctor online";
-        $this->metaDescription = "Meet our team of highly qualified doctors at $this->hospital_name, Purnea. Book an online appointment with a specialist today.";
-        
-    }
     #[Layout('layouts.guest')]
     public function render()
     {

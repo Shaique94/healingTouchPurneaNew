@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Cache;
 class PrivacyPolicy extends Component
 {
     public $settings = [];
-    public $metaKeywords;
-    public $metaDescription;
     public function mount()
     {
         $this->settings = [
@@ -23,9 +21,7 @@ class PrivacyPolicy extends Component
             'contact_phone' => Setting::get('contact_phone', '+91 9471659700'),
             'address' => Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301'),
         ];
-        $this->metaKeywords = "$this->hospital_name privacy policy, hospital data protection, personal information security, patient confidentiality $this->hospital_name";
-$this->metaDescription = "Learn how $this->hospital_name, Purnea, protects your personal information and maintains complete confidentiality of patient records.";
-
+    
     }
     public function render()
     {
