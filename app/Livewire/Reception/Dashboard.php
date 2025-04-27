@@ -102,7 +102,7 @@ class Dashboard extends Component
             'settlement' => true,
         ]);
 
-        $this->dispatch('payment-collected-success'); // You can use this to show a success toast
+        $this->dispatch('payment-collected-success'); 
     }
 
     public function updatedDoctorId($value)
