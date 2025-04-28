@@ -86,7 +86,10 @@
   <script>
     document.addEventListener('livewire:init', () => {
       Livewire.on('show-collect-confirmation', data => {
-const { appointmentId, pendingAmount } = data[0]; 
+        const {
+          appointmentId,
+          pendingAmount
+        } = data[0];
 
         Swal.fire({
           title: 'Collect Payment',
@@ -112,8 +115,31 @@ const { appointmentId, pendingAmount } = data[0];
           'success'
         )
       });
+
+      Livewire.on('alert', event => {
+        // console.log(event[0].message);
+
+        Swal.fire({
+          title: 'Confirmation',
+          icon: 'warning', // 'success' or 'error'
+          html: event[0].message, // HTML content
+          showConfirmButton: true, // Show OK button
+          showCancelButton: true, // Show Cancel button
+          confirmButtonText: 'OK', // Optional: change text
+          cancelButtonText: 'Cancel', // Optional: change text
+          timer: undefined, // REMOVE timer if you want user to choose manually
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log('User clicked OK');
+          } else if (result.isDismissed) {
+            console.log('User clicked Cancel');
+          }
+        });
+      });
     });
   </script>
+
+
 
 </body>
 

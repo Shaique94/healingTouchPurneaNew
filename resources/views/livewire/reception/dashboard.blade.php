@@ -371,7 +371,7 @@
                             <option value="{{ $doctor->id }}">{{ $doctor->user->name }}</option>
                             @endforeach
                         </select>
-                        
+
                     </div>
                     @error('doctor_id') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
@@ -727,12 +727,10 @@
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     @if($appointment->status === 'pending')
                                     <button wire:click.prevent="checkIn({{ $appointment->id }})"
-                                        wire:confirm="Are you sure you want to check in this post?"
                                         class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
                                         CheckIn
                                     </button>
                                     <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
-                                        wire:confirm="Are you sure you want to cancel the appointment?"
                                         class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
                                         Cancel
                                     </button>
@@ -744,8 +742,6 @@
                                         </svg>
                                         Edit
                                     </button>
-
-
                                     <a wire:navigate
                                         target="_blank"
                                         class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"

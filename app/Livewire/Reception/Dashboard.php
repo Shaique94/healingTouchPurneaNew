@@ -197,7 +197,7 @@ class Dashboard extends Component
             'gender' => $this->gender,
             'address' => $this->address,
             'pincode' => $this->pincode,
-            'city' => $this->city,
+            'city' => $this->city, 
             'state' => $this->state,
             'country' => $this->country,
         ]);
@@ -351,6 +351,11 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
+        $this->dispatch('alert', [
+            'type' => 'success',
+            'message' => 'Appointment checked in successfully.'
+        ]);
+
     }
     public  function cancelAppointment($appointmentId)
     {
@@ -360,6 +365,10 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
+        $this->dispatch('alert', [
+            'type' => 'success',
+            'message' => 'Appoinement Cancelled successfully'
+        ]);
     }
     public function logout()
     {
