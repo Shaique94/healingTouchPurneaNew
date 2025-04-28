@@ -260,7 +260,7 @@
                             <!-- Show Doctor Grid if no doctor selected -->
                         @else
                             @if (count($doctors) > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                                     @foreach ($doctors as $doctor)
                                         <div wire:click="selectDoctor({{ $doctor->id }})"
                                             class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300

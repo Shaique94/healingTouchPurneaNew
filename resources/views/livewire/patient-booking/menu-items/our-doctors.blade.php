@@ -26,23 +26,23 @@
     </div>
 
     {{-- Doctor Grid with fixed height cards --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 lg:gap-8 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @forelse ($doctors as $doctor)
-        <a wire:navigate href="{{ route('doctors.detail', $doctor->id) }}" class="block h-full">
-        <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col lg:p-2">
-            <div class="p-4 lg:p-6 flex-grow">
-                <div class="flex items-start gap-4 lg:gap-6">
+        <a wire:navigate  href="{{ route('doctors.detail', $doctor->id) }}" class="block h-full">
+        <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
+            <div class="p-6 flex-grow">
+                <div class="flex items-start gap-5">
                     <div class="flex-shrink-0">
                         <img
-                            class="w-20 h-20 lg:w-28 lg:h-28 rounded-full object-cover border-2 border-beige-100 shadow"
+                            class="w-20 h-20 rounded-full object-cover border-2 border-beige-100 shadow"
                             src="{{ $doctor->image ? asset('storage/' . $doctor->image): asset('images/default.jpg') }}"
                             alt="Dr. {{ $doctor->user->name }}">
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h3 class="text-xl lg:text-2xl font-bold text-gray-800 truncate">Dr. {{ $doctor->user->name }}</h3>
-                        <p class="text-sm lg:text-base font-medium text-beige-600 truncate">{{ $doctor->department->name }}</p>
-                        <p class="text-sm lg:text-base font-medium text-gray-600 line-clamp-1">{{ $doctor->qualification }}</p>
-                        <p class="font-medium text-xs lg:text-sm line-clamp-1">{{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}</p>
+                        <h3 class="text-xl font-bold text-gray-800 truncate">Dr. {{ $doctor->user->name }}</h3>
+                        <p class="text-sm font-medium text-beige-600 truncate">{{ $doctor->department->name }}</p>
+                        <p class="text-sm font-medium text-gray-600 line-clamp-1">{{ $doctor->qualification }}</p>
+                        <p class="font-medium text-xs line-clamp-1">{{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}</p>
                     </div>
                 </div>
 
