@@ -55,7 +55,7 @@ class SendTomorrowAppointmentsPDF implements ShouldQueue
             ];
 
             $pdf = Pdf::loadView('pdf.tomorrow-appointments', $data);
-            Log::info("pdf created");
+            Log::info("pdf created and mail sending started");
             Mail::to($doctorEmail)->send(new AppointmentReceiptMail($data, $pdf));
         }
     }
