@@ -2,7 +2,7 @@
     <section id="services" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h1 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-beige-600">Services</span></h1>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-beige-600">Services</span></h2>
                 <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
                 <p class="text-gray-600 max-w-3xl mx-auto">
                     We offer a comprehensive range of medical services to meet all your healthcare needs
