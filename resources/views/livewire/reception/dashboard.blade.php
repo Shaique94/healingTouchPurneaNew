@@ -689,14 +689,14 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    {{ ucfirst($appointment->payment->status) }}
+                                    Due
                                 </button>
                                 @else
                                 <span class="bg-beige-100 text-beige-700 py-1 px-3 rounded-md font-medium text-xs flex items-center inline-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    {{ ucfirst($appointment->payment->status) }}
+                                    Paid
                                 </span>
                                 @endif
                             </td>
