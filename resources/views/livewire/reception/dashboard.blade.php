@@ -726,7 +726,7 @@
                             <td class="px-6 py-4 text-right">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
                                     @if($appointment->status === 'pending')
-                                    <button wire:click.prevent="checkIn({{ $appointment->id }})"
+                                    <button wire:click.prevent="confirmCheckIn({{ $appointment->id }})"
                                         class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
                                         CheckIn
                                     </button>

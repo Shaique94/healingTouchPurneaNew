@@ -343,20 +343,49 @@ class Dashboard extends Component
         $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
     }
 
-    public function checkIn($appointmentId)
-    {
-        $appointment = Appointment::find($appointmentId);
-        if ($appointment) {
-            $appointment->status = 'checked_in';
-            $appointment->save();
-            $this->loadAppointments();
-        }
-        $this->dispatch('alert', [
-            'type' => 'success',
-            'message' => 'Appointment checked in successfully.'
-        ]);
+    // public function checkIn($appointmentId)
+    // {
+    //     $appointment = Appointment::find($appointmentId);
+    //     if ($appointment) {
+    //         $appointment->status = 'checked_in';
+    //         $appointment->save();
+    //         $this->loadAppointments();
+    //     }
+    //     $this->dispatch('alert', [
+    //         'type' => 'success',
+    //         'message' => 'Appointment checked in successfully.'
+    //     ]);
 
+    // }
+    public function confirmCheckIn($appointmentId)
+{
+    $this->dispatch('confirm-check-in', [
+        'appointmentId' => $appointmentId,
+    ]);
+}
+#[On('doCheckIn')]
+public function doCheckIn(array $payload = [])
+{
+    $appointmentId = $payload['appointmentId'] ?? null;
+
+    if (!$appointmentId) {
+        // maybe throw error or return
+        return;
     }
+
+    $appointment = Appointment::find($appointmentId);
+    if ($appointment) {
+        $appointment->status = 'checked_in';
+        $appointment->save();
+        $this->loadAppointments();
+    }
+
+    $this->dispatch('alert', [
+        'type' => 'success',
+        'message' => 'Appointment checked in successfully.'
+    ]);
+
+}
     public  function cancelAppointment($appointmentId)
     {
         $appointment = Appointment::find($appointmentId);
