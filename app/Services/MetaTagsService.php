@@ -27,7 +27,7 @@ class MetaTagsService
             // Define all route specific tags
             $routeTags = [
                 'userlandingpage' => [
-                    'keywords' => "$hospitalName, best hospital in Purnea,  healthcare services Bihar, top doctors, emergency hospital Purnea",
+                    'keywords' => "$hospitalName, best hospital in Purnea, emergency hospital Purnea, emergency hospital near me, 24 hour hospital near me, er rooms near me, hospital near me, 24 hrs hospital near me, 24 7 hospital near me, emergency hospital, 24 hours clinic near me, emergency hospital near me 24 hours",
                     'description' => "Welcome to $hospitalName, leading hospital in Purnea."
                 ],
                 'book.appointment' => [
@@ -35,8 +35,8 @@ class MetaTagsService
                     'description' => "Book your appointment at $hospitalName, Purnea"
                 ],
                 'our.doctors' => [
-                    'keywords' => "best doctors Purnea, specialist doctors Bihar, top consultants $hospitalName, find doctor online",
-                    'description' => "Meet our team of highly qualified doctors at $hospitalName, Purnea. Book an online appointment with a specialist today."
+                    'keywords' => "best doctors Purnea, specialist doctors Bihar, top consultants $hospitalName, find doctor online, gyno doctors in Purnea, women health specialists Purnea, gynecology clinics in Purnea, General surgeons Purnea Bihar",
+                    'description' => "Meet our team of highly qualified doctors at $hospitalName, Purnea. book an online appointment with a specialist today."
                 ],
                 'careers.page' => [
                     'keywords' => "hospital jobs Purnea, medical careers Bihar, healthcare job openings, work at $hospitalName",
