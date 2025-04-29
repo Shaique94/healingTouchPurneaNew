@@ -264,62 +264,62 @@
                                     @foreach ($doctors as $doctor)
                                         <div wire:click="selectDoctor({{ $doctor->id }})"
                                             class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
-                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md' }}">
+                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md hover:border-beige-200' }}">
 
-                                            <div class="flex items-center p-3 border-b">
-                                                <div
-                                                    class="w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
-                                                    <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('images/default.jpg') }}"
-                                                        alt="Dr. {{ $doctor->user->name }}"
-                                                        class="w-full h-full object-cover">
+                                            <!-- Enhanced doctor card design with better visuals -->
+                                            <div class="bg-gradient-to-br from-beige-50 to-beige-100 p-5 text-center border-b">
+                                                <div class="relative">
+                                                    <!-- Available days badge -->
+                                                    <div class="absolute -top-1 -right-1 bg-beige-600 text-white text-xs px-2 py-1 rounded-full z-10 shadow-sm">
+                                                            ₹{{ $doctor->fee }} Fee
+                                                    </div>
+                                                    
+                                                    <div class="w-24 h-24 rounded-full overflow-hidden bg-white mx-auto border-4 border-white shadow-md">
+                                                        <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('images/default.jpg') }}"
+                                                            alt="Dr. {{ $doctor->user->name }}"
+                                                            class="w-full h-full object-cover">
+                                                    </div>
                                                 </div>
-                                                <div class="ml-3">
-                                                    <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">Dr.
-                                                        {{ $doctor->user->name }}</h3>
-                                                    <p class="text-xs text-beige-600">{{ $doctor->department->name }}
-                                                    </p>
+                                                
+                                                <div class="mt-4">
+                                                    <h3 class="text-gray-900 font-bold">Dr. {{ $doctor->user->name }}</h3>
+                                                    <p class="text-beige-600 text-sm font-medium">{{ $doctor->department->name }}</p>
+                                                    
+                                                    <!-- Fee display -->
+                                                    <div class="mt-1 flex items-center justify-center">
+                                                        <span class="bg-beige-100 text-beige-800 text-xs px-2 py-1 rounded-full font-medium">
+                                                            ₹{{ $doctor->fee }} Fee
+                                                        </span>
+                                                    </div>
+                                                    
+                                                    <!-- Available days display -->
+                                                    <div class="mt-3 flex flex-wrap justify-center gap-1">
+                                                        @if(is_array($doctor->available_days))
+                                                            @foreach(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as $index => $day)
+                                                                @php 
+                                                                    $weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                                                    $fullDay = $weekdays[$index];
+                                                                    $isAvailable = in_array($fullDay, $doctor->available_days);
+                                                                @endphp
+                                                                <div class="w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium
+                                                                    {{ $isAvailable 
+                                                                        ? 'bg-beige-400 text-white border border-beige-500' 
+                                                                        : 'bg-gray-100 text-gray-400' }}"
+                                                                    title="{{ $fullDay }}">
+                                                                    {{ substr($day, 0, 1) }}
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <!-- Prominent select doctor button -->
+                                                    <button class="mt-4 w-full py-2 bg-beige-600 hover:bg-beige-700 text-white rounded-md text-sm font-medium transition-colors flex items-center justify-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                        Select Doctor
+                                                    </button>
                                                 </div>
-                                            </div>
-
-                                            <div class="p-3 text-xs text-gray-600 space-y-2 flex-grow">
-                                                <div class="flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                                    </svg>
-                                                    {{ $doctor->qualification }}
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                    ₹{{ $doctor->fee }} Fee
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-3.5 w-3.5 mr-1 text-gray-500" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                    </svg>
-                                                    {{ is_array($doctor->available_days) ? implode(', ', $doctor->available_days) : '-' }}
-                                                </div>
-                                            </div>
-
-                                            <div class="px-3 pb-3">
-                                                <button
-                                                    class="w-full py-1.5 text-xs font-medium rounded-md transition-colors
-                                            bg-gray-100 text-gray-800 hover:bg-gray-200">
-                                                    Select Doctor
-                                                </button>
                                             </div>
                                         </div>
                                     @endforeach
@@ -851,19 +851,11 @@
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
                                     </svg>
                                 </span>
                             </button>
                         </div>
-                        
-                        <!-- Error Message Display -->
-                        @if (session()->has('error'))
-                            <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
-                                <p class="text-red-600">{{ session('error') }}</p>
-                            </div>
-                        @endif
                     </div>
                 </div>
             @endif
