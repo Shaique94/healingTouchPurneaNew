@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>
-        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
+        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
+    </title>
     <meta property="og:url" content="{{ url()->current() }}">
     <link rel="canonical" href="{{ url()->current() }}">
 
@@ -27,7 +28,7 @@
                 "addressLocality": "Purnea",
                 "addressRegion": "Bihar",
                 "postalCode": "854301",
-                "addressCountry": "India"
+                "addressCountry": "IN"
               },
               "contactPoint": {
                 "@type": "ContactPoint",
@@ -37,37 +38,38 @@
                 "availableLanguage": ["English", "Hindi"]
               },
               "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
-        "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
-        "department": [
-            {
-            "@type": "MedicalClinic",
-            "name": "Surgery Department",
-            "medicalSpecialty": "General Surgery",
-            "availableService": "Laparoscopic and laser surgeries",
-            "physician": {
-                "@type": "Physician",
-                "name": "Dr. Charly Kumar Sinha",
-                "medicalSpecialty": "Surgery",
-                "jobTitle": "Senior Surgeon"
-            }
-            },
-        ]
-    {
-      "@type": "MedicalClinic",
-      "name": "Gynecology Department",
-      "medicalSpecialty": "Gynecology",
-      "physician": {
-        "@type": "Physician",
-        "name": "Dr. Kiran Kumari",
-        "medicalSpecialty": "Gynecology"
-      }
-    }
+              "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
+              "department": [
+                {
+                  "@type": "MedicalClinic",
+                  "name": "Surgery Department",
+                  "medicalSpecialty": "General Surgery",
+                  "availableService": "Laparoscopic and laser surgeries",
+                  "physician": {
+                    "@type": "Physician",
+                    "name": "Dr. Charly Kumar Sinha",
+                    "medicalSpecialty": "Surgery",
+                    "jobTitle": "Senior Surgeon"
+                  }
+                },
+                {
+                  "@type": "MedicalClinic",
+                  "name": "Gynecology Department",
+                  "medicalSpecialty": "Gynecology",
+                  "physician": {
+                    "@type": "Physician",
+                    "name": "Dr. Kiran Kumari",
+                    "medicalSpecialty": "Gynecology"
+                  }
+                }
+              ],
               "sameAs": [
                 "https://www.facebook.com/profile.php?id=61573927387041",
-                "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",
+                "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx"
               ]
             }
             </script>
+
     @php
         $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
         $js = $manifest['resources/js/app.js']['file'] ?? null;
