@@ -285,12 +285,7 @@
                                                     <h3 class="text-gray-900 font-bold">Dr. {{ $doctor->user->name }}</h3>
                                                     <p class="text-beige-600 text-sm font-medium">{{ $doctor->department->name }}</p>
                                                     
-                                                    <!-- Fee display -->
-                                                    <div class="mt-1 flex items-center justify-center">
-                                                        <span class="bg-beige-100 text-beige-800 text-xs px-2 py-1 rounded-full font-medium">
-                                                            ₹{{ $doctor->fee }} Fee
-                                                        </span>
-                                                    </div>
+                                                  
                                                     
                                                     <!-- Available days display -->
                                                     <div class="mt-3 flex flex-wrap justify-center gap-1">
