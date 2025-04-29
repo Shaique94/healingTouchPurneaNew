@@ -7,11 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}</title>
+        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
+    </title>
     <!-- SEO Meta Tags -->
     @php
         $route = request()->route()?->getName();
-        $doctorId = $doctor->id ?? request()->route('doctorId') ?? null;
+        $doctorId = $doctor->id ?? (request()->route('doctorId') ?? null);
         $metaTags = App\Services\MetaTagsService::getTags($route, ['doctor' => $doctorId]);
     @endphp
     <meta name="keywords" content="{{ $metaTags['keywords'] ?? '' }}">
@@ -39,59 +40,59 @@
 
     <!-- Structured Data with JSON-LD -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Hospital",
-      "name": "Healing Touch Hospital",
-      "url": "https://healingtouchpurnea.com/",
-      "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
-        "addressLocality": "Purnea",
-        "addressRegion": "Bihar",
-        "postalCode": "854301",
-        "addressCountry": "IN"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-9471659700",
-        "contactType": "Customer Support",
-        "areaServed": "IN",
-        "availableLanguage": ["English", "Hindi"]
-      },
-      "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
+      {
+        "@context": "https://schema.org",
+        "@type": "Hospital",
+        "name": "Healing Touch Hospital",
+        "url": "https://healingtouchpurnea.com/",
+        "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
+          "addressLocality": "Purnea",
+          "addressRegion": "Bihar",
+          "postalCode": "854301",
+          "addressCountry": "IN"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-9471659700",
+          "contactType": "Customer Support",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Hindi"]
+        },
+        "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
         "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
         "department": [
-            {
+          {
             "@type": "MedicalClinic",
             "name": "Surgery Department",
             "medicalSpecialty": "General Surgery",
             "availableService": "Laparoscopic and laser surgeries",
             "physician": {
-                "@type": "Physician",
-                "name": "Dr. Charly Kumar Sinha",
-                "medicalSpecialty": "Surgery",
-                "jobTitle": "Senior Surgeon"
+              "@type": "Physician",
+              "name": "Dr. Charly Kumar Sinha",
+              "medicalSpecialty": "Surgery",
+              "jobTitle": "Senior Surgeon"
             }
-            },
+          },
+          {
+            "@type": "MedicalClinic",
+            "name": "Gynecology Department",
+            "medicalSpecialty": "Gynecology",
+            "physician": {
+              "@type": "Physician",
+              "name": "Dr. Kiran Kumari",
+              "medicalSpecialty": "Gynecology"
+            }
+          }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61573927387041",
+          "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx"
         ]
-    {
-      "@type": "MedicalClinic",
-      "name": "Gynecology Department",
-      "medicalSpecialty": "Gynecology",
-      "physician": {
-        "@type": "Physician",
-        "name": "Dr. Kiran Kumari",
-        "medicalSpecialty": "Gynecology"
       }
-    }
-      "sameAs": [
-        "https://www.facebook.com/profile.php?id=61573927387041",
-        "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx",
-      ]
-    }
-    </script>
+      </script>
 
     <link rel="icon" href="https://healingtouchpurnea.com/healingTouchLogo.jpeg" type="image/x-icon">
 
@@ -114,14 +115,17 @@
     @livewireStyles
 
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SX9KFPHCCD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX9KFPHCCD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-SX9KFPHCCD');
-</script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-SX9KFPHCCD');
+    </script>
 </head>
 <livewire:patient-booking.header />
 
