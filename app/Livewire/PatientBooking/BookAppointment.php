@@ -51,7 +51,10 @@ class BookAppointment extends Component
     public $country ;
     public $notes;
     public $payment_method = 'pay_at_hospital'; // Changed default value from 'cash'
-   
+    public $OnlinePayment;
+    public $metaKeywords;
+    public $metaDescription;
+    public $hospital_name;
     public function mount($doctorId = null)
     {
         $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
@@ -60,6 +63,10 @@ class BookAppointment extends Component
             $this->getDoctorDetails();
             $this->generateTimeSlots();
         }
+        $this->hospital_name = Setting::get('hospital_name');
+        $this->metaKeywords = "book doctor appointment online Purnea, online healthcare booking, hospital appointment $this->hospital_name, quick doctor consultation";
+        $this->metaDescription = "Book your doctor appointment online easily at $this->hospital_name, Purnea. Consult with specialists and get the best medical care.";
+
     }
 
 
@@ -365,12 +372,12 @@ class BookAppointment extends Component
        
         $formattedTime = $this->convertTimeFormat($this->appointmentTime);
 
-        $lastQueueNumber = Appointment::where('appointment_date', $this->appointmentDate)
+        $lastQueueNumber = Appointment::where('doctor_id', $this->selectedDoctor)
+            ->where('appointment_date', $this->appointmentDate)
             ->orderBy('queue_number', 'desc')
             ->value('queue_number');
 
         $queueNumber = $lastQueueNumber ? $lastQueueNumber + 1 : 1;
-
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
             'doctor_id' => $this->selectedDoctor,
