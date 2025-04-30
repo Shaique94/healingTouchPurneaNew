@@ -40,9 +40,9 @@ class SendTomorrowAppointmentsPDF implements ShouldQueue
 
         $appointments = $query->get();
 
-        if ($appointments->isEmpty()) {
-            return;
-        }
+        // if ($appointments->isEmpty()) {
+        //     return;
+        // }
 
         if ($this->selectedDoctorId) {
             $doctor = Doctor::find($this->selectedDoctorId);
