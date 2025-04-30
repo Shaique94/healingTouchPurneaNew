@@ -1,68 +1,74 @@
 <div>
-    <section id="services" class="py-16 bg-gray-50">
+    <section id="services" class="py-16 bg-gradient-to-b from-white to-gray-50">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our <span class="text-beige-600">Services</span></h2>
-                <div class="w-24 h-1 bg-gray-600 mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-3xl mx-auto">
-                    We offer a comprehensive range of medical services to meet all your healthcare needs
+            <!-- Improved Header Section -->
+            <div class="text-center mb-16">
+                <span class="text-beige-600 text-sm font-semibold tracking-wider uppercase mb-2 inline-block">Our Medical Services</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Comprehensive <span class="text-beige-600">Healthcare</span> Solutions
+                </h2>
+                <div class="w-20 h-1.5 bg-beige-600 mx-auto mb-6 rounded-full"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Delivering excellence in healthcare with cutting-edge medical services and compassionate care
                 </p>
             </div>
 
+            <!-- Redesigned Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+                    <div class="p-8">
+                        <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-center mb-3">Cardiology</h3>
-                        <p class="text-gray-600 text-center mb-4">Comprehensive heart care from prevention to specialized treatments for all cardiac conditions.</p>
-                        <div class="text-center">
-
-                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Cardiology</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Expert cardiac care utilizing advanced technology for heart health and treatment of cardiovascular conditions.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Service 2 -->
-                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://wwbeigew.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+                    <div class="p-8">
+                        <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-center mb-3">Neurology</h3>
-                        <p class="text-gray-600 text-center mb-4">Expert diagnosis and treatment of disorders affecting the brain, spinal cord, and nervous system.</p>
-                        <div class="text-center">
-
-                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Neurology</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Specialized care for neurological disorders with state-of-the-art diagnostic and treatment approaches.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Service 3 -->
-                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-                    <div class="p-6">
-                        <div class="flex items-center justify-center h-16 w-16 bg-beige-100 rounded-full mb-4 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+                    <div class="p-8">
+                        <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-center mb-3">Orthopedics</h3>
-                        <p class="text-gray-600 text-center mb-4">Advanced care for your muscles, bones and joints, from sports injuries to joint replacements.</p>
-                        <div class="text-center">
-
-                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Orthopedics</h3>
+                        <p class="text-gray-600 text-center leading-relaxed">
+                            Comprehensive orthopedic care featuring advanced treatments for bone, joint, and muscle conditions.
+                        </p>
                     </div>
                 </div>
-
             </div>
 
-            <div class="text-center mt-10">
-                <a wire:navigate  href="{{route('services.page')}}" class="inline-block bg-beige-400 hover:bg-beige-700 text-white font-medium py-3 px-6 rounded-md transition-colors">
-                    View All Services
+            <!-- Improved CTA Button -->
+            <div class="text-center mt-12">
+                <a wire:navigate href="{{route('services.page')}}" 
+                   class="inline-flex items-center px-8 py-4 bg-beige-600 hover:bg-beige-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                    <span>Explore All Services</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                 </a>
             </div>
         </div>
