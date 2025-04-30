@@ -42,14 +42,17 @@
 </head>
 <body>
     <div class="header">
-        Tomorrow's Appointments -Dr. {{ $doctor_name }}
+        Appointments -Dr. {{ $doctor_name }}
     </div>
     
     <div class="doctor-info">
         <p><strong>Doctor's Name:</strong>Dr. {{ $doctor_name }}</p>
         <p><strong>Date:</strong> {{ $date }}</p>
     </div>
+    @if($appointments->isEmpty())
+        <p><strong>No appointments are scheduled for you tomorrow.</strong></p>
+    @endif
     
-    <h3>Please find the list of appointments attached below with this mail</h3>
+    <!-- <h3>Please find the list of appointments attached below with this mail</h3> -->
 </body>
 </html>
