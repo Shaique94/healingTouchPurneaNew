@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Support\Facades\Log;
 
 class AppointmentReceiptMail extends Mailable
 {
@@ -30,8 +31,14 @@ class AppointmentReceiptMail extends Mailable
      */
     public function envelope(): Envelope
     {
+        $hasAppointments = $this->data['appointments']->isNotEmpty(); 
+        Log::info("Has appointments: " . ($hasAppointments ? 'yes' : 'no'));
+
+        $subject = $hasAppointments
+        ? "Tomorrow's Appointment Details - {$this->data['doctor_name']}"
+        : "No Appointments Scheduled for Tomorrow - {$this->data['doctor_name']}";
         return new Envelope(
-            subject: 'Tomorrow\'s Appointment Details - ' . $this->data['doctor_name'],
+            subject: $subject,
         );
     }
 
@@ -51,6 +58,10 @@ class AppointmentReceiptMail extends Mailable
      */
     public function attachments(): array
     {
+        if ($this->data['appointments']->isEmpty()) {
+            return [];
+        }
+
         return [
             Attachment::fromData(
                 fn () => $this->pdf->output(),

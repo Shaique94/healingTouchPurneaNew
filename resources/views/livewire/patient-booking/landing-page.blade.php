@@ -76,6 +76,9 @@
             </div>
         </div>
     </section>
+    
+    <!-- Our Services Component -->
+    <livewire:patient-booking.our-services />
 
     <!-- Facilities Section -->
     <section class="py-12 bg-white">
@@ -228,8 +231,6 @@
         </div>
     </section>
 
-    <!-- Our Services Component -->
-    <livewire:patient-booking.our-services />
 
     <!-- Mobile Fixed Book Appointment Button -->
     <div id="mobile-book-btn"

@@ -120,28 +120,33 @@
                 )
             });
 
-            Livewire.on('alert', event => {
-                // console.log(event[0].message);
-
-                Swal.fire({
-                    title: 'Confirmation',
-                    icon: 'warning', // 'success' or 'error'
-                    html: event[0].message, // HTML content
-                    showConfirmButton: true, // Show OK button
-                    showCancelButton: true, // Show Cancel button
-                    confirmButtonText: 'OK', // Optional: change text
-                    cancelButtonText: 'Cancel', // Optional: change text
-                    timer: undefined, // REMOVE timer if you want user to choose manually
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log('User clicked OK');
-                    } else if (result.isDismissed) {
-                        console.log('User clicked Cancel');
-                    }
-                });
-            });
+      Livewire.on('confirm-check-in', ({ appointmentId }) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to check-in this appointment!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Check-in!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch('doCheckIn', { appointmentId: appointmentId });
+            }
         });
-    </script>
+    });
+
+    Livewire.on('alert', ({ type, message }) => {
+        Swal.fire({
+            icon: type,
+            text: message,
+            timer: 2000,
+            showConfirmButton: false,
+        });
+    });
+    });
+  </script>
 
 
 
