@@ -349,7 +349,7 @@ class BookAppointment extends Component
         ->first();
 
         if ($existingAppointment) {
-            session()->flash('error', 'You already have an appointment scheduled with this doctor for this date. Please select a different doctor or date.');
+            $this->dispatch('show-duplicate-appointment');
             return;
         }
         

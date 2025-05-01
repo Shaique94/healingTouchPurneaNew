@@ -267,50 +267,67 @@
                                     {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md hover:border-beige-200' }}">
 
                                             <!-- Enhanced doctor card design with better visuals -->
-                                            <div class="bg-gradient-to-br from-beige-50 to-beige-100 p-5 text-center border-b">
+                                            <div
+                                                class="bg-gradient-to-br from-beige-50 to-beige-100 p-5 text-center border-b">
                                                 <div class="relative">
                                                     <!-- Available days badge -->
-                                                    <div class="absolute -top-1 -right-1 bg-beige-600 text-white text-xs px-2 py-1 rounded-full z-10 shadow-sm">
-                                                            ₹{{ $doctor->fee }} Fee
+                                                    <div
+                                                        class="absolute -top-1 -right-1 bg-beige-600 text-white text-xs px-2 py-1 rounded-full z-10 shadow-sm">
+                                                        ₹{{ $doctor->fee }} Fee
                                                     </div>
-                                                    
-                                                    <div class="w-24 h-24 rounded-full overflow-hidden bg-white mx-auto border-4 border-white shadow-md">
+
+                                                    <div
+                                                        class="w-24 h-24 rounded-full overflow-hidden bg-white mx-auto border-4 border-white shadow-md">
                                                         <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('images/default.jpg') }}"
                                                             alt="Dr. {{ $doctor->user->name }}"
                                                             class="w-full h-full object-cover">
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="mt-4">
-                                                    <h3 class="text-gray-900 font-bold">Dr. {{ $doctor->user->name }}</h3>
-                                                    <p class="text-beige-600 text-sm font-medium">{{ $doctor->department->name }}</p>
-                                                    
-                                                  
-                                                    
+                                                    <h3 class="text-gray-900 font-bold">Dr. {{ $doctor->user->name }}
+                                                    </h3>
+                                                    <p class="text-beige-600 text-sm font-medium">
+                                                        {{ $doctor->department->name }}</p>
+
+
+
                                                     <!-- Available days display -->
                                                     <div class="mt-3 flex flex-wrap justify-center gap-1">
-                                                        @if(is_array($doctor->available_days))
-                                                            @foreach(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as $index => $day)
-                                                                @php 
-                                                                    $weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                                        @if (is_array($doctor->available_days))
+                                                            @foreach (['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as $index => $day)
+                                                                @php
+                                                                    $weekdays = [
+                                                                        'Sunday',
+                                                                        'Monday',
+                                                                        'Tuesday',
+                                                                        'Wednesday',
+                                                                        'Thursday',
+                                                                        'Friday',
+                                                                        'Saturday',
+                                                                    ];
                                                                     $fullDay = $weekdays[$index];
-                                                                    $isAvailable = in_array($fullDay, $doctor->available_days);
+                                                                    $isAvailable = in_array(
+                                                                        $fullDay,
+                                                                        $doctor->available_days,
+                                                                    );
                                                                 @endphp
                                                                 <div class="w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium
-                                                                    {{ $isAvailable 
-                                                                        ? 'bg-beige-400 text-white border border-beige-500' 
-                                                                        : 'bg-gray-100 text-gray-400' }}"
+                                                                    {{ $isAvailable ? 'bg-beige-400 text-white border border-beige-500' : 'bg-gray-100 text-gray-400' }}"
                                                                     title="{{ $fullDay }}">
                                                                     {{ substr($day, 0, 1) }}
                                                                 </div>
                                                             @endforeach
                                                         @endif
                                                     </div>
-                                                    
+
                                                     <!-- Prominent select doctor button -->
-                                                    <button class="mt-4 w-full py-2 bg-beige-600 hover:bg-beige-700 text-white rounded-md text-sm font-medium transition-colors flex items-center justify-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                    <button
+                                                        class="mt-4 w-full py-2 bg-beige-600 hover:bg-beige-700 text-white rounded-md text-sm font-medium transition-colors flex items-center justify-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M5 13l4 4L19 7" />
                                                         </svg>
                                                         Select Doctor
                                                     </button>
@@ -351,7 +368,7 @@
                             <!-- Doctor Not Available Message -->
                             <div id="doctor-not-available-message"
                                 class="hidden mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-md"></div>
-                            
+
                             <!-- Date Selection (Fixed to Tomorrow) -->
                             <div class="mb-6">
                                 <div class="flex border-b border-gray-200">
@@ -373,19 +390,19 @@
                         </div>
                     @endif
 
-                    
+
 
                     <!-- Navigation -->
                     <div class="flex justify-between text-sm text-balance items-center mt-6">
-                                            <a wire:navigate href="{{ route('manage.appointments') }}"
-                        class="inline-flex items-center text-beige-600 hover:underline text-md mt-1 md:mt-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        Check your appointment.
-                    </a>
+                        <a wire:navigate href="{{ route('manage.appointments') }}"
+                            class="inline-flex items-center text-beige-600 hover:underline text-md mt-1 md:mt-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Check your appointment.
+                        </a>
 
                         <button wire:click="nextStep" wire:loading.attr="disabled"
                             @if (!$selectedDoctor) disabled @endif
@@ -418,43 +435,56 @@
                     <!-- Improved Doctor Details Header -->
                     @if ($doctorDetails)
                         <div class="bg-gradient-to-r from-beige-50 to-beige-100 border-b rounded-t-xl">
-                            <div class="px-6 py-4">
-                                <div class="flex items-center space-x-6">
-                                    <!-- Doctor Image -->
-                                    <div class="flex-shrink-0">
+                            <div class="px-4 sm:px-6 py-4">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6">
+                                    <!-- Doctor Image - Centered on mobile -->
+                                    <div class="flex-shrink-0 flex justify-center sm:justify-start mb-4 sm:mb-0">
                                         <div class="relative">
                                             <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
-                                                class="w-20 h-20 rounded-full border-4 border-white shadow-md object-cover">
-                                            <div class="absolute -bottom-1 -right-1 bg-green-500 p-1 rounded-full border-2 border-white">
-                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-md object-cover">
+                                            <div
+                                                class="absolute bottom-0 right-0 bg-green-500 p-1 rounded-full border-2 border-white">
+                                                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
                                                 </svg>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Doctor Info -->
-                                    <div class="flex-1">
-                                        <h3 class="text-lg font-semibold text-gray-900">Dr. {{ $doctorDetails->user->name }}</h3>
+                                    <!-- Doctor Info - Centered on mobile -->
+                                    <div class="flex-1 text-center sm:text-left">
+                                        <h3 class="text-lg font-semibold text-gray-900">Dr.
+                                            {{ $doctorDetails->user->name }}</h3>
                                         <p class="text-beige-600 text-sm">{{ $doctorDetails->department->name }}</p>
-                                        <div class="mt-2 flex items-center text-sm text-gray-500">
+                                        
+                                        <!-- Appointment Details - Stack on mobile -->
+                                        <div class="mt-3 ml-4 sm:ml-0 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-sm text-gray-500">
                                             <span class="flex items-center">
                                                 <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                 </svg>
                                                 {{ \Carbon\Carbon::parse($appointmentDate)->format('D, d M Y') }}
                                             </span>
-                                            <span class="mx-2">•</span>
+                                            
+                                            <span class="hidden sm:inline mx-2">•</span>
+                                            
                                             <span class="flex items-center">
                                                 <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
                                                 {{ $appointmentTime }}
                                             </span>
-                                            <span class="mx-2">•</span>
+                                            
+                                            <span class="hidden sm:inline mx-2">•</span>
+                                            
                                             <span class="flex items-center font-medium">
                                                 <svg class="w-4 h-4 mr-1 text-beige-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
                                                 ₹{{ $doctorDetails->fee }}
                                             </span>
@@ -466,39 +496,45 @@
                     @endif
 
                     <!-- Rest of the patient form -->
-                    <div class="p-6">
+                    <div class="p-4 sm:p-6">
                         <!-- Your existing patient form code continues here -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-5">
                             <!-- Existing form fields with responsive adjustments -->
                             <div class="sm:col-span-3">
-                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name (पूरा नाम)</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name (पूरा
+                                    नाम)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="name" type="text" name="name" id="name" autocomplete="name"
+                                    <input wire:model.live="name" type="text" name="name" id="name"
+                                        autocomplete="name"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Email -->
                             <div class="sm:col-span-3">
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address (ईमेल)
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address
+                                    (ईमेल)
                                     <span class="text-gray-500 text-xs">(optional) (वैकल्पिक)</span></label>
                                 <div class="mt-1">
-                                    <input wire:model.live="email" type="email" name="email" id="email" autocomplete="email"
+                                    <input wire:model.live="email" type="email" name="email" id="email"
+                                        autocomplete="email"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('email')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Phone -->
                             <div class="sm:col-span-3">
-                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number (फोन नंबर)</label>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number
+                                    (फोन नंबर)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="phone" type="tel" name="phone" id="phone" autocomplete="tel"
+                                    <input wire:model.live="phone" type="tel" name="phone" id="phone"
+                                        autocomplete="tel"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm"
                                         maxlength="10">
                                 </div>
@@ -506,10 +542,11 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Gender -->
                             <div class="sm:col-span-3">
-                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender (लिंग)</label>
+                                <label for="gender" class="block text-sm font-medium text-gray-700">Gender
+                                    (लिंग)</label>
                                 <div class="mt-1">
                                     <select wire:model.live="gender" id="gender" name="gender"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
@@ -523,44 +560,51 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Date of Birth -->
                             <div class="sm:col-span-3">
-                                <label for="age" class="block text-sm font-medium text-gray-700">Age (उम्र)</label>
+                                <label for="age" class="block text-sm font-medium text-gray-700">Age
+                                    (उम्र)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="age" type="number" min="0" max="150" maxlength="3" name="age" id="age"
+                                    <input wire:model.live="age" type="number" min="0" max="150"
+                                        maxlength="3" name="age" id="age"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('age')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Address -->
                             <div class="sm:col-span-6">
-                                <label for="address" class="block text-sm font-medium text-gray-700">Address (पता)</label>
+                                <label for="address" class="block text-sm font-medium text-gray-700">Address
+                                    (पता)</label>
                                 <div class="mt-1">
-                                    <input wire:model.live="address" type="text" name="address" id="address" autocomplete="street-address"
+                                    <input wire:model.live="address" type="text" name="address" id="address"
+                                        autocomplete="street-address"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('address')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Pincode -->
                             <div class="sm:col-span-2">
-                                <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code (पिन कोड)</label>
+                                <label for="pincode" class="block text-sm font-medium text-gray-700">PIN Code (पिन
+                                    कोड)</label>
                                 <div class="mt-1 relative">
-                                    <input wire:model.debounce.500ms="pincode" wire:change.blur="fetchLocationByPincode" type="number"
-                                        name="pincode" id="pincode" maxlength="6" autocomplete="postal-code"
+                                    <input wire:model.debounce.500ms="pincode"
+                                        wire:change.blur="fetchLocationByPincode" type="number" name="pincode"
+                                        id="pincode" maxlength="6" autocomplete="postal-code"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                     <div class="pincode-status absolute right-2 top-2">
                                         <span wire:loading wire:target="fetchLocationByPincode">
-                                            <svg class="animate-spin h-4 w-4 text-beige-500" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                    stroke-width="4"></circle>
+                                            <svg class="animate-spin h-4 w-4 text-beige-500"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
                                                 <path class="opacity-75" fill="currentColor"
                                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                                 </path>
@@ -573,22 +617,25 @@
                                 @enderror
                                 <div id="pincode-message" class="mt-1 text-xs"></div>
                             </div>
-                        
+
                             <!-- City -->
                             <div class="sm:col-span-2">
-                                <label for="city" class="block text-sm font-medium text-gray-700">City (शहर)</label>
+                                <label for="city" class="block text-sm font-medium text-gray-700">City
+                                    (शहर)</label>
                                 <div class="mt-1">
-                                    <input wire:model="city" type="text" name="city" id="city" autocomplete="address-level2"
+                                    <input wire:model="city" type="text" name="city" id="city"
+                                        autocomplete="address-level2"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
                                 </div>
                                 @error('city')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- State -->
                             <div class="sm:col-span-2">
-                                <label for="state" class="block text-sm font-medium text-gray-700">State (राज्य)</label>
+                                <label for="state" class="block text-sm font-medium text-gray-700">State
+                                    (राज्य)</label>
                                 <div class="mt-1">
                                     <input wire:model="state" type="text" name="state" id="state"
                                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 sm:text-sm">
@@ -597,10 +644,11 @@
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Notes -->
                             <div class="sm:col-span-6">
-                                <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor (डॉक्टर के लिए नोट्स)
+                                <label for="notes" class="block text-sm font-medium text-gray-700">Notes for Doctor
+                                    (डॉक्टर के लिए नोट्स)
                                     <span class="text-gray-500 text-xs">(Optional) (वैकल्पिक)</span></label>
                                 <div class="mt-1">
                                     <textarea wire:model.live="notes" id="notes" name="notes" rows="3"
@@ -608,7 +656,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <!-- Navigation - Made more responsive -->
                         <div class="mt-6 md:mt-8 flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
@@ -793,26 +841,35 @@
                             <h3 class="text-lg font-semibold text-gray-700 mb-4">Payment Method</h3>
                             <div class="space-y-4 max-w-2xl">
                                 <!-- Pay at Hospital Option -->
-                                <label class="relative flex p-4 border rounded-lg cursor-pointer hover:border-beige-500 transition-colors group">
-                                    <input type="radio" name="payment_method" wire:model="payment_method" value="pay_at_hospital" 
+                                <label
+                                    class="relative flex p-4 border rounded-lg cursor-pointer hover:border-beige-500 transition-colors group">
+                                    <input type="radio" name="payment_method" wire:model="payment_method"
+                                        value="pay_at_hospital"
                                         class="mt-0.5 h-4 w-4 text-beige-600 border-gray-300 focus:ring-beige-500">
                                     <div class="ml-3">
                                         <span class="text-sm font-medium text-gray-900">Pay at Hospital</span>
-                                        <span class="text-sm text-gray-500 block">Pay with cash or card when you arrive at the hospital</span>
+                                        <span class="text-sm text-gray-500 block">Pay with cash or card when you arrive
+                                            at the hospital</span>
                                     </div>
-                                    <div class="absolute inset-0 rounded-lg pointer-events-none border border-beige-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div
+                                        class="absolute inset-0 rounded-lg pointer-events-none border border-beige-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    </div>
                                 </label>
 
                                 <!-- Pay Online Option (Disabled) -->
                                 <div class="relative p-4 border rounded-lg bg-gray-50 cursor-not-allowed">
                                     <div class="flex items-start">
-                                        <input type="radio" disabled class="mt-0.5 h-4 w-4 text-gray-400 border-gray-300 cursor-not-allowed">
+                                        <input type="radio" disabled
+                                            class="mt-0.5 h-4 w-4 text-gray-400 border-gray-300 cursor-not-allowed">
                                         <div class="ml-3">
                                             <div class="flex items-center">
                                                 <span class="text-sm font-medium text-gray-400">Pay Online</span>
-                                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Coming Soon</span>
+                                                <span
+                                                    class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Coming
+                                                    Soon</span>
                                             </div>
-                                            <span class="text-sm text-gray-400 block">Online payment options will be available soon</span>
+                                            <span class="text-sm text-gray-400 block">Online payment options will be
+                                                available soon</span>
                                         </div>
                                     </div>
                                 </div>
@@ -820,7 +877,7 @@
                         </div>
 
                         <!-- Navigation -->
-                        <div class="mt-8 flex justify-between">
+                        <div class="mt-8 gap-4 flex justify-between">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
                                 class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
                                 onclick="showLoader('Going back...')">
@@ -829,7 +886,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 19l-7-7 7-7" />
                                 </svg>
-                                Edit Details 
+                                Edit Details
                             </button>
                             <button wire:click="bookAppointment" wire:loading.attr="disabled" type="button"
                                 class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
@@ -846,7 +903,8 @@
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
                                     </svg>
                                 </span>
                             </button>
@@ -887,30 +945,28 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button wire:click="downloadReceipt"
-    wire:loading.attr="disabled"
-    wire:target="downloadReceipt"
-    class="px-6 py-2 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 transition-colors flex items-center justify-center">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-        viewBox="0 0 24 24" stroke="currentColor"
-        wire:loading.remove wire:target="downloadReceipt">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
+                        <button wire:click="downloadReceipt" wire:loading.attr="disabled"
+                            wire:target="downloadReceipt"
+                            class="px-6 py-2 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 transition-colors flex items-center justify-center">
 
-    <!-- Loader spinner -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin"
-        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-        wire:loading wire:target="downloadReceipt">
-        <circle class="opacity-25" cx="12" cy="12" r="10"
-            stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor"
-            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-    </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" wire:loading.remove
+                                wire:target="downloadReceipt">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
 
-    <span>Download Receipt</span>
-</button>
+                            <!-- Loader spinner -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" wire:loading wire:target="downloadReceipt">
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+                                </path>
+                            </svg>
+
+                            <span>Download Receipt</span>
+                        </button>
 
                         <a wire:navigate href="{{ route('manage.appointments') }}"
                             class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors flex items-center justify-center">
@@ -1058,8 +1114,8 @@
                     const timeSlotSection = document.querySelector('.bg-white.p-5.rounded-xl.shadow-sm');
                     if (timeSlotSection) {
                         // Calculate position to scroll to - subtract more from offsetTop for better visibility
-                        const offset = timeSlotSection.offsetTop + 300; 
-                        
+                        const offset = timeSlotSection.offsetTop + 300;
+
                         // Scroll with smooth behavior
                         window.scrollTo({
                             top: offset,
@@ -1088,7 +1144,7 @@
                             currentStep.classList.add('fade-in');
                         }
                     }
-                    
+
                     // Add highlight animation to the current step
                     const stepElements = document.querySelectorAll('.flex-col.items-center');
                     if (step && step <= stepElements.length) {
@@ -1099,7 +1155,7 @@
                     }
                 }, 800);
             });
-            
+
             // Set up the loader hooks
             const loader = document.getElementById('fullpage-loader');
             if (loader) {
@@ -1142,8 +1198,54 @@
 
         // Initialize on Livewire page load/navigation
         document.addEventListener('livewire:init', initializeAppointmentPage);
-        
+
         // Reinitialize when Livewire navigates
         document.addEventListener('livewire:navigated', initializeAppointmentPage);
     </script>
+
+    <!-- Appointment Status Modal -->
+
+    <div x-data="{ showDuplicateModal: false }"
+         x-show="showDuplicateModal"
+         x-on:show-duplicate-appointment.window="showDuplicateModal = true"
+         x-on:hide-duplicate-appointment.window="showDuplicateModal = false"
+         class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 p-4"
+         style="display: none;">
+        <div class="bg-white p-4 rounded-xl shadow-lg max-w-md w-full relative"
+             @click.away="showDuplicateModal = false">
+             <!-- Close button -->
+             <button @click="showDuplicateModal = false" 
+                     class="absolute top-4 right-4 text-gray-400 hover:text-gray-500 focus:outline-none">
+                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                 </svg>
+             </button>
+             
+            <div class="p-6 flex flex-col items-center text-center">
+                <!-- Icon centered on mobile -->
+                <div class="bg-yellow-50 rounded-full p-3 mb-4">
+                    <svg class="h-8 w-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                
+                <!-- Content -->
+                <div class="w-full">
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Existing Appointment Found</h3>
+                    <p class="text-sm text-gray-500 mb-6">
+                        You already have an appointment scheduled with Dr. {{ optional(optional($doctorDetails)->user)->name }} for {{ \Carbon\Carbon::parse($appointmentDate)->format('l, F j, Y') }}.
+                    </p>
+                    
+                    <!-- Only View Appointments button -->
+                    <div class="flex justify-center">
+                        <a href="{{ route('manage.appointments') }}" 
+                           class="w-full sm:w-auto inline-flex justify-center items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-md text-white bg-beige-600 hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500">
+                            View My Appointments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
