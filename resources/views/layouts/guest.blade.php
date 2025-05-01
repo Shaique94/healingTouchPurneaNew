@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
+        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital | Online Appointment Booking') : config('app.name', 'Healing Touch Hospital | Online Appointment Booking') }}
     </title>
     <!-- SEO Meta Tags -->
     @php
