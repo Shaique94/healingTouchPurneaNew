@@ -15,7 +15,7 @@
 
             <!-- Redesigned Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
+                <!-- Gynecology -->
                 <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
                     <div class="p-8">
                         <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
@@ -23,39 +23,39 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Cardiology</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Gynecology</h3>
                         <p class="text-gray-600 text-center leading-relaxed">
-                            Expert cardiac care utilizing advanced technology for heart health and treatment of cardiovascular conditions.
+                            Comprehensive women's healthcare including pregnancy care, fertility treatments, and gynecological surgeries.
                         </p>
                     </div>
                 </div>
 
-                <!-- Service 2 -->
+                <!-- Laparoscopic Surgery -->
                 <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
                     <div class="p-8">
                         <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Neurology</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Laparoscopic Surgery</h3>
                         <p class="text-gray-600 text-center leading-relaxed">
-                            Specialized care for neurological disorders with state-of-the-art diagnostic and treatment approaches.
+                            Minimally invasive surgical procedures with faster recovery, less pain, and minimal scarring.
                         </p>
                     </div>
                 </div>
 
-                <!-- Service 3 -->
+                <!-- Obstetrics -->
                 <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
                     <div class="p-8">
                         <div class="flex items-center justify-center h-20 w-20 bg-beige-50 group-hover:bg-beige-100 rounded-2xl mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-beige-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Orthopedics</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 text-center mb-4 group-hover:text-beige-600 transition-colors">Obstetrics</h3>
                         <p class="text-gray-600 text-center leading-relaxed">
-                            Comprehensive orthopedic care featuring advanced treatments for bone, joint, and muscle conditions.
+                            Complete pregnancy care, including prenatal care, delivery services, and postnatal support.
                         </p>
                     </div>
                 </div>
