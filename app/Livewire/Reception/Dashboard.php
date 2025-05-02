@@ -359,15 +359,16 @@ class Dashboard extends Component
     // }
     public function confirmCheckIn($appointmentId)
 {
+
+    // dd($appointmentId);
     $this->dispatch('confirm-check-in', [
         'appointmentId' => $appointmentId,
     ]);
 }
 #[On('doCheckIn')]
-public function doCheckIn(array $payload = [])
+public function doCheckIn($appointmentId)
 {
-    $appointmentId = $payload['appointmentId'] ?? null;
-
+// dd($appointmentId);
     if (!$appointmentId) {
         // maybe throw error or return
         return;
@@ -378,11 +379,11 @@ public function doCheckIn(array $payload = [])
         $appointment->status = 'checked_in';
         $appointment->save();
         $this->loadAppointments();
-    }
+    } 
 
     $this->dispatch('alert', [
         'type' => 'success',
-        'message' => 'Appointment checked in successfully.'
+        'message' => 'Patient checked in successfully.'
     ]);
 
 }

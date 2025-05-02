@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <title>
-        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital') : config('app.name', 'Healing Touch Hospital') }}
+        {{ isset($title) ? $title . ' | ' . config('app.name', 'Healing Touch Hospital | Online Appointment Booking') : config('app.name', 'Healing Touch Hospital | Online Appointment Booking') }}
     </title>
 
     <meta property="og:url" content="{{ url()->current() }}">
@@ -120,31 +120,38 @@
                 )
             });
 
-      Livewire.on('confirm-check-in', ({ appointmentId }) => {
+      Livewire.on('confirm-check-in', (data) => {
+        const appointmentId = data[0].appointmentId;
+        // console.log('RECEIVED:', appointmentId); 
         Swal.fire({
             title: 'Are you sure?',
             text: "You are about to check-in this appointment!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            cancelButtonColor: '#d33', 
             confirmButtonText: 'Yes, Check-in!',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                Livewire.dispatch('doCheckIn', { appointmentId: appointmentId });
-            }
+                Livewire.dispatch('doCheckIn', { appointmentId });
+                console.log('sending appointment after confirmation', appointmentId);
+              }
         });
     });
 
-    Livewire.on('alert', ({ type, message }) => {
-        Swal.fire({
-            icon: type,
-            text: message,
-            timer: 2000,
-            showConfirmButton: false,
-        });
+
+Livewire.on('alert', (data) => {
+    const { type, message } = data[0]; // access the first item in the array
+
+
+    Swal.fire({
+        icon: type,
+        text: message,
+        timer: 2000,
+        showConfirmButton: false,
     });
+});
     });
   </script>
 
