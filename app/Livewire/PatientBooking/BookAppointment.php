@@ -2,6 +2,7 @@
 
 namespace App\Livewire\PatientBooking;
 
+use App\Events\AppointmentBooked;
 use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Appointment;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -426,6 +428,10 @@ class BookAppointment extends Component
        if($smsEnabled === "1"){
         $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
        }
+        
+       Log::info("Broadcasting event fired");
+       broadcast(new AppointmentBooked($appointment));
+
 
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds

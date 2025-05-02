@@ -20,58 +20,57 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Hospital",
-      "name": "Healing Touch Hospital",
-      "url": "https://healingtouchpurnea.com/",
-      "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
-        "addressLocality": "Purnea",
-        "addressRegion": "Bihar",
-        "postalCode": "854301",
-        "addressCountry": "IN"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+91-9471659700",
-        "contactType": "Customer Support",
-        "areaServed": "IN",
-        "availableLanguage": ["English", "Hindi"]
-      },
-      "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
-      "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
-      "department": [
         {
-          "@type": "MedicalClinic",
-          "name": "Surgery Department",
-          "medicalSpecialty": "General Surgery",
-          "availableService": "Laparoscopic and laser surgeries",
-          "physician": {
-            "@type": "Physician",
-            "name": "Dr. Charly Kumar Sinha",
-            "medicalSpecialty": "Surgery",
-            "jobTitle": "Senior Surgeon"
-          }
-        },
-        {
-          "@type": "MedicalClinic",
-          "name": "Gynecology Department",
-          "medicalSpecialty": "Gynecology",
-          "physician": {
-            "@type": "Physician",
-            "name": "Dr. Kiran Kumari",
-            "medicalSpecialty": "Gynecology"
-          }
+            "@context": "https://schema.org",
+            "@type": "Hospital",
+            "name": "Healing Touch Hospital",
+            "url": "https://healingtouchpurnea.com/",
+            "logo": "https://healingtouchpurnea.com/healingTouchLogo.jpeg",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Hope Chauraha, Rambagh Road, Linebazar",
+                "addressLocality": "Purnea",
+                "addressRegion": "Bihar",
+                "postalCode": "854301",
+                "addressCountry": "IN"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-9471659700",
+                "contactType": "Customer Support",
+                "areaServed": "IN",
+                "availableLanguage": ["English", "Hindi"]
+            },
+            "description": "Healing Touch Hospital offers online appointment booking with expert surgeons and gynecologists in Purnea, Bihar.",
+            "medicalSpecialty": ["Laparoscopic Surgery", "Laser Surgery", "Gynecology", "General Surgery"],
+            "department": [{
+                    "@type": "MedicalClinic",
+                    "name": "Surgery Department",
+                    "medicalSpecialty": "General Surgery",
+                    "availableService": "Laparoscopic and laser surgeries",
+                    "physician": {
+                        "@type": "Physician",
+                        "name": "Dr. Charly Kumar Sinha",
+                        "medicalSpecialty": "Surgery",
+                        "jobTitle": "Senior Surgeon"
+                    }
+                },
+                {
+                    "@type": "MedicalClinic",
+                    "name": "Gynecology Department",
+                    "medicalSpecialty": "Gynecology",
+                    "physician": {
+                        "@type": "Physician",
+                        "name": "Dr. Kiran Kumari",
+                        "medicalSpecialty": "Gynecology"
+                    }
+                }
+            ],
+            "sameAs": [
+                "https://www.facebook.com/profile.php?id=61573927387041",
+                "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx"
+            ]
         }
-      ],
-      "sameAs": [
-        "https://www.facebook.com/profile.php?id=61573927387041",
-        "https://www.instagram.com/_healingtouchhospital_?igsh=cDh4cDJjMGRpMnNx"
-      ]
-    }
     </script>
 
     <!-- Scripts -->
@@ -88,7 +87,31 @@
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.Echo) {
+            window.Echo.channel('receptionist-channel')
+                .listen('.appointment-booked', (event) => {
+                    console.log('New Appointment Booked:', event.appointment);
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'New Appointment!',
+                        text: `Appointment booked for ${event.appointment.patient_name ?? 'Unknown'}`,
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 4000,
+                        timerProgressBar: true
+                    });
+                });
+        } else {
+            console.error('Echo is not defined');
+        }
+    });
+</script>
+    <script>
         document.addEventListener('livewire:init', () => {
+
             Livewire.on('show-collect-confirmation', data => {
                 const {
                     appointmentId,
@@ -120,40 +143,45 @@
                 )
             });
 
-      Livewire.on('confirm-check-in', (data) => {
-        const appointmentId = data[0].appointmentId;
-        // console.log('RECEIVED:', appointmentId); 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You are about to check-in this appointment!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33', 
-            confirmButtonText: 'Yes, Check-in!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Livewire.dispatch('doCheckIn', { appointmentId });
-                console.log('sending appointment after confirmation', appointmentId);
-              }
+            Livewire.on('confirm-check-in', (data) => {
+                const appointmentId = data[0].appointmentId;
+                // console.log('RECEIVED:', appointmentId); 
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You are about to check-in this appointment!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Check-in!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('doCheckIn', {
+                            appointmentId
+                        });
+                        console.log('sending appointment after confirmation', appointmentId);
+                    }
+                });
+            });
+
+
+            Livewire.on('alert', (data) => {
+                const {
+                    type,
+                    message
+                } = data[0]; // access the first item in the array
+
+
+                Swal.fire({
+                    icon: type,
+                    text: message,
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+            });
         });
-    });
-
-
-Livewire.on('alert', (data) => {
-    const { type, message } = data[0]; // access the first item in the array
-
-
-    Swal.fire({
-        icon: type,
-        text: message,
-        timer: 2000,
-        showConfirmButton: false,
-    });
-});
-    });
-  </script>
+    </script>
 
 
 
