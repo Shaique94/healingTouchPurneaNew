@@ -13,29 +13,30 @@ use Illuminate\Support\Facades\Log;
 class DoctorDetails extends Component
 {
     public $doctor;
-    public $doctorId;
+    public $doctorSlug;
     public $doctorStatus;
     public $contactPhone ; 
     public $canBookAppointment;
     
 
-    public function mount($doctorId = null, $doctorStatus = true)
+    public function mount($slug = null, $doctorStatus = true)
     {
         $this->doctor = Doctor::with(['user', 'department'])
             ->whereIn('status', ['1', '2'])
-            ->findOrFail($doctorId);
-        $this->doctorId = $doctorId;
+            ->where('slug', $slug)
+            ->firstOrFail();
+        $this->doctorSlug = $slug;
         $this->doctorStatus = $doctorStatus;
         $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '9471659700';
-        $this->canBookAppointment = $this->doctor->status == 1 && 
+        $this->canBookAppointment = $this->doctor->status == 1 &&
             ($this->doctor->department?->status ?? 1) != 0;
        
     }
 
     public function bookAppointment()
     {
-        if ($this->doctorId) {
-            return $this->redirect(route('book.appointment', ['doctorId' => $this->doctorId]), navigate: true);
+        if ($this->doctorSlug) {
+            return $this->redirect(route('book.appointment', ['slug' => $this->doctorSlug]), navigate: true);
         }
         return $this->redirect(route('book.appointment'), navigate: true);
     }

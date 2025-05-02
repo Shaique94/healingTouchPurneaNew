@@ -262,9 +262,9 @@
                             @if (count($doctors) > 0)
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                                     @foreach ($doctors as $doctor)
-                                        <div wire:click="selectDoctor({{ $doctor->id }})"
+                                        <div wire:click="selectDoctor('{{ $doctor->slug }}')"
                                             class="relative flex flex-col h-full border rounded-lg overflow-hidden cursor-pointer transition-all duration-300
-                                    {{ $selectedDoctor == $doctor->id ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md hover:border-beige-200' }}">
+                                    {{ $selectedDoctor == $doctor->slug ? 'ring-2 ring-beige-500 bg-beige-50' : 'hover:shadow-md hover:border-beige-200' }}">
 
                                             <!-- Enhanced doctor card design with better visuals -->
                                             <div

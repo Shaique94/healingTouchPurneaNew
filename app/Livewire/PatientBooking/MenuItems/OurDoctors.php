@@ -43,8 +43,8 @@ class OurDoctors extends Component
 
         return view('livewire.patient-booking.menu-items.our-doctors', compact('doctors'));
     }
-    public function bookAppointment($doctorId)
+    public function bookAppointment($doctorSlug)
     {
-        return redirect()->route('appointments.create', ['doctor_id' => $doctorId]);
+        return redirect()->route('book.appointment', ['slug' => $doctorSlug]);
     }
 }

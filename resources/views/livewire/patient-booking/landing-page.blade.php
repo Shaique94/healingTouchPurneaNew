@@ -231,53 +231,73 @@
         </div>
     </section>
 
+<!-- Mobile Fixed Book Appointment Button -->
+<div id="mobile-book-btn"
+     class="fixed bottom-8 right-4 md:hidden z-50 opacity-0 transition-all duration-300 ease-in-out">
+    <a wire:navigate href="{{ route('book.appointment') }}"
+       class="bg-beige-600 hover:bg-beige-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-2xl 
+              flex items-center gap-2 transition-all duration-300 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span class="text-sm font-medium whitespace-nowrap">Book Now</span>
+    </a>
+</div>
 
-    <!-- Mobile Fixed Book Appointment Button -->
-    <div id="mobile-book-btn"
-        class="fixed bottom-8 right-4 md:hidden z-50 opacity-0 transition-all duration-300 ease-in-out">
-        <a wire:navigate href="{{route('book.appointment')}}"
-            class="bg-beige-600 hover:bg-beige-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-2xl 
-                  flex items-center gap-2 transition-all duration-300 group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="text-sm font-medium whitespace-nowrap">Book Now</span>
-        </a>
-    </div>
-
-    <script>
-        function scrollToBooking() {
-            window.location.href = "{{ route('book.appointment') }}";
+<script>
+    // Function to initialize scroll behavior
+    function initializeMobileButtonScroll() {
+        const mobileBtn = document.getElementById('mobile-book-btn');
+        if (!mobileBtn) {
+            console.warn('Mobile button not found');
+            return; // Exit if button is not found
         }
 
-        // Add these classes to your tailwind.config.js
-        // @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        // @keyframes slideInRight { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1); } }
-        // @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        let ticking = false;
 
-        // Mobile booking button scroll behavior
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileBtn = document.getElementById('mobile-book-btn');
-            let lastScrollY = window.scrollY;
-            let ticking = false;
+        function updateButtonVisibility() {
+            const isVisible = window.scrollY > 300;
+            mobileBtn.style.opacity = isVisible ? '1' : '0';
+            mobileBtn.style.transform = isVisible ? 'translateY(0)' : 'translateY(20px)';
+            ticking = false;
+        }
 
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        if (window.scrollY > 300) {
-                            mobileBtn.style.opacity = '1';
-                            mobileBtn.style.transform = 'translateY(0)';
-                        } else {
-                            mobileBtn.style.opacity = '0';
-                            mobileBtn.style.transform = 'translateY(20px)';
-                        }
-                        lastScrollY = window.scrollY;
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-        });
-    </script>
+        // Remove any existing scroll listeners to prevent duplicates
+        window.removeEventListener('scroll', handleScroll);
+        function handleScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateButtonVisibility);
+                ticking = true;
+            }
+        }
+
+        // Add scroll listener
+        window.addEventListener('scroll', handleScroll);
+
+        // Initial check for current scroll position
+        updateButtonVisibility();
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeMobileButtonScroll();
+    });
+
+    // Reinitialize after Livewire navigation
+    document.addEventListener('livewire:navigated', () => {
+        console.log('Livewire navigated, reinitializing mobile button');
+        initializeMobileButtonScroll();
+    });
+
+    // Fallback: Retry initialization after a short delay to handle late DOM updates
+    setTimeout(() => {
+        initializeMobileButtonScroll();
+    }, 1000);
+
+    // Optional: Function for direct navigation (if still needed)
+    function scrollToBooking() {
+        window.location.href = "{{ route('book.appointment') }}";
+    }
+</script>
 </div>

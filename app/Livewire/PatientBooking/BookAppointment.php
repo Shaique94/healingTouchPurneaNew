@@ -52,25 +52,27 @@ class BookAppointment extends Component
     public $state ;
     public $country ;
     public $notes;
-    public $payment_method = 'pay_at_hospital'; // Changed default value from 'cash'
+    public $payment_method = 'pay_at_hospital';
     public $OnlinePayment;
     public $metaKeywords;
     public $metaDescription;
     public $hospital_name;
-    public function mount($doctorId = null)
+
+    public function mount($slug = null)
     {
         $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
-        if ($doctorId) {
-            $this->selectedDoctor = $doctorId;
-            $this->getDoctorDetails();
-            $this->generateTimeSlots();
+        if ($slug) {
+            $doctor = Doctor::where('slug', $slug)->first();
+            if ($doctor) {
+                $this->selectedDoctor = $doctor->slug;
+                $this->getDoctorDetails();
+                $this->generateTimeSlots();
+            }
         }
         $this->hospital_name = Setting::get('hospital_name');
         $this->metaKeywords = "book doctor appointment online Purnea, online healthcare booking, hospital appointment $this->hospital_name, quick doctor consultation";
         $this->metaDescription = "Book your doctor appointment online easily at $this->hospital_name, Purnea. Consult with specialists and get the best medical care.";
-
     }
-
 
     public function updated($property)
     {
@@ -98,8 +100,6 @@ class BookAppointment extends Component
         $this->validateOnly($property, $rules);
     }
 
-
-
     // When department is changed, reset doctor selection
     public function updatedSelectedDepartment()
     {
@@ -124,9 +124,9 @@ class BookAppointment extends Component
     }
 
     // When doctor is selected, fetch doctor details
-    public function selectDoctor($doctorId)
+    public function selectDoctor($doctorSlug)
     {
-        $doctor = Doctor::with('department')->find($doctorId);
+        $doctor = Doctor::with('department')->where('slug', $doctorSlug)->first();
         if (!$doctor || $doctor->status != '1') {
             $this->dispatch('doctor-not-available', [
                 'message' => 'The selected doctor is not available for booking.'
@@ -139,7 +139,7 @@ class BookAppointment extends Component
             ]);
             return;
         }
-        $this->selectedDoctor = $doctorId;
+        $this->selectedDoctor = $doctor->slug;
         $this->dispatch('doctorSelected');
         $this->getDoctorDetails();
         $this->appointmentTime = null; // Reset selected time
@@ -175,10 +175,11 @@ class BookAppointment extends Component
         if ($this->selectedDoctor) {
             $this->doctorDetails = Doctor::with(['user', 'department'])
                 ->where('status', '1')
+                ->where('slug', $this->selectedDoctor)
                 ->whereHas('department', function($query) {
                     $query->where('status', 1);
                 })
-                ->find($this->selectedDoctor);
+                ->first();
     
             if (!$this->doctorDetails) {
                 $this->dispatch('doctor-not-available', [
@@ -198,7 +199,7 @@ class BookAppointment extends Component
         if (!$this->selectedDoctor || !$this->appointmentDate) {
             return;
         }
-        $doctor = Doctor::find($this->selectedDoctor);
+        $doctor = Doctor::where('slug', $this->selectedDoctor)->first();
         if (!$doctor) {
             return;
         }
@@ -239,7 +240,7 @@ class BookAppointment extends Component
         }
 
         // Count existing appointments for each time slot
-        $appointments = Appointment::where('doctor_id', $this->selectedDoctor)
+        $appointments = Appointment::where('doctor_id', $doctor->id)
             ->where('appointment_date', $this->appointmentDate)
             ->get();
             
@@ -317,7 +318,7 @@ class BookAppointment extends Component
     public function bookAppointment()
     {
         // Validate doctor status before proceeding
-        $doctor = Doctor::with('department')->find($this->selectedDoctor);
+        $doctor = Doctor::with('department')->where('slug', $this->selectedDoctor)->first();
         if (!$doctor || $doctor->status != '1') {
             session()->flash('error', 'The selected doctor is not available for booking appointments.');
             return;
@@ -331,7 +332,7 @@ class BookAppointment extends Component
         $timeSlot = Carbon::parse($formattedTime)->format('g:i A');
         
         // Get count of existing appointments for this time slot
-        $count = Appointment::where('doctor_id', $this->selectedDoctor)
+        $count = Appointment::where('doctor_id', $doctor->id)
             ->where('appointment_date', $this->appointmentDate)
             ->whereTime('appointment_time', $formattedTime)
             ->count();
@@ -347,7 +348,7 @@ class BookAppointment extends Component
             $query->where('phone', $this->phone);
         })
         ->where('appointment_date', $this->appointmentDate)
-        ->where('doctor_id', $this->selectedDoctor)
+        ->where('doctor_id', $doctor->id)
         ->first();
 
         if ($existingAppointment) {
@@ -371,10 +372,9 @@ class BookAppointment extends Component
             ]
         );
 
-       
         $formattedTime = $this->convertTimeFormat($this->appointmentTime);
 
-        $lastQueueNumber = Appointment::where('doctor_id', $this->selectedDoctor)
+        $lastQueueNumber = Appointment::where('doctor_id', $doctor->id)
             ->where('appointment_date', $this->appointmentDate)
             ->orderBy('queue_number', 'desc')
             ->value('queue_number');
@@ -382,7 +382,7 @@ class BookAppointment extends Component
         $queueNumber = $lastQueueNumber ? $lastQueueNumber + 1 : 1;
         $appointment = Appointment::create([
             'patient_id' => $patient->id,
-            'doctor_id' => $this->selectedDoctor,
+            'doctor_id' => $doctor->id,
             'appointment_date' => $this->appointmentDate,
             'queue_number' => $queueNumber,
             'appointment_time' => $formattedTime, 
@@ -395,7 +395,6 @@ class BookAppointment extends Component
         $appointmentNo=$appointment->update([
             'appointment_no' => intval($datePrefix . str_pad($appointment->id, 4, '0', STR_PAD_LEFT))
         ]);
-
 
         try {
             // Generate barcode
@@ -423,7 +422,6 @@ class BookAppointment extends Component
         $this->step = 4;
         $this->dispatch('stepChanged', ['step' => $this->step]);
         $smsEnabled = Setting::get('sms_status', false);
-        // $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
 
        if($smsEnabled === "1"){
         $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
@@ -436,6 +434,7 @@ class BookAppointment extends Component
         // Small delay to improve user experience
         usleep(500000); // 0.5 seconds
     }
+
     private function sendAppointmentSMS($mobile, $name, $appointment): void
     {
         try {
@@ -465,7 +464,6 @@ class BookAppointment extends Component
         }
     }
 
-
     // Helper function to convert time format from "10:00 AM" to "10:00:00"
     private function convertTimeFormat($timeString)
     {
@@ -482,33 +480,11 @@ class BookAppointment extends Component
 
     public function downloadReceipt()
     {
-        $doctor = Doctor::find($this->selectedDoctor);
+        $doctor = Doctor::where('slug', $this->selectedDoctor)->first();
 
         $appointment = Appointment::with(['doctor', 'patient'])
             ->where('id', $this->appointmentId)
             ->first();
-              // Generate unique QR code data using app URL
-        // $qrData = config('app.url') . '/viewappointment/' . $appointment->id;
-        
-        // // Generate unique filename for QR code
-        // $qrFileName = 'qr-appointment-' . $appointment->id . '.svg';
-        // $qrPath = 'appointments/qr/' . $qrFileName;
-
-        // // Generate QR code
-        // $qrImage = QrCode::format('svg')
-        //     ->size(150)
-        //     ->generate($qrData);
-
-        // // Store QR code
-        // Storage::disk('public')->put($qrPath, $qrImage);
-
-        // // Get public URL
-        // $qrPublicUrl = Storage::disk('public')->url($qrPath);
-
-        // $appointment['qrPath']=$qrPath;
-
-        // // Get barcode path
-        // $appointment['barcodePath'] = Storage::disk('public')->url($appointment->barcode_path);
 
         $pdf = Pdf::loadView('pdf.appointment', compact('appointment'))
             ->setPaper('a4');  // Set A4 paper size
@@ -517,7 +493,6 @@ class BookAppointment extends Component
             echo $pdf->output();  // Output raw PDF data for download
         }, 'appointment-receipt.pdf');
     }
-
 
     #[Layout('layouts.guest')]
     public function render()
