@@ -102,7 +102,7 @@ Route::middleware('reception')->group(function () {
 });
 
 // Patient Booking Routes
-Route::get('/book-appointment/{doctorId?}', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
+Route::get('/book-appointment/{slug?}', \App\Livewire\PatientBooking\BookAppointment::class)->name('book.appointment');
 Route::get('/manage-appointments', ManageAppointments::class)->name('manage.appointments');
 Route::get('/our-doctors', OurDoctors::class)->name('our.doctors');
 Route::get('/careers', Careers::class)->name('careers.page');
@@ -110,7 +110,7 @@ Route::get('/career/{id}', CareerDetail::class)->name('career.detail');
 Route::get('/services', Services::class)->name('services.page');
 Route::get('/contact-us',ContactPage::class)->name('contact.page');
 Route::get('/about-us',AboutUs::class)->name('about.page');
-Route::get('/doctor/{doctorId}', DoctorDetails::class)->name('doctors.detail');
+Route::get('/doctor/{slug}', DoctorDetails::class)->name('doctors.detail');
 Route::get('/gallery', GalleryPage::class)->name('gallery.page');
 Route::get('/terms-conditions', TermsCondition::class)->name('terms.conditions');
 Route::get('/privacy-policy', PrivacyPolicy::class)->name('privacy.policy');

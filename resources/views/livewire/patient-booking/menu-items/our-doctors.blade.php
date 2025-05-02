@@ -28,7 +28,7 @@
     {{-- Doctor Grid with fixed height cards --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         @forelse ($doctors as $doctor)
-        <a wire:navigate  href="{{ route('doctors.detail', $doctor->id) }}" class="block h-full">
+        <a wire:navigate  href="{{ route('doctors.detail', ['slug' => $doctor->slug]) }}" class="block h-full">
         <div class="bg-white rounded-2xl shadow overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
             <div class="p-6 flex-grow">
                 <div class="flex items-start gap-5">

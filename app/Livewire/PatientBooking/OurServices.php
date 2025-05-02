@@ -9,12 +9,12 @@ class OurServices extends Component
 {
     public $doctors;
     public $doctorCount;
-    public $doctorId;
+    public $doctorSlug;
     public $doctorStatus;
 
-    public function mount($doctorId = null, $doctorStatus = true)
+    public function mount($doctorSlug = null, $doctorStatus = true)
     {
-        $this->doctorId = $doctorId;
+        $this->doctorSlug = $doctorSlug;
         $this->doctorStatus = $doctorStatus;
         $this->doctors = User::with('doctor')
             ->where('role', 'doctor')
@@ -27,9 +27,9 @@ class OurServices extends Component
     }
     public function bookAppointment($doctorId = null)
     {
-        $doctorId = $doctorId ?? $this->doctorId;
-        if ($doctorId) {
-            return $this->redirect(route('book.appointment', ['doctorId' => $doctorId]), navigate: true);
+        $doctorSlug = $doctorSlug ?? $this->doctorSlug;
+        if ($doctorSlug) {
+            return $this->redirect(route('book.appointment', ['slug' => $doctorSlug]), navigate: true);
         }
         return $this->redirect(route('book.appointment'), navigate: true);
     }

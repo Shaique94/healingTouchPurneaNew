@@ -24,6 +24,7 @@
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
+                    <th>Slug</th>
                     <th class="d-none d-md-table-cell">Email</th>
                     <th>Department</th>
                     <th>Status</th>
@@ -42,6 +43,7 @@
                              style="width: 50px; height: 50px; object-fit: cover;">
                     </td>
                     <td>{{ $doc->user->name }}</td>
+                    <td>{{ $doc->slug }}</td>
                     <td class="d-none d-md-table-cell">{{ $doc->user->email }}</td>
                     <td>{{ $doc->department->name ?? '-' }}</td>
                     <td class="text-center" style="min-width: 120px;">

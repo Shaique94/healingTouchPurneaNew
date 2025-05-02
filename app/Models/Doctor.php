@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Str;
 class Doctor extends Model
 {
     use HasFactory,SoftDeletes;
@@ -19,6 +19,7 @@ class Doctor extends Model
         'image',
         'status',
         'available_days',
+        'slug',
     ];
      
 
@@ -44,5 +45,41 @@ class Doctor extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    // Auto-generate slug on create/update
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($doctor) {
+            if (!$doctor->slug) {
+                $userName = $doctor->user ? $doctor->user->name : 'doctor-' . ($doctor->user_id ?? 'unknown');
+                $baseSlug = Str::slug($userName);
+                $slug = $baseSlug;
+                $counter = 1;
+
+                while (self::withTrashed()->where('slug', $slug)->where('id', '!=', $doctor->id)->exists()) {
+                    $slug = $baseSlug . '-' . $counter++;
+                }
+
+                $doctor->slug = $slug;
+            }
+        });
+
+        static::updating(function ($doctor) {
+            if ($doctor->isDirty('user_id') || !$doctor->slug) {
+                $userName = $doctor->user ? $doctor->user->name : 'doctor-' . ($doctor->user_id ?? 'unknown');
+                $baseSlug = Str::slug($userName);
+                $slug = $baseSlug;
+                $counter = 1;
+
+                while (self::withTrashed()->where('slug', $slug)->where('id', '!=', $doctor->id)->exists()) {
+                    $slug = $baseSlug . '-' . $counter++;
+                }
+
+                $doctor->slug = $slug;
+            }
+        });
     }
 }
