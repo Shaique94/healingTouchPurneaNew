@@ -25,16 +25,15 @@ class OurServices extends Component
             ->get();
         $this->doctorCount = $this->doctors->count();
     }
-    public function bookAppointment($doctorId = null)
+
+    public function bookAppointment($doctorSlug)
     {
-        $doctorSlug = $doctorSlug ?? $this->doctorSlug;
         if ($doctorSlug) {
             return $this->redirect(route('book.appointment', ['slug' => $doctorSlug]), navigate: true);
         }
         return $this->redirect(route('book.appointment'), navigate: true);
     }
-   
-  
+
     public function render()
     {
         return view('livewire.patient-booking.our-services');
