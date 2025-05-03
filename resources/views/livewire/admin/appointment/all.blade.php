@@ -155,6 +155,10 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                        <button class="btn btn-sm btn-info" 
+                                                wire:click="$dispatch('viewDetails',{id:{{ $appointment->id }}})">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
                                         <a class="btn btn-sm btn-primary"
                                            href="{{ route('admin.appointment.update', ['id' => $appointment->id]) }}">
                                            <i class="bi bi-pencil-fill"></i>
@@ -183,6 +187,7 @@
                     </table>
                 </div>
                 <livewire:admin.appointment.payment/>
+                <livewire:admin.appointment.view-details/>
             </div>
         </div>
     </div>
