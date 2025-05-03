@@ -51,7 +51,7 @@
 
                     <div class="row g-4">
                         <!-- Patient Information -->
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <div class="card h-100">
                                 <div class="card-header bg-light">
                                     <h6 class="mb-0"><i class="bi bi-person me-2"></i>Patient Information</h6>
@@ -69,13 +69,16 @@
 
                                         <dt class="col-sm-4">Contact</dt>
                                         <dd class="col-sm-8">{{ $appointment->patient->phone }}</dd>
+
+                                        <dt class="col-sm-4">Notes</dt>
+                                        <dd class="col-sm-8">{{ $appointment->notes }}</dd>
                                     </dl>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Appointment Details -->
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <div class="card h-100">
                                 <div class="card-header bg-light">
                                     <h6 class="mb-0"><i class="bi bi-calendar-check me-2"></i>Appointment Details</h6>
@@ -94,9 +97,8 @@
                                         <dt class="col-sm-4">Date & Time</dt>
                                         <dd class="col-sm-8">
                                             {{ Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y') }}
-                                            <br>
                                             <small class="text-muted">
-                                                {{ Carbon\Carbon::parse($appointment->appointment_date)->format('l') }}
+                                               ({{ Carbon\Carbon::parse($appointment->appointment_date)->format('l') }})
                                             </small>
                                             <br>
                                             <span class="badge bg-info">
@@ -118,13 +120,7 @@
 
                 </div>
 
-                <div class="modal-footer bg-light">
-                    <div class="small text-muted">
-                        <strong>Contact:</strong> +91 9471659700 |
-                        <strong>Address:</strong> Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301
-                    </div>
-                    <button type="button" class="btn btn-secondary" wire:click="$set('openModal', false)">Close</button>
-                </div>
+               
             </div>
         </div>
     </div>

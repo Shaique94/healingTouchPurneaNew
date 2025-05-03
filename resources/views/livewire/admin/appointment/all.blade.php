@@ -171,7 +171,7 @@
                                                 wire:click="printPdf({{ $appointment->id }})"
                                                 wire:loading.attr="disabled"
                                                 wire:target="printPdf({{ $appointment->id }})">
-                                           <i class="bi bi-eye-fill" wire:loading.remove wire:target="printPdf({{ $appointment->id }})"></i>
+                                           <i class="bi bi-printer" wire:loading.remove wire:target="printPdf({{ $appointment->id }})"></i>
                                            <span class="spinner-border spinner-border-sm" wire:loading wire:target="printPdf({{ $appointment->id }})"></span>
                                            <span class="d-none d-md-inline"> Print</span>
                                         </button>
