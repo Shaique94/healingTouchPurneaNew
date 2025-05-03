@@ -30,7 +30,7 @@
                             <div>
                                 <p class="font-semibold text-gray-800 text-lg">Phone</p>
                                 <a  href="tel:{{ $contact_phone }}"
-                                    class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">+91
+                                    class="text-beige-600 font-medium text-lg hover:text-beige-800 transition-colors">
                                     {{ $contact_phone }}</a>
                                 <p class="text-gray-500 text-sm mt-1">Available 24/7 for emergencies</p>
                             </div>
