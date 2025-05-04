@@ -21,7 +21,8 @@ class AppointmentBooked implements ShouldBroadcast
     public $appointment;
 
     public function __construct(Appointment $appointment)
-    {
+    {   
+        Log::info('AppointmentBooked event triggered for :'.$appointment->patient->name);
         $this->appointment = $appointment;
     }
 
@@ -35,4 +36,5 @@ class AppointmentBooked implements ShouldBroadcast
     {
         return 'appointment-booked';
     }
+
 }

@@ -428,7 +428,7 @@ class BookAppointment extends Component
        if($smsEnabled === "1"){
         $this->sendAppointmentSMS($patient->phone, $patient->name, $appointment);
        }
-        
+        // Log::info("SMS sent to {$patient->phone} for appointment ID: {$appointment->patient->name}");
        Log::info("Broadcasting event fired");
        event(new AppointmentBooked($appointment));
 

@@ -88,28 +88,36 @@
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.Echo) {
-            window.Echo.channel('receptionist-channel')
-                .listen('.appointment-booked', (event) => {
-                    console.log('New Appointment Booked:', event.appointment);
+        let lastToastTime = 0;
+        const TOAST_COOLDOWN_MS = 10000; // 10 seconds
 
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'New Appointment!',
-                        text: `Appointment booked for ${event.appointment.patient_name ?? 'Unknown'}`,
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 4000,
-                        timerProgressBar: true
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.Echo && typeof window.Echo.channel === 'function') {
+                window.Echo.channel('receptionist-channel')
+                    .listen('.appointment-booked', (event) => {
+                        const now = Date.now();
+
+                        if (now - lastToastTime >= TOAST_COOLDOWN_MS) {
+                            lastToastTime = now;
+
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'New Appointment!',
+                                text: `Appointment booked for ${event.appointment.patient.name ?? 'Unknown'}`,
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 4000,
+                                timerProgressBar: true
+                            });
+                        }
                     });
-                });
-        } else {
-            console.error('Echo is not defined');
-        }
-    });
-</script>
+            } else {
+                console.error('Echo is not defined');
+            }
+        });
+    </script>
+
     <script>
         document.addEventListener('livewire:init', () => {
 
