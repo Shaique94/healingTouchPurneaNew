@@ -144,6 +144,8 @@ class BookAppointment extends Component
         $this->getDoctorDetails();
         $this->appointmentTime = null; // Reset selected time
         $this->generateTimeSlots();
+
+
     }
 
     // Get city and state from pincode - optimized
@@ -428,7 +430,7 @@ class BookAppointment extends Component
        }
         
        Log::info("Broadcasting event fired");
-       broadcast(new AppointmentBooked($appointment));
+       event(new AppointmentBooked($appointment));
 
 
         // Small delay to improve user experience
