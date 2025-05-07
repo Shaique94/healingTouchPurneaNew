@@ -58,7 +58,7 @@
             <div class="md:w-1/2 relative animate-slideInRight">
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-beige-200 to-beige-300 rounded-full blur-lg opacity-70"></div>
-                    <img src="{{ asset('images/heroImageHt.jpg') }}" alt="Doctor with patient" class="w-full h-auto rounded-2xl shadow-2xl relative" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
+                    <img src="https://ik.imagekit.io/healingtouchpurnea/healingtouch/landingPageImages/heroImageHt.jpg?updatedAt=1746616206447" alt="Doctor with patient" class="w-full h-auto rounded-2xl shadow-2xl relative" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                 </div>
 
                 <!-- Floating Elements -->
@@ -160,7 +160,7 @@
                 <div class="md:w-1/2">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-gradient-to-r from-beige-200 to-beige-300 rounded-xl blur-lg opacity-70 -z-10"></div>
-                        <img src="{{asset('images/hospital1.jpg')}}" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
+                        <img src="https://ik.imagekit.io/healingtouchpurnea/healingtouch/landingPageImages/hospital1.jpg?updatedAt=1746616525877" alt="Healing Touch Hospital Building" class="w-full h-auto rounded-xl shadow-lg" onerror="this.src='/api/placeholder/600/400'; this.onerror=null;">
                         <!-- Experience Badge -->
                         <div class="absolute -bottom-6 -right-6 bg-white py-3 px-6 rounded-full shadow-lg">
                             <p class="text-gray-800 font-bold text-xl">25+ Years of Excellence</p>
