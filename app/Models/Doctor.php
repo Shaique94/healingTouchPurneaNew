@@ -17,6 +17,7 @@ class Doctor extends Model
         'fee',
         'qualification',
         'image',
+        'image_file_id',
         'status',
         'available_days',
         'slug',

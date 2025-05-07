@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
+
 
 class Add extends Component
 {
@@ -19,7 +21,7 @@ class Add extends Component
     public $department;
     public $name, $email, $phone, $dept_id, $password, $available_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     public $status;
-    public $image; 
+    public $image;
     public $fee;
     public $qualification;
     public $qualifications;
@@ -29,7 +31,7 @@ class Add extends Component
     #[On('open-add-doctor')]
     public function openModal()
     {
-    
+
         $this->showModal = true;
     }
 
@@ -71,9 +73,13 @@ class Add extends Component
         ]);
 
         // Save image if uploaded
-        $imagePath = null;
+        $imageUrl = null;
+        $imageFileId = null;
+
         if ($this->image) {
-            $imagePath = ImageKitHelper::uploadImage($this->image, 'healingtouch/doctors');
+            $upload = ImageKitHelper::uploadImage($this->image, '/healingtouch/doctors');
+            $imageUrl = $upload['url'] ?? null;
+            $imageFileId = $upload['fileId'] ?? null;
         }
 
         Doctor::create([
@@ -83,7 +89,9 @@ class Add extends Component
             'fee' => $this->fee,
             'available_days' => $this->available_days,
             'qualification' => $this->qualification,
-            'image' => $imagePath,
+            'image' => $imageUrl,
+            'image_file_id' => $imageFileId,
+            'slug' => Str::slug($this->name),
         ]);
 
         $this->reset(['name', 'email', 'phone', 'dept_id', 'available_days', 'image', 'fee', 'qualification']);
@@ -92,7 +100,7 @@ class Add extends Component
         $this->dispatch('success', __('Doctor added successfully'));
     }
 
-   
+
 
     public function render()
     {

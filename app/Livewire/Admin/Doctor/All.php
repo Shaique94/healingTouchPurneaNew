@@ -19,7 +19,7 @@ class All extends Component
 
     protected $queryString = ['search'];
 
-    public function updatingSearch()
+    public function updatingSearch() 
     {
         $this->resetPage();
     }

@@ -24,10 +24,26 @@ class ImageKitHelper
 
         $upload = $imageKit->upload($fileData);
 
-        if (isset($upload->result->url)) {
-            return $upload->result->url;
+        if (isset($upload->result->url) && isset($upload->result->fileId)) {
+            return [
+                'url' => $upload->result->url,
+                'fileId' => $upload->result->fileId,
+            ];
         }
 
         return null;
+    }
+
+    public static function deleteImage($fileId)
+    {
+        if (!$fileId) return;
+
+        $imageKit = new ImageKit(
+            publicKey: env('IMAGEKIT_PUBLIC_KEY'),
+            privateKey: env('IMAGEKIT_PRIVATE_KEY'),
+            urlEndpoint: env('IMAGEKIT_URL_ENDPOINT')
+        );
+
+        $imageKit->deleteFile($fileId);
     }
 }

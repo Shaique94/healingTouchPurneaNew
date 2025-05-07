@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Doctor;
 
+use App\Helpers\ImageKitHelper;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Qualification;
@@ -26,10 +27,10 @@ class Update extends Component
     public $qualification;
     public $description;
     public $password; // Add this property
-    
+
     public function openModal()
     {
-    
+
         $this->showModal = true;
     }
 
@@ -58,12 +59,13 @@ class Update extends Component
         $this->status = $doctor->status;
         $this->doctorId = $doctor->id;
         $this->qualification = $doctor->qualification;
-        $this->description=$doctor->user->description;
+        $this->description = $doctor->user->description;
     }
 
 
     public function updateDoctor()
     {
+        // dd("shaiquekjbkj");
         $validationRules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . Doctor::find($this->doctorId)->user_id,
@@ -81,7 +83,7 @@ class Update extends Component
 
         $doctor = Doctor::findOrFail($this->doctorId);
         $user = User::findOrFail($doctor->user_id);
-
+// dd("shaiqeu");
         $userData = [
             'name' => $this->name,
             'email' => $this->email,
@@ -97,15 +99,25 @@ class Update extends Component
         $user->update($userData);
 
         if ($this->newImage) {
-            $imagePath = $this->newImage->store('doctors', 'public');
-            $doctor->image = $imagePath;
+            // Delete previous image if it exists
+            if (!empty($doctor->image_file_id)) {
+                ImageKitHelper::deleteImage($doctor->image_file_id);
+            }
+
+            // Upload new image
+            $upload = ImageKitHelper::uploadImage($this->newImage, '/healingtouch/doctors');
+            $doctor->image = $upload['url'] ?? $doctor->image;
+            $doctor->image_file_id = $upload['fileId'] ?? $doctor->image_file_id;
         }
+        // dd( $upload['url']);
 
         $doctor->update([
             'department_id' => $this->dept_id,
             'available_days' => $this->available_days,
             'qualification' => $this->qualification,
             'status' => $this->status,
+            'image' => $upload['url'] ?? $doctor->image,
+            'image_file_id' => $upload['fileId'] ?? $doctor->image_file_id,
         ]);
 
         $this->resetForm();
@@ -115,7 +127,7 @@ class Update extends Component
         $this->dispatch('success', __('Doctor updated successfully'));
     }
 
-   
+
 
     public function resetForm()
     {
@@ -127,7 +139,7 @@ class Update extends Component
             'available_days',
             'image',
             'status',
-            'newImage', 
+            'newImage',
             'doctorId',
             'password' // Add password to reset
         ]);
