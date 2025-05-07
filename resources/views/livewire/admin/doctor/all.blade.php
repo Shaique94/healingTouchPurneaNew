@@ -38,7 +38,7 @@
                 @forelse($doctors as $doc)
                 <tr>
                     <td class="text-center">
-                        <img src="{{ $doc->image ? asset('storage/' . $doc->image) : asset('images/default.jpg') }}" 
+                        <img src="{{ $doc->image ?  $doc->image : asset('images/default.jpg') }}" 
                              class="img-thumbnail" alt="Doctor Image"
                              style="width: 50px; height: 50px; object-fit: cover;">
                     </td>

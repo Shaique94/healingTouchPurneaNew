@@ -35,7 +35,7 @@
                     <div class="flex-shrink-0">
                         <img
                             class="w-20 h-20 rounded-full object-cover border-2 border-beige-100 shadow"
-                            src="{{ $doctor->image ? asset('storage/' . $doctor->image): asset('images/default.jpg') }}"
+                            src="{{ $doctor->image ? $doctor->image: asset('images/default.jpg') }}"
                             alt="Dr. {{ $doctor->user->name }}"> 
                     </div>
                     <div class="flex-1 min-w-0">

@@ -90,7 +90,7 @@
                     <a href="{{ route('doctors.detail', ['slug' => $doctor->doctor->slug]) }}" wire:navigate class="block">
                         <div class="h-auto bg-gray-200">
                             <img
-                                src="{{ $doctor->doctor && $doctor->doctor->image ? asset('storage/' . $doctor->doctor->image) : asset('images/default.jpg') }}"
+                                src="{{ $doctor->doctor && $doctor->doctor->image ? $doctor->doctor->image : asset('images/default.jpg') }}"
                                 alt="{{ $doctor->name }}"
                                 class="w-full h-auto hover:opacity-90 transition-opacity" />
                         </div>
