@@ -7,14 +7,14 @@
                 Take a glimpse into our world-class infrastructure and care environment
             </p>
         </div>
-        <livewire:comman.appointment-card />
+        <livewire:comman.appointment-card /> 
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @forelse($images as $image)
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1 group relative">
                 <div class="h-64 overflow-hidden">
                     <img
-                        src="{{ $image['thumbnail'] }}"
+                        src="{{ $image['thumbnail'] }}" 
                         alt="{{ $image['name'] ?? 'Gallery image' }}"
                         loading="lazy"
                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300" />

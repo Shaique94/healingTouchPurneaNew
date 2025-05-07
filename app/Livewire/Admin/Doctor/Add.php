@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Doctor;
 
+use App\Helpers\ImageKitHelper;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Qualification;
@@ -18,7 +19,7 @@ class Add extends Component
     public $department;
     public $name, $email, $phone, $dept_id, $password, $available_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     public $status;
-    public $image;
+    public $image; 
     public $fee;
     public $qualification;
     public $qualifications;
@@ -72,7 +73,7 @@ class Add extends Component
         // Save image if uploaded
         $imagePath = null;
         if ($this->image) {
-            $imagePath = $this->image->store('doctors', 'public');
+            $imagePath = ImageKitHelper::uploadImage($this->image, 'healingtouch/doctors');
         }
 
         Doctor::create([

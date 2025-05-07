@@ -36,7 +36,7 @@
                         <img
                             class="w-20 h-20 rounded-full object-cover border-2 border-beige-100 shadow"
                             src="{{ $doctor->image ? asset('storage/' . $doctor->image): asset('images/default.jpg') }}"
-                            alt="Dr. {{ $doctor->user->name }}">
+                            alt="Dr. {{ $doctor->user->name }}"> 
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="text-xl font-bold text-gray-800 truncate">Dr. {{ $doctor->user->name }}</h3>

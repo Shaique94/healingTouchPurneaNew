@@ -28,7 +28,7 @@ class OurDoctors extends Component
                 ->orWhere('qualification', 'like', '%' . $this->search . '%');
             })
             ->get()
-            ->map(function ($doctor) {
+            ->map(function ($doctor) { 
                 $availableDays = is_array($doctor->available_days)
                     ? $doctor->available_days
                     : (is_string($doctor->available_days)

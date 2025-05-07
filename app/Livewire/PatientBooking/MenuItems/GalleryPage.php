@@ -26,7 +26,7 @@ class GalleryPage extends Component
     
         $response = $imagekit->listFiles([
             'path' => '/gallery',
-            'limit' => 20,
+            'limit' => 20, 
             'sort' => 'DESC_CREATED',
         ]);
     
