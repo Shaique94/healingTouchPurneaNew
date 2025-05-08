@@ -440,7 +440,7 @@
                                     <!-- Doctor Image - Centered on mobile -->
                                     <div class="flex-shrink-0 flex justify-center sm:justify-start mb-4 sm:mb-0">
                                         <div class="relative">
-                                            <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
+                                            <img src="{{ $doctorDetails->image ? $doctorDetails->image : asset('images/default.jpg') }}"
                                                 class="w-24 h-24 sm:w-20 sm:h-20 rounded-full border-4 border-white shadow-md object-cover">
                                             <div
                                                 class="absolute bottom-0 right-0 bg-green-500 p-1 rounded-full border-2 border-white">
@@ -730,7 +730,7 @@
                                         <div class="flex items-start mb-4">
                                             <div
                                                 class="w-16 h-16 rounded-lg overflow-hidden bg-gray-200 mr-4 flex-shrink-0">
-                                                <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
+                                                <img src="{{ $doctorDetails->image ? $doctorDetails->image : asset('images/default.jpg') }}"
                                                     alt="Doctor" class="w-full h-full object-cover">
                                             </div>
                                             <div>
