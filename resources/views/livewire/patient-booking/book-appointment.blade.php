@@ -278,7 +278,7 @@
 
                                                     <div
                                                         class="w-24 h-24 rounded-full overflow-hidden bg-white mx-auto border-4 border-white shadow-md">
-                                                        <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : asset('images/default.jpg') }}"
+                                                        <img src="{{ $doctor->image ? $doctor->image : asset('images/default.jpg') }}"
                                                             alt="Dr. {{ $doctor->user->name }}"
                                                             class="w-full h-full object-cover">
                                                     </div>
