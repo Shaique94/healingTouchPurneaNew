@@ -165,7 +165,7 @@
                                         <div class="text-center">
                                             <div
                                                 class="w-28 h-28 rounded-full overflow-hidden bg-white border-4 border-white shadow-lg mx-auto">
-                                                <img src="{{ $doctorDetails->image ? asset('storage/' . $doctorDetails->image) : asset('images/default.jpg') }}"
+                                                <img src="{{ $doctorDetails->image ? $doctorDetails->image : asset('images/default.jpg') }}"
                                                     class="w-full h-full object-cover">
                                             </div>
                                             <h3 class="text-lg font-bold text-gray-900 mt-4">Dr.
