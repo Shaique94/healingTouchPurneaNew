@@ -777,6 +777,8 @@
         @endif
 
     </main>
+    <audio id="notification-sound" src="{{ asset('sounds/notification.mp3') }}" preload="auto"></audio>
+
 </div>
 
 <!-- Simple JavaScript for mobile sidebar toggle -->

@@ -85,6 +85,7 @@
             {{ $slot }}
         </div>
     </div>
+
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -92,6 +93,8 @@
         const TOAST_COOLDOWN_MS = 10000; // 10 seconds
 
         document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('notification-sound');
+
             if (window.Echo && typeof window.Echo.channel === 'function') {
                 window.Echo.channel('receptionist-channel')
                     .listen('.appointment-booked', (event) => {
@@ -99,6 +102,12 @@
 
                         if (now - lastToastTime >= TOAST_COOLDOWN_MS) {
                             lastToastTime = now;
+
+                            if (audio) {
+                            audio.play().catch((e) => {
+                                console.warn('Unable to play sound automatically:', e);
+                            });
+                        }
 
                             Swal.fire({
                                 icon: 'info',
