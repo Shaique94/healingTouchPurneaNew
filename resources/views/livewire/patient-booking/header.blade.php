@@ -134,6 +134,7 @@
                 <a wire:navigate href="{{ route('services.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0h4m-4 0H8" />
                     </svg>
                     <span>Services</span>
                 </a>
@@ -141,7 +142,7 @@
                 <!-- Doctors Link with Icon -->
                 <a wire:navigate href="{{ route('our.doctors') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>Our Doctors</span>
                 </a>
@@ -149,13 +150,13 @@
                 <!-- About Link with Icon -->
                 <a wire:navigate href="{{ route('about.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v9.364M5 7l7 7 7-7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>About</span>
                 </a>
                 <a wire:navigate href="{{ route('gallery.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4a3 3 0 014 0l4 4M4 8h.01M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4a3 3 0 014 0l4 4m4-10v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h12a2 2 0 012 2z" />
                     </svg>
                     <span>Gallery</span>
                 </a>
@@ -163,15 +164,15 @@
                 <!-- Careers Link with Icon -->
                 <a wire:navigate href="{{ route('careers.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v4m0 0l-3-3m3 3l3-3m0-4v-4m-6 0h6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span>Careers</span>
+                    <span>Jobs</span>
                 </a>
 
                 <!-- Contact Link with Icon -->
                 <a wire:navigate href="{{ route('contact.page') }}" class="py-3 flex items-center space-x-3 text-gray-700 hover:text-beige-600" @click="open = false;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12l-6-6M21 12l-6 6M3 12l6-6M3 12l6 6" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <span>Contact</span>
                 </a>

@@ -45,6 +45,10 @@ class Add extends Component
         $this->department = Department::all();
     }
 
+    public function updatedName($value)
+    {
+        $this->name = ucwords(strtolower($value));
+    }
 
     public function saveDoctor()
     {

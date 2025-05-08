@@ -21,7 +21,7 @@
                                     <label class="form-label fw-semibold" for="name">
                                         <i class="bi bi-person-fill me-1"></i>Doctor Name
                                     </label>
-                                    <input type="text" wire:model="name" id="name" class="form-control" placeholder="Enter doctor's name">
+                                    <input type="text" wire:model.live="name" id="name" class="form-control" placeholder="Enter doctor's name">
                                     @error('name') <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
 
