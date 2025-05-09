@@ -119,6 +119,9 @@
                                 timer: 4000,
                                 timerProgressBar: true
                             });
+
+                            Livewire.dispatch('appointment-booked');
+
                         }
                     });
             } else {

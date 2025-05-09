@@ -310,7 +310,9 @@ class Dashboard extends Component
         $this->selectedDate = $date;
         $this->loadAppointments();
     }
-
+    
+    //here we are recieving this event from frontend after the appointment is booked
+    #[On("appointment-booked")]
     public function loadAppointments()
     {
         $query = Appointment::with('patient');
@@ -343,20 +345,7 @@ class Dashboard extends Component
         $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
     }
 
-    // public function checkIn($appointmentId)
-    // {
-    //     $appointment = Appointment::find($appointmentId);
-    //     if ($appointment) {
-    //         $appointment->status = 'checked_in';
-    //         $appointment->save();
-    //         $this->loadAppointments();
-    //     }
-    //     $this->dispatch('alert', [
-    //         'type' => 'success',
-    //         'message' => 'Appointment checked in successfully.'
-    //     ]);
-
-    // }
+   
     public function confirmCheckIn($appointmentId)
 {
 
