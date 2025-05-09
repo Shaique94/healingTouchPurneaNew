@@ -57,7 +57,8 @@ class BookAppointment extends Component
     public $metaKeywords;
     public $metaDescription;
     public $hospital_name;
-
+    public $settlement = false;
+    public $amount = 0;
     public function mount($slug = null)
     {
         $this->appointmentDate = Carbon::now()->addDay()->format('Y-m-d');
@@ -392,6 +393,16 @@ class BookAppointment extends Component
             'payment_method' => $this->payment_method,
             'notes' => $this->notes,
         ]);
+        //for inserting data in payment table
+        $payment_details = [
+            'appointment_id' => $appointment->id,
+            'paid_amount' => $this->amount, 
+            'mode' => $this->payment_method,               
+            'settlement' => $this->settlement, 
+            'status' => $this->settlement ? 'paid' : 'due',
+        ];
+        $appointment->payment()->create($payment_details);
+
 
         $datePrefix = Carbon::parse($this->appointmentDate)->format('Ymd');
         $appointmentNo=$appointment->update([

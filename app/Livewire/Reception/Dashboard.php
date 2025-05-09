@@ -226,12 +226,13 @@ class Dashboard extends Component
         //work left here to make it dynamic
         $doctor_details = Doctor::where('id', $this->doctor_id)->first();
         $payment_details = [
-            'appointment_id' => $new_appointment->id,
+            'appointment_id' => $new_appointment->id, 
             'paid_amount' => $this->amount,
             'mode' => 'Cash',
             'settlement' => $this->settlement,
             'status' => $this->settlement ? 'paid' : 'due',
         ];
+        //this will create the payment record
         $new_appointment->payment()->create($payment_details);
 
 
