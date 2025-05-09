@@ -400,6 +400,8 @@ public function doCheckIn($appointmentId)
     #[Layout('layouts.reception')]
     public function render()
     {
+        $this->loadAppointments();
+
         return view('livewire.reception.dashboard');
     }
 }
