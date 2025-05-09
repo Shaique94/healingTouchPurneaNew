@@ -662,7 +662,7 @@
                         <tr>
                             <th class="px-6 py-3 text-left">Patient Name</th>
                             <th class="px-6 py-3 text-left">Phone</th>
-                            <th class="px-6 py-3 text-left">Address</th>
+                            <th class="px-6 py-3 text-left">Address</th> 
                             <th class="px-6 py-3 text-left">City</th>
                             <th class="px-6 py-3 text-left">Assigned Doctor</th>
                             <th class="px-6 py-3 text-left">Payment Status</th>

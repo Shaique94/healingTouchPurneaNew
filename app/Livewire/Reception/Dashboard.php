@@ -310,7 +310,7 @@ class Dashboard extends Component
         $this->selectedDate = $date;
         $this->loadAppointments();
     }
-    
+
     //here we are recieving this event from frontend after the appointment is booked
     #[On("appointment-booked")]
     public function loadAppointments()
@@ -337,6 +337,9 @@ class Dashboard extends Component
                     ->orWhere('phone', 'like', '%' . $this->search . '%');
             });
         }
+
+        $query->orderByDesc('created_at');
+
 
         $this->appointments = $query->get();
 
