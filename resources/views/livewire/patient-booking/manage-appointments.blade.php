@@ -103,7 +103,7 @@
                             <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                             <div class="relative">
                                 <input 
-                                    wire:model="phone" 
+                                    wire:model.live="phone" 
                                     type="tel" 
                                     id="phone" 
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
@@ -122,7 +122,7 @@
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                             <div class="relative">
                                 <input 
-                                    wire:model="email" 
+                                    wire:model.live="email" 
                                     type="email" 
                                     id="email" 
                                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-beige-500 focus:ring-beige-500 pl-10 sm:text-sm" 
@@ -217,6 +217,16 @@
                                                     <td class="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
                                                         <div class="flex justify-end items-center gap-2">
                                                             <button 
+                                                                wire:click="showAppointmentDetails('{{ $result['id'] }}')"
+                                                                class="text-beige-600 hover:text-beige-900 flex items-center"
+                                                            >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                                </svg>
+                                                                View
+                                                            </button>
+                                                            <button 
                                                                 wire:click="downloadReceipt('{{ $result['id'] }}')" 
                                                                 class="text-beige-600 hover:text-beige-900 flex items-center"
                                                             >
@@ -277,6 +287,145 @@
                     </button>
                     <button wire:click="closeConfirmModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                         Keep Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Details Modal -->
+    <div x-data="{ show: @entangle('showDetailsModal') }" x-show="show" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="show" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+            <div x-show="show" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+                @if($selectedAppointment)
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 w-full">
+                            <!-- Header with Hospital Info -->
+                            <div class="text-center mb-6">
+                                <h3 class="text-xl font-bold text-gray-900">HealingTouch Hospital</h3>
+                                <p class="text-sm text-gray-600">Excellence in Healthcare</p>
+                            </div>
+
+                            <!-- Status and Reference -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500">Appointment ID</p>
+                                    <p class="text-lg font-bold text-gray-900">{{ $selectedAppointment['appointment_no'] }}</p>
+                                </div>
+                                <div>
+                                    <span class="px-3 py-1 text-sm font-semibold rounded-full 
+                                        {{ $selectedAppointment['status'] === 'confirmed' ? 'bg-green-100 text-green-800' : '' }}
+                                        {{ $selectedAppointment['status'] === 'cancelled' ? 'bg-red-100 text-red-800' : '' }}
+                                        {{ $selectedAppointment['status'] === 'pending' ? 'bg-yellow-100 text-yellow-600' : '' }}">
+                                        {{ ucfirst($selectedAppointment['status']) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Payment Information -->
+                            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">Amount Paid</p>
+                                        <p class="text-lg font-bold text-green-600">₹{{ $selectedAppointment['paid_amount'] }}</p>
+                                        <span class="text-sm text-gray-600">({{ ucfirst($selectedAppointment['payment_status']) }})</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-500">Queue Number</p>
+                                        <p class="text-lg font-bold text-beige-600">#{{ $selectedAppointment['queue_number'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Patient and Doctor Information -->
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <!-- Patient Information -->
+                                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                    <h4 class="text-sm font-medium text-gray-900 mb-3">Patient Information</h4>
+                                    <div class="space-y-2">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Full Name</p>
+                                            <p class="text-sm font-medium">{{ $selectedAppointment['patient_name'] }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Patient ID</p>
+                                            <p class="text-sm font-medium">#{{ $selectedAppointment['patient_id'] }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Gender</p>
+                                            <p class="text-sm font-medium">{{ ucfirst($selectedAppointment['patient_gender']) }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Contact</p>
+                                            <p class="text-sm font-medium">{{ $selectedAppointment['patient_phone'] }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Doctor Information -->
+                                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                    <h4 class="text-sm font-medium text-gray-900 mb-3">Doctor Information</h4>
+                                    <div class="space-y-2">
+                                        <div>
+                                            <p class="text-xs text-gray-500">Doctor Name</p>
+                                            <p class="text-sm font-medium">Dr. {{ $selectedAppointment['doctor_name'] }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Department</p>
+                                            <p class="text-sm font-medium">{{ $selectedAppointment['department'] }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500">Consultation Fee</p>
+                                            <p class="text-sm font-medium">₹{{ $selectedAppointment['doctor_fee'] }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Appointment Schedule -->
+                            <div class="bg-beige-50 p-4 rounded-lg mb-6">
+                                <h4 class="text-sm font-medium text-gray-900 mb-3">Appointment Schedule</h4>
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div>
+                                        <p class="text-xs text-gray-500">Date</p>
+                                        <p class="text-sm font-medium">{{ \Carbon\Carbon::parse($selectedAppointment['appointment_date'])->format('d M Y') }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Day</p>
+                                        <p class="text-sm font-medium text-beige-700">{{ $selectedAppointment['appointment_day'] }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Reporting Time</p>
+                                        <p class="text-sm font-medium text-beige-700">{{ \Carbon\Carbon::parse($selectedAppointment['appointment_time'])->format('h:i A') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @endif
+                <!-- Details Modal Footer -->
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    @if($selectedAppointment)
+                    <button 
+                        wire:click="downloadReceipt('{{ $selectedAppointment['id'] ?? '' }}')"
+                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-beige-600 text-base font-medium text-white hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        Download Receipt
+                    </button>
+                    @endif
+                    <button 
+                        wire:click="closeDetailsModal" 
+                        type="button" 
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    >
+                        Close
                     </button>
                 </div>
             </div>

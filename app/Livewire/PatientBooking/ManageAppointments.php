@@ -9,18 +9,26 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 #[Title('Manage Appointments')]
 #[Layout('layouts.guest')]
 class ManageAppointments extends Component
 {
+#[Url(as: 'method')]
     public $searchMethod = 'phone';
+
+    #[Url(as: 'phone')]
     public $phone = '';
+
+    #[Url(as: 'email')]
     public $email = '';
     public $searchResults = [];
     public $noResultsFound = false;
     public $searchPerformed = false;
     public $showConfirmModal = false;
     public $appointmentToCancel = null;
+    public $showDetailsModal = false;
+    public $selectedAppointment = null;
 
     protected $rules = [
         'phone' => 'required_if:searchMethod,phone|nullable|string|max:15',
@@ -33,10 +41,19 @@ class ManageAppointments extends Component
         'email.email' => 'Please enter a valid email address.',
     ];
 
-    public function updatedSearchMethod()
+protected function prepareForValidation($attributes)
     {
-        // Reset search results when changing search method
-        $this->reset(['searchResults', 'noResultsFound', 'searchPerformed']);
+        if (isset($attributes['phone'])) {
+            $attributes['phone'] = (string) $attributes['phone'];
+        }
+        return $attributes;
+    }
+  
+  
+   public function updatedSearchMethod()
+    {
+        $this->reset(['phone', 'email', 'searchResults', 'noResultsFound', 'searchPerformed']);
+        $this->resetErrorBag(); 
     }
 
     public function findAppointments()
@@ -87,6 +104,11 @@ class ManageAppointments extends Component
 
     public function downloadReceipt($appointmentId)
     {
+        if (!$appointmentId) {
+            session()->flash('error', 'Invalid appointment ID.');
+            return;
+        }
+
         $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
         
         if (!$appointment) {
@@ -147,6 +169,52 @@ class ManageAppointments extends Component
 
         session()->flash('success', 'Appointment cancelled successfully.');
         $this->closeConfirmModal();
+    }
+
+    public function showAppointmentDetails($appointmentId)
+    {
+        if (!$appointmentId) {
+            return;
+        }
+
+        $appointment = Appointment::with([
+            'patient', 
+            'doctor.user', 
+            'doctor.department',
+            'payment'
+        ])->find($appointmentId);
+            
+        if ($appointment) {
+            $this->selectedAppointment = [
+                'id' => $appointment->id,
+                'reference_id' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
+                'appointment_no' => $appointment->appointment_no ?? 'N/A',
+                'queue_number' => str_pad($appointment->queue_number ?? 1, 3, '0', STR_PAD_LEFT),
+                'payment_status' => $appointment->payment?->status ?? 'pending',
+                'paid_amount' => number_format($appointment->payment?->paid_amount ?? 0, 2),
+                'patient_name' => $appointment->patient?->name ?? 'N/A',
+                'patient_id' => $appointment->patient?->id ?? 'N/A',
+                'patient_phone' => $appointment->patient?->phone ?? 'N/A',
+                'patient_email' => $appointment->patient?->email ?? 'N/A',
+                'patient_gender' => $appointment->patient?->gender ?? 'N/A',
+                'doctor_name' => $appointment->doctor?->user?->name ?? 'N/A',
+                'department' => $appointment->doctor?->department?->name ?? 'N/A',
+                'doctor_fee' => number_format($appointment->doctor?->fee ?? 0, 2),
+                'appointment_date' => $appointment->appointment_date,
+                'appointment_time' => $appointment->appointment_time,
+                'appointment_day' => \Carbon\Carbon::parse($appointment->appointment_date)->format('l'),
+                'status' => $appointment->status ?? 'pending',
+                'created_at' => $appointment->created_at,
+                'barcode_path' => $appointment->barcode_path
+            ];
+            $this->showDetailsModal = true;
+        }
+    }
+
+    public function closeDetailsModal()
+    {
+        $this->showDetailsModal = false;
+        $this->selectedAppointment = null;
     }
 
     public function render()

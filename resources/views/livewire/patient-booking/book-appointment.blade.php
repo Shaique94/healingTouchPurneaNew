@@ -659,6 +659,27 @@
 
                         <!-- Navigation - Made more responsive -->
                         <div class="mt-6 md:mt-8 flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
+                            
+                            <button wire:click="nextStep" wire:loading.attr="disabled" type="button"
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
+                                onclick="showLoader('Reviewing your appointment...')">
+                                <span>Next</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                <span wire:loading wire:target="nextStep" class="ml-2">
+                                    <svg class="animate-spin h-4 w-4 text-white inline"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                            stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                </span>
+                            </button>
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
                                 class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
                                 onclick="showLoader('Going back...')">
@@ -670,26 +691,6 @@
                                 Back
                                 <span wire:loading wire:target="previousStep" class="ml-2">
                                     <svg class="animate-spin h-4 w-4 text-gray-700 inline"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle class="opacity-25" cx="12" cy="12" r="10"
-                                            stroke="currentColor" stroke-width="4"></circle>
-                                        <path class="opacity-75" fill="currentColor"
-                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                        </path>
-                                    </svg>
-                                </span>
-                            </button>
-                            <button wire:click="nextStep" wire:loading.attr="disabled" type="button"
-                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
-                                onclick="showLoader('Reviewing your appointment...')">
-                                <span>Review</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                                <span wire:loading wire:target="nextStep" class="ml-2">
-                                    <svg class="animate-spin h-4 w-4 text-white inline"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
@@ -877,10 +878,9 @@
                         </div>
 
                         <!-- Navigation -->
-                        <div class="mt-8 gap-4 flex justify-between">
+                        <div class="mt-6 md:mt-8 flex flex-col sm:flex-row justify-between gap-3 sm:gap-0">
                             <button wire:click="previousStep" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
-                                onclick="showLoader('Going back...')">
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"                                onclick="showLoader('Going back...')">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -889,7 +889,7 @@
                                 Edit Details
                             </button>
                             <button wire:click="bookAppointment" wire:loading.attr="disabled" type="button"
-                                class="inline-flex items-center px-5 py-2.5 bg-beige-600 text-white rounded-md shadow-sm hover:bg-beige-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500"
+                                class="w-full sm:w-auto inline-flex items-center justify-center px-4 md:px-5 py-2 md:py-2.5 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-beige-500 text-sm"
                                 onclick="showLoader('Confirming your appointment...')">
                                 <span>Confirm Booking</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none"
@@ -909,6 +909,7 @@
                                 </span>
                             </button>
                         </div>
+                        
                     </div>
                 </div>
             @endif
