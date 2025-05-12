@@ -14,7 +14,7 @@ class DoctorDetails extends Component
     public $doctor;
     public $doctorSlug;
     public $doctorStatus;
-    public $contactPhone ; 
+    public $contactPhone;
     public $canBookAppointment;
 
     public function mount($slug = null, $doctorStatus = true)
@@ -39,7 +39,7 @@ class DoctorDetails extends Component
 
     public function getDynamicTitleProperty()
     {
-        return $this->doctor ? 'Dr. ' . $this->doctor->user->name : 'Doctor';
+        return $this->doctor && $this->doctor->user ? 'Dr. ' . $this->doctor->user->name . ' | ' . ($this->doctor->qualification ?? '') : 'Doctor';
     }
 
     #[Layout('layouts.guest')]

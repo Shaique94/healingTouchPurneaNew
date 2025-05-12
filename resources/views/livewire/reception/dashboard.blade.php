@@ -134,7 +134,7 @@
                             <option value="female">Female</option>
                             <option value="other">Other</option>
                         </select>
-                    
+
                         @error('gender') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -525,6 +525,14 @@
 
                 <!-- Filter Buttons -->
                 <div class="flex space-x-2 mt-3 sm:mt-0">
+                    <button
+                        wire:click="$refresh"
+                        class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200 bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Refresh
+                    </button>
 
                     <button
                         wire:click="filterByDate('tomorrow')"

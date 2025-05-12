@@ -93,12 +93,14 @@
         const TOAST_COOLDOWN_MS = 10000; // 10 seconds
 
         document.addEventListener('DOMContentLoaded', () => {
-            const audio = document.getElementById('notification-sound');
+            // const audio = document.getElementById('notification-sound');
 
             if (window.Echo && typeof window.Echo.channel === 'function') {
                 window.Echo.channel('receptionist-channel')
                     .listen('.appointment-booked', (event) => {
                         const now = Date.now();
+                        const audio = document.getElementById('notification-sound');
+
 
                         if (now - lastToastTime >= TOAST_COOLDOWN_MS) {
                             lastToastTime = now;
@@ -119,6 +121,9 @@
                                 timer: 4000,
                                 timerProgressBar: true
                             });
+
+                            Livewire.dispatch('appointment-booked');
+
                         }
                     });
             } else {

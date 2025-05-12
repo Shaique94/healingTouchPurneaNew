@@ -348,6 +348,9 @@ class Dashboard extends Component
             });
         }
 
+        $query->orderByDesc('created_at');
+
+
         $this->appointments = $query->get();
 
         $this->appointments_count = $this->appointments->count();
@@ -355,20 +358,7 @@ class Dashboard extends Component
         $this->appointments_cancelled = $this->appointments->where('status', 'cancelled')->count();
     }
 
-    // public function checkIn($appointmentId)
-    // {
-    //     $appointment = Appointment::find($appointmentId);
-    //     if ($appointment) {
-    //         $appointment->status = 'checked_in';
-    //         $appointment->save();
-    //         $this->loadAppointments();
-    //     }
-    //     $this->dispatch('alert', [
-    //         'type' => 'success',
-    //         'message' => 'Appointment checked in successfully.'
-    //     ]);
-
-    // }
+   
     public function confirmCheckIn($appointmentId)
     {
 
@@ -419,6 +409,8 @@ class Dashboard extends Component
     #[Layout('layouts.reception')]
     public function render()
     {
+        $this->loadAppointments();
+
         return view('livewire.reception.dashboard');
     }
 }

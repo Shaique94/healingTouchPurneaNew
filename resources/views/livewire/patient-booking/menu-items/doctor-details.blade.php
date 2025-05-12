@@ -11,7 +11,7 @@
             <!-- Doctor Image -->
             <div class="relative -mt-20 md:-mt-16 flex-shrink-0 mx-auto md:mx-0">
                 <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white">
-                    <img src="{{ asset('storage/' . $doctor->image) }}" alt="{{ $doctor->user->name }}"
+                    <img src="{{ $doctor->image }}" alt="{{ $doctor->user->name }}"
                         class="w-full h-full object-cover rounded-full border-4 border-beige-600 "
                         onerror="this.src='{{ asset('images/default.jpg') }}'" />
                 </div>
