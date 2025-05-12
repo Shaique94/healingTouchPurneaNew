@@ -6,7 +6,7 @@ use App\Jobs\SendTomorrowAppointmentsPDF;
 use App\Mail\AppointmentReceiptMail;
 use App\Models\Appointment;
 use App\Models\Doctor;
-use App\Models\Patient;
+use App\Models\Patient as PatientModel;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -27,7 +27,7 @@ class Dashboard extends Component
     public $search = '';
     public $showModal = false;
     public $doctors;
-    public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state, $country;
+    public $name, $email, $phone, $dob, $gender, $address, $pincode, $city, $state = "Bihar", $country = "India";
     public $doctor_id, $appointment_date, $appointment_time, $notes;
     public $step = 1;
     public $appointmentId;
@@ -85,7 +85,7 @@ class Dashboard extends Component
     {
         $appointment = Appointment::findOrFail($appointmentId);
         $pendingAmount = $appointment->doctor->fee - $appointment->payment->paid_amount; // or calculate how much is due
-// dd($pendingAmount);
+        // dd($pendingAmount);
 
         $this->dispatch('show-collect-confirmation', [
             'appointmentId' => $appointmentId,
@@ -102,7 +102,7 @@ class Dashboard extends Component
             'settlement' => true,
         ]);
 
-        $this->dispatch('payment-collected-success'); 
+        $this->dispatch('payment-collected-success');
     }
 
     public function updatedDoctorId($value)
@@ -176,9 +176,7 @@ class Dashboard extends Component
 
     public function save()
     {
-
-
-        $this->validate([
+        $data=$this->validate([
             'doctor_id' => 'required|exists:doctors,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
@@ -187,22 +185,36 @@ class Dashboard extends Component
             'notes' => 'nullable|string|max:255',
         ]);
 
-        // You can save patient and appointment here
-        // Example:
-        $patient = \App\Models\Patient::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'age' => $this->dob,
-            'gender' => $this->gender,
-            'address' => $this->address,
-            'pincode' => $this->pincode,
-            'city' => $this->city, 
-            'state' => $this->state,
-            'country' => $this->country,
-        ]);
 
-        $lastQueueNumber = Appointment::where('appointment_date', $this->appointment_date)
+        $existingPatient = PatientModel::where('name', $this->name)
+            ->where('phone', $this->phone)
+            ->first();
+
+        if ($existingPatient) {
+            $hasAppointmentToday = Appointment::where('patient_id', $existingPatient->id)
+                ->where('appointment_date', $this->appointment_date)
+                ->exists();
+
+            if ($hasAppointmentToday) {
+            $this->dispatch('notice', type: 'info', text: 'This patient already has an appointment on '. $this->appointment_date);
+            return;
+            }
+
+        } else {
+            $patient = PatientModel::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'age' => $this->dob,
+                'gender' => $this->gender,
+                'address' => $this->address,
+                'pincode' => $this->pincode,
+                'city' => $this->city,
+                'state' => $this->state,
+                'country' => $this->country,
+            ]);
+             $lastQueueNumber = Appointment::where('doctor_id', $this->doctor_id)
+            ->where('appointment_date', $this->appointment_date)
             ->orderBy('queue_number', 'desc')
             ->value('queue_number');
 
@@ -220,28 +232,27 @@ class Dashboard extends Component
         ]);
 
         $datePrefix = Carbon::parse($this->appointment_date)->format('Ymd');
-        $appointmentNo = $new_appointment->update([
+        $new_appointment->update([
             'appointment_no' => intval($datePrefix . str_pad($new_appointment->id, 4, '0', STR_PAD_LEFT))
         ]);
-        //work left here to make it dynamic
-        $doctor_details = Doctor::where('id', $this->doctor_id)->first();
-        $payment_details = [
+
+        $new_appointment->payment()->create([
             'appointment_id' => $new_appointment->id,
             'paid_amount' => $this->amount,
             'mode' => 'Cash',
             'settlement' => $this->settlement,
             'status' => $this->settlement ? 'paid' : 'due',
-        ];
-        $new_appointment->payment()->create($payment_details);
-
-
-        $this->step++;
+        ]);
 
         $this->appointmentId = $new_appointment->id;
-
         $this->showModal = true;
         $this->loadAppointments();
-        session()->flash('success', 'Patient and appointment created successfully.');
+        $this->step++;
+        session()->flash('success', value: 'Patient and appointment created successfully.');
+        }
+
+
+        
     }
 
     public function viewAppointment($appointmentId)
@@ -311,6 +322,7 @@ class Dashboard extends Component
         $this->loadAppointments();
     }
 
+    #[On('appointmentBooked')]
     public function loadAppointments()
     {
         $query = Appointment::with('patient');
@@ -358,35 +370,34 @@ class Dashboard extends Component
 
     // }
     public function confirmCheckIn($appointmentId)
-{
+    {
 
-    // dd($appointmentId);
-    $this->dispatch('confirm-check-in', [
-        'appointmentId' => $appointmentId,
-    ]);
-}
-#[On('doCheckIn')]
-public function doCheckIn($appointmentId)
-{
-// dd($appointmentId);
-    if (!$appointmentId) {
-        // maybe throw error or return
-        return;
+        // dd($appointmentId);
+        $this->dispatch('confirm-check-in', [
+            'appointmentId' => $appointmentId,
+        ]);
     }
+    #[On('doCheckIn')]
+    public function doCheckIn($appointmentId)
+    {
+        // dd($appointmentId);
+        if (!$appointmentId) {
+            // maybe throw error or return
+            return;
+        }
 
-    $appointment = Appointment::find($appointmentId);
-    if ($appointment) {
-        $appointment->status = 'checked_in';
-        $appointment->save();
-        $this->loadAppointments();
-    } 
+        $appointment = Appointment::find($appointmentId);
+        if ($appointment) {
+            $appointment->status = 'checked_in';
+            $appointment->save();
+            $this->loadAppointments();
+        }
 
-    $this->dispatch('alert', [
-        'type' => 'success',
-        'message' => 'Patient checked in successfully.'
-    ]);
-
-}
+        $this->dispatch('alert', [
+            'type' => 'success',
+            'message' => 'Patient checked in successfully.'
+        ]);
+    }
     public  function cancelAppointment($appointmentId)
     {
         $appointment = Appointment::find($appointmentId);
