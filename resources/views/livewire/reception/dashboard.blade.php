@@ -647,10 +647,8 @@
                                         </svg>
                                         Edit
                                     </button>
-                                    <a wire:navigate
-                                        target="_blank"
-                                        class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto"
-                                        wire:click.prevent="viewAppointment({{ $appointment->id }})">
+                                    <a wire:navigate href="{{ route('reception.appointments', $appointment->id) }}"
+                                        class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto">
                                         View PDF
                                     </a>
 

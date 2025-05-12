@@ -18,6 +18,7 @@ use App\Livewire\Admin\User\All as AllUser;
 use App\Livewire\PatientBooking\MenuItems\CareerDetail;
 use App\Livewire\PatientBooking\MenuItems\PrivacyPolicy;
 use App\Livewire\PatientBooking\MenuItems\TermsCondition;
+use App\Livewire\Reception\ViewAppointment;
 use App\Livewire\Viewappoinment;
 use App\Models\GalleryImage;
 use Illuminate\Support\Facades\Route;
@@ -96,9 +97,10 @@ Route::get('/appointments/create', AppoinmentForm::class)
 Route::get('/appointments/book/{patient}', ConfirmAppointment::class)->middleware('auth')->name('appointments.book');
 
 Route::get('/viewappointment/{id}',Viewappoinment::class)->name('show.appointment');
-Route::get('/reception/login', ReceptionLogin::class)->name('reception.login');
+Route::get('/desk/login', ReceptionLogin::class)->name('reception.login');
 Route::middleware('reception')->group(function () {
-    Route::get('/reception/dashboard', ReceptionDashboard::class)->name('reception.dashboard');
+    Route::get('/desk/dashboard', ReceptionDashboard::class)->name('reception.dashboard');
+    Route::get('/desk/appointments/{id}', ViewAppointment::class)->name('reception.appointments');
 });
 
 // Patient Booking Routes
