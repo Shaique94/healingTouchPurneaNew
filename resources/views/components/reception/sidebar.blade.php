@@ -76,20 +76,27 @@
 
                 <button wire:click="downloadTomorrowAppointmentsPDF"
                     wire:loading.attr="disabled"
+                    wire:target="downloadTomorrowAppointmentsPDF"
                     class="w-full flex items-center justify-center px-3 py-2 rounded-md bg-beige-600 text-white text-sm hover:bg-beige-700 transition relative">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         class="h-4 w-4 mr-2"
+                         wire:loading.class="hidden"
+                         wire:target="downloadTomorrowAppointmentsPDF"
+                         fill="none" 
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
                     </svg>
 
-                    <span wire:loading.remove>
+                    <span wire:loading.remove wire:target="downloadTomorrowAppointmentsPDF">
                         Download PDF
                     </span>
 
-                    <span wire:loading class="absolute right-3">
-                        <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <span wire:loading wire:target="downloadTomorrowAppointmentsPDF">
+                        Downloading...
+                        <svg class="animate-spin h-4 w-4 ml-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10"
                                 stroke="currentColor" stroke-width="4"></circle>

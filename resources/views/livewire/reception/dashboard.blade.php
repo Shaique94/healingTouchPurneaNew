@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-gradient-to-br from-beige-50 to-gray-100 flex flex-col md:flex-row">
-   
-@include('components.reception.sidebar')
+
+    @include('components.reception.sidebar')
     <main class="flex-1 p-6 space-y-6 overflow-y-auto">
         <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
@@ -615,6 +615,14 @@
 
                             <td class="px-6 py-4 text-right">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+                                    <button
+                                        class="px-3 py-2 text-sm bg-beige-400 hover:bg-beige-500 text-white rounded-md flex items-center"
+                                        wire:click="$dispatch('open-payment', { id: {{ $appointment->id }} })">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                            <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                                        </svg>
+                                    </button>
+
                                     @if($appointment->status === 'pending')
                                     <button wire:click.prevent="confirmCheckIn({{ $appointment->id }})"
                                         class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
@@ -667,8 +675,9 @@
         @if($editpatientModal)
         <livewire:reception.edit-appointment :appointmentId="$appointmentId" />
         @endif
+        <livewire:reception.payment />
+
 
     </main>
     <audio id="notification-sound" src="{{ asset('sounds/notification.mp3') }}" preload="auto"></audio>
 </div>
-
