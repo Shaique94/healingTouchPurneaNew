@@ -636,7 +636,7 @@
                                     </button>
 
                                     <!-- View PDF Button -->
-                                    <a href="{{ route('reception.appointments', $appointment->id) }}"
+                                    <a wire:navigate href="{{ route('reception.appointments', $appointment->id) }}"
                                         class="inline-flex items-center px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-700 text-xs hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />

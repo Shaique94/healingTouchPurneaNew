@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
+<div>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -306,10 +303,7 @@
             }
         }
     </style>
-</head>
-
-<body>
-    @if ($appointment?->payment?->status == 'paid')
+      @if ($appointment?->payment?->status == 'paid')
         <div class="watermark">
             <img src="{{ asset('images/paid.png') }}" alt="">
         </div>
@@ -440,6 +434,5 @@
             <strong>Address:</strong> Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301
         </div>
     </div>
-</body>
 
-</html>
+</div>
