@@ -82,9 +82,7 @@ Route::get('/sitemap.xml', function () {
 Route::get('/', LandingPage::class)->name('userlandingpage');
 
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
