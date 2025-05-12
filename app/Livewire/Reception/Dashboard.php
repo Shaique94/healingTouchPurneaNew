@@ -330,6 +330,8 @@ class Dashboard extends Component
         // Filter by date
         if ($this->selectedDate === 'tomorrow') {
             $date = now()->addDay();
+        } elseif ($this->selectedDate === 'today') {
+            $date = now();
         } else {
             // Handle custom date from date picker
             try {

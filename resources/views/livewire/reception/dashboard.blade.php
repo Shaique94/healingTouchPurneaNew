@@ -535,6 +535,13 @@
                     </button>
 
                     <button
+                        wire:click="filterByDate('today')"
+                        class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
+                            {{ $selectedDate === 'today' ? 'bg-beige-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                        Today
+                    </button>
+
+                    <button
                         wire:click="filterByDate('tomorrow')"
                         class="px-4 py-2 text-sm rounded-lg font-medium transition duration-200
                             {{ $selectedDate === 'tomorrow' ? 'bg-beige-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
