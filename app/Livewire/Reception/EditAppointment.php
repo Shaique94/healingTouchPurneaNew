@@ -88,9 +88,8 @@ class EditAppointment extends Component
 
         // Close the modal after save
         $this->dispatch('closeEditModal');
-
-        // Optional: Add a success flash message
-        session()->flash('success', 'Appointment and patient updated successfully.');
+        $this->dispatch('appointmentBooked');
+        $this->dispatch('notice', type: 'info', text: 'Appointment updated successfully');
     }
 
     public function render()

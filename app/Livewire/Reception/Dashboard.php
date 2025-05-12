@@ -81,17 +81,17 @@ class Dashboard extends Component
         // dd('shaique');
         $this->step++;
     }
-    public function confirmCollect($appointmentId)
-    {
-        $appointment = Appointment::findOrFail($appointmentId);
-        $pendingAmount = $appointment->doctor->fee - $appointment->payment->paid_amount; // or calculate how much is due
-        // dd($pendingAmount);
+    // public function confirmCollect($appointmentId)
+    // {
+    //     $appointment = Appointment::findOrFail($appointmentId);
+    //     $pendingAmount = $appointment->doctor->fee - $appointment->payment->paid_amount; // or calculate how much is due
+    //     // dd($pendingAmount);
 
-        $this->dispatch('show-collect-confirmation', [
-            'appointmentId' => $appointmentId,
-            'pendingAmount' => $pendingAmount
-        ]);
-    }
+    //     $this->dispatch('show-collect-confirmation', [
+    //         'appointmentId' => $appointmentId,
+    //         'pendingAmount' => $pendingAmount
+    //     ]);
+    // }
     #[On('collectNow')]
     public function collectNow($appointmentId)
     {
@@ -361,13 +361,13 @@ class Dashboard extends Component
     }
 
    
-    public function confirmCheckIn($appointmentId)
+    public function confirm($appointmentId)
     {
 
-        // dd($appointmentId);
-        $this->dispatch('confirm-check-in', [
-            'appointmentId' => $appointmentId,
-        ]);
+        Appointment::find($appointmentId)->update(['status'=>'confirmed']);
+        $this->dispatch('notice', type: 'info', text: 'Appointment confirmed successfully');
+
+    
     }
     #[On('doCheckIn')]
     public function doCheckIn($appointmentId)
@@ -398,11 +398,23 @@ class Dashboard extends Component
             $appointment->save();
             $this->loadAppointments();
         }
-        $this->dispatch('alert', [
-            'type' => 'success',
-            'message' => 'Appoinement Cancelled successfully'
-        ]);
+        $this->dispatch('notice', type: 'info', text: 'Appointment cancelled successfully');
+
     }
+
+    public function updateStatus($appointmentId, $status)
+    {
+        $appointment = Appointment::find($appointmentId);
+        if ($appointment) {
+            $appointment->status = $status;
+            $appointment->save();
+            $this->dispatch('alert', [
+                'type' => 'success',
+                'message' => 'Status updated successfully'
+            ]);
+        }
+    }
+
     public function logout()
     {
         Auth::logout();

@@ -57,7 +57,7 @@
                     <!-- Settlement -->
                     <div class="flex items-center space-x-2">
                         <input type="checkbox" id="settlementCheck" wire:model.live="settlement"
-                            class="text-beige-600 border-gray-300 rounded focus:ring-beige-500" />
+                            class="text-beige-600 border-gray-300 rounded focus:ring-beige-500" {{ $settlement ? 'checked' : '' }} />
                         <label for="settlementCheck">Mark as Settled</label>
                     </div>
                     @if (session()->has('warning'))

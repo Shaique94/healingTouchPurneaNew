@@ -75,8 +75,8 @@ class Payment extends Component
                 $this->appointment->status = 'checked_in';
                 $this->appointment->save();
     
-                $this->dispatch('refresh-appointment');
-                $this->dispatch('success', __('Payment added or updated successfully'));
+                $this->dispatch('appointmentBooked');
+                $this->dispatch('notice', type: 'info', text:'Payment added successfully');
                 $this->reset();
                 $this->closeModal();
     
@@ -94,8 +94,8 @@ class Payment extends Component
                  $this->appointment->status = 'checked_in';
                  $this->appointment->save();
      
-                 $this->dispatch('refresh-appointment');
-                 $this->dispatch('success', __('Payment added or updated successfully'));
+                $this->dispatch('appointmentBooked');
+                $this->dispatch('notice', type: 'info', text:'Payment added successfully');
                  $this->reset();
                  $this->closeModal();
               

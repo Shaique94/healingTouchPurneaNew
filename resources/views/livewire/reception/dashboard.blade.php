@@ -581,13 +581,12 @@
                             </td>
                             <td class="px-6 py-4">
                                 @if($appointment->payment && $appointment->payment->status === 'due')
-                                <button wire:click="confirmCollect({{ $appointment->id }})"
-                                    class="bg-red-100 text-red-700 py-1 px-3 rounded-md font-medium text-xs flex items-center">
+                                <span class="bg-red-100 text-red-700 py-1 px-3 rounded-md font-medium text-xs flex items-center inline-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Due
-                                </button>
+                                </span>
                                 @else
                                 <span class="bg-beige-100 text-beige-700 py-1 px-3 rounded-md font-medium text-xs flex items-center inline-flex">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -598,62 +597,73 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-                                    @if($appointment->status === 'pending') bg-yellow-100 text-yellow-800
-                                    @elseif($appointment->status === 'checked_in') bg-blue-100 text-blue-800
-                                    @elseif($appointment->status === 'cancelled') bg-red-100 text-red-800
+                                <select wire:change="updateStatus({{ $appointment->id }}, $event.target.value)"
+                                    class="form-select text-sm rounded-full border-gray-200 py-1
+                                    @if($appointment->status === 'pending') bg-yellow-50 text-yellow-800
+                                    @elseif($appointment->status === 'checked_in') bg-blue-50 text-blue-800
+                                    @elseif($appointment->status === 'cancelled') bg-red-50 text-red-800
+                                    @elseif($appointment->status === 'confirmed') bg-green-50 text-green-800
                                     @endif">
-                                    @if($appointment->status === 'pending')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-                                    </svg>
-                                    @elseif($appointment->status === 'checked_in')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                    </svg>
-                                    @elseif($appointment->status === 'cancelled')
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                    </svg>
-                                    @endif
-                                    {{ ucfirst($appointment->status ?? 'N/A') }}
-                                </span>
+                                    <option value="pending" {{ $appointment->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="confirmed" {{ $appointment->status === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                    <option value="checked_in" {{ $appointment->status === 'checked_in' ? 'selected' : '' }}>Checked In</option>
+                                    <option value="cancelled" {{ $appointment->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                </select>
                             </td>
 
-                            <td class="px-6 py-4 text-right">
-                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center justify-end gap-2">
+                                    <!-- Payment Button -->
+                                    @if ($appointment->status == 'confirmed' || $appointment->status == 'checked_in' || $appointment->status === 'cancelled')
                                     <button
-                                        class="px-3 py-2 text-sm bg-beige-400 hover:bg-beige-500 text-white rounded-md flex items-center"
-                                        wire:click="$dispatch('open-payment', { id: {{ $appointment->id }} })">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
-                                            <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4z" />
+                                        wire:click="$dispatch('open-payment', { id: {{ $appointment->id }} })"
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-green-50 border border-green-200 rounded-md text-green-700 text-xs hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                                            <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
                                         </svg>
+                                        Payment
                                     </button>
 
-                                    @if($appointment->status === 'pending')
-                                    <button wire:click.prevent="confirmCheckIn({{ $appointment->id }})"
-                                        class="bg-beige-600 hover:bg-beige-700 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
-                                        CheckIn
-                                    </button>
-                                    <button wire:click.prevent="cancelAppointment({{ $appointment->id }})"
-                                        class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-2 rounded-full transition duration-200 w-full sm:w-auto">
-                                        Cancel
-                                    </button>
-                                    @elseif($appointment->status === 'checked_in')
-                                    <button wire:click.prevent="editAppointment({{ $appointment->id }})"
-                                        class="bg-beige-600 hover:bg-beige-700 text-white font-medium py-2 px-4 rounded-lg shadow transition duration-200 flex items-center justify-center text-sm">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    <!-- Edit Button -->
+                                    <button
+                                        wire:click="editAppointment({{ $appointment->id }})"
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-blue-50 border border-blue-200 rounded-md text-blue-700 text-xs hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                         </svg>
                                         Edit
                                     </button>
-                                    <a wire:navigate href="{{ route('reception.appointments', $appointment->id) }}"
-                                        class="text-beige-600 hover:text-beige-900 text-sm text-left w-full sm:w-auto">
-                                        View PDF
-                                    </a>
 
-                                    @else
-                                    <span class="text-xs text-gray-400 italic block text-left">No actions available</span>
+                                    <!-- View PDF Button -->
+                                    <a href="{{ route('reception.appointments', $appointment->id) }}"
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-700 text-xs hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                                        </svg>
+                                        View
+                                    </a>
+                                    @endif
+
+                                    @if($appointment->status === 'pending')
+                                    <!-- Cancel Button -->
+                                    <button
+                                        wire:click="confirm({{ $appointment->id }})"
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-green-50 border border-green-200 rounded-md text-green-700 text-xs hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                                        <svg class="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 13L9 17L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+
+                                        confirm
+                                    </button>
+                                    <button
+                                        wire:click="cancelAppointment({{ $appointment->id }})"
+                                        class="inline-flex items-center px-2.5 py-1.5 bg-red-50 border border-red-200 rounded-md text-red-700 text-xs hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                        Cancel
+                                    </button>
                                     @endif
                                 </div>
                             </td>
