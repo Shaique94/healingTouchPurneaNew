@@ -248,7 +248,7 @@ class Dashboard extends Component
         $this->showModal = true;
         $this->loadAppointments();
         $this->step++;
-        session()->flash('success', value: 'Patient and appointment created successfully.');
+        $this->dispatch('notice', type: 'info', text: 'Appointment booked successfully');
         }
 
 
