@@ -322,7 +322,7 @@ class Dashboard extends Component
         $this->loadAppointments();
     }
 
-    #[On('appointmentBooked')]
+    #[On('appointment-booked')] 
     public function loadAppointments()
     {
         $query = Appointment::with('patient');
@@ -332,7 +332,7 @@ class Dashboard extends Component
             $date = now()->addDay();
         } elseif ($this->selectedDate === 'today') {
             $date = now();
-        } else {
+        } else { 
             // Handle custom date from date picker
             try {
                 $date = \Carbon\Carbon::parse($this->selectedDate);
