@@ -168,20 +168,20 @@
                     </div>
                 </div>
                 <div class="md:w-1/2">
-                    <h3 class="text-2xl font-bold text-beige-800 mb-6 flex items-center">
-                        <span class="bg-beige-100 text-beige-600 p-2 rounded-full mr-3">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <span class="bg-grey-100 text-gray-600 p-2 rounded-full mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </span>
                         Our Mission
                     </h3>
-                    <p class="text-beige-700 mb-8 leading-relaxed">
+                    <p class="text-gray-700 mb-8 leading-relaxed">
                         At {{ $hospital_name }}, our mission is to enhance the health and wellbeing of the communities we serve by providing patient-centered care that is compassionate, accessible, and of the highest quality. We're committed to innovation, continuous improvement, and creating a healing environment for our patients and their families.
                     </p>
 
                     <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="bg-beige-100 text-beige-600 p-2 rounded-full mr-3">
+                        <span class="bg-beige-100 text-gray-600 p-2 rounded-full mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                             </svg>
