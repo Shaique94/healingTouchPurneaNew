@@ -5,16 +5,19 @@ namespace App\Livewire\PatientBooking;
 use App\Models\Appointment;
 use App\Models\Patient;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
+
 #[Title('Manage Appointments')]
 #[Layout('layouts.guest')]
 class ManageAppointments extends Component
 {
-#[Url(as: 'method')]
+    #[Url(as: 'method')]
     public $searchMethod = 'phone';
 
     #[Url(as: 'phone')]
@@ -29,6 +32,9 @@ class ManageAppointments extends Component
     public $appointmentToCancel = null;
     public $showDetailsModal = false;
     public $selectedAppointment = null;
+    public $showOtpModal = false;
+    public $otp = '';
+    public $appointmentId;
 
     protected $rules = [
         'phone' => 'required_if:searchMethod,phone|nullable|string|max:15',
@@ -41,29 +47,30 @@ class ManageAppointments extends Component
         'email.email' => 'Please enter a valid email address.',
     ];
 
-protected function prepareForValidation($attributes)
+    protected function prepareForValidation($attributes)
     {
         if (isset($attributes['phone'])) {
             $attributes['phone'] = (string) $attributes['phone'];
         }
         return $attributes;
     }
-  
-  
-   public function updatedSearchMethod()
+
+
+    public function updatedSearchMethod()
     {
         $this->reset(['phone', 'email', 'searchResults', 'noResultsFound', 'searchPerformed']);
-        $this->resetErrorBag(); 
+        $this->resetErrorBag();
     }
 
+    #[On('appointmentCancelled')]
     public function findAppointments()
     {
         $this->validate();
-        
+
         $this->searchResults = [];
         $this->noResultsFound = false;
         $this->searchPerformed = true;
-        
+
         // Find patient by phone or email
         $patients = [];
         if ($this->searchMethod === 'phone' && !empty($this->phone)) {
@@ -71,7 +78,7 @@ protected function prepareForValidation($attributes)
         } elseif ($this->searchMethod === 'email' && !empty($this->email)) {
             $patients = Patient::where('email', $this->email)->get();
         }
-        
+
         if ($patients->count() > 0) {
             // Get appointments for each patient
             foreach ($patients as $patient) {
@@ -79,7 +86,7 @@ protected function prepareForValidation($attributes)
                     ->with(['doctor.user', 'doctor.department'])
                     ->orderBy('appointment_date', 'desc')
                     ->get();
-                
+
                 foreach ($appointments as $appointment) {
                     $this->searchResults[] = [
                         'id' => $appointment->id,
@@ -93,13 +100,63 @@ protected function prepareForValidation($attributes)
                     ];
                 }
             }
-            
+
             if (empty($this->searchResults)) {
                 $this->noResultsFound = true;
             }
         } else {
             $this->noResultsFound = true;
         }
+    }
+    public function triggerOtp($appointmentId)
+    {
+
+        // Show the OTP modal
+        $this->showOtpModal = true;
+
+        $this->appointmentId = $appointmentId;
+
+        // Generate a 4-digit OTP
+        $otp = rand(1000, 9999);
+
+        // Save OTP and expiration time in the database
+        Appointment::where('id', $appointmentId)->update([
+            'otp' => $otp,
+            'otp_expires_at' => now()->addMinutes(10),
+        ]);
+
+        // Send OTP to the user's email
+        $appointment = Appointment::find($appointmentId);
+        Mail::raw("Your OTP is: {$otp}", function ($message) use ($appointment) {
+            $message->to($appointment->patient->email)
+                ->subject('Your OTP Code');
+        });
+    }
+
+    public function verifyOtp()
+    {
+        $appointment = Appointment::find($this->appointmentId);
+
+        // Check if OTP matches and is not expired
+        if ($appointment->otp === $this->otp && now()->lessThanOrEqualTo($appointment->otp_expires_at)) {
+
+            $appointment->update(['status' => 'cancelled']);
+
+            $this->closeOtpModal();
+
+            $this->dispatch('appointmentCancelled', ['appointmentId' => $this->appointmentId]);
+
+            session()->flash('message', 'Appointment cancelled successfully.');
+        } else {
+            $this->addError('otp', 'Invalid or expired OTP.');
+        }
+    }
+    public function closeOtpModal()
+    {
+        $this->showOtpModal = false;
+        $this->otp = null;
+        $this->appointmentId = null;
+
     }
 
     public function downloadReceipt($appointmentId)
@@ -110,23 +167,23 @@ protected function prepareForValidation($attributes)
         }
 
         $appointment = Appointment::with(['patient', 'doctor.user', 'doctor.department'])->find($appointmentId);
-        
+
         if (!$appointment) {
             session()->flash('error', 'Appointment not found.');
             return;
         }
-        
+
         $data = [
             'appointment' => $appointment,
             'reference' => 'HTH-' . str_pad($appointment->id, 5, '0', STR_PAD_LEFT),
             'hospital_name' => 'Healing Touch Hospital',
             'hospital_address' => 'Purnea, Bihar',
             'hospital_contact' => '+91-123-456-7890',
-        ]; 
-        
+        ];
+
         $pdf = PDF::loadView('pdf.appointment', $data);
-        
-        return response()->streamDownload(function() use ($pdf) {
+
+        return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, 'appointment_receipt.pdf');
     }
@@ -150,7 +207,7 @@ protected function prepareForValidation($attributes)
         }
 
         $appointment = Appointment::find($this->appointmentToCancel);
-        
+
         if (!$appointment) {
             session()->flash('error', 'Appointment not found.');
             $this->closeConfirmModal();
@@ -160,7 +217,7 @@ protected function prepareForValidation($attributes)
         $appointment->update(['status' => 'cancelled']);
 
         // Update the status in the search results
-        $this->searchResults = array_map(function($result) {
+        $this->searchResults = array_map(function ($result) {
             if ($result['id'] == $this->appointmentToCancel) {
                 $result['status'] = 'cancelled';
             }
@@ -178,12 +235,12 @@ protected function prepareForValidation($attributes)
         }
 
         $appointment = Appointment::with([
-            'patient', 
-            'doctor.user', 
+            'patient',
+            'doctor.user',
             'doctor.department',
             'payment'
         ])->find($appointmentId);
-            
+
         if ($appointment) {
             $this->selectedAppointment = [
                 'id' => $appointment->id,
