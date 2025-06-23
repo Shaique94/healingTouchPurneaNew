@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Appointment;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SendOtpJob implements ShouldQueue
@@ -19,6 +20,10 @@ class SendOtpJob implements ShouldQueue
      */
     public function __construct($appointmentId, $otp)
     {    
+        Log::info('SendOtpJob created', [
+            'appointmentId' => $appointmentId,
+            'otp' => $otp,
+        ]);
         $this->appointmentId = $appointmentId;
         $this->otp = $otp;
     }
@@ -38,5 +43,10 @@ class SendOtpJob implements ShouldQueue
             $message->to($appointment->patient->email)
                 ->subject('Your OTP Code');
         });
+
+        Log::info('OTP sent successfully', [
+            'appointmentId' => $this->appointmentId,
+            'patientEmail' => $appointment->patient->email,
+        ]);
     }
 }
