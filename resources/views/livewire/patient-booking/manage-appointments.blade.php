@@ -424,32 +424,37 @@
         </div>
     </div>
 
-     <!-- otp modal-->
-     <div x-data="{ show: @entangle('showOtpModal') }" x-show="show" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
-                    <div class="flex items-center justify-center min-h-screen px-4">
-                        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-                            <h2 class="text-lg font-bold text-gray-800 mb-4">Enter OTP</h2>
-                            <p class="text-sm text-gray-600 mb-4">Please enter the 4-digit OTP sent to your email to confirm cancellation.</p>
-                            <input
-                                type="text"
-                                wire:model="otp"
-                                maxlength="4"
-                                class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring focus:ring-beige-500 focus:outline-none"
-                                placeholder="Enter OTP">
-                            @error('otp') <p class="text-sm text-red-500 mt-2">{{ $message }}</p> @enderror
-                            <div class="flex justify-end mt-4">
-                                <button
-                                    wire:click="verifyOtp"
-                                    class="px-4 py-2 bg-beige-600 text-white rounded-md hover:bg-beige-700 transition">
-                                    Verify & Cancel
-                                </button>
-                                <button
-                                    wire:click="closeOtpModal"
-                                    class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- otp modal-->
+    <div x-data="{ show: @entangle('showOtpModal') }" x-show="show" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+    <!-- Dark background overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+
+    <!-- Modal content -->
+    <div class="flex items-center justify-center min-h-screen px-4 relative z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">Enter OTP</h2>
+            <p class="text-sm text-gray-600 mb-4">Please enter the 4-digit OTP sent to your email to confirm cancellation.</p>
+            <input
+                type="text"
+                wire:model="otp"
+                maxlength="4"
+                class="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:ring focus:ring-beige-500 focus:outline-none"
+                placeholder="Enter OTP">
+            @error('otp') <p class="text-sm text-red-500 mt-2">{{ $message }}</p> @enderror
+            <div class="flex justify-end mt-4">
+                <button
+                    wire:click="verifyOtp"
+                    class="px-4 py-2 bg-beige-600 text-white rounded-md hover:bg-beige-700 transition">
+                    Verify & Cancel
+                </button>
+                <button
+                    wire:click="closeOtpModal"
+                    class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\PatientBooking;
 
+use App\Jobs\SendOtpJob;
 use App\Models\Appointment;
 use App\Models\Patient;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -111,12 +112,8 @@ class ManageAppointments extends Component
     public function triggerOtp($appointmentId)
     {
 
-        // Show the OTP modal
-        $this->showOtpModal = true;
-
         $this->appointmentId = $appointmentId;
 
-        // Generate a 4-digit OTP
         $otp = rand(1000, 9999);
 
         // Save OTP and expiration time in the database
@@ -125,12 +122,12 @@ class ManageAppointments extends Component
             'otp_expires_at' => now()->addMinutes(10),
         ]);
 
-        // Send OTP to the user's email
-        $appointment = Appointment::find($appointmentId);
-        Mail::raw("Your OTP is: {$otp}", function ($message) use ($appointment) {
-            $message->to($appointment->patient->email)
-                ->subject('Your OTP Code');
-        });
+        SendOtpJob::dispatch($appointmentId, $otp);
+
+        $this->showOtpModal = true;
+
+
+       
     }
 
     public function verifyOtp()
