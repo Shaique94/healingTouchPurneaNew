@@ -82,7 +82,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="flex flex-col mb-4 md:mb-0">
                         <p class="text-gray-400 text-sm">
-                            © {{ date('Y') }} {{ $settings['hospital_name'] ?? 'Healing Touch Purnea' }}. All rights reserved.
+                            © {{ date('Y') }} {{ $settings['hospital_name'] ?? 'Healing Touch ' }}. All rights reserved.
                         </p>
                         <p class="text-gray-400 text-xs mt-1">
                             Developed by <a href="https://www.comestro.com" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors">Comestro Techlabs Pvt Ltd</a>
