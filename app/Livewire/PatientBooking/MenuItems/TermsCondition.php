@@ -17,7 +17,7 @@ class TermsCondition extends Component
         $this->settings = [
             'hospital_name' => Setting::get('hospital_name', 'Healing Touch Hospital'),
             'contact_email' => Setting::get('contact_email', 'info@healingtouchpurnea.com'),
-            'contact_phone' => Setting::get('contact_phone', '+91 9471659700'),
+            'contact_phone' => Setting::get('contact_phone', '7079025467'),
             'address' => Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301'),
         ];
       

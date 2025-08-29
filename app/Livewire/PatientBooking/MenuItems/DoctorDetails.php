@@ -25,7 +25,7 @@ class DoctorDetails extends Component
             ->firstOrFail();
         $this->doctorSlug = $slug;
         $this->doctorStatus = $doctorStatus;
-        $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '9471659700';
+        $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '7079025467';
         $this->canBookAppointment = $this->doctor->status == 1 &&
             ($this->doctor->department?->status ?? 1) != 0;
     }

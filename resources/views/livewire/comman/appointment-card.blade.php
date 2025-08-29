@@ -30,7 +30,7 @@
                     </svg>
                     Book Appointment
                 </a>
-                <p class="text-xs text-gray-500 mt-2 text-center">Or call us at: +91 {{ $contact_phone ?? '9471659700' }}</p>
+                <p class="text-xs text-gray-500 mt-2 text-center">Or call us at: +91 {{ $contact_phone ?? '7079025467' }}</p>
             </div>
         </div>
     </div>

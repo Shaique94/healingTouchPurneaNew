@@ -56,7 +56,7 @@
         },
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+91-9471659700",
+          "telephone": "+91-7079025467",
           "contactType": "Customer Support",
           "areaServed": "IN",
           "availableLanguage": ["English", "Hindi"]

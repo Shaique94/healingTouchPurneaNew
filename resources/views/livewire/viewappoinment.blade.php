@@ -321,7 +321,7 @@
         </div>
 
         <div class="footer">
-            <strong>Contact:</strong> +91 9471659700 |
+            <strong>Contact:</strong> +91 7079025467 |
             <strong>Address:</strong> Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301
         </div>
     </div>

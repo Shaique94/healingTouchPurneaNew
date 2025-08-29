@@ -126,7 +126,7 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm text-gray-500">Phone</p>
-                        <p class="text-gray-800 font-medium">+91 9471659700</p>
+                        <p class="text-gray-800 font-medium">+91 7079025467</p>
                     </div>
                 </div>
                 

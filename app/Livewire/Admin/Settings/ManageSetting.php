@@ -30,7 +30,7 @@ class ManageSetting extends Component
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch Hospital');
         $this->contact_email = Setting::get('contact_email', 'info@healingtouchpurnea.com');
         $this->contact_phone = Setting::get('contact_phone', '7079025467 ');
-        $this->whatsapp_number = Setting::get('whatsapp_number', '9471659700');
+        $this->whatsapp_number = Setting::get('whatsapp_number', '7079025467');
         $this->address = Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301');
         $this->instagram_link = Setting::get('instagram_link', '');
         $this->facebook_link = Setting::get('facebook_link', '');

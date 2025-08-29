@@ -14,8 +14,8 @@ class Setting extends Model
         'hospital_name'   => 'Healing Touch',
         'logo'            => '/healingTouchLogo.jpeg',
         'contact_email'   => 'info@healingtouchpurnea.com',
-        'contact_phone'   => '9471659700',
-        'whatsapp_number' => '9471659700',
+        'contact_phone'   => '7079025467',
+        'whatsapp_number' => '7079025467',
         'address'         => 'Healing Touch Hospital,Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301',
     ];
 

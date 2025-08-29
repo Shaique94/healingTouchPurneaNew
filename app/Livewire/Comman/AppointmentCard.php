@@ -14,7 +14,7 @@ class AppointmentCard extends Component
     {
         $this->doctorId = $doctorId;
         $this->doctorStatus = $doctorStatus;
-        $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '9471659700';
+        $this->contactPhone = Setting::where('key', 'contact_phone')->value('value') ?? '7079025467';
     }
 
     public function bookAppointment()
