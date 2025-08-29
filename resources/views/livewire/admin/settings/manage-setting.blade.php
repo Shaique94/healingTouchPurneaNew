@@ -89,6 +89,15 @@
                                 @error('contact_phone') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
 
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">WhatsApp Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-whatsapp"></i></span>
+                                    <input wire:model="whatsapp_number" type="text" class="form-control" placeholder="Enter WhatsApp number">
+                                </div>
+                                @error('whatsapp_number') <small class="text-danger">{{ $message }}</small> @enderror
+                            </div>
+
                             <div class="col-12">
                                 <label class="form-label fw-semibold">Address</label>
                                 <div class="input-group">
@@ -158,6 +167,7 @@
                     <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
                         <div class="text-break"><i class="bi bi-envelope me-2"></i>{{ $contact_email ?: 'Email' }}</div>
                         <div class="text-break"><i class="bi bi-telephone me-2"></i>{{ $contact_phone ?: 'Phone' }}</div>
+                        <div class="text-break"><i class="bi bi-whatsapp me-2"></i>{{ $whatsapp_number ?: 'WhatsApp' }}</div>
                     </div>
                 </div>
             </div>

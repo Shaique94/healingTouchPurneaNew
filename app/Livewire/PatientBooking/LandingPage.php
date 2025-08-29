@@ -16,6 +16,7 @@ class LandingPage extends Component
             'hospital_name' => Setting::get('hospital_name', 'Healing Touch Hospital'),
             'contact_email' => Setting::get('contact_email', 'info@healingtouchpurnea.com'),
             'contact_phone' => Setting::get('contact_phone', '+91 9471659700'),
+            'whatsapp_number' => Setting::get('whatsapp_number', '9471659700'),
             'address' => Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301'),
         ]);
     }

@@ -18,6 +18,7 @@ class ManageSetting extends Component
     public $logo;
     public $contact_email;
     public $contact_phone;
+    public $whatsapp_number;
     public $address;
     public $instagram_link;
     public $facebook_link;
@@ -28,7 +29,8 @@ class ManageSetting extends Component
     {
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch Hospital');
         $this->contact_email = Setting::get('contact_email', 'info@healingtouchpurnea.com');
-        $this->contact_phone = Setting::get('contact_phone', '+91 9471659700');
+        $this->contact_phone = Setting::get('contact_phone', '7079025467 ');
+        $this->whatsapp_number = Setting::get('whatsapp_number', '9471659700');
         $this->address = Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea 854301');
         $this->instagram_link = Setting::get('instagram_link', '');
         $this->facebook_link = Setting::get('facebook_link', '');
@@ -43,6 +45,7 @@ class ManageSetting extends Component
             'logo' => 'nullable|image|max:2048',
             'contact_email' => 'nullable|email|max:255', 
             'contact_phone' => ['nullable', 'max:20', 'regex:/^[\+]?[0-9\s\-()]{7,20}$/'],
+            'whatsapp_number' => ['nullable', 'max:20', 'regex:/^[\+]?[0-9\s\-()]{7,20}$/'],
             'address' => 'nullable|string|max:255|min:5',
             'instagram_link' => 'nullable|url|max:255',
             'facebook_link' => 'nullable|url|max:255',
@@ -61,6 +64,9 @@ class ManageSetting extends Component
         }
         if (!empty($this->contact_phone)) {
             Setting::set('contact_phone', $this->contact_phone, 'string', 'contact', 'Contact phone number');
+        }
+        if (!empty($this->whatsapp_number)) {
+            Setting::set('whatsapp_number', $this->whatsapp_number, 'string', 'contact', 'WhatsApp contact number');
         }
         if (!empty($this->address)) {
             Setting::set('address', $this->address, 'string', 'contact', 'Hospital address');

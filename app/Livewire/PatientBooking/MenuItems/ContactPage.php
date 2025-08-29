@@ -14,6 +14,7 @@ class ContactPage extends Component
     public $hospital_name;
     public $contact_email;
     public $contact_phone;
+    public $whatsapp_number;
     public $address;
     public $instagram_link;
     public $facebook_link; 
@@ -27,6 +28,7 @@ class ContactPage extends Component
         $this->hospital_name = Setting::get('hospital_name', 'Healing Touch');
         $this->contact_email = Setting::get('contact_email', 'info@healingtouchpurnea.com');
         $this->contact_phone = Setting::get('contact_phone', '+91 9471659700');
+        $this->whatsapp_number = Setting::get('whatsapp_number', '9471659700');
         $this->address = Setting::get('address', 'Hope Chauraha, Rambagh Road, Linebazar, Purnea');
         $this->instagram_link = Setting::get('instagram_link', '#');
         $this->facebook_link = Setting::get('facebook_link', '#'); 
