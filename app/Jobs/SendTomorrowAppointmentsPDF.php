@@ -46,7 +46,9 @@ class SendTomorrowAppointmentsPDF implements ShouldQueue
 
         if ($this->selectedDoctorId) {
             $doctor = Doctor::find($this->selectedDoctorId);
-            $doctorEmail = $doctor->user->email;
+            //--------- As per request we are sending email to info@healingtouchpurnea.com only instead of doctor wise mail--------//
+            // $doctorEmail = $doctor->user->email;
+            $doctorEmail = "info@healingtouchpurnea.com";
 
             $data = [
                 'appointments' => $appointments,
