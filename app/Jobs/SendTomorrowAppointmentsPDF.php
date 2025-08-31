@@ -49,7 +49,7 @@ class SendTomorrowAppointmentsPDF implements ShouldQueue
             //--------- As per request we are sending email to info@healingtouchpurnea.com only instead of doctor wise mail--------//
             // $doctorEmail = $doctor->user->email;
             $doctorEmail = "info@healingtouchpurnea.com";
-
+            Log::info("mail sent to email: ".$doctorEmail);
             $data = [
                 'appointments' => $appointments,
                 'doctor_name' => $doctor->user->name,
