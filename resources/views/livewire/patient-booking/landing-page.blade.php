@@ -245,42 +245,103 @@
     </a>
 </div>
 
-<!-- Fixed WhatsApp Button (Always Visible on All Devices) -->
+<!-- Fixed WhatsApp Button (Always Visible on All Devices)  -->
 @if(!empty($whatsapp_number))
-<div id="whatsapp-btn"
-     class="fixed bottom-20 right-4 md:bottom-8 z-40 transition-all duration-300 ease-in-out group">
-    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $whatsapp_number) }}" target="_blank"
-       class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-2xl 
-              flex items-center justify-center transition-all duration-300 hover:scale-110 relative">
-        <svg class="h-6 w-6 md:h-8 md:w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-        </svg>
+<div x-data="whatsappFloatingButton()" x-init="init()" class="fixed bottom-20 right-4 md:bottom-8 z-40">
+    <!-- WhatsApp Available Button -->
+    <div x-show="isAvailable" x-transition 
+         class="transition-all duration-300 ease-in-out group">
+        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $whatsapp_number) }}" target="_blank"
+           class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-2xl 
+                  flex items-center justify-center transition-all duration-300 hover:scale-110 relative">
+            <svg class="h-6 w-6 md:h-8 md:w-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+            
+            <!-- Floating animation -->
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+            </span>
+        </a>
         
-        <!-- Floating animation -->
-        <span class="absolute -top-1 -right-1 flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
-        </span>
-    </a>
-    
-    <!-- WhatsApp availability text tooltip -->
-    <div class="absolute bottom-full right-0 mb-3 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs whitespace-nowrap 
-                opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-lg z-50">
-        Available 8 AM - 8 PM
-        <!-- Tooltip arrow -->
-        <div class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 
-                    border-l-transparent border-r-transparent border-t-gray-900"></div>
+        <!-- WhatsApp availability text tooltip -->
+        <div class="absolute bottom-full right-0 mb-3 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs whitespace-nowrap 
+                    opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none shadow-lg z-50">
+            <span x-text="tooltipText">Available 8 AM - 8 PM IST</span>
+            <!-- Tooltip arrow -->
+            <div class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 
+                        border-l-transparent border-r-transparent border-t-gray-900"></div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Unavailable Notification -->
+    <div x-show="!isAvailable && showOfflineNotification" x-transition 
+         class="transition-all duration-300 ease-in-out">
+        <div class="bg-gray-600 text-white p-3 rounded-lg shadow-lg max-w-xs">
+            <div class="flex items-center space-x-2">
+                <svg class="h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+                <div>
+                    <p class="text-sm font-medium">WhatsApp Offline</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endif
 
 <script>
-    // Function to initialize scroll behavior
+    // Alpine.js WhatsApp Floating Button Component
+    function whatsappFloatingButton() {
+        return {
+            isAvailable: false,
+            showOfflineNotification: false,
+            tooltipText: 'Available 8 AM - 8 PM IST',
+            
+            init() {
+                this.checkAvailability();
+                // Update every minute
+                setInterval(() => {
+                    this.checkAvailability();
+                }, 60000);
+            },
+            
+            checkAvailability() {
+                const now = new Date();
+                // Convert to Indian Standard Time (UTC+5:30)
+                const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+                const currentHour = istTime.getUTCHours();
+                
+                // Check if current time is between 8 AM (8) and 8 PM (20) IST
+                const wasAvailable = this.isAvailable;
+                this.isAvailable = currentHour >= 8 && currentHour < 20;
+                
+                if (this.isAvailable) {
+                    this.tooltipText = 'Available 8 AM - 8 PM IST (Online Now)';
+                    this.showOfflineNotification = false;
+                } else {
+                    this.tooltipText = 'Available 8 AM - 8 PM IST';
+                    // Show offline notification only when transitioning from available to unavailable
+                    if (wasAvailable && !this.isAvailable) {
+                        this.showOfflineNotification = true;
+                        // Hide notification after 5 seconds
+                        setTimeout(() => {
+                            this.showOfflineNotification = false;
+                        }, 5000);
+                    }
+                }
+            }
+        }
+    }
+
+    // Function to initialize scroll behavior for mobile book button
     function initializeMobileButtonScroll() {
         const mobileBtn = document.getElementById('mobile-book-btn');
         if (!mobileBtn) {
             console.warn('Mobile button not found');
-            return; // Exit if button is not found
+            return;
         }
 
         let ticking = false;
@@ -292,8 +353,6 @@
             ticking = false;
         }
 
-        // Remove any existing scroll listeners to prevent duplicates
-        window.removeEventListener('scroll', handleScroll);
         function handleScroll() {
             if (!ticking) {
                 window.requestAnimationFrame(updateButtonVisibility);
@@ -301,30 +360,15 @@
             }
         }
 
-        // Add scroll listener
         window.addEventListener('scroll', handleScroll);
-
-        // Initial check for current scroll position
         updateButtonVisibility();
     }
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        initializeMobileButtonScroll();
-    });
+    // Initialize mobile button scroll behavior
+    document.addEventListener('DOMContentLoaded', initializeMobileButtonScroll);
+    document.addEventListener('livewire:navigated', initializeMobileButtonScroll);
 
-    // Reinitialize after Livewire navigation
-    document.addEventListener('livewire:navigated', () => {
-        console.log('Livewire navigated, reinitializing mobile button');
-        initializeMobileButtonScroll();
-    });
-
-    // Fallback: Retry initialization after a short delay to handle late DOM updates
-    setTimeout(() => {
-        initializeMobileButtonScroll();
-    }, 1000);
-
-    // Optional: Function for direct navigation (if still needed)
+    // Optional: Function for direct navigation
     function scrollToBooking() {
         window.location.href = "{{ route('book.appointment') }}";
     }
